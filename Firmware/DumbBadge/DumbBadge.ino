@@ -2,8 +2,33 @@
  * Electrical setup: LCD data pins are a 16-bit bus from PB00 to PB15 
  * 
  * 
- */
+ * LCD uses 8080-series interface, with 19 wires, 16 of which are the data bus
+ * the CSX (active low) enables the parallel interface, WRX is the parallel data write
+ * RDX is the parallel data read.
+ * 
+ * Graphics chip controller reads the data on the rising edge of the wrx signal.
+ * The D/CX is the data, command flag. When D/CX = 1 bits are display RAM data or
+ * command paramaters. When D/CX = 0, the bits are commands.
+ * 
+ * The interface is set with the IM0 through IM3 pins. Functions below:
+ * 
+ *                  | D/CX  | RDX | WRX | Function
+ *                  | 0       1     R   | Write 16-bit command
+ * 16 bit parallel  | 1       1     R   | Write 16-bit display data or parameter
+ *                  | 1       R     1   | Read 16-bit display data
+ *                  | 1       R     1   | Read 16-bit parameter or status
+ *                  
+ *                  
+ *                  
+ *                  
+ */ 
 
+
+  __p1 = RS;
+  __p2 = WR;
+  __p3 = CS;
+  __p4 = RST;
+  __p5 = SER;
 
 
 void setup() {
