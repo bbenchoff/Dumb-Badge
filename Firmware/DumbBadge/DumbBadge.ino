@@ -22,24 +22,50 @@
  *                  
  *                  
  */ 
+ #include "sam.h"
 
+ #define LED0 PORT_PB30
+ #define SW0 PORT_PA15
 
-  __p1 = RS;
-  __p2 = WR;
-  __p3 = CS;
-  __p4 = RST;
-  __p5 = SER;
+ #define LCD_RS PORT_PA08
+ #define LCD_WR PORT_PA09
+ #define LCD_CS PORT_PA13
+ #define LCD_DC PORT_PA15
+ #define LCD_RST PORT_PA03
 
+void setup() 
+{
+  SystemInit(); //Initalize SAM system
 
-void setup() {
-  // put your setup code here, to run once:
+  //Configure SW0 as input (pressing button drives line to gnd)
+  PORT->Group[0].PINCFG[15].bit.INEN = 1;
+  PORT->Group[0].PINCFG[15].bit.PULLEN = 1;
+  REG_PORT_OUTSET0 = SW0; //Pull-up resistor rather than pull-down
+
+  //Configure LED0 as output
+  REG_PORT_DIRSET1 = LED0;
 
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop() 
+{
+  if( ( REG_PORT_IN0 & SW0 ) != 0 )
+  {
+    REG_PORT_OUTSET1 = LED0;
+  }
+  else
+  {
+    REG_PORT_OUTCLR1 = LED0;
+  }
 
+  delay(100);
+  REG_PORT_OUTSET1 = LED0;
+  delay(100);
+  REG_PORT_OUTCLR1 = LED0;
+  
 }
+
+
 
 void send_bus_16(uint16_t data)
 {
@@ -52,6 +78,8 @@ void send_bus_8(uint8_t data)
   REG_PORT_OUTCLR0 = 0x000000FF; //send PB0 through PB07
   REG_PORT_OUTSET0 = data;
 }
+
+void LCD_Write_Bus
 
 void setXY(word x1, word y1, word x2, word y2)
 {
