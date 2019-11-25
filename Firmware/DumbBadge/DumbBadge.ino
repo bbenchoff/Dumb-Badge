@@ -137,12 +137,13 @@ void LCD_Write_Bus(char bitHigh, char bitLow)
 void setXY(word x1, word y1, word x2, word y2)
 {
 
-  
+  /*
   swap(word, x1, y1);
   swap(word, x2, y2)
   y1=disp_y_size-y1;
   y2=disp_y_size-y2;
   swap(word, y1, y2)
+  */
 
   LCD_Write_Command(0x2a,0x00); //
   LCD_Write_Data(x1>>8);        //  This section sets the row and column address
