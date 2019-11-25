@@ -27,11 +27,11 @@
  #define LED0 PORT_PB30
  #define SW0 PORT_PA15
 
- #define LCD_RS PORT_PA08
- #define LCD_WR PORT_PA09
- #define LCD_CS PORT_PA13
- #define LCD_DC PORT_PA15
- #define LCD_RST PORT_PA03
+ #define LCD_RS PORT_PA08   //  Read strobe, signal to read data when RS is low
+ #define LCD_WR PORT_PA09   //  Write strobe, signal to write data when WRX is low, falling edge
+ #define LCD_CS PORT_PA13   //  Chip Select LOW ENABLE
+ #define LCD_DC PORT_PA15   //  Display data/command selection , '0'=command, '1'=data
+ #define LCD_RST PORT_PA03  //  Reset pin, idk, does stuff
 
 void setup() 
 {
@@ -67,19 +67,29 @@ void loop()
 
 
 
-void send_bus_16(uint16_t data)
-{
-  REG_PORT_OUTCLR0 = 0x0000FFFF; //send PB0 through PB15
-  REG_PORT_OUTSET0 = data;
-}
 
-void send_bus_8(uint8_t data)
-{
-  REG_PORT_OUTCLR0 = 0x000000FF; //send PB0 through PB07
-  REG_PORT_OUTSET0 = data;
-}
 
-void LCD_Write_Bus
+
+/*  LCD_Write_Bus
+ *  For the NT35510 in 8080-series 16-bit mode
+ *  data is written on the falling edge of the WR pin
+ *  (datasheet page 25). To do this we set PB00..PB15
+ *  to the data we want to send
+ */
+void LCD_Write_Bus(uint16_t data)
+{ 
+  // LCD writes on falling edge of WR pin, so set high now
+  REG_PORT_DIRSET0 = LCD_WR;      //set wr pin to output
+  REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
+  
+  // Write data to PB00..PB15
+  REG_PORT_OUTDIR1 = 0x0000FFFF;  //set PB00..PB15 as output
+  REG_PORT_OUTSET1 |= data;       //set PB00..PB15 to data
+
+  //finally, toggle WR pin of LCD
+  REG_PORT_OUTSET0 = LCD_WR;      //set wr pin low
+  
+}
 
 void setXY(word x1, word y1, word x2, word y2)
 {
