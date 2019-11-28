@@ -1,7 +1,6 @@
 /*
  * Electrical setup: LCD data pins are a 16-bit bus from PB00 to PB15 
  * 
- * 
  * LCD uses 8080-series interface, with 19 wires, 16 of which are the data bus
  * the CSX (active low) enables the parallel interface, WRX is the parallel data write
  * RDX is the parallel data read.
@@ -16,14 +15,9 @@
  *                  | 0       1     R   | Write 16-bit command
  * 16 bit parallel  | 1       1     R   | Write 16-bit display data or parameter
  *                  | 1       R     1   | Read 16-bit display data
- *                  | 1       R     1   | Read 16-bit parameter or status
- *                  
- *                  
- *                  
- *                  
+ *                  | 1       R     1   | Read 16-bit parameter or status               
  */ 
  #include "sam.h"
-
 
 //Define LCD control pins
  #define LCD_RS PORT_PA08   //  Read strobe, signal to read data when RS is low
@@ -31,6 +25,8 @@
  #define LCD_CS PORT_PA13   //  Chip Select LOW ENABLE
  #define LCD_DC PORT_PA15   //  Display data/command selection , '0'=command, '1'=data
  #define LCD_RST PORT_PA03  //  Reset pin, idk, does stuff
+
+ #define swap(a, b) { int16_t t = a; a = b; b = t; }
 
 int disp_x_size = 479;  //Define x size of display, 480, zero indexed
 int disp_y_size = 799;  //Define y size of display, 800, zero indexed
@@ -41,6 +37,7 @@ word color;
 
 void setup() 
 {
+
   SystemInit(); //Initalize SAM system
 
   //Configure LCD control pins as output
@@ -54,24 +51,25 @@ void setup()
 
   initLCD();    //Initalize the LCD
 
+  delay(100);
+
   clrScr();
 
+  delay(500);
+
 }
-
-
-
-
-
 
 void loop() 
 {
 
   clrScr();
+
+  delay(100);
   
 }
 
 // Writes one-byte command
-void LCD_Write_Command(char command)
+void LCD_Write_Command(unsigned char command)
 {
   //Set D/CX to 0 as we are moving a command
   REG_PORT_OUTCLR0 = LCD_DC;
@@ -80,7 +78,7 @@ void LCD_Write_Command(char command)
 }
 
 // Writes two-byte command
-void LCD_Write_Command(char commandHigh, char commandLow)
+void LCD_Write_Command(unsigned char commandHigh, unsigned char commandLow)
 {
   //Set D/CX to 0 as we are moving a command
   REG_PORT_OUTCLR0 = LCD_DC;
@@ -88,7 +86,7 @@ void LCD_Write_Command(char commandHigh, char commandLow)
 }
 
 // Writes two-byte data as we are moving data
-void LCD_Write_Data(char dataHigh, char dataLow)
+void LCD_Write_Data(unsigned char dataHigh, unsigned char dataLow)
 {
   //Set D/CX to 1
   REG_PORT_OUTSET0 = LCD_DC;
@@ -96,12 +94,25 @@ void LCD_Write_Data(char dataHigh, char dataLow)
 }
 
 // Writes one-byte data
-void LCD_Write_Data(char data)
+void LCD_Write_Data(unsigned char data)
 {
   //Set D/CX to 0 as we are moving data
   REG_PORT_OUTSET0 = LCD_DC;
   //Prepend with 0x00
   LCD_Write_Bus(0x00,data);
+}
+
+unsigned char ReverseByte (unsigned char input)
+{
+  unsigned char reverse_char = 0x00;
+
+  for(int i=0 ; i <8 ; i ++)
+  {
+    if((input & (1 << i)))
+      reverse_char |= 1 << ((8-1)-i);
+  }
+
+  return reverse_char;  
 }
 
 /*  LCD_Write_Bus
@@ -110,7 +121,7 @@ void LCD_Write_Data(char data)
  *  (datasheet page 25). To do this we set PB00..PB15
  *  to the data we want to send
  */
-void LCD_Write_Bus(char bitHigh, char bitLow)
+void LCD_Write_Bus(unsigned char bitHigh, unsigned char bitLow)
 { 
   // LCD writes on falling edge of WR pin, so set high now
   // WRX as output
@@ -120,10 +131,10 @@ void LCD_Write_Bus(char bitHigh, char bitLow)
   
   // Write data to PB00..PB15
   REG_PORT_DIRSET1 = 0x000000FF;    //set PB00..PB07 as output
-  REG_PORT_OUTSET1 = bitLow;       //set PB00..PB07 to data
+  REG_PORT_OUTSET1 = ReverseByte(bitLow);       //set PB00..PB07 to data
 
   REG_PORT_DIRSET1 = 0x0000FF00;    //set PB08..PB15 as output
-  REG_PORT_OUTSET1 = bitHigh;
+  REG_PORT_OUTSET1 = ReverseByte(bitHigh);
 
   //finally, toggle WR pin of LCD
   REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
@@ -133,13 +144,13 @@ void LCD_Write_Bus(char bitHigh, char bitLow)
 void setXY(word x1, word y1, word x2, word y2)
 {
 
-  /*
-  swap(word, x1, y1);
-  swap(word, x2, y2)
+
+  swap(x1, y1);
+  swap(x2, y2)
   y1=disp_y_size-y1;
   y2=disp_y_size-y2;
-  swap(word, y1, y2)
-  */
+  swap(y1, y2)
+
 
   LCD_Write_Command(0x2a,0x00); //
   LCD_Write_Data(x1>>8);        //  This section sets the row and column address
@@ -238,10 +249,10 @@ void fastFill(int bitHigh, int bitLow, long pix)
   
   // Write data to PB00..PB15
   REG_PORT_DIRSET1 = 0x000000FF;    //set PB00..PB07 as output
-  REG_PORT_OUTSET1 = bitLow;       //set PB00..PB07 to data
+  REG_PORT_OUTSET1 = ReverseByte(bitLow);       //set PB00..PB07 to data
 
   REG_PORT_DIRSET1 = 0x0000FF00;    //set PB08..PB15 as output
-  REG_PORT_OUTSET1 = bitHigh;
+  REG_PORT_OUTSET1 = ReverseByte(bitHigh);
 
   blocks = pix/16;
 
@@ -780,6 +791,10 @@ void initLCD()
   LCD_Write_Command(0x11,0x00);   //StartUp  
   
   delay(120);
+
+  LCD_Write_Command(0x29,0x00);   //display On
+
+  delay(100);
 
   //Set CS pin high
   REG_PORT_DIRSET0 = LCD_CS;      //set CS pin to output
