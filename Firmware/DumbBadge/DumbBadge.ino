@@ -40,22 +40,38 @@ void setup()
 
   SystemInit(); //Initalize SAM system
 
+
   //Configure LCD control pins as output
+  //And set them to high
   REG_PORT_DIRSET0 = LCD_WR;
+  REG_PORT_OUTSET0 = LCD_WR;
+  
   REG_PORT_DIRSET0 = LCD_DC;
-  REG_PORT_DIRSET0 = LCD_RS;
+  REG_PORT_OUTSET0 = LCD_DC;
+  
+  REG_PORT_DIRSET0 = LCD_RS;  
+  REG_PORT_OUTSET0 = LCD_RS; //fix RS high
+  
   REG_PORT_DIRSET0 = LCD_RST;
+  REG_PORT_OUTSET0 = LCD_RST;
+  
   REG_PORT_DIRSET0 = LCD_CS;
+  REG_PORT_OUTSET0 = LCD_CS;
+   
+  REG_PORT_DIRSET1 = 0x0000FFFF; // direction set to output PB00-PB15
+  REG_PORT_OUTSET1 = 0x00000000;
 
-  REG_PORT_DIRSET1 = 0x0000FFFF;
-
-  initLCD();    //Initalize the LCD
+  delay(100);
+  REG_PORT_OUTSET1 = 0x0000FFFF;
 
   delay(100);
 
+  initLCD();    //Initalize the LCD
+
+
+
   clrScr();
 
-  delay(500);
 
 }
 
@@ -64,7 +80,9 @@ void loop()
 
   clrScr();
 
-  delay(100);
+
+  RedScr();
+
   
 }
 
@@ -102,18 +120,6 @@ void LCD_Write_Data(unsigned char data)
   LCD_Write_Bus(0x00,data);
 }
 
-unsigned char ReverseByte (unsigned char input)
-{
-  unsigned char reverse_char = 0x00;
-
-  for(int i=0 ; i <8 ; i ++)
-  {
-    if((input & (1 << i)))
-      reverse_char |= 1 << ((8-1)-i);
-  }
-
-  return reverse_char;  
-}
 
 /*  LCD_Write_Bus
  *  For the NT35510 in 8080-series 16-bit mode
@@ -131,10 +137,10 @@ void LCD_Write_Bus(unsigned char bitHigh, unsigned char bitLow)
   
   // Write data to PB00..PB15
   REG_PORT_DIRSET1 = 0x000000FF;    //set PB00..PB07 as output
-  REG_PORT_OUTSET1 = ReverseByte(bitLow);       //set PB00..PB07 to data
+  REG_PORT_OUTSET1 = bitLow;       //set PB00..PB07 to data
 
   REG_PORT_DIRSET1 = 0x0000FF00;    //set PB08..PB15 as output
-  REG_PORT_OUTSET1 = ReverseByte(bitHigh);
+  REG_PORT_OUTSET1 = bitHigh;
 
   //finally, toggle WR pin of LCD
   REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
@@ -143,7 +149,6 @@ void LCD_Write_Bus(unsigned char bitHigh, unsigned char bitLow)
 
 void setXY(word x1, word y1, word x2, word y2)
 {
-
 
   swap(x1, y1);
   swap(x2, y2)
@@ -237,7 +242,19 @@ void clrScr()
   REG_PORT_OUTSET0 = LCD_CS;
 }
 
+void RedScr()
+{
+  //set Chip Select pin to 0
+  REG_PORT_DIRSET0 = LCD_CS;      
+  REG_PORT_OUTCLR0 = LCD_CS; 
 
+  clrXY();
+
+  fastFill(0xFF,0x00,((disp_x_size+1)*(disp_y_size+1)));
+  
+  //set Chip Select pin to 1
+  REG_PORT_OUTSET0 = LCD_CS;
+}
 
 void fastFill(int bitHigh, int bitLow, long pix)
 {
@@ -249,10 +266,10 @@ void fastFill(int bitHigh, int bitLow, long pix)
   
   // Write data to PB00..PB15
   REG_PORT_DIRSET1 = 0x000000FF;    //set PB00..PB07 as output
-  REG_PORT_OUTSET1 = ReverseByte(bitLow);       //set PB00..PB07 to data
+  REG_PORT_OUTSET1 = bitLow;       //set PB00..PB07 to data
 
   REG_PORT_DIRSET1 = 0x0000FF00;    //set PB08..PB15 as output
-  REG_PORT_OUTSET1 = ReverseByte(bitHigh);
+  REG_PORT_OUTSET1 = bitHigh;
 
   blocks = pix/16;
 
