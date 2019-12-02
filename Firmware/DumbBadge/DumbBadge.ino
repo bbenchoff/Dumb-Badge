@@ -25,8 +25,8 @@
  #define LCD_CS PORT_PA13   //  Chip Select LOW ENABLE
  #define LCD_DC PORT_PA15   //  Display data/command selection , '0'=command, '1'=data
  #define LCD_RST PORT_PA03  //  Reset pin, idk, does stuff
+ #define LCD_BUS 0x0000FFFF //  pins PB00 to PB15
 
- #define swap(a, b) { int16_t t = a; a = b; b = t; }
 
 int disp_x_size = 479;  //Define x size of display, 480, zero indexed
 int disp_y_size = 799;  //Define y size of display, 800, zero indexed
@@ -42,33 +42,26 @@ void setup()
 
 
   //Configure LCD control pins as output
-  //And set them to high
   REG_PORT_DIRSET0 = LCD_WR;
-  REG_PORT_OUTSET0 = LCD_WR;
-  
   REG_PORT_DIRSET0 = LCD_DC;
-  REG_PORT_OUTSET0 = LCD_DC;
-  
   REG_PORT_DIRSET0 = LCD_RS;  
-  REG_PORT_OUTSET0 = LCD_RS; //fix RS high
-  
   REG_PORT_DIRSET0 = LCD_RST;
-  REG_PORT_OUTSET0 = LCD_RST;
-  
   REG_PORT_DIRSET0 = LCD_CS;
+  REG_PORT_DIRSET1 = LCD_BUS; // direction set to output PB00-PB15
+
+
+  //REG_PORT_OUTCLR0 = LCD_CS;
+  //REG_PORT_OUTSET0 = LCD_RS;
+/*
   REG_PORT_OUTSET0 = LCD_CS;
-   
-  REG_PORT_DIRSET1 = 0x0000FFFF; // direction set to output PB00-PB15
-  REG_PORT_OUTSET1 = 0x00000000;
-
-  delay(100);
-  REG_PORT_OUTSET1 = 0x0000FFFF;
-
+  REG_PORT_OUTSET0 = LCD_RST;
+  REG_PORT_OUTSET0 = LCD_WR;
+  REG_PORT_OUTSET0 = LCD_DC;
+  REG_PORT_OUTSET0 = LCD_RS;
+  */
   delay(100);
 
   initLCD();    //Initalize the LCD
-
-
 
   clrScr();
 
@@ -87,7 +80,7 @@ void loop()
 }
 
 // Writes one-byte command
-void LCD_Write_Command(unsigned char command)
+void LCD_Write_Command(uint8_t command)
 {
   //Set D/CX to 0 as we are moving a command
   REG_PORT_OUTCLR0 = LCD_DC;
@@ -96,7 +89,7 @@ void LCD_Write_Command(unsigned char command)
 }
 
 // Writes two-byte command
-void LCD_Write_Command(unsigned char commandHigh, unsigned char commandLow)
+void LCD_Write_Command(uint8_t commandHigh, uint8_t commandLow)
 {
   //Set D/CX to 0 as we are moving a command
   REG_PORT_OUTCLR0 = LCD_DC;
@@ -104,17 +97,17 @@ void LCD_Write_Command(unsigned char commandHigh, unsigned char commandLow)
 }
 
 // Writes two-byte data as we are moving data
-void LCD_Write_Data(unsigned char dataHigh, unsigned char dataLow)
+void LCD_Write_Data(uint8_t dataHigh, uint8_t dataLow)
 {
-  //Set D/CX to 1
+  //Set D/CX to 1 as moving data
   REG_PORT_OUTSET0 = LCD_DC;
   LCD_Write_Bus(dataHigh, dataLow);  
 }
 
 // Writes one-byte data
-void LCD_Write_Data(unsigned char data)
+void LCD_Write_Data(uint8_t data)
 {
-  //Set D/CX to 0 as we are moving data
+  //Set D/CX to 1 as we are moving data
   REG_PORT_OUTSET0 = LCD_DC;
   //Prepend with 0x00
   LCD_Write_Bus(0x00,data);
@@ -127,35 +120,38 @@ void LCD_Write_Data(unsigned char data)
  *  (datasheet page 25). To do this we set PB00..PB15
  *  to the data we want to send
  */
-void LCD_Write_Bus(unsigned char bitHigh, unsigned char bitLow)
+void LCD_Write_Bus(uint8_t bitHigh, uint8_t bitLow)
 { 
-  // LCD writes on falling edge of WR pin, so set high now
-  // WRX as output
-  REG_PORT_DIRSET0 = LCD_WR;      //set wr pin to output
-  // WRX High
+
+  uint16_t data = (bitHigh << 8) | (bitLow & 0xFF);
+  
+  // LCD writes on falling edge of WR pin, so set high now  
   REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
+
+  REG_PORT_DIRSET1 = LCD_BUS;  //Set PB00 - PB15 as output
+  REG_PORT_OUTCLR1 = LCD_BUS;  //clear bits
   
   // Write data to PB00..PB15
-  REG_PORT_DIRSET1 = 0x000000FF;    //set PB00..PB07 as output
-  REG_PORT_OUTSET1 = bitLow;       //set PB00..PB07 to data
+  REG_PORT_OUTSET1 = data;       //set PB00..PB15 to data
 
-  REG_PORT_DIRSET1 = 0x0000FF00;    //set PB08..PB15 as output
-  REG_PORT_OUTSET1 = bitHigh;
-
+  REG_PORT_OUTCLR0 = LCD_WR; 
   //finally, toggle WR pin of LCD
-  REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
+  REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
+
+  //set LCD bus back to 0
+  REG_PORT_OUTCLR1 = LCD_BUS;
   
 }
 
 void setXY(word x1, word y1, word x2, word y2)
 {
-
+/*
   swap(x1, y1);
   swap(x2, y2)
   y1=disp_y_size-y1;
   y2=disp_y_size-y2;
   swap(y1, y2)
-
+*/
 
   LCD_Write_Command(0x2a,0x00); //
   LCD_Write_Data(x1>>8);        //  This section sets the row and column address
@@ -209,16 +205,13 @@ void setPixel(word color)
 
 void drawPixel(int x, int y)
 {
-  //set Chip Select pin to 0
-  REG_PORT_DIRSET0 = LCD_CS;      
-  REG_PORT_OUTCLR0 = LCD_CS;  
+
 
   setXY(x,y,x,y);
 
   setPixel((fch<<8)|fcl);
   
-  //set Chip Select pin to 1
-  REG_PORT_OUTSET0 = LCD_CS; 
+
    
   clrXY();
 }
@@ -230,46 +223,38 @@ void clrXY()
 
 void clrScr()
 {
-  //set Chip Select pin to 0
-  REG_PORT_DIRSET0 = LCD_CS;      
-  REG_PORT_OUTCLR0 = LCD_CS; 
+
 
   clrXY();
 
   fastFill(0,0,((disp_x_size+1)*(disp_y_size+1)));
   
-  //set Chip Select pin to 1
-  REG_PORT_OUTSET0 = LCD_CS;
 }
 
 void RedScr()
 {
-  //set Chip Select pin to 0
-  REG_PORT_DIRSET0 = LCD_CS;      
-  REG_PORT_OUTCLR0 = LCD_CS; 
 
   clrXY();
 
   fastFill(0xFF,0x00,((disp_x_size+1)*(disp_y_size+1)));
   
-  //set Chip Select pin to 1
-  REG_PORT_OUTSET0 = LCD_CS;
 }
 
-void fastFill(int bitHigh, int bitLow, long pix)
+void fastFill(uint8_t bitHigh, uint8_t bitLow, long pix)
 {
   long blocks;
 
+  uint16_t data = (bitHigh << 8) | (bitLow & 0xFF);
+
   // LCD writes on falling edge of WR pin, so set high now
-  REG_PORT_DIRSET0 = LCD_WR;      //set wr pin to output
   REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
+  REG_PORT_OUTCLR0 = LCD_WR;
+
+  REG_PORT_DIRSET1 = LCD_BUS;  //Set PB00 - PB15 as output
+  REG_PORT_OUTCLR1 = LCD_BUS;  //clear bits
   
   // Write data to PB00..PB15
-  REG_PORT_DIRSET1 = 0x000000FF;    //set PB00..PB07 as output
-  REG_PORT_OUTSET1 = bitLow;       //set PB00..PB07 to data
-
-  REG_PORT_DIRSET1 = 0x0000FF00;    //set PB08..PB15 as output
-  REG_PORT_OUTSET1 = bitHigh;
+  REG_PORT_OUTSET1 = data;       //set PB00..PB15 to data
 
   blocks = pix/16;
 
@@ -336,6 +321,9 @@ void fastFill(int bitHigh, int bitLow, long pix)
       REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
       REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
     }
+
+  //set the LCD bus back to 0
+  REG_PORT_OUTCLR0 = LCD_BUS;
   
 }
 
@@ -356,15 +344,14 @@ void initLCD()
    *  SET DSPON (2900h) // Display on command
    *  
    */
+
+   
   REG_PORT_OUTSET0 = LCD_RST; //Reset = 1
   delay(5);
   REG_PORT_OUTCLR0 = LCD_RST; //Reset = 0
   delay(15);
   REG_PORT_OUTSET0 = LCD_RST; //Reset = 1
   delay(15);
-
-  REG_PORT_OUTCLR0 = LCD_CS;  //CS = 0, active low
-  
 
   LCD_Write_Command(0xF0,0x00);LCD_Write_Data(0x55);
 
@@ -813,8 +800,5 @@ void initLCD()
 
   delay(100);
 
-  //Set CS pin high
-  REG_PORT_DIRSET0 = LCD_CS;      //set CS pin to output
-  REG_PORT_OUTSET0 = LCD_CS;      //set CS pin to 1
   
 }
