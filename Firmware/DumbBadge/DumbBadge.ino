@@ -113,6 +113,11 @@ void LCD_Write_Data(uint8_t data)
   LCD_Write_Bus(0x00,data);
 }
 
+void pulse_WR_Low()
+{
+  REG_PORT_OUTSET0 = LCD_WR;
+  REG_PORT_OUTCLR0 = LCD_WR;
+}
 
 /*  LCD_Write_Bus
  *  For the NT35510 in 8080-series 16-bit mode
@@ -125,18 +130,13 @@ void LCD_Write_Bus(uint8_t bitHigh, uint8_t bitLow)
 
   uint16_t data = (bitHigh << 8) | (bitLow & 0xFF);
   
-  // LCD writes on falling edge of WR pin, so set high now  
-  REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
   REG_PORT_DIRSET1 = LCD_BUS;  //Set PB00 - PB15 as output
   REG_PORT_OUTCLR1 = LCD_BUS;  //clear bits
   
   // Write data to PB00..PB15
   REG_PORT_OUTSET1 = data;       //set PB00..PB15 to data
 
-  REG_PORT_OUTCLR0 = LCD_WR; 
-  //finally, toggle WR pin of LCD
-  REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
+  pulse_WR_Low();
 
   //set LCD bus back to 0
   REG_PORT_OUTCLR1 = LCD_BUS;
@@ -246,10 +246,6 @@ void fastFill(uint8_t bitHigh, uint8_t bitLow, long pix)
 
   uint16_t data = (bitHigh << 8) | (bitLow & 0xFF);
 
-  // LCD writes on falling edge of WR pin, so set high now
-  REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-  REG_PORT_OUTCLR0 = LCD_WR;
-
   REG_PORT_DIRSET1 = LCD_BUS;  //Set PB00 - PB15 as output
   REG_PORT_OUTCLR1 = LCD_BUS;  //clear bits
   
@@ -265,61 +261,29 @@ void fastFill(uint8_t bitHigh, uint8_t bitLow, long pix)
   //
   for(int i = 0; i<blocks; i++)
   {
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-    
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
-
-    REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-    REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
+    pulse_WR_Low();   //1
+    pulse_WR_Low();   //2
+    pulse_WR_Low();   //3
+    pulse_WR_Low();   //4
+    pulse_WR_Low();   //5
+    pulse_WR_Low();   //6
+    pulse_WR_Low();   //7
+    pulse_WR_Low();   //8
+    pulse_WR_Low();   //9
+    pulse_WR_Low();   //10
+    pulse_WR_Low();   //11
+    pulse_WR_Low();   //12
+    pulse_WR_Low();   //13
+    pulse_WR_Low();   //14
+    pulse_WR_Low();   //15
+    pulse_WR_Low();   //16
   }
 
   //after that's done, clean up the remaining parts that isn't % 16
   if ((pix % 16) != 0)
     for(int i=0 ; i<(pix%16)+1 ; i++)
     {
-      REG_PORT_OUTCLR0 = LCD_WR;      //set wr pin low
-      REG_PORT_OUTSET0 = LCD_WR;      //set wr pin high
+      pulse_WR_Low();   //
     }
 
   //set the LCD bus back to 0
@@ -352,6 +316,8 @@ void initLCD()
   delay(15);
   REG_PORT_OUTSET0 = LCD_RST; //Reset = 1
   delay(15);
+
+  REG_PORT_OUTCLR0 = LCD_CS;
 
   LCD_Write_Command(0xF0,0x00);LCD_Write_Data(0x55);
 
