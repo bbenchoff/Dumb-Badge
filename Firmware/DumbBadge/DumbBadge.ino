@@ -21,11 +21,13 @@
 
 //Define LCD control pins
  #define LCD_RS PORT_PA08   //  Read strobe, signal to read data when RS is low
- #define LCD_WR PORT_PA09   //  Write strobe, signal to write data when WRX is low, falling edge
+ #define LCD_WR PORT_PA10   //  Write strobe, signal to write data when WRX is low, falling edge
  #define LCD_CS PORT_PA13   //  Chip Select LOW ENABLE
  #define LCD_DC PORT_PA15   //  Display data/command selection , '0'=command, '1'=data
  #define LCD_RST PORT_PA03  //  Reset pin, idk, does stuff
  #define LCD_BUS 0x0000FFFF //  pins PB00 to PB15
+
+ #define swap(type, i, j) {type t = i; i = j; j = t;}
 
 
 int disp_x_size = 479;  //Define x size of display, 480, zero indexed
@@ -42,24 +44,16 @@ void setup()
 
 
   //Configure LCD control pins as output
-  REG_PORT_DIRSET0 = LCD_WR;
+
   REG_PORT_DIRSET0 = LCD_DC;
   REG_PORT_DIRSET0 = LCD_RS;  
   REG_PORT_DIRSET0 = LCD_RST;
   REG_PORT_DIRSET0 = LCD_CS;
+  
   REG_PORT_DIRSET1 = LCD_BUS; // direction set to output PB00-PB15
 
-
-  //REG_PORT_OUTCLR0 = LCD_CS;
-  //REG_PORT_OUTSET0 = LCD_RS;
-/*
-  REG_PORT_OUTSET0 = LCD_CS;
-  REG_PORT_OUTSET0 = LCD_RST;
-  REG_PORT_OUTSET0 = LCD_WR;
-  REG_PORT_OUTSET0 = LCD_DC;
-  REG_PORT_OUTSET0 = LCD_RS;
-  */
-  delay(100);
+  
+  delay(50);
 
   initLCD();    //Initalize the LCD
 
@@ -72,8 +66,6 @@ void loop()
 {
 
   clrScr();
-
-
   RedScr();
 
   
@@ -115,8 +107,10 @@ void LCD_Write_Data(uint8_t data)
 
 void pulse_WR_Low()
 {
+  REG_PORT_DIRSET0 = LCD_WR;
   REG_PORT_OUTSET0 = LCD_WR;
   REG_PORT_OUTCLR0 = LCD_WR;
+  REG_PORT_OUTSET0 = LCD_WR;
 }
 
 /*  LCD_Write_Bus
@@ -125,16 +119,14 @@ void pulse_WR_Low()
  *  (datasheet page 25). To do this we set PB00..PB15
  *  to the data we want to send
  */
-void LCD_Write_Bus(uint8_t bitHigh, uint8_t bitLow)
+void LCD_Write_Bus(byte bitHigh, byte bitLow)
 { 
-
   uint16_t data = (bitHigh << 8) | (bitLow & 0xFF);
   
-  REG_PORT_DIRSET1 = LCD_BUS;  //Set PB00 - PB15 as output
   REG_PORT_OUTCLR1 = LCD_BUS;  //clear bits
   
   // Write data to PB00..PB15
-  REG_PORT_OUTSET1 = data;       //set PB00..PB15 to data
+  REG_PORT_OUT1 = data;       //set PB00..PB15 to data
 
   pulse_WR_Low();
 
@@ -145,13 +137,13 @@ void LCD_Write_Bus(uint8_t bitHigh, uint8_t bitLow)
 
 void setXY(word x1, word y1, word x2, word y2)
 {
-/*
-  swap(x1, y1);
-  swap(x2, y2)
+
+  swap(word, x1, y1);
+  swap(word, x2, y2)
   y1=disp_y_size-y1;
   y2=disp_y_size-y2;
-  swap(y1, y2)
-*/
+  swap(word, y1, y2)
+
 
   LCD_Write_Command(0x2a,0x00); //
   LCD_Write_Data(x1>>8);        //  This section sets the row and column address
