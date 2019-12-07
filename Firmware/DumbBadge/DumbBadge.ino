@@ -19,6 +19,7 @@
  */ 
  #include "sam.h"
 
+
 //Define LCD control pins
  #define LCD_RS PORT_PA08   //  Read strobe, signal to read data when RS is low
  #define LCD_WR PORT_PA27   //  Write strobe, signal to write data when WRX is low, falling edge
@@ -40,6 +41,8 @@ word color;
 void setup() 
 {
 
+
+
   SystemInit(); //Initalize SAM system
 
 
@@ -54,7 +57,6 @@ void setup()
   REG_PORT_DIRSET0 = LCD_CS;
   
   REG_PORT_DIRSET1 = LCD_BUS; // direction set to output PB00-PB15
-  REG_PORT_OUTSET1 = 0x0000FFFF; //set PB00 - PB15 to High
   
   delay(5);
 
@@ -129,7 +131,7 @@ void LCD_Write_Bus(byte bitHigh, byte bitLow)
   REG_PORT_OUTCLR1 = LCD_BUS;  //clear bits
   
   // Write data to PB00..PB15
-  REG_PORT_OUT1 = data;       //set PB00..PB15 to data
+  REG_PORT_OUTSET1 = data;       //set PB00..PB15 to data
 
   pulse_WR_Low();
 
@@ -312,7 +314,7 @@ void initLCD()
   REG_PORT_OUT0 = LCD_RST; //Reset = 1
   delay(15);
 
-  REG_PORT_OUTCLR0 = LCD_CS;
+  //REG_PORT_OUTCLR0 = LCD_CS;
 
   LCD_Write_Command(0xF0,0x00);LCD_Write_Data(0x55);
 
