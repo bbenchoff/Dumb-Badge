@@ -24,7 +24,7 @@
  #define LCD_WR PORT_PA27   //  Write strobe, signal to write data when WRX is low, falling edge
  #define LCD_CS PORT_PA13   //  Chip Select LOW ENABLE
  #define LCD_DC PORT_PA15   //  Display data/command selection , '0'=command, '1'=data
- #define LCD_RST PORT_PA03  //  Reset pin, idk, does stuff
+ #define LCD_RST PORT_PA28  //  Reset pin, idk, does stuff
  #define LCD_BUS 0x0000FFFF //  pins PB00 to PB15
 
  #define swap(type, i, j) {type t = i; i = j; j = t;}
@@ -45,15 +45,18 @@ void setup()
 
   //Configure LCD control pins as output
   REG_PORT_DIRSET0 = LCD_WR;
+  REG_PORT_OUTSET0 = LCD_WR;
+
+ 
   REG_PORT_DIRSET0 = LCD_DC;
   REG_PORT_DIRSET0 = LCD_RS;  
   REG_PORT_DIRSET0 = LCD_RST;
   REG_PORT_DIRSET0 = LCD_CS;
   
   REG_PORT_DIRSET1 = LCD_BUS; // direction set to output PB00-PB15
-
+  REG_PORT_OUTSET1 = 0x0000FFFF; //set PB00 - PB15 to High
   
-  delay(50);
+  delay(5);
 
   initLCD();    //Initalize the LCD
 
@@ -110,6 +113,7 @@ void pulse_WR_Low()
 
   REG_PORT_OUTSET0 = LCD_WR;
   REG_PORT_OUTCLR0 = LCD_WR;
+  REG_PORT_OUTSET0 = LCD_WR;
 }
 
 /*  LCD_Write_Bus
@@ -305,7 +309,7 @@ void initLCD()
   delay(5);
   REG_PORT_OUTCLR0 = LCD_RST; //Reset = 0
   delay(15);
-  REG_PORT_OUTSET0 = LCD_RST; //Reset = 1
+  REG_PORT_OUT0 = LCD_RST; //Reset = 1
   delay(15);
 
   REG_PORT_OUTCLR0 = LCD_CS;
