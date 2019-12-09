@@ -57,9 +57,8 @@ void setup()
   REG_PORT_DIRSET1 = LCD_BUS; // direction set to output PB00-PB15
   
   delay(5);
-
   initLCD();    //Initalize the LCD
-
+  delay(5);
   clrScr();
 
 
@@ -69,6 +68,7 @@ void loop()
 {
 
   clrScr();
+  delay(5);
   RedScr();
 
   
@@ -309,7 +309,7 @@ void initLCD()
   delay(5);
   REG_PORT_OUTCLR0 = LCD_RST; //Reset = 0
   delay(15);
-  REG_PORT_OUT0 = LCD_RST; //Reset = 1
+  REG_PORT_OUTCLR0 = LCD_RST; //Reset = 1
   delay(15);
 
   //REG_PORT_OUTCLR0 = LCD_CS;
