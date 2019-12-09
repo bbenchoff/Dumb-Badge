@@ -41,8 +41,6 @@ word color;
 void setup() 
 {
 
-
-
   SystemInit(); //Initalize SAM system
 
 
@@ -136,7 +134,7 @@ void LCD_Write_Bus(byte bitHigh, byte bitLow)
   pulse_WR_Low();
 
   //set LCD bus back to 0
-  REG_PORT_OUTCLR1 = LCD_BUS;
+  //REG_PORT_OUTCLR1 = LCD_BUS;
   
 }
 
