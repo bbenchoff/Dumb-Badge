@@ -111,7 +111,7 @@ void LCD_Write_Data(uint8_t data)
 void pulse_WR_Low()
 {
 
-  REG_PORT_OUTSET0 = LCD_WR;
+  //REG_PORT_OUTSET0 = LCD_WR;
   REG_PORT_OUTCLR0 = LCD_WR;
   REG_PORT_OUTSET0 = LCD_WR;
 }
