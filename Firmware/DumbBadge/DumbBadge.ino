@@ -21,11 +21,11 @@
 
 
 //Define LCD control pins
- #define LCD_RS PORT_PA08   //  Read strobe, signal to read data when RS is low
- #define LCD_WR PORT_PA27   //  Write strobe, signal to write data when WRX is low, falling edge
- #define LCD_CS PORT_PA13   //  Chip Select LOW ENABLE
- #define LCD_DC PORT_PA15   //  Display data/command selection , '0'=command, '1'=data
- #define LCD_RST PORT_PA28  //  Reset pin, idk, does stuff
+ #define LCD_RS PORT_PB16   //  Read strobe, signal to read data when RS is low
+ #define LCD_WR PORT_PB17   //  Write strobe, signal to write data when WRX is low, falling edge
+ #define LCD_CS PORT_PB22   //  Chip Select LOW ENABLE
+ #define LCD_DC PORT_PB23   //  Display data/command selection , '0'=command, '1'=data
+ #define LCD_RST PORT_PB30  //  Reset pin, idk, does stuff
  #define LCD_BUS 0x0000FFFF //  pins PB00 to PB15
 
  #define swap(type, i, j) {type t = i; i = j; j = t;}
@@ -45,14 +45,14 @@ void setup()
 
 
   //Configure LCD control pins as output
-  REG_PORT_DIRSET0 = LCD_WR;
-  REG_PORT_OUTSET0 = LCD_WR;
+  REG_PORT_DIRSET1 = LCD_WR;
+  REG_PORT_OUTSET1 = LCD_WR;
 
  
-  REG_PORT_DIRSET0 = LCD_DC;
-  REG_PORT_DIRSET0 = LCD_RS;  
-  REG_PORT_DIRSET0 = LCD_RST;
-  REG_PORT_DIRSET0 = LCD_CS;
+  REG_PORT_DIRSET1 = LCD_DC;
+  REG_PORT_DIRSET1 = LCD_RS;  
+  REG_PORT_DIRSET1 = LCD_RST;
+  REG_PORT_DIRSET1 = LCD_CS;
   
   REG_PORT_DIRSET1 = LCD_BUS; // direction set to output PB00-PB15
   
@@ -78,7 +78,7 @@ void loop()
 void LCD_Write_Command(uint8_t command)
 {
   //Set D/CX to 0 as we are moving a command
-  REG_PORT_OUTCLR0 = LCD_DC;
+  REG_PORT_OUTCLR1 = LCD_DC;
   //Prepend with 0x00
   LCD_Write_Bus(0x00,command);
 }
@@ -87,7 +87,7 @@ void LCD_Write_Command(uint8_t command)
 void LCD_Write_Command(uint8_t commandHigh, uint8_t commandLow)
 {
   //Set D/CX to 0 as we are moving a command
-  REG_PORT_OUTCLR0 = LCD_DC;
+  REG_PORT_OUTCLR1 = LCD_DC;
   LCD_Write_Bus(commandHigh, commandLow);
 }
 
@@ -95,7 +95,7 @@ void LCD_Write_Command(uint8_t commandHigh, uint8_t commandLow)
 void LCD_Write_Data(uint8_t dataHigh, uint8_t dataLow)
 {
   //Set D/CX to 1 as moving data
-  REG_PORT_OUTSET0 = LCD_DC;
+  REG_PORT_OUTSET1 = LCD_DC;
   LCD_Write_Bus(dataHigh, dataLow);  
 }
 
@@ -103,7 +103,7 @@ void LCD_Write_Data(uint8_t dataHigh, uint8_t dataLow)
 void LCD_Write_Data(uint8_t data)
 {
   //Set D/CX to 1 as we are moving data
-  REG_PORT_OUTSET0 = LCD_DC;
+  REG_PORT_OUTSET1 = LCD_DC;
   //Prepend with 0x00
   LCD_Write_Bus(0x00,data);
 }
@@ -112,8 +112,8 @@ void pulse_WR_Low()
 {
 
   //REG_PORT_OUTSET0 = LCD_WR;
-  REG_PORT_OUTCLR0 = LCD_WR;
-  REG_PORT_OUTSET0 = LCD_WR;
+  REG_PORT_OUTCLR1 = LCD_WR;
+  REG_PORT_OUTSET1 = LCD_WR;
 }
 
 /*  LCD_Write_Bus
@@ -282,7 +282,7 @@ void fastFill(uint8_t bitHigh, uint8_t bitLow, long pix)
     }
 
   //set the LCD bus back to 0
-  REG_PORT_OUTCLR0 = LCD_BUS;
+  REG_PORT_OUTCLR1 = LCD_BUS;
   
 }
 
@@ -305,18 +305,17 @@ void initLCD()
    */
 
    
-  REG_PORT_OUTSET0 = LCD_RST; //Reset = 1
+  REG_PORT_OUTSET1 = LCD_RST; //Reset = 1
   delay(5);
-  REG_PORT_OUTCLR0 = LCD_RST; //Reset = 0
+  REG_PORT_OUTCLR1 = LCD_RST; //Reset = 0
   delay(15);
-  REG_PORT_OUTCLR0 = LCD_RST; //Reset = 1
+  REG_PORT_OUTCLR1 = LCD_RST; //Reset = 1
   delay(15);
 
   //REG_PORT_OUTCLR0 = LCD_CS;
 
   LCD_Write_Command(0xF0,0x00);LCD_Write_Data(0x55);
 
-  // Up until this line works. 
   
   LCD_Write_Command(0xF0,0x01);LCD_Write_Data(0xAA);
   LCD_Write_Command(0xF0,0x02);LCD_Write_Data(0x52);
