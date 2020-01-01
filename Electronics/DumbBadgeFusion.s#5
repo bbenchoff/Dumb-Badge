@@ -12392,6 +12392,7 @@ by exp-project-lbr.ulp</description>
 <part name="GND7" library="supply1" deviceset="GND" device=""/>
 <part name="GND8" library="supply1" deviceset="GND" device=""/>
 <part name="U$32" library="RPI-Zero" deviceset="RPI-ZERO" device=""/>
+<part name="GND9" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -13544,6 +13545,9 @@ by exp-project-lbr.ulp</description>
 <attribute name="NAME" x="5.08" y="251.46" size="1.27" layer="95" font="vector"/>
 <attribute name="VALUE" x="5.08" y="249.555" size="1.27" layer="96" font="vector"/>
 </instance>
+<instance part="GND9" gate="1" x="269.24" y="193.04" smashed="yes">
+<attribute name="VALUE" x="266.7" y="190.5" size="1.778" layer="96"/>
+</instance>
 </instances>
 <busses>
 <bus name="LCD[0..15]">
@@ -13687,6 +13691,12 @@ by exp-project-lbr.ulp</description>
 <wire x1="271.78" y1="121.92" x2="269.24" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="GND7" gate="1" pin="GND"/>
 <wire x1="269.24" y1="121.92" x2="269.24" y2="118.11" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<wire x1="269.24" y1="198.12" x2="269.24" y2="195.58" width="0.1524" layer="91"/>
+<pinref part="GND9" gate="1" pin="GND"/>
+<pinref part="IC3" gate="A" pin="G"/>
+<wire x1="271.78" y1="198.12" x2="269.24" y2="198.12" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="MOSI" class="0">
@@ -14237,8 +14247,12 @@ by exp-project-lbr.ulp</description>
 <net name="LCDRST" class="0">
 <segment>
 <pinref part="U$30" gate="G$1" pin="8"/>
-<wire x1="345.44" y1="124.46" x2="332.74" y2="124.46" width="0.1524" layer="91"/>
 <label x="332.74" y="124.46" size="1.778" layer="95"/>
+<wire x1="345.44" y1="124.46" x2="317.5" y2="124.46" width="0.1524" layer="91"/>
+<wire x1="317.5" y1="124.46" x2="317.5" y2="215.9" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="A" pin="B4"/>
+<wire x1="317.5" y1="215.9" x2="297.18" y2="215.9" width="0.1524" layer="91"/>
+<label x="299.72" y="215.9" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="DOTCLK" class="0">
@@ -14438,30 +14452,46 @@ by exp-project-lbr.ulp</description>
 </net>
 <net name="RD" class="0">
 <segment>
-<wire x1="345.44" y1="203.2" x2="332.74" y2="203.2" width="0.1524" layer="91"/>
 <pinref part="U$30" gate="G$1" pin="39"/>
 <label x="332.74" y="203.2" size="1.778" layer="95"/>
+<wire x1="345.44" y1="203.2" x2="307.34" y2="203.2" width="0.1524" layer="91"/>
+<wire x1="307.34" y1="203.2" x2="307.34" y2="205.74" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="A" pin="B8"/>
+<wire x1="307.34" y1="205.74" x2="297.18" y2="205.74" width="0.1524" layer="91"/>
+<label x="299.72" y="205.74" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="WR" class="0">
 <segment>
-<wire x1="345.44" y1="205.74" x2="332.74" y2="205.74" width="0.1524" layer="91"/>
 <pinref part="U$30" gate="G$1" pin="40"/>
 <label x="332.74" y="205.74" size="1.778" layer="95"/>
+<wire x1="345.44" y1="205.74" x2="309.88" y2="205.74" width="0.1524" layer="91"/>
+<wire x1="309.88" y1="205.74" x2="309.88" y2="208.28" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="A" pin="B7"/>
+<wire x1="309.88" y1="208.28" x2="297.18" y2="208.28" width="0.1524" layer="91"/>
+<label x="299.72" y="208.28" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="D/C" class="0">
 <segment>
-<wire x1="345.44" y1="208.28" x2="332.74" y2="208.28" width="0.1524" layer="91"/>
 <pinref part="U$30" gate="G$1" pin="41"/>
 <label x="332.74" y="208.28" size="1.778" layer="95"/>
+<wire x1="345.44" y1="208.28" x2="312.42" y2="208.28" width="0.1524" layer="91"/>
+<wire x1="312.42" y1="208.28" x2="312.42" y2="210.82" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="A" pin="B6"/>
+<wire x1="312.42" y1="210.82" x2="297.18" y2="210.82" width="0.1524" layer="91"/>
+<label x="299.72" y="210.82" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="CS" class="0">
 <segment>
-<wire x1="345.44" y1="210.82" x2="332.74" y2="210.82" width="0.1524" layer="91"/>
 <pinref part="U$30" gate="G$1" pin="42"/>
 <label x="332.74" y="210.82" size="1.778" layer="95"/>
+<wire x1="345.44" y1="210.82" x2="314.96" y2="210.82" width="0.1524" layer="91"/>
+<wire x1="314.96" y1="210.82" x2="314.96" y2="213.36" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="A" pin="B5"/>
+<wire x1="314.96" y1="213.36" x2="297.18" y2="213.36" width="0.1524" layer="91"/>
+<label x="299.72" y="213.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="XR/SCL" class="0">
@@ -14509,6 +14539,41 @@ by exp-project-lbr.ulp</description>
 <label x="332.74" y="114.3" size="1.778" layer="95"/>
 <wire x1="320.04" y1="114.3" x2="320.04" y2="213.36" width="0.1524" layer="91"/>
 <junction x="320.04" y="213.36"/>
+</segment>
+</net>
+<net name="LCD_RD" class="0">
+<segment>
+<pinref part="IC3" gate="A" pin="A8"/>
+<wire x1="271.78" y1="205.74" x2="256.54" y2="205.74" width="0.1524" layer="91"/>
+<label x="256.54" y="205.74" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LCD_W/R" class="0">
+<segment>
+<pinref part="IC3" gate="A" pin="A7"/>
+<wire x1="271.78" y1="208.28" x2="256.54" y2="208.28" width="0.1524" layer="91"/>
+<label x="256.54" y="208.28" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LCD_D/C" class="0">
+<segment>
+<pinref part="IC3" gate="A" pin="A6"/>
+<wire x1="271.78" y1="210.82" x2="256.54" y2="210.82" width="0.1524" layer="91"/>
+<label x="256.54" y="210.82" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LCD_CS" class="0">
+<segment>
+<pinref part="IC3" gate="A" pin="A5"/>
+<wire x1="271.78" y1="213.36" x2="256.54" y2="213.36" width="0.1524" layer="91"/>
+<label x="256.54" y="213.36" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="LCD_RESET" class="0">
+<segment>
+<pinref part="IC3" gate="A" pin="A4"/>
+<wire x1="271.78" y1="215.9" x2="256.54" y2="215.9" width="0.1524" layer="91"/>
+<label x="256.54" y="215.9" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
