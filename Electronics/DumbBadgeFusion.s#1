@@ -12914,7 +12914,7 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 <part name="C10" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="0.1UF" device="-0603-25V-(+80/-20%)" package3d_urn="urn:adsk.eagle:package:37414/1" value="1uF"/>
 <part name="C11" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="0.1UF" device="-0603-25V-(+80/-20%)" package3d_urn="urn:adsk.eagle:package:37414/1" value="1uF"/>
 <part name="R1" library="adafruit" deviceset="R-US_" device="R0603" value="10k"/>
-<part name="R12" library="adafruit" deviceset="R-US_" device="R0603" value="6"/>
+<part name="R12" library="adafruit" deviceset="R-US_" device="R0603" value="6Ω"/>
 <part name="U$33" library="microbuilder" deviceset="5.0V" device=""/>
 <part name="U$30" library="FPC" deviceset="50PINFPC" device=""/>
 <part name="SUPPLY2" library="supply2" deviceset="+24V" device=""/>
@@ -16251,6 +16251,24 @@ w/2A current</text>
 <pinref part="U$33" gate="G$1" pin="5.0V"/>
 <wire x1="33.02" y1="152.4" x2="33.02" y2="157.48" width="0.1524" layer="91"/>
 </segment>
+<segment>
+<wire x1="33.02" y1="142.24" x2="33.02" y2="132.08" width="0.1524" layer="91"/>
+<wire x1="50.8" y1="142.24" x2="48.26" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="142.24" x2="43.18" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="43.18" y1="142.24" x2="33.02" y2="142.24" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="142.24" x2="48.26" y2="152.4" width="0.1524" layer="91"/>
+<wire x1="48.26" y1="152.4" x2="55.88" y2="152.4" width="0.1524" layer="91"/>
+<junction x="48.26" y="142.24"/>
+<pinref part="U4" gate="G$1" pin="VIN"/>
+<pinref part="L2" gate="G$1" pin="1"/>
+<pinref part="C8" gate="G$1" pin="1"/>
+<pinref part="R1" gate="G$1" pin="2"/>
+<wire x1="43.18" y1="139.7" x2="43.18" y2="142.24" width="0.1524" layer="91"/>
+<junction x="43.18" y="142.24"/>
+<wire x1="33.02" y1="142.24" x2="33.02" y2="152.4" width="0.1524" layer="91"/>
+<junction x="33.02" y="142.24"/>
+<label x="33.02" y="149.86" size="1.778" layer="95" rot="R90"/>
+</segment>
 </net>
 <net name="LEDK" class="0">
 <segment>
@@ -16313,25 +16331,6 @@ w/2A current</text>
 <label x="45.72" y="127" size="1.778" layer="95"/>
 <pinref part="R1" gate="G$1" pin="1"/>
 <wire x1="43.18" y1="129.54" x2="43.18" y2="127" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$21" class="0">
-<segment>
-<wire x1="33.02" y1="142.24" x2="33.02" y2="132.08" width="0.1524" layer="91"/>
-<wire x1="50.8" y1="142.24" x2="48.26" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="48.26" y1="142.24" x2="43.18" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="43.18" y1="142.24" x2="33.02" y2="142.24" width="0.1524" layer="91"/>
-<wire x1="48.26" y1="142.24" x2="48.26" y2="152.4" width="0.1524" layer="91"/>
-<wire x1="48.26" y1="152.4" x2="55.88" y2="152.4" width="0.1524" layer="91"/>
-<junction x="48.26" y="142.24"/>
-<pinref part="U4" gate="G$1" pin="VIN"/>
-<pinref part="L2" gate="G$1" pin="1"/>
-<pinref part="C8" gate="G$1" pin="1"/>
-<pinref part="R1" gate="G$1" pin="2"/>
-<wire x1="43.18" y1="139.7" x2="43.18" y2="142.24" width="0.1524" layer="91"/>
-<junction x="43.18" y="142.24"/>
-<wire x1="33.02" y1="142.24" x2="33.02" y2="152.4" width="0.1524" layer="91"/>
-<junction x="33.02" y="142.24"/>
 </segment>
 </net>
 </nets>
