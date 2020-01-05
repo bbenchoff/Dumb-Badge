@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.5.2">
+<eagle version="9.4.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -12725,102 +12725,6 @@ new: Attribute TP_SIGNAL_NAME&lt;br&gt;
 </deviceset>
 </devicesets>
 </library>
-<library name="SparkFun-IC-Power" urn="urn:adsk.eagle:library:526">
-<description>&lt;h3&gt;SparkFun Power Driver and Management ICs&lt;/h3&gt;
-In this library you'll find anything that has to do with power delivery, or making power supplies.
-&lt;p&gt;Contents:
-&lt;ul&gt;&lt;li&gt;LDOs&lt;/li&gt;
-&lt;li&gt;Boost/Buck controllers&lt;/li&gt;
-&lt;li&gt;Charge pump controllers&lt;/li&gt;
-&lt;li&gt;Power sequencers&lt;/li&gt;
-&lt;li&gt;Power switches&lt;/li&gt;
-&lt;/ul&gt;&lt;/p&gt;
-&lt;br&gt;
-We've spent an enormous amount of time creating and checking these footprints and parts, but it is &lt;b&gt; the end user's responsibility&lt;/b&gt; to ensure correctness and suitablity for a given componet or application. 
-&lt;br&gt;
-&lt;br&gt;If you enjoy using this library, please buy one of our products at &lt;a href=" www.sparkfun.com"&gt;SparkFun.com&lt;/a&gt;.
-&lt;br&gt;
-&lt;br&gt;
-&lt;b&gt;Licensing:&lt;/b&gt; Creative Commons ShareAlike 4.0 International - https://creativecommons.org/licenses/by-sa/4.0/ 
-&lt;br&gt;
-&lt;br&gt;
-You are welcome to use this library for commercial purposes. For attribution, we ask that when you begin to sell your device using our footprint, you email us with a link to the product being sold. We want bragging rights that we helped (in a very small part) to create your 8th world wonder. We would like the opportunity to feature your device on our homepage.</description>
-<packages>
-<package name="SOT23-5" urn="urn:adsk.eagle:footprint:39006/1" library_version="1">
-<description>&lt;b&gt;Small Outline Transistor&lt;/b&gt;</description>
-<wire x1="1.27" y1="0.4294" x2="1.27" y2="-0.4294" width="0.2032" layer="21"/>
-<wire x1="1.4" y1="-0.8" x2="-1.4" y2="-0.8" width="0.1524" layer="51"/>
-<wire x1="-1.27" y1="-0.4294" x2="-1.27" y2="0.4294" width="0.2032" layer="21"/>
-<wire x1="-1.4" y1="0.8" x2="1.4" y2="0.8" width="0.1524" layer="51"/>
-<wire x1="-0.2684" y1="0.7088" x2="0.2684" y2="0.7088" width="0.2032" layer="21"/>
-<wire x1="1.4" y1="0.8" x2="1.4" y2="-0.8" width="0.1524" layer="51"/>
-<wire x1="-1.4" y1="0.8" x2="-1.4" y2="-0.8" width="0.1524" layer="51"/>
-<rectangle x1="-1.2" y1="-1.5" x2="-0.7" y2="-0.85" layer="51"/>
-<rectangle x1="-0.25" y1="-1.5" x2="0.25" y2="-0.85" layer="51"/>
-<rectangle x1="0.7" y1="-1.5" x2="1.2" y2="-0.85" layer="51"/>
-<rectangle x1="0.7" y1="0.85" x2="1.2" y2="1.5" layer="51"/>
-<rectangle x1="-1.2" y1="0.85" x2="-0.7" y2="1.5" layer="51"/>
-<smd name="1" x="-0.95" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
-<smd name="2" x="0" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
-<smd name="3" x="0.95" y="-1.3001" dx="0.55" dy="1.2" layer="1"/>
-<smd name="4" x="0.95" y="1.3001" dx="0.55" dy="1.2" layer="1"/>
-<smd name="5" x="-0.95" y="1.3001" dx="0.55" dy="1.2" layer="1"/>
-<text x="-0.889" y="2.159" size="0.4064" layer="25">&gt;NAME</text>
-<text x="-0.9525" y="-0.1905" size="0.4064" layer="27">&gt;VALUE</text>
-<circle x="-1.6002" y="-1.016" radius="0.127" width="0" layer="21"/>
-</package>
-</packages>
-<packages3d>
-<package3d name="SOT23-5" urn="urn:adsk.eagle:package:39060/1" type="box" library_version="1">
-<description>Small Outline Transistor</description>
-<packageinstances>
-<packageinstance name="SOT23-5"/>
-</packageinstances>
-</package3d>
-</packages3d>
-<symbols>
-<symbol name="ADP160" urn="urn:adsk.eagle:symbol:39027/1" library_version="1">
-<pin name="VIN" x="-12.7" y="2.54" length="middle"/>
-<pin name="EN" x="-12.7" y="-2.54" length="middle"/>
-<pin name="VOUT" x="12.7" y="2.54" length="middle" rot="R180"/>
-<pin name="GND" x="12.7" y="-2.54" length="middle" rot="R180"/>
-<wire x1="-7.62" y1="5.08" x2="-7.62" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="-7.62" y1="-5.08" x2="7.62" y2="-5.08" width="0.254" layer="94"/>
-<wire x1="7.62" y1="-5.08" x2="7.62" y2="5.08" width="0.254" layer="94"/>
-<wire x1="7.62" y1="5.08" x2="-7.62" y2="5.08" width="0.254" layer="94"/>
-<text x="-7.62" y="7.62" size="1.778" layer="95">&gt;NAME</text>
-<text x="-7.62" y="5.08" size="1.778" layer="96">&gt;VALUE</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="ADP160" urn="urn:adsk.eagle:component:39095/1" prefix="U" uservalue="yes" library_version="1">
-<description>Nanopower LDO&lt;br&gt;
-Iq less than 1uA for low Iload</description>
-<gates>
-<gate name="G$1" symbol="ADP160" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="SOT23-5">
-<connects>
-<connect gate="G$1" pin="EN" pad="3"/>
-<connect gate="G$1" pin="GND" pad="2"/>
-<connect gate="G$1" pin="VIN" pad="1"/>
-<connect gate="G$1" pin="VOUT" pad="5"/>
-</connects>
-<package3dinstances>
-<package3dinstance package3d_urn="urn:adsk.eagle:package:39060/1"/>
-</package3dinstances>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="VREG-11306"/>
-<attribute name="VALUE" value="ADP160" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="SparkFun-PowerSymbols" urn="urn:adsk.eagle:library:530">
 <description>&lt;h3&gt;SparkFun Power Symbols&lt;/h3&gt;
 This library contains power, ground, and voltage-supply symbols.
@@ -12986,7 +12890,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="U$8" library="microbuilder" deviceset="GND" device=""/>
 <part name="C2" library="microbuilder" deviceset="CAP_CERAMIC" device="0805-NOOUTLINE" value="10uF"/>
 <part name="U$9" library="microbuilder" deviceset="GND" device=""/>
-<part name="B2" library="microbuilder" deviceset="BATTERY" device="" value="JST 2-PH"/>
+<part name="B1" library="microbuilder" deviceset="BATTERY" device="" value="JST 2-PH"/>
 <part name="U$10" library="microbuilder" deviceset="GND" device=""/>
 <part name="C3" library="microbuilder" deviceset="CAP_CERAMIC" device="0805-NOOUTLINE" value="2.2uF"/>
 <part name="U$11" library="microbuilder" deviceset="5.0V" device=""/>
@@ -13078,14 +12982,15 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="TP6" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
 <part name="TP7" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
 <part name="TP8" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
-<part name="U5" library="SparkFun-IC-Power" library_urn="urn:adsk.eagle:library:526" deviceset="ADP160" device="" package3d_urn="urn:adsk.eagle:package:39060/1" value="ADP160AUJZ-1.8-R7"/>
-<part name="U$12" library="microbuilder" deviceset="5.0V" device=""/>
 <part name="C5" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="1.0UF" device="-0603-16V-10%" package3d_urn="urn:adsk.eagle:package:37414/1" value="1.0uF"/>
-<part name="C13" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="1.0UF" device="-0603-16V-10%" package3d_urn="urn:adsk.eagle:package:37414/1" value="1.0uF"/>
 <part name="C14" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="1.0UF" device="-0603-16V-10%" package3d_urn="urn:adsk.eagle:package:37414/1" value="1.0uF"/>
 <part name="SUPPLY3" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="1.8V" device=""/>
 <part name="GND16" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
-<part name="GND17" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="GND" device=""/>
+<part name="R15" library="microbuilder" deviceset="RESISTOR" device="0805_NOOUTLINE" value="1K"/>
+<part name="R18" library="microbuilder" deviceset="RESISTOR" device="0805_NOOUTLINE" value="1.2K"/>
+<part name="U$12" library="microbuilder" deviceset="5.0V" device="" value="3V3"/>
+<part name="TP9" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
+<part name="TP10" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
 </parts>
 <sheets>
 <sheet>
@@ -15529,7 +15434,7 @@ w/2A current</text>
 <instance part="U$9" gate="G$1" x="10.16" y="127" smashed="yes">
 <attribute name="VALUE" x="8.636" y="124.46" size="1.27" layer="96"/>
 </instance>
-<instance part="B2" gate="G$1" x="266.7" y="127" smashed="yes" rot="R90">
+<instance part="B1" gate="G$1" x="266.7" y="127" smashed="yes" rot="R90">
 <attribute name="NAME" x="263.525" y="124.46" size="1.27" layer="95" rot="R90"/>
 <attribute name="VALUE" x="271.78" y="124.46" size="1.27" layer="96" rot="R90"/>
 </instance>
@@ -15719,33 +15624,38 @@ w/2A current</text>
 <attribute name="NAME" x="262.89" y="229.87" size="1.778" layer="95"/>
 <attribute name="TP_SIGNAL_NAME" x="265.43" y="227.33" size="1.778" layer="97"/>
 </instance>
-<instance part="U5" gate="G$1" x="180.34" y="220.98" smashed="yes">
-<attribute name="NAME" x="172.72" y="228.6" size="1.778" layer="95"/>
-<attribute name="VALUE" x="172.72" y="226.06" size="1.778" layer="96"/>
-</instance>
-<instance part="U$12" gate="G$1" x="160.02" y="231.14" smashed="yes">
-<attribute name="VALUE" x="158.496" y="232.156" size="1.27" layer="96"/>
-</instance>
 <instance part="C5" gate="G$1" x="256.54" y="215.9" smashed="yes">
 <attribute name="NAME" x="258.064" y="218.821" size="1.778" layer="95" font="vector"/>
 <attribute name="VALUE" x="258.064" y="213.741" size="1.778" layer="96" font="vector"/>
 </instance>
-<instance part="C13" gate="G$1" x="160.02" y="218.44" smashed="yes">
-<attribute name="NAME" x="161.544" y="221.361" size="1.778" layer="95" font="vector"/>
-<attribute name="VALUE" x="161.544" y="216.281" size="1.778" layer="96" font="vector"/>
+<instance part="C14" gate="G$1" x="180.34" y="208.28" smashed="yes">
+<attribute name="NAME" x="181.864" y="211.201" size="1.778" layer="95" font="vector"/>
+<attribute name="VALUE" x="181.864" y="206.121" size="1.778" layer="96" font="vector"/>
 </instance>
-<instance part="C14" gate="G$1" x="198.12" y="218.44" smashed="yes">
-<attribute name="NAME" x="199.644" y="221.361" size="1.778" layer="95" font="vector"/>
-<attribute name="VALUE" x="199.644" y="216.281" size="1.778" layer="96" font="vector"/>
+<instance part="SUPPLY3" gate="G$1" x="180.34" y="218.44" smashed="yes">
+<attribute name="VALUE" x="180.34" y="221.234" size="1.778" layer="96" align="bottom-center"/>
 </instance>
-<instance part="SUPPLY3" gate="G$1" x="198.12" y="228.6" smashed="yes">
-<attribute name="VALUE" x="198.12" y="231.394" size="1.778" layer="96" align="bottom-center"/>
+<instance part="GND16" gate="1" x="180.34" y="200.914" smashed="yes">
+<attribute name="VALUE" x="177.8" y="198.374" size="1.778" layer="96"/>
 </instance>
-<instance part="GND16" gate="1" x="195.58" y="210.82" smashed="yes">
-<attribute name="VALUE" x="193.04" y="208.28" size="1.778" layer="96"/>
+<instance part="R15" gate="G$1" x="172.72" y="223.52" smashed="yes" rot="R90">
+<attribute name="NAME" x="170.18" y="223.52" size="1.27" layer="95" font="vector" rot="R90" align="center"/>
+<attribute name="VALUE" x="172.72" y="223.52" size="1.016" layer="96" font="vector" ratio="15" rot="R90" align="center"/>
 </instance>
-<instance part="GND17" gate="1" x="160.02" y="210.82" smashed="yes">
-<attribute name="VALUE" x="157.48" y="208.28" size="1.778" layer="96"/>
+<instance part="R18" gate="G$1" x="172.72" y="208.28" smashed="yes" rot="R90">
+<attribute name="NAME" x="170.18" y="208.28" size="1.27" layer="95" font="vector" rot="R90" align="center"/>
+<attribute name="VALUE" x="172.72" y="208.28" size="1.016" layer="96" font="vector" ratio="15" rot="R90" align="center"/>
+</instance>
+<instance part="U$12" gate="G$1" x="172.72" y="236.22" smashed="yes">
+<attribute name="VALUE" x="171.196" y="237.236" size="1.27" layer="96"/>
+</instance>
+<instance part="TP9" gate="G$1" x="187.96" y="218.44" smashed="yes">
+<attribute name="NAME" x="186.69" y="219.71" size="1.778" layer="95"/>
+<attribute name="TP_SIGNAL_NAME" x="189.23" y="217.17" size="1.778" layer="97"/>
+</instance>
+<instance part="TP10" gate="G$1" x="182.88" y="111.76" smashed="yes">
+<attribute name="NAME" x="181.61" y="113.03" size="1.778" layer="95"/>
+<attribute name="TP_SIGNAL_NAME" x="184.15" y="110.49" size="1.778" layer="97"/>
 </instance>
 </instances>
 <busses>
@@ -15819,7 +15729,7 @@ w/2A current</text>
 <wire x1="10.16" y1="132.08" x2="10.16" y2="129.54" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="B2" gate="G$1" pin="-"/>
+<pinref part="B1" gate="G$1" pin="-"/>
 <pinref part="U$10" gate="G$1" pin="GND"/>
 <wire x1="266.7" y1="124.46" x2="266.7" y2="109.22" width="0.1524" layer="91"/>
 </segment>
@@ -15895,19 +15805,20 @@ w/2A current</text>
 <junction x="251.46" y="109.22"/>
 </segment>
 <segment>
-<pinref part="C13" gate="G$1" pin="2"/>
-<pinref part="GND17" gate="1" pin="GND"/>
-<wire x1="160.02" y1="215.9" x2="160.02" y2="213.36" width="0.1524" layer="91"/>
+<pinref part="C14" gate="G$1" pin="2"/>
+<wire x1="180.34" y1="205.74" x2="180.34" y2="203.454" width="0.1524" layer="91"/>
+<pinref part="GND16" gate="1" pin="GND"/>
+<wire x1="180.34" y1="203.454" x2="180.34" y2="203.2" width="0.1524" layer="91"/>
+<wire x1="180.34" y1="203.2" x2="180.34" y2="203.454" width="0.1524" layer="91"/>
+<pinref part="R18" gate="G$1" pin="1"/>
+<wire x1="172.72" y1="203.2" x2="180.34" y2="203.2" width="0.1524" layer="91"/>
+<wire x1="180.34" y1="203.2" x2="180.34" y2="203.454" width="0.1524" layer="91"/>
+<junction x="180.34" y="203.454"/>
 </segment>
 <segment>
-<pinref part="C14" gate="G$1" pin="2"/>
-<wire x1="198.12" y1="215.9" x2="195.58" y2="215.9" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="215.9" x2="195.58" y2="218.44" width="0.1524" layer="91"/>
-<pinref part="U5" gate="G$1" pin="GND"/>
-<wire x1="195.58" y1="218.44" x2="193.04" y2="218.44" width="0.1524" layer="91"/>
-<pinref part="GND16" gate="1" pin="GND"/>
-<wire x1="195.58" y1="215.9" x2="195.58" y2="213.36" width="0.1524" layer="91"/>
-<junction x="195.58" y="215.9"/>
+<pinref part="TP10" gate="G$1" pin="TP"/>
+<wire x1="193.04" y1="109.22" x2="182.88" y2="109.22" width="0.1524" layer="91"/>
+<label x="184.912" y="109.474" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="5.0V" class="0">
@@ -15936,19 +15847,6 @@ w/2A current</text>
 <wire x1="83.82" y1="162.56" x2="76.2" y2="162.56" width="0.1524" layer="91"/>
 <pinref part="TP5" gate="G$1" pin="TP"/>
 <wire x1="76.2" y1="162.56" x2="76.2" y2="167.64" width="0.1524" layer="91"/>
-</segment>
-<segment>
-<pinref part="U$12" gate="G$1" pin="5.0V"/>
-<wire x1="160.02" y1="223.52" x2="160.02" y2="228.6" width="0.1524" layer="91"/>
-<pinref part="C13" gate="G$1" pin="1"/>
-<pinref part="U5" gate="G$1" pin="VIN"/>
-<wire x1="160.02" y1="223.52" x2="165.1" y2="223.52" width="0.1524" layer="91"/>
-<junction x="160.02" y="223.52"/>
-<pinref part="U5" gate="G$1" pin="EN"/>
-<wire x1="165.1" y1="223.52" x2="167.64" y2="223.52" width="0.1524" layer="91"/>
-<wire x1="167.64" y1="218.44" x2="165.1" y2="218.44" width="0.1524" layer="91"/>
-<wire x1="165.1" y1="218.44" x2="165.1" y2="223.52" width="0.1524" layer="91"/>
-<junction x="165.1" y="223.52"/>
 </segment>
 </net>
 <net name="VBAT" class="0">
@@ -16005,6 +15903,11 @@ w/2A current</text>
 <junction x="256.54" y="226.06"/>
 <pinref part="C5" gate="G$1" pin="1"/>
 <junction x="256.54" y="220.98"/>
+</segment>
+<segment>
+<pinref part="U$12" gate="G$1" pin="5.0V"/>
+<wire x1="172.72" y1="228.6" x2="172.72" y2="233.68" width="0.1524" layer="91"/>
+<pinref part="R15" gate="G$1" pin="2"/>
 </segment>
 </net>
 <net name="USB_N" class="0">
@@ -16241,7 +16144,7 @@ w/2A current</text>
 <pinref part="C7" gate="G$1" pin="1"/>
 <wire x1="259.08" y1="139.7" x2="266.7" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="266.7" y1="139.7" x2="266.7" y2="129.54" width="0.1524" layer="91"/>
-<pinref part="B2" gate="G$1" pin="+"/>
+<pinref part="B1" gate="G$1" pin="+"/>
 <pinref part="U$44" gate="G$1" pin="VLIPO"/>
 <wire x1="259.08" y1="144.78" x2="259.08" y2="139.7" width="0.1524" layer="91"/>
 <junction x="259.08" y="139.7"/>
@@ -16280,12 +16183,19 @@ w/2A current</text>
 </net>
 <net name="1.8V" class="0">
 <segment>
-<pinref part="U5" gate="G$1" pin="VOUT"/>
 <pinref part="C14" gate="G$1" pin="1"/>
-<wire x1="193.04" y1="223.52" x2="198.12" y2="223.52" width="0.1524" layer="91"/>
 <pinref part="SUPPLY3" gate="G$1" pin="1.8V"/>
-<wire x1="198.12" y1="228.6" x2="198.12" y2="223.52" width="0.1524" layer="91"/>
-<junction x="198.12" y="223.52"/>
+<wire x1="180.34" y1="218.44" x2="180.34" y2="215.9" width="0.1524" layer="91"/>
+<pinref part="R15" gate="G$1" pin="1"/>
+<wire x1="180.34" y1="215.9" x2="180.34" y2="213.36" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="218.44" x2="172.72" y2="215.9" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="215.9" x2="180.34" y2="215.9" width="0.1524" layer="91"/>
+<junction x="180.34" y="215.9"/>
+<pinref part="R18" gate="G$1" pin="2"/>
+<wire x1="172.72" y1="215.9" x2="172.72" y2="213.36" width="0.1524" layer="91"/>
+<junction x="172.72" y="215.9"/>
+<pinref part="TP9" gate="G$1" pin="TP"/>
+<wire x1="180.34" y1="215.9" x2="187.96" y2="215.9" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
