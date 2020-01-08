@@ -15471,7 +15471,7 @@ w/2A current</text>
 </instance>
 <instance part="R8" gate="G$1" x="25.4" y="137.16" smashed="yes" rot="R90">
 <attribute name="NAME" x="22.86" y="137.16" size="1.27" layer="95" font="vector" rot="R90" align="center"/>
-<attribute name="VALUE" x="25.4" y="137.16" size="1.016" layer="96" font="vector" ratio="15" rot="R90" align="center"/>
+<attribute name="VALUE" x="25.4" y="136.906" size="1.016" layer="96" font="vector" ratio="15" rot="R90" align="center"/>
 </instance>
 <instance part="U$20" gate="G$1" x="96.52" y="99.06" smashed="yes">
 <attribute name="VALUE" x="94.996" y="96.52" size="1.27" layer="96"/>
@@ -15811,7 +15811,6 @@ w/2A current</text>
 <junction x="10.16" y="147.32"/>
 <pinref part="C4" gate="G$1" pin="1"/>
 <pinref part="R8" gate="G$1" pin="2"/>
-<junction x="25.4" y="142.24"/>
 </segment>
 <segment>
 <wire x1="96.52" y1="129.54" x2="96.52" y2="134.62" width="0.1524" layer="91"/>

@@ -13041,6 +13041,7 @@ Iq less than 1uA for low Iload</description>
 <part name="TP7" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
 <part name="TP8" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
 <part name="U5" library="SparkFun-IC-Power" library_urn="urn:adsk.eagle:library:526" deviceset="ADP160" device="" package3d_urn="urn:adsk.eagle:package:39060/1" value="ADP160"/>
+<part name="U$12" library="microbuilder" deviceset="5.0V" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15658,7 +15659,6 @@ w/2A current</text>
 </instance>
 <instance part="C5" gate="G$1" x="256.54" y="218.44" smashed="yes">
 <attribute name="NAME" x="257.556" y="219.075" size="1.778" layer="95"/>
-<attribute name="VALUE" x="257.556" y="214.249" size="1.778" layer="96"/>
 </instance>
 <instance part="FRAME1" gate="G$1" x="2.54" y="81.28" smashed="yes">
 <attribute name="DRAWING_NAME" x="184.15" y="92.71" size="2.54" layer="94" font="vector"/>
@@ -15692,6 +15692,9 @@ w/2A current</text>
 <instance part="U5" gate="G$1" x="180.34" y="220.98" smashed="yes">
 <attribute name="NAME" x="172.72" y="228.6" size="1.778" layer="95"/>
 <attribute name="VALUE" x="172.72" y="226.06" size="1.778" layer="96"/>
+</instance>
+<instance part="U$12" gate="G$1" x="165.1" y="231.14" smashed="yes">
+<attribute name="VALUE" x="163.576" y="232.156" size="1.27" layer="96"/>
 </instance>
 </instances>
 <busses>
@@ -15876,6 +15879,10 @@ w/2A current</text>
 <wire x1="96.52" y1="162.56" x2="88.9" y2="162.56" width="0.1524" layer="91"/>
 <pinref part="TP5" gate="G$1" pin="TP"/>
 <wire x1="88.9" y1="162.56" x2="88.9" y2="167.64" width="0.1524" layer="91"/>
+</segment>
+<segment>
+<pinref part="U$12" gate="G$1" pin="5.0V"/>
+<wire x1="165.1" y1="223.52" x2="165.1" y2="228.6" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="VBAT" class="0">
