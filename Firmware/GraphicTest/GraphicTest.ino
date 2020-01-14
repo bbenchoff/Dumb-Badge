@@ -1,7 +1,8 @@
 #include <UTFT.h>
 #include "sam.h"
+#include "GraphicTest.h"
 
-extern uint8_t SmallFont[];
+extern uint8_t BigFont[];
 
 UTFT myGLCD(NT35510_16, 46, 47, 44, 2, NOTINUSE);   //(byte model, int RS, int WR, int CS, int RST, int SER)
 
@@ -9,12 +10,12 @@ void setup()
 {
 // Setup the LCD
   myGLCD.InitLCD();
-  myGLCD.setFont(SmallFont);
+  myGLCD.setFont(BigFont);
 }
 
 void loop()
 {
-  int buf[798];
+    int buf[798];
   int x, x2;
   int y, y2;
   int r;
