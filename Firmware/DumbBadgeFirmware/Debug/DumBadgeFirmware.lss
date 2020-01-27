@@ -29,9 +29,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  12 .debug_line   00006633  00000000  00000000  000504bc  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    0008baa8  00000000  00000000  00056aef  2**0
+ 13 .debug_str    0008ba56  00000000  00000000  00056aef  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  000005b4  00000000  00000000  000e2598  2**2
+ 14 .debug_frame  000005b4  00000000  00000000  000e2548  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -4271,12 +4271,6 @@ void InitLCD(void)
 	InitLCD();
     18a8:	4b0e      	ldr	r3, [pc, #56]	; (18e4 <main+0x74>)
     18aa:	4798      	blx	r3
-	PortGroup *const port_base = port_get_group_from_gpio_pin(gpio_pin);
-	uint32_t pin_mask  = (1UL << (gpio_pin % 32));
-
-	/* Set the pin to high or low atomically based on the requested level */
-	if (level) {
-		port_base->OUTSET.reg = pin_mask;
     18ac:	4c0e      	ldr	r4, [pc, #56]	; (18e8 <main+0x78>)
 			delay_ms(1000);
     18ae:	4d0f      	ldr	r5, [pc, #60]	; (18ec <main+0x7c>)
