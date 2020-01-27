@@ -1,26 +1,16 @@
 #include <UTFT.h>
 #include "sam.h"
-#include "GraphicTest.h"
 
-#include <Arduino.h>
-#include "wiring_private.h"
-
-extern uint8_t BigFont[];
+extern uint8_t SmallFont[];
 
 UTFT myGLCD(NT35510_16, 46, 47, 44, 2, NOTINUSE);   //(byte model, int RS, int WR, int CS, int RST, int SER)
-
-
 
 void setup()
 {
 // Setup the LCD
   myGLCD.InitLCD();
-  myGLCD.setFont(BigFont);
-
-
-
+  myGLCD.setFont(SmallFont);
 }
-
 
 void loop()
 {
@@ -28,13 +18,11 @@ void loop()
   int x, x2;
   int y, y2;
   int r;
-
-
-  
 // Clear the screen and draw the frame
   myGLCD.clrScr();
-  myGLCD.fillRect(0, 0, 799, 479);
-  myGLCD.setColor(255, 0, 0);
+  myGLCD.fillRect(0, 466, 799, 479);
+  myGLCD.setColor(255, 255, 255);
+  myGLCD.setBackColor(255, 0, 0);
   myGLCD.print("* EastRising Technology *", CENTER, 1);
   myGLCD.setBackColor(64, 64, 64);
   myGLCD.setColor(255,255,0);
@@ -270,6 +258,4 @@ void loop()
   myGLCD.printNumI(millis(), CENTER, 465);
   
   delay (10000);
-  
-  
 }

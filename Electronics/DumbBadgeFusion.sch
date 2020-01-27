@@ -14136,25 +14136,25 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <attribute name="NAME" x="8.89" y="181.61" size="1.778" layer="95"/>
 <attribute name="TP_SIGNAL_NAME" x="11.43" y="179.07" size="1.778" layer="97"/>
 </instance>
-<instance part="TP12" gate="G$1" x="15.24" y="180.34" smashed="yes">
-<attribute name="NAME" x="13.97" y="181.61" size="1.778" layer="95"/>
-<attribute name="TP_SIGNAL_NAME" x="16.51" y="179.07" size="1.778" layer="97"/>
+<instance part="TP12" gate="G$1" x="139.7" y="35.56" smashed="yes">
+<attribute name="NAME" x="138.43" y="36.83" size="1.778" layer="95"/>
+<attribute name="TP_SIGNAL_NAME" x="140.97" y="34.29" size="1.778" layer="97"/>
 </instance>
-<instance part="TP13" gate="G$1" x="20.32" y="180.34" smashed="yes">
-<attribute name="NAME" x="19.05" y="181.61" size="1.778" layer="95"/>
-<attribute name="TP_SIGNAL_NAME" x="21.59" y="179.07" size="1.778" layer="97"/>
+<instance part="TP13" gate="G$1" x="144.78" y="33.02" smashed="yes">
+<attribute name="NAME" x="143.51" y="34.29" size="1.778" layer="95"/>
+<attribute name="TP_SIGNAL_NAME" x="146.05" y="31.75" size="1.778" layer="97"/>
 </instance>
-<instance part="TP14" gate="G$1" x="25.4" y="180.34" smashed="yes">
-<attribute name="NAME" x="24.13" y="181.61" size="1.778" layer="95"/>
-<attribute name="TP_SIGNAL_NAME" x="26.67" y="179.07" size="1.778" layer="97"/>
+<instance part="TP14" gate="G$1" x="43.18" y="101.6" smashed="yes">
+<attribute name="NAME" x="41.91" y="102.87" size="1.778" layer="95"/>
+<attribute name="TP_SIGNAL_NAME" x="44.45" y="100.33" size="1.778" layer="97"/>
 </instance>
-<instance part="TP15" gate="G$1" x="30.48" y="180.34" smashed="yes">
-<attribute name="NAME" x="29.21" y="181.61" size="1.778" layer="95"/>
-<attribute name="TP_SIGNAL_NAME" x="31.75" y="179.07" size="1.778" layer="97"/>
+<instance part="TP15" gate="G$1" x="132.08" y="25.4" smashed="yes">
+<attribute name="NAME" x="130.81" y="26.67" size="1.778" layer="95"/>
+<attribute name="TP_SIGNAL_NAME" x="133.35" y="24.13" size="1.778" layer="97"/>
 </instance>
-<instance part="TP16" gate="G$1" x="35.56" y="180.34" smashed="yes">
-<attribute name="NAME" x="34.29" y="181.61" size="1.778" layer="95"/>
-<attribute name="TP_SIGNAL_NAME" x="36.83" y="179.07" size="1.778" layer="97"/>
+<instance part="TP16" gate="G$1" x="137.16" y="22.86" smashed="yes">
+<attribute name="NAME" x="135.89" y="24.13" size="1.778" layer="95"/>
+<attribute name="TP_SIGNAL_NAME" x="138.43" y="21.59" size="1.778" layer="97"/>
 </instance>
 </instances>
 <busses>
@@ -14528,11 +14528,23 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="41.91" y1="-123.19" x2="59.69" y2="-123.19" width="0.1524" layer="91"/>
 <label x="49.53" y="-123.19" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="U$4" gate="G$1" pin="PA30/I10/SECOM1.2/SWCLK"/>
+<pinref part="TP15" gate="G$1" pin="TP"/>
+<wire x1="119.38" y1="22.86" x2="132.08" y2="22.86" width="0.1524" layer="91"/>
+<label x="121.92" y="22.86" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="SWDIO" class="0">
 <segment>
 <wire x1="59.69" y1="-125.73" x2="41.91" y2="-125.73" width="0.1524" layer="91"/>
 <label x="49.53" y="-125.73" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U$4" gate="G$1" pin="PA31/I11/SECOM1.3/SWDIO"/>
+<pinref part="TP16" gate="G$1" pin="TP"/>
+<wire x1="119.38" y1="20.32" x2="137.16" y2="20.32" width="0.1524" layer="91"/>
+<label x="121.92" y="20.32" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="D3" class="0">
@@ -15351,6 +15363,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="119.38" y1="33.02" x2="137.16" y2="33.02" width="0.1524" layer="91"/>
 <label x="127" y="33.02" size="1.778" layer="95"/>
 <pinref part="U$4" gate="G$1" pin="PA24/I12/SERCOM3+5.2/D-"/>
+<pinref part="TP12" gate="G$1" pin="TP"/>
+<wire x1="137.16" y1="33.02" x2="139.7" y2="33.02" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="USB_P" class="0">
@@ -15358,6 +15372,16 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="119.38" y1="30.48" x2="137.16" y2="30.48" width="0.1524" layer="91"/>
 <label x="127" y="30.48" size="1.778" layer="95"/>
 <pinref part="U$4" gate="G$1" pin="PA25/I13/SERCOM3+5.3/D+"/>
+<pinref part="TP13" gate="G$1" pin="TP"/>
+<wire x1="137.16" y1="30.48" x2="144.78" y2="30.48" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="RESET" class="0">
+<segment>
+<pinref part="U$4" gate="G$1" pin="/RESET"/>
+<pinref part="TP14" gate="G$1" pin="TP"/>
+<wire x1="50.8" y1="99.06" x2="43.18" y2="99.06" width="0.1524" layer="91"/>
+<label x="45.72" y="99.06" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
