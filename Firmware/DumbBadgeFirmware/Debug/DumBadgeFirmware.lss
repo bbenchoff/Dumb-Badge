@@ -1,0 +1,4530 @@
+
+DumBadgeFirmware.elf:     file format elf32-littlearm
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .text         00001abc  00000000  00000000  00010000  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .relocate     0000000c  20000000  00001abc  00020000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          0000003c  2000000c  00001ac8  0002000c  2**2
+                  ALLOC
+  3 .stack        00002000  20000048  00001b04  0002000c  2**0
+                  ALLOC
+  4 .ARM.attributes 00000028  00000000  00000000  0002000c  2**0
+                  CONTENTS, READONLY
+  5 .comment      00000059  00000000  00000000  00020034  2**0
+                  CONTENTS, READONLY
+  6 .debug_info   00014230  00000000  00000000  0002008d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00001d59  00000000  00000000  000342bd  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    00001c54  00000000  00000000  00036016  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_aranges 00000278  00000000  00000000  00037c6a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 00000238  00000000  00000000  00037ee2  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_macro  000183a2  00000000  00000000  0003811a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_line   00006633  00000000  00000000  000504bc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_str    0008baa8  00000000  00000000  00056aef  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_frame  000005b4  00000000  00000000  000e2598  2**2
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <exception_table>:
+       0:	48 20 00 20 c1 07 00 00 bd 07 00 00 bd 07 00 00     H . ............
+	...
+      2c:	bd 07 00 00 00 00 00 00 00 00 00 00 bd 07 00 00     ................
+      3c:	bd 07 00 00 bd 07 00 00 bd 07 00 00 bd 07 00 00     ................
+      4c:	bd 07 00 00 bd 07 00 00 bd 07 00 00 bd 07 00 00     ................
+      5c:	bd 07 00 00 bd 07 00 00 bd 07 00 00 bd 07 00 00     ................
+      6c:	bd 07 00 00 bd 07 00 00 bd 07 00 00 bd 07 00 00     ................
+      7c:	bd 07 00 00 bd 07 00 00 bd 07 00 00 bd 07 00 00     ................
+      8c:	bd 07 00 00 bd 07 00 00 bd 07 00 00 bd 07 00 00     ................
+      9c:	bd 07 00 00 bd 07 00 00 bd 07 00 00 bd 07 00 00     ................
+      ac:	bd 07 00 00 00 00 00 00                             ........
+
+000000b4 <__do_global_dtors_aux>:
+      b4:	b510      	push	{r4, lr}
+      b6:	4c06      	ldr	r4, [pc, #24]	; (d0 <__do_global_dtors_aux+0x1c>)
+      b8:	7823      	ldrb	r3, [r4, #0]
+      ba:	2b00      	cmp	r3, #0
+      bc:	d107      	bne.n	ce <__do_global_dtors_aux+0x1a>
+      be:	4b05      	ldr	r3, [pc, #20]	; (d4 <__do_global_dtors_aux+0x20>)
+      c0:	2b00      	cmp	r3, #0
+      c2:	d002      	beq.n	ca <__do_global_dtors_aux+0x16>
+      c4:	4804      	ldr	r0, [pc, #16]	; (d8 <__do_global_dtors_aux+0x24>)
+      c6:	e000      	b.n	ca <__do_global_dtors_aux+0x16>
+      c8:	bf00      	nop
+      ca:	2301      	movs	r3, #1
+      cc:	7023      	strb	r3, [r4, #0]
+      ce:	bd10      	pop	{r4, pc}
+      d0:	2000000c 	.word	0x2000000c
+      d4:	00000000 	.word	0x00000000
+      d8:	00001abc 	.word	0x00001abc
+
+000000dc <frame_dummy>:
+      dc:	4b08      	ldr	r3, [pc, #32]	; (100 <frame_dummy+0x24>)
+      de:	b510      	push	{r4, lr}
+      e0:	2b00      	cmp	r3, #0
+      e2:	d003      	beq.n	ec <frame_dummy+0x10>
+      e4:	4907      	ldr	r1, [pc, #28]	; (104 <frame_dummy+0x28>)
+      e6:	4808      	ldr	r0, [pc, #32]	; (108 <frame_dummy+0x2c>)
+      e8:	e000      	b.n	ec <frame_dummy+0x10>
+      ea:	bf00      	nop
+      ec:	4807      	ldr	r0, [pc, #28]	; (10c <frame_dummy+0x30>)
+      ee:	6803      	ldr	r3, [r0, #0]
+      f0:	2b00      	cmp	r3, #0
+      f2:	d100      	bne.n	f6 <frame_dummy+0x1a>
+      f4:	bd10      	pop	{r4, pc}
+      f6:	4b06      	ldr	r3, [pc, #24]	; (110 <frame_dummy+0x34>)
+      f8:	2b00      	cmp	r3, #0
+      fa:	d0fb      	beq.n	f4 <frame_dummy+0x18>
+      fc:	4798      	blx	r3
+      fe:	e7f9      	b.n	f4 <frame_dummy+0x18>
+     100:	00000000 	.word	0x00000000
+     104:	20000010 	.word	0x20000010
+     108:	00001abc 	.word	0x00001abc
+     10c:	00001abc 	.word	0x00001abc
+     110:	00000000 	.word	0x00000000
+
+00000114 <delay_init>:
+ *
+ * This must be called during start up to initialize the delay routine with
+ * the current used main clock. It must run any time the main CPU clock is changed.
+ */
+void delay_init(void)
+{
+     114:	b570      	push	{r4, r5, r6, lr}
+	cycles_per_ms = system_gclk_gen_get_hz(0);
+     116:	2000      	movs	r0, #0
+     118:	4b08      	ldr	r3, [pc, #32]	; (13c <delay_init+0x28>)
+     11a:	4798      	blx	r3
+     11c:	0005      	movs	r5, r0
+	cycles_per_ms /= 1000;
+     11e:	4c08      	ldr	r4, [pc, #32]	; (140 <delay_init+0x2c>)
+     120:	21fa      	movs	r1, #250	; 0xfa
+     122:	0089      	lsls	r1, r1, #2
+     124:	47a0      	blx	r4
+     126:	4b07      	ldr	r3, [pc, #28]	; (144 <delay_init+0x30>)
+     128:	6018      	str	r0, [r3, #0]
+	cycles_per_us = cycles_per_ms / 1000;
+     12a:	4907      	ldr	r1, [pc, #28]	; (148 <delay_init+0x34>)
+     12c:	0028      	movs	r0, r5
+     12e:	47a0      	blx	r4
+     130:	4b06      	ldr	r3, [pc, #24]	; (14c <delay_init+0x38>)
+     132:	6018      	str	r0, [r3, #0]
+
+	SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk | SysTick_CTRL_ENABLE_Msk;
+     134:	2205      	movs	r2, #5
+     136:	4b06      	ldr	r3, [pc, #24]	; (150 <delay_init+0x3c>)
+     138:	601a      	str	r2, [r3, #0]
+}
+     13a:	bd70      	pop	{r4, r5, r6, pc}
+     13c:	0000057d 	.word	0x0000057d
+     140:	000018f5 	.word	0x000018f5
+     144:	20000000 	.word	0x20000000
+     148:	000f4240 	.word	0x000f4240
+     14c:	20000004 	.word	0x20000004
+     150:	e000e010 	.word	0xe000e010
+
+00000154 <delay_cycles_ms>:
+ *
+ * \param n  Number of milliseconds to wait
+ */
+void delay_cycles_ms(
+		uint32_t n)
+{
+     154:	b530      	push	{r4, r5, lr}
+	while (n--) {
+		/* Devide up to blocks of 1ms */
+		delay_cycles(cycles_per_ms);
+     156:	4b08      	ldr	r3, [pc, #32]	; (178 <delay_cycles_ms+0x24>)
+     158:	681c      	ldr	r4, [r3, #0]
+ */
+static inline void delay_cycles(
+		const uint32_t n)
+{
+	if (n > 0) {
+		SysTick->LOAD = n;
+     15a:	4a08      	ldr	r2, [pc, #32]	; (17c <delay_cycles_ms+0x28>)
+		SysTick->VAL = 0;
+     15c:	2500      	movs	r5, #0
+
+		while (!(SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk)) {
+     15e:	2180      	movs	r1, #128	; 0x80
+     160:	0249      	lsls	r1, r1, #9
+	while (n--) {
+     162:	3801      	subs	r0, #1
+     164:	d307      	bcc.n	176 <delay_cycles_ms+0x22>
+	if (n > 0) {
+     166:	2c00      	cmp	r4, #0
+     168:	d0fb      	beq.n	162 <delay_cycles_ms+0xe>
+		SysTick->LOAD = n;
+     16a:	6054      	str	r4, [r2, #4]
+		SysTick->VAL = 0;
+     16c:	6095      	str	r5, [r2, #8]
+		while (!(SysTick->CTRL & SysTick_CTRL_COUNTFLAG_Msk)) {
+     16e:	6813      	ldr	r3, [r2, #0]
+     170:	420b      	tst	r3, r1
+     172:	d0fc      	beq.n	16e <delay_cycles_ms+0x1a>
+     174:	e7f5      	b.n	162 <delay_cycles_ms+0xe>
+	}
+}
+     176:	bd30      	pop	{r4, r5, pc}
+     178:	20000000 	.word	0x20000000
+     17c:	e000e010 	.word	0xe000e010
+
+00000180 <cpu_irq_enter_critical>:
+volatile bool g_interrupt_enabled = true;
+#endif
+
+void cpu_irq_enter_critical(void)
+{
+	if (cpu_irq_critical_section_counter == 0) {
+     180:	4b0c      	ldr	r3, [pc, #48]	; (1b4 <cpu_irq_enter_critical+0x34>)
+     182:	681b      	ldr	r3, [r3, #0]
+     184:	2b00      	cmp	r3, #0
+     186:	d106      	bne.n	196 <cpu_irq_enter_critical+0x16>
+ */
+__STATIC_FORCEINLINE uint32_t __get_PRIMASK(void)
+{
+  uint32_t result;
+
+  __ASM volatile ("MRS %0, primask" : "=r" (result) :: "memory");
+     188:	f3ef 8310 	mrs	r3, PRIMASK
+		if (cpu_irq_is_enabled()) {
+     18c:	2b00      	cmp	r3, #0
+     18e:	d007      	beq.n	1a0 <cpu_irq_enter_critical+0x20>
+			cpu_irq_disable();
+			cpu_irq_prev_interrupt_state = true;
+		} else {
+			/* Make sure the to save the prev state as false */
+			cpu_irq_prev_interrupt_state = false;
+     190:	2200      	movs	r2, #0
+     192:	4b09      	ldr	r3, [pc, #36]	; (1b8 <cpu_irq_enter_critical+0x38>)
+     194:	701a      	strb	r2, [r3, #0]
+		}
+
+	}
+
+	cpu_irq_critical_section_counter++;
+     196:	4a07      	ldr	r2, [pc, #28]	; (1b4 <cpu_irq_enter_critical+0x34>)
+     198:	6813      	ldr	r3, [r2, #0]
+     19a:	3301      	adds	r3, #1
+     19c:	6013      	str	r3, [r2, #0]
+}
+     19e:	4770      	bx	lr
+  __ASM volatile ("cpsid i" : : : "memory");
+     1a0:	b672      	cpsid	i
+  \details Ensures the apparent order of the explicit memory operations before
+           and after the instruction, without ensuring their completion.
+ */
+__STATIC_FORCEINLINE void __DMB(void)
+{
+  __ASM volatile ("dmb 0xF":::"memory");
+     1a2:	f3bf 8f5f 	dmb	sy
+			cpu_irq_disable();
+     1a6:	2200      	movs	r2, #0
+     1a8:	4b04      	ldr	r3, [pc, #16]	; (1bc <cpu_irq_enter_critical+0x3c>)
+     1aa:	701a      	strb	r2, [r3, #0]
+			cpu_irq_prev_interrupt_state = true;
+     1ac:	3201      	adds	r2, #1
+     1ae:	4b02      	ldr	r3, [pc, #8]	; (1b8 <cpu_irq_enter_critical+0x38>)
+     1b0:	701a      	strb	r2, [r3, #0]
+     1b2:	e7f0      	b.n	196 <cpu_irq_enter_critical+0x16>
+     1b4:	20000028 	.word	0x20000028
+     1b8:	2000002c 	.word	0x2000002c
+     1bc:	20000008 	.word	0x20000008
+
+000001c0 <cpu_irq_leave_critical>:
+void cpu_irq_leave_critical(void)
+{
+	/* Check if the user is trying to leave a critical section when not in a critical section */
+	Assert(cpu_irq_critical_section_counter > 0);
+
+	cpu_irq_critical_section_counter--;
+     1c0:	4b08      	ldr	r3, [pc, #32]	; (1e4 <cpu_irq_leave_critical+0x24>)
+     1c2:	681a      	ldr	r2, [r3, #0]
+     1c4:	3a01      	subs	r2, #1
+     1c6:	601a      	str	r2, [r3, #0]
+
+	/* Only enable global interrupts when the counter reaches 0 and the state of the global interrupt flag
+	   was enabled when entering critical state */
+	if ((cpu_irq_critical_section_counter == 0) && (cpu_irq_prev_interrupt_state)) {
+     1c8:	681b      	ldr	r3, [r3, #0]
+     1ca:	2b00      	cmp	r3, #0
+     1cc:	d109      	bne.n	1e2 <cpu_irq_leave_critical+0x22>
+     1ce:	4b06      	ldr	r3, [pc, #24]	; (1e8 <cpu_irq_leave_critical+0x28>)
+     1d0:	781b      	ldrb	r3, [r3, #0]
+     1d2:	2b00      	cmp	r3, #0
+     1d4:	d005      	beq.n	1e2 <cpu_irq_leave_critical+0x22>
+		cpu_irq_enable();
+     1d6:	2201      	movs	r2, #1
+     1d8:	4b04      	ldr	r3, [pc, #16]	; (1ec <cpu_irq_leave_critical+0x2c>)
+     1da:	701a      	strb	r2, [r3, #0]
+     1dc:	f3bf 8f5f 	dmb	sy
+  __ASM volatile ("cpsie i" : : : "memory");
+     1e0:	b662      	cpsie	i
+	}
+}
+     1e2:	4770      	bx	lr
+     1e4:	20000028 	.word	0x20000028
+     1e8:	2000002c 	.word	0x2000002c
+     1ec:	20000008 	.word	0x20000008
+
+000001f0 <system_board_init>:
+void board_init(void);
+#  pragma weak board_init=system_board_init
+#endif
+
+void system_board_init(void)
+{
+     1f0:	b5f0      	push	{r4, r5, r6, r7, lr}
+     1f2:	b083      	sub	sp, #12
+	/* Sanity check arguments */
+	Assert(config);
+
+	/* Default configuration values */
+	config->direction  = PORT_PIN_DIR_INPUT;
+	config->input_pull = PORT_PIN_PULL_UP;
+     1f4:	ac01      	add	r4, sp, #4
+     1f6:	2501      	movs	r5, #1
+     1f8:	7065      	strb	r5, [r4, #1]
+	config->powersave  = false;
+     1fa:	2700      	movs	r7, #0
+     1fc:	70a7      	strb	r7, [r4, #2]
+	struct port_config pin_conf;
+	port_get_config_defaults(&pin_conf);
+
+	/* Configure LEDs as outputs, turn them off */
+	pin_conf.direction  = PORT_PIN_DIR_OUTPUT;
+     1fe:	7025      	strb	r5, [r4, #0]
+	port_pin_set_config(LED_0_PIN, &pin_conf);
+     200:	0021      	movs	r1, r4
+     202:	203e      	movs	r0, #62	; 0x3e
+     204:	4e06      	ldr	r6, [pc, #24]	; (220 <system_board_init+0x30>)
+     206:	47b0      	blx	r6
+	PortGroup *const port_base = port_get_group_from_gpio_pin(gpio_pin);
+	uint32_t pin_mask  = (1UL << (gpio_pin % 32));
+
+	/* Set the pin to high or low atomically based on the requested level */
+	if (level) {
+		port_base->OUTSET.reg = pin_mask;
+     208:	2280      	movs	r2, #128	; 0x80
+     20a:	05d2      	lsls	r2, r2, #23
+     20c:	4b05      	ldr	r3, [pc, #20]	; (224 <system_board_init+0x34>)
+     20e:	619a      	str	r2, [r3, #24]
+	port_pin_set_output_level(LED_0_PIN, LED_0_INACTIVE);
+
+	/* Set buttons as inputs */
+	pin_conf.direction  = PORT_PIN_DIR_INPUT;
+     210:	7027      	strb	r7, [r4, #0]
+	pin_conf.input_pull = PORT_PIN_PULL_UP;
+     212:	7065      	strb	r5, [r4, #1]
+	port_pin_set_config(BUTTON_0_PIN, &pin_conf);
+     214:	0021      	movs	r1, r4
+     216:	200f      	movs	r0, #15
+     218:	47b0      	blx	r6
+	port_pin_set_output_level(AT86RFX_RST_PIN, true);
+	port_pin_set_output_level(AT86RFX_SLP_PIN, true);
+	pin_conf.direction  = PORT_PIN_DIR_INPUT;
+	port_pin_set_config(AT86RFX_SPI_MISO, &pin_conf);
+#endif	
+}
+     21a:	b003      	add	sp, #12
+     21c:	bdf0      	pop	{r4, r5, r6, r7, pc}
+     21e:	46c0      	nop			; (mov r8, r8)
+     220:	00000229 	.word	0x00000229
+     224:	41004480 	.word	0x41004480
+
+00000228 <port_pin_set_config>:
+ *  \param[in] config    Configuration settings for the pin
+ */
+void port_pin_set_config(
+		const uint8_t gpio_pin,
+		const struct port_config *const config)
+{
+     228:	b500      	push	{lr}
+     22a:	b083      	sub	sp, #12
+{
+	/* Sanity check arguments */
+	Assert(config);
+
+	/* Default configuration values */
+	config->mux_position = SYSTEM_PINMUX_GPIO;
+     22c:	ab01      	add	r3, sp, #4
+     22e:	2280      	movs	r2, #128	; 0x80
+     230:	701a      	strb	r2, [r3, #0]
+
+	struct system_pinmux_config pinmux_config;
+	system_pinmux_get_config_defaults(&pinmux_config);
+
+	pinmux_config.mux_position = SYSTEM_PINMUX_GPIO;
+	pinmux_config.direction    = (enum system_pinmux_pin_dir)config->direction;
+     232:	780a      	ldrb	r2, [r1, #0]
+     234:	705a      	strb	r2, [r3, #1]
+	pinmux_config.input_pull   = (enum system_pinmux_pin_pull)config->input_pull;
+     236:	784a      	ldrb	r2, [r1, #1]
+     238:	709a      	strb	r2, [r3, #2]
+	pinmux_config.powersave    = config->powersave;
+     23a:	788a      	ldrb	r2, [r1, #2]
+     23c:	70da      	strb	r2, [r3, #3]
+
+	system_pinmux_pin_set_config(gpio_pin, &pinmux_config);
+     23e:	0019      	movs	r1, r3
+     240:	4b01      	ldr	r3, [pc, #4]	; (248 <port_pin_set_config+0x20>)
+     242:	4798      	blx	r3
+}
+     244:	b003      	add	sp, #12
+     246:	bd00      	pop	{pc}
+     248:	0000075d 	.word	0x0000075d
+
+0000024c <system_clock_source_get_hz>:
+ *
+ * \returns Frequency of the given clock source, in Hz.
+ */
+uint32_t system_clock_source_get_hz(
+		const enum system_clock_source clock_source)
+{
+     24c:	b510      	push	{r4, lr}
+	switch (clock_source) {
+     24e:	2808      	cmp	r0, #8
+     250:	d803      	bhi.n	25a <system_clock_source_get_hz+0xe>
+     252:	0080      	lsls	r0, r0, #2
+     254:	4b1c      	ldr	r3, [pc, #112]	; (2c8 <system_clock_source_get_hz+0x7c>)
+     256:	581b      	ldr	r3, [r3, r0]
+     258:	469f      	mov	pc, r3
+
+		return _system_clock_inst.dpll.frequency;
+#endif
+
+	default:
+		return 0;
+     25a:	2000      	movs	r0, #0
+     25c:	e032      	b.n	2c4 <system_clock_source_get_hz+0x78>
+		return _system_clock_inst.xosc.frequency;
+     25e:	4b1b      	ldr	r3, [pc, #108]	; (2cc <system_clock_source_get_hz+0x80>)
+     260:	6918      	ldr	r0, [r3, #16]
+     262:	e02f      	b.n	2c4 <system_clock_source_get_hz+0x78>
+		return 8000000UL >> SYSCTRL->OSC8M.bit.PRESC;
+     264:	4b1a      	ldr	r3, [pc, #104]	; (2d0 <system_clock_source_get_hz+0x84>)
+     266:	6a1b      	ldr	r3, [r3, #32]
+     268:	059b      	lsls	r3, r3, #22
+     26a:	0f9b      	lsrs	r3, r3, #30
+     26c:	4819      	ldr	r0, [pc, #100]	; (2d4 <system_clock_source_get_hz+0x88>)
+     26e:	40d8      	lsrs	r0, r3
+     270:	e028      	b.n	2c4 <system_clock_source_get_hz+0x78>
+		return _system_clock_inst.xosc32k.frequency;
+     272:	4b16      	ldr	r3, [pc, #88]	; (2cc <system_clock_source_get_hz+0x80>)
+     274:	6958      	ldr	r0, [r3, #20]
+     276:	e025      	b.n	2c4 <system_clock_source_get_hz+0x78>
+		if (!(_system_clock_inst.dfll.control & SYSCTRL_DFLLCTRL_ENABLE))
+     278:	4b14      	ldr	r3, [pc, #80]	; (2cc <system_clock_source_get_hz+0x80>)
+     27a:	681b      	ldr	r3, [r3, #0]
+			return 0;
+     27c:	2000      	movs	r0, #0
+		if (!(_system_clock_inst.dfll.control & SYSCTRL_DFLLCTRL_ENABLE))
+     27e:	079b      	lsls	r3, r3, #30
+     280:	d520      	bpl.n	2c4 <system_clock_source_get_hz+0x78>
+	while (!(SYSCTRL->PCLKSR.reg & SYSCTRL_PCLKSR_DFLLRDY)) {
+     282:	4913      	ldr	r1, [pc, #76]	; (2d0 <system_clock_source_get_hz+0x84>)
+     284:	2210      	movs	r2, #16
+     286:	68cb      	ldr	r3, [r1, #12]
+     288:	421a      	tst	r2, r3
+     28a:	d0fc      	beq.n	286 <system_clock_source_get_hz+0x3a>
+		switch(_system_clock_inst.dfll.control &
+     28c:	4b0f      	ldr	r3, [pc, #60]	; (2cc <system_clock_source_get_hz+0x80>)
+     28e:	681a      	ldr	r2, [r3, #0]
+     290:	2324      	movs	r3, #36	; 0x24
+     292:	4013      	ands	r3, r2
+     294:	2b04      	cmp	r3, #4
+     296:	d001      	beq.n	29c <system_clock_source_get_hz+0x50>
+			return 48000000UL;
+     298:	480f      	ldr	r0, [pc, #60]	; (2d8 <system_clock_source_get_hz+0x8c>)
+     29a:	e013      	b.n	2c4 <system_clock_source_get_hz+0x78>
+			return system_gclk_chan_get_hz(SYSCTRL_GCLK_ID_DFLL48) *
+     29c:	2000      	movs	r0, #0
+     29e:	4b0f      	ldr	r3, [pc, #60]	; (2dc <system_clock_source_get_hz+0x90>)
+     2a0:	4798      	blx	r3
+					(_system_clock_inst.dfll.mul & 0xffff);
+     2a2:	4b0a      	ldr	r3, [pc, #40]	; (2cc <system_clock_source_get_hz+0x80>)
+     2a4:	689b      	ldr	r3, [r3, #8]
+     2a6:	041b      	lsls	r3, r3, #16
+     2a8:	0c1b      	lsrs	r3, r3, #16
+			return system_gclk_chan_get_hz(SYSCTRL_GCLK_ID_DFLL48) *
+     2aa:	4358      	muls	r0, r3
+     2ac:	e00a      	b.n	2c4 <system_clock_source_get_hz+0x78>
+		if (!(SYSCTRL->DPLLSTATUS.reg & SYSCTRL_DPLLSTATUS_ENABLE)) {
+     2ae:	2350      	movs	r3, #80	; 0x50
+     2b0:	4a07      	ldr	r2, [pc, #28]	; (2d0 <system_clock_source_get_hz+0x84>)
+     2b2:	5cd3      	ldrb	r3, [r2, r3]
+			return 0;
+     2b4:	2000      	movs	r0, #0
+		if (!(SYSCTRL->DPLLSTATUS.reg & SYSCTRL_DPLLSTATUS_ENABLE)) {
+     2b6:	075b      	lsls	r3, r3, #29
+     2b8:	d504      	bpl.n	2c4 <system_clock_source_get_hz+0x78>
+		return _system_clock_inst.dpll.frequency;
+     2ba:	4b04      	ldr	r3, [pc, #16]	; (2cc <system_clock_source_get_hz+0x80>)
+     2bc:	68d8      	ldr	r0, [r3, #12]
+     2be:	e001      	b.n	2c4 <system_clock_source_get_hz+0x78>
+		return 32768UL;
+     2c0:	2080      	movs	r0, #128	; 0x80
+     2c2:	0200      	lsls	r0, r0, #8
+	}
+}
+     2c4:	bd10      	pop	{r4, pc}
+     2c6:	46c0      	nop			; (mov r8, r8)
+     2c8:	00001a54 	.word	0x00001a54
+     2cc:	20000030 	.word	0x20000030
+     2d0:	40000800 	.word	0x40000800
+     2d4:	007a1200 	.word	0x007a1200
+     2d8:	02dc6c00 	.word	0x02dc6c00
+     2dc:	00000681 	.word	0x00000681
+
+000002e0 <system_clock_source_osc8m_set_config>:
+ *
+ * \param[in] config  OSC8M configuration structure containing the new config
+ */
+void system_clock_source_osc8m_set_config(
+		struct system_clock_source_osc8m_config *const config)
+{
+     2e0:	b570      	push	{r4, r5, r6, lr}
+	SYSCTRL_OSC8M_Type temp = SYSCTRL->OSC8M;
+     2e2:	490c      	ldr	r1, [pc, #48]	; (314 <system_clock_source_osc8m_set_config+0x34>)
+     2e4:	6a0b      	ldr	r3, [r1, #32]
+
+	/* Use temporary struct to reduce register access */
+	temp.bit.PRESC    = config->prescaler;
+     2e6:	7804      	ldrb	r4, [r0, #0]
+	temp.bit.ONDEMAND = config->on_demand;
+     2e8:	7885      	ldrb	r5, [r0, #2]
+	temp.bit.RUNSTDBY = config->run_in_standby;
+
+	SYSCTRL->OSC8M = temp;
+     2ea:	7840      	ldrb	r0, [r0, #1]
+     2ec:	2201      	movs	r2, #1
+     2ee:	4010      	ands	r0, r2
+     2f0:	0180      	lsls	r0, r0, #6
+     2f2:	2640      	movs	r6, #64	; 0x40
+     2f4:	43b3      	bics	r3, r6
+     2f6:	4303      	orrs	r3, r0
+     2f8:	402a      	ands	r2, r5
+     2fa:	01d2      	lsls	r2, r2, #7
+     2fc:	2080      	movs	r0, #128	; 0x80
+     2fe:	4383      	bics	r3, r0
+     300:	4313      	orrs	r3, r2
+     302:	2203      	movs	r2, #3
+     304:	4022      	ands	r2, r4
+     306:	0212      	lsls	r2, r2, #8
+     308:	4803      	ldr	r0, [pc, #12]	; (318 <system_clock_source_osc8m_set_config+0x38>)
+     30a:	4003      	ands	r3, r0
+     30c:	4313      	orrs	r3, r2
+     30e:	620b      	str	r3, [r1, #32]
+}
+     310:	bd70      	pop	{r4, r5, r6, pc}
+     312:	46c0      	nop			; (mov r8, r8)
+     314:	40000800 	.word	0x40000800
+     318:	fffffcff 	.word	0xfffffcff
+
+0000031c <system_clock_source_enable>:
+ *                                 device
+ */
+enum status_code system_clock_source_enable(
+		const enum system_clock_source clock_source)
+{
+	switch (clock_source) {
+     31c:	2808      	cmp	r0, #8
+     31e:	d803      	bhi.n	328 <system_clock_source_enable+0xc>
+     320:	0080      	lsls	r0, r0, #2
+     322:	4b25      	ldr	r3, [pc, #148]	; (3b8 <system_clock_source_enable+0x9c>)
+     324:	581b      	ldr	r3, [r3, r0]
+     326:	469f      	mov	pc, r3
+		/* Always enabled */
+		return STATUS_OK;
+
+	default:
+		Assert(false);
+		return STATUS_ERR_INVALID_ARG;
+     328:	2017      	movs	r0, #23
+     32a:	e044      	b.n	3b6 <system_clock_source_enable+0x9a>
+		SYSCTRL->OSC8M.reg |= SYSCTRL_OSC8M_ENABLE;
+     32c:	4a23      	ldr	r2, [pc, #140]	; (3bc <system_clock_source_enable+0xa0>)
+     32e:	6a13      	ldr	r3, [r2, #32]
+     330:	2102      	movs	r1, #2
+     332:	430b      	orrs	r3, r1
+     334:	6213      	str	r3, [r2, #32]
+		return STATUS_OK;
+     336:	2000      	movs	r0, #0
+     338:	e03d      	b.n	3b6 <system_clock_source_enable+0x9a>
+		SYSCTRL->OSC32K.reg |= SYSCTRL_OSC32K_ENABLE;
+     33a:	4a20      	ldr	r2, [pc, #128]	; (3bc <system_clock_source_enable+0xa0>)
+     33c:	6993      	ldr	r3, [r2, #24]
+     33e:	2102      	movs	r1, #2
+     340:	430b      	orrs	r3, r1
+     342:	6193      	str	r3, [r2, #24]
+	}
+
+	return STATUS_OK;
+     344:	2000      	movs	r0, #0
+		break;
+     346:	e036      	b.n	3b6 <system_clock_source_enable+0x9a>
+		SYSCTRL->XOSC.reg |= SYSCTRL_XOSC_ENABLE;
+     348:	4a1c      	ldr	r2, [pc, #112]	; (3bc <system_clock_source_enable+0xa0>)
+     34a:	8a13      	ldrh	r3, [r2, #16]
+     34c:	2102      	movs	r1, #2
+     34e:	430b      	orrs	r3, r1
+     350:	8213      	strh	r3, [r2, #16]
+	return STATUS_OK;
+     352:	2000      	movs	r0, #0
+		break;
+     354:	e02f      	b.n	3b6 <system_clock_source_enable+0x9a>
+		SYSCTRL->XOSC32K.reg |= SYSCTRL_XOSC32K_ENABLE;
+     356:	4a19      	ldr	r2, [pc, #100]	; (3bc <system_clock_source_enable+0xa0>)
+     358:	8a93      	ldrh	r3, [r2, #20]
+     35a:	2102      	movs	r1, #2
+     35c:	430b      	orrs	r3, r1
+     35e:	8293      	strh	r3, [r2, #20]
+	return STATUS_OK;
+     360:	2000      	movs	r0, #0
+		break;
+     362:	e028      	b.n	3b6 <system_clock_source_enable+0x9a>
+		_system_clock_inst.dfll.control |= SYSCTRL_DFLLCTRL_ENABLE;
+     364:	4916      	ldr	r1, [pc, #88]	; (3c0 <system_clock_source_enable+0xa4>)
+     366:	680b      	ldr	r3, [r1, #0]
+     368:	2202      	movs	r2, #2
+     36a:	4313      	orrs	r3, r2
+     36c:	600b      	str	r3, [r1, #0]
+	SYSCTRL->DFLLCTRL.reg = SYSCTRL_DFLLCTRL_ENABLE;
+     36e:	4b13      	ldr	r3, [pc, #76]	; (3bc <system_clock_source_enable+0xa0>)
+     370:	849a      	strh	r2, [r3, #36]	; 0x24
+	while (!(SYSCTRL->PCLKSR.reg & SYSCTRL_PCLKSR_DFLLRDY)) {
+     372:	0019      	movs	r1, r3
+     374:	320e      	adds	r2, #14
+     376:	68cb      	ldr	r3, [r1, #12]
+     378:	421a      	tst	r2, r3
+     37a:	d0fc      	beq.n	376 <system_clock_source_enable+0x5a>
+	SYSCTRL->DFLLMUL.reg = _system_clock_inst.dfll.mul;
+     37c:	4a10      	ldr	r2, [pc, #64]	; (3c0 <system_clock_source_enable+0xa4>)
+     37e:	6891      	ldr	r1, [r2, #8]
+     380:	4b0e      	ldr	r3, [pc, #56]	; (3bc <system_clock_source_enable+0xa0>)
+     382:	62d9      	str	r1, [r3, #44]	; 0x2c
+	SYSCTRL->DFLLVAL.reg = _system_clock_inst.dfll.val;
+     384:	6852      	ldr	r2, [r2, #4]
+     386:	629a      	str	r2, [r3, #40]	; 0x28
+	SYSCTRL->DFLLCTRL.reg = 0;
+     388:	2200      	movs	r2, #0
+     38a:	849a      	strh	r2, [r3, #36]	; 0x24
+	while (!(SYSCTRL->PCLKSR.reg & SYSCTRL_PCLKSR_DFLLRDY)) {
+     38c:	0019      	movs	r1, r3
+     38e:	3210      	adds	r2, #16
+     390:	68cb      	ldr	r3, [r1, #12]
+     392:	421a      	tst	r2, r3
+     394:	d0fc      	beq.n	390 <system_clock_source_enable+0x74>
+	SYSCTRL->DFLLCTRL.reg = _system_clock_inst.dfll.control;
+     396:	4b0a      	ldr	r3, [pc, #40]	; (3c0 <system_clock_source_enable+0xa4>)
+     398:	681b      	ldr	r3, [r3, #0]
+     39a:	b29b      	uxth	r3, r3
+     39c:	4a07      	ldr	r2, [pc, #28]	; (3bc <system_clock_source_enable+0xa0>)
+     39e:	8493      	strh	r3, [r2, #36]	; 0x24
+	return STATUS_OK;
+     3a0:	2000      	movs	r0, #0
+     3a2:	e008      	b.n	3b6 <system_clock_source_enable+0x9a>
+		SYSCTRL->DPLLCTRLA.reg |= SYSCTRL_DPLLCTRLA_ENABLE;
+     3a4:	4905      	ldr	r1, [pc, #20]	; (3bc <system_clock_source_enable+0xa0>)
+     3a6:	2244      	movs	r2, #68	; 0x44
+     3a8:	5c8b      	ldrb	r3, [r1, r2]
+     3aa:	2002      	movs	r0, #2
+     3ac:	4303      	orrs	r3, r0
+     3ae:	548b      	strb	r3, [r1, r2]
+	return STATUS_OK;
+     3b0:	2000      	movs	r0, #0
+		break;
+     3b2:	e000      	b.n	3b6 <system_clock_source_enable+0x9a>
+		return STATUS_OK;
+     3b4:	2000      	movs	r0, #0
+}
+     3b6:	4770      	bx	lr
+     3b8:	00001a78 	.word	0x00001a78
+     3bc:	40000800 	.word	0x40000800
+     3c0:	20000030 	.word	0x20000030
+
+000003c4 <system_clock_init>:
+ * \note OSC8M is always enabled and if user selects other clocks for GCLK generators,
+ * the OSC8M default enable can be disabled after system_clock_init. Make sure the
+ * clock switch successfully before disabling OSC8M.
+ */
+void system_clock_init(void)
+{
+     3c4:	b530      	push	{r4, r5, lr}
+     3c6:	b085      	sub	sp, #20
+	/* Various bits in the INTFLAG register can be set to one at startup.
+	   This will ensure that these bits are cleared */
+	SYSCTRL->INTFLAG.reg = SYSCTRL_INTFLAG_BOD33RDY | SYSCTRL_INTFLAG_BOD33DET |
+     3c8:	22c2      	movs	r2, #194	; 0xc2
+     3ca:	00d2      	lsls	r2, r2, #3
+     3cc:	4b1a      	ldr	r3, [pc, #104]	; (438 <system_clock_init+0x74>)
+     3ce:	609a      	str	r2, [r3, #8]
+static inline void system_flash_set_waitstates(uint8_t wait_states)
+{
+	Assert(NVMCTRL_CTRLB_RWS((uint32_t)wait_states) ==
+			((uint32_t)wait_states << NVMCTRL_CTRLB_RWS_Pos));
+
+	NVMCTRL->CTRLB.bit.RWS = wait_states;
+     3d0:	4a1a      	ldr	r2, [pc, #104]	; (43c <system_clock_init+0x78>)
+     3d2:	6853      	ldr	r3, [r2, #4]
+     3d4:	211e      	movs	r1, #30
+     3d6:	438b      	bics	r3, r1
+     3d8:	6053      	str	r3, [r2, #4]
+	gclk_conf.source_generator = GCLK_GENERATOR_1;
+     3da:	2301      	movs	r3, #1
+     3dc:	466a      	mov	r2, sp
+     3de:	7013      	strb	r3, [r2, #0]
+	for (gclk_id = 0; gclk_id < GCLK_NUM; gclk_id++) {
+     3e0:	2400      	movs	r4, #0
+		system_gclk_chan_set_config(gclk_id, &gclk_conf);
+     3e2:	4d17      	ldr	r5, [pc, #92]	; (440 <system_clock_init+0x7c>)
+     3e4:	b2e0      	uxtb	r0, r4
+     3e6:	4669      	mov	r1, sp
+     3e8:	47a8      	blx	r5
+	for (gclk_id = 0; gclk_id < GCLK_NUM; gclk_id++) {
+     3ea:	3401      	adds	r4, #1
+     3ec:	2c25      	cmp	r4, #37	; 0x25
+     3ee:	d1f9      	bne.n	3e4 <system_clock_init+0x20>
+	config->run_in_standby  = false;
+     3f0:	a803      	add	r0, sp, #12
+     3f2:	2400      	movs	r4, #0
+     3f4:	7044      	strb	r4, [r0, #1]
+	config->on_demand       = true;
+     3f6:	2501      	movs	r5, #1
+     3f8:	7085      	strb	r5, [r0, #2]
+
+	/* OSC8M */
+	struct system_clock_source_osc8m_config osc8m_conf;
+	system_clock_source_osc8m_get_config_defaults(&osc8m_conf);
+
+	osc8m_conf.prescaler       = CONF_CLOCK_OSC8M_PRESCALER;
+     3fa:	7004      	strb	r4, [r0, #0]
+	osc8m_conf.on_demand       = CONF_CLOCK_OSC8M_ON_DEMAND;
+	osc8m_conf.run_in_standby  = CONF_CLOCK_OSC8M_RUN_IN_STANDBY;
+
+	system_clock_source_osc8m_set_config(&osc8m_conf);
+     3fc:	4b11      	ldr	r3, [pc, #68]	; (444 <system_clock_init+0x80>)
+     3fe:	4798      	blx	r3
+	system_clock_source_enable(SYSTEM_CLOCK_SOURCE_OSC8M);
+     400:	2006      	movs	r0, #6
+     402:	4b11      	ldr	r3, [pc, #68]	; (448 <system_clock_init+0x84>)
+     404:	4798      	blx	r3
+
+
+	/* GCLK */
+#if CONF_CLOCK_CONFIGURE_GCLK == true
+	system_gclk_init();
+     406:	4b11      	ldr	r3, [pc, #68]	; (44c <system_clock_init+0x88>)
+     408:	4798      	blx	r3
+	PM->CPUSEL.reg = (uint32_t)divider;
+     40a:	4b11      	ldr	r3, [pc, #68]	; (450 <system_clock_init+0x8c>)
+     40c:	721c      	strb	r4, [r3, #8]
+			PM->APBASEL.reg = (uint32_t)divider;
+     40e:	725c      	strb	r4, [r3, #9]
+			PM->APBBSEL.reg = (uint32_t)divider;
+     410:	729c      	strb	r4, [r3, #10]
+			PM->APBCSEL.reg = (uint32_t)divider;
+     412:	72dc      	strb	r4, [r3, #11]
+{
+	/* Sanity check arguments */
+	Assert(config);
+
+	/* Default configuration values */
+	config->division_factor    = 1;
+     414:	9501      	str	r5, [sp, #4]
+	config->high_when_disabled = false;
+     416:	466b      	mov	r3, sp
+     418:	705c      	strb	r4, [r3, #1]
+#if SAML21 || SAML22  || SAMR30 || SAMR34 || SAMR35
+	config->source_clock       = GCLK_SOURCE_OSC16M;
+#elif (SAMC20) || (SAMC21)
+	config->source_clock       = GCLK_SOURCE_OSC48M;
+#else
+	config->source_clock       = GCLK_SOURCE_OSC8M;
+     41a:	2306      	movs	r3, #6
+     41c:	466a      	mov	r2, sp
+     41e:	7013      	strb	r3, [r2, #0]
+#endif
+	config->run_in_standby     = false;
+     420:	7214      	strb	r4, [r2, #8]
+	config->output_enable      = false;
+     422:	7254      	strb	r4, [r2, #9]
+	system_apb_clock_set_divider(SYSTEM_CLOCK_APB_APBC, CONF_CLOCK_APBC_DIVIDER);
+
+	/* GCLK 0 */
+#if CONF_CLOCK_CONFIGURE_GCLK == true
+	/* Configure the main GCLK last as it might depend on other generators */
+	_CONF_CLOCK_GCLK_CONFIG(0, ~);
+     424:	4669      	mov	r1, sp
+     426:	2000      	movs	r0, #0
+     428:	4b0a      	ldr	r3, [pc, #40]	; (454 <system_clock_init+0x90>)
+     42a:	4798      	blx	r3
+     42c:	2000      	movs	r0, #0
+     42e:	4b0a      	ldr	r3, [pc, #40]	; (458 <system_clock_init+0x94>)
+     430:	4798      	blx	r3
+#endif
+}
+     432:	b005      	add	sp, #20
+     434:	bd30      	pop	{r4, r5, pc}
+     436:	46c0      	nop			; (mov r8, r8)
+     438:	40000800 	.word	0x40000800
+     43c:	41004000 	.word	0x41004000
+     440:	00000665 	.word	0x00000665
+     444:	000002e1 	.word	0x000002e1
+     448:	0000031d 	.word	0x0000031d
+     44c:	0000045d 	.word	0x0000045d
+     450:	40000400 	.word	0x40000400
+     454:	00000481 	.word	0x00000481
+     458:	00000539 	.word	0x00000539
+
+0000045c <system_gclk_init>:
+			PM->APBAMASK.reg |= mask;
+     45c:	4a06      	ldr	r2, [pc, #24]	; (478 <system_gclk_init+0x1c>)
+     45e:	6993      	ldr	r3, [r2, #24]
+     460:	2108      	movs	r1, #8
+     462:	430b      	orrs	r3, r1
+     464:	6193      	str	r3, [r2, #24]
+{
+	/* Turn on the digital interface clock */
+	system_apb_clock_set_mask(SYSTEM_CLOCK_APB_APBA, PM_APBAMASK_GCLK);
+
+	/* Software reset the module to ensure it is re-initialized correctly */
+	GCLK->CTRL.reg = GCLK_CTRL_SWRST;
+     466:	2201      	movs	r2, #1
+     468:	4b04      	ldr	r3, [pc, #16]	; (47c <system_gclk_init+0x20>)
+     46a:	701a      	strb	r2, [r3, #0]
+	while (GCLK->CTRL.reg & GCLK_CTRL_SWRST) {
+     46c:	0019      	movs	r1, r3
+     46e:	780b      	ldrb	r3, [r1, #0]
+     470:	4213      	tst	r3, r2
+     472:	d1fc      	bne.n	46e <system_gclk_init+0x12>
+		/* Wait for reset to complete */
+	}
+}
+     474:	4770      	bx	lr
+     476:	46c0      	nop			; (mov r8, r8)
+     478:	40000400 	.word	0x40000400
+     47c:	40000c00 	.word	0x40000c00
+
+00000480 <system_gclk_gen_set_config>:
+ * \param[in] config     Configuration settings for the generator
+ */
+void system_gclk_gen_set_config(
+		const uint8_t generator,
+		struct system_gclk_gen_config *const config)
+{
+     480:	b570      	push	{r4, r5, r6, lr}
+     482:	0006      	movs	r6, r0
+	/* Sanity check arguments */
+	Assert(config);
+
+	/* Cache new register configurations to minimize sync requirements. */
+	uint32_t new_genctrl_config = (generator << GCLK_GENCTRL_ID_Pos);
+     484:	0004      	movs	r4, r0
+	uint32_t new_gendiv_config  = (generator << GCLK_GENDIV_ID_Pos);
+
+	/* Select the requested source clock for the generator */
+	new_genctrl_config |= config->source_clock << GCLK_GENCTRL_SRC_Pos;
+     486:	780d      	ldrb	r5, [r1, #0]
+     488:	022d      	lsls	r5, r5, #8
+     48a:	4305      	orrs	r5, r0
+
+	/* Configure the clock to be either high or low when disabled */
+	if (config->high_when_disabled) {
+     48c:	784b      	ldrb	r3, [r1, #1]
+     48e:	2b00      	cmp	r3, #0
+     490:	d002      	beq.n	498 <system_gclk_gen_set_config+0x18>
+		new_genctrl_config |= GCLK_GENCTRL_OOV;
+     492:	2380      	movs	r3, #128	; 0x80
+     494:	02db      	lsls	r3, r3, #11
+     496:	431d      	orrs	r5, r3
+	}
+
+	/* Configure if the clock output to I/O pin should be enabled. */
+	if (config->output_enable) {
+     498:	7a4b      	ldrb	r3, [r1, #9]
+     49a:	2b00      	cmp	r3, #0
+     49c:	d002      	beq.n	4a4 <system_gclk_gen_set_config+0x24>
+		new_genctrl_config |= GCLK_GENCTRL_OE;
+     49e:	2380      	movs	r3, #128	; 0x80
+     4a0:	031b      	lsls	r3, r3, #12
+     4a2:	431d      	orrs	r5, r3
+	}
+
+	/* Set division factor */
+	if (config->division_factor > 1) {
+     4a4:	6848      	ldr	r0, [r1, #4]
+     4a6:	2801      	cmp	r0, #1
+     4a8:	d910      	bls.n	4cc <system_gclk_gen_set_config+0x4c>
+		/* Check if division is a power of two */
+		if (((config->division_factor & (config->division_factor - 1)) == 0)) {
+     4aa:	1e43      	subs	r3, r0, #1
+     4ac:	4218      	tst	r0, r3
+     4ae:	d134      	bne.n	51a <system_gclk_gen_set_config+0x9a>
+			 * register */
+
+			uint32_t div2_count = 0;
+
+			uint32_t mask;
+			for (mask = (1UL << 1); mask < config->division_factor;
+     4b0:	2802      	cmp	r0, #2
+     4b2:	d930      	bls.n	516 <system_gclk_gen_set_config+0x96>
+     4b4:	2302      	movs	r3, #2
+     4b6:	2200      	movs	r2, #0
+						mask <<= 1) {
+				div2_count++;
+     4b8:	3201      	adds	r2, #1
+						mask <<= 1) {
+     4ba:	005b      	lsls	r3, r3, #1
+			for (mask = (1UL << 1); mask < config->division_factor;
+     4bc:	4298      	cmp	r0, r3
+     4be:	d8fb      	bhi.n	4b8 <system_gclk_gen_set_config+0x38>
+			}
+
+			/* Set binary divider power of 2 division factor */
+			new_gendiv_config  |= div2_count << GCLK_GENDIV_DIV_Pos;
+     4c0:	0212      	lsls	r2, r2, #8
+     4c2:	4332      	orrs	r2, r6
+     4c4:	0014      	movs	r4, r2
+			new_genctrl_config |= GCLK_GENCTRL_DIVSEL;
+     4c6:	2380      	movs	r3, #128	; 0x80
+     4c8:	035b      	lsls	r3, r3, #13
+     4ca:	431d      	orrs	r5, r3
+		}
+
+	}
+
+	/* Enable or disable the clock in standby mode */
+	if (config->run_in_standby) {
+     4cc:	7a0b      	ldrb	r3, [r1, #8]
+     4ce:	2b00      	cmp	r3, #0
+     4d0:	d002      	beq.n	4d8 <system_gclk_gen_set_config+0x58>
+		new_genctrl_config |= GCLK_GENCTRL_RUNSTDBY;
+     4d2:	2380      	movs	r3, #128	; 0x80
+     4d4:	039b      	lsls	r3, r3, #14
+     4d6:	431d      	orrs	r5, r3
+	if (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){
+     4d8:	4a13      	ldr	r2, [pc, #76]	; (528 <system_gclk_gen_set_config+0xa8>)
+     4da:	7853      	ldrb	r3, [r2, #1]
+	}
+
+	while (system_gclk_is_syncing()) {
+     4dc:	b25b      	sxtb	r3, r3
+     4de:	2b00      	cmp	r3, #0
+     4e0:	dbfb      	blt.n	4da <system_gclk_gen_set_config+0x5a>
+ * are only re-enabled upon leaving the outermost nested critical section.
+ *
+ */
+static inline void system_interrupt_enter_critical_section(void)
+{
+	cpu_irq_enter_critical();
+     4e2:	4b12      	ldr	r3, [pc, #72]	; (52c <system_gclk_gen_set_config+0xac>)
+     4e4:	4798      	blx	r3
+	};
+
+	system_interrupt_enter_critical_section();
+
+	/* Select the correct generator */
+	*((uint8_t*)&GCLK->GENDIV.reg) = generator;
+     4e6:	4b12      	ldr	r3, [pc, #72]	; (530 <system_gclk_gen_set_config+0xb0>)
+     4e8:	701e      	strb	r6, [r3, #0]
+	if (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){
+     4ea:	4a0f      	ldr	r2, [pc, #60]	; (528 <system_gclk_gen_set_config+0xa8>)
+     4ec:	7853      	ldrb	r3, [r2, #1]
+
+	/* Write the new generator configuration */
+	while (system_gclk_is_syncing()) {
+     4ee:	b25b      	sxtb	r3, r3
+     4f0:	2b00      	cmp	r3, #0
+     4f2:	dbfb      	blt.n	4ec <system_gclk_gen_set_config+0x6c>
+		/* Wait for synchronization */
+	};
+	GCLK->GENDIV.reg  = new_gendiv_config;
+     4f4:	4b0c      	ldr	r3, [pc, #48]	; (528 <system_gclk_gen_set_config+0xa8>)
+     4f6:	609c      	str	r4, [r3, #8]
+	if (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){
+     4f8:	001a      	movs	r2, r3
+     4fa:	7853      	ldrb	r3, [r2, #1]
+
+	while (system_gclk_is_syncing()) {
+     4fc:	b25b      	sxtb	r3, r3
+     4fe:	2b00      	cmp	r3, #0
+     500:	dbfb      	blt.n	4fa <system_gclk_gen_set_config+0x7a>
+		/* Wait for synchronization */
+	};
+	GCLK->GENCTRL.reg = new_genctrl_config | (GCLK->GENCTRL.reg & GCLK_GENCTRL_GENEN);
+     502:	4a09      	ldr	r2, [pc, #36]	; (528 <system_gclk_gen_set_config+0xa8>)
+     504:	6853      	ldr	r3, [r2, #4]
+     506:	2180      	movs	r1, #128	; 0x80
+     508:	0249      	lsls	r1, r1, #9
+     50a:	400b      	ands	r3, r1
+     50c:	431d      	orrs	r5, r3
+     50e:	6055      	str	r5, [r2, #4]
+ * are only re-enabled upon leaving the outermost nested critical section.
+ *
+ */
+static inline void system_interrupt_leave_critical_section(void)
+{
+	cpu_irq_leave_critical();
+     510:	4b08      	ldr	r3, [pc, #32]	; (534 <system_gclk_gen_set_config+0xb4>)
+     512:	4798      	blx	r3
+
+	system_interrupt_leave_critical_section();
+}
+     514:	bd70      	pop	{r4, r5, r6, pc}
+			for (mask = (1UL << 1); mask < config->division_factor;
+     516:	2200      	movs	r2, #0
+     518:	e7d2      	b.n	4c0 <system_gclk_gen_set_config+0x40>
+					(config->division_factor) << GCLK_GENDIV_DIV_Pos;
+     51a:	0204      	lsls	r4, r0, #8
+			new_gendiv_config  |=
+     51c:	4334      	orrs	r4, r6
+			new_genctrl_config |= GCLK_GENCTRL_IDC;
+     51e:	2380      	movs	r3, #128	; 0x80
+     520:	029b      	lsls	r3, r3, #10
+     522:	431d      	orrs	r5, r3
+     524:	e7d2      	b.n	4cc <system_gclk_gen_set_config+0x4c>
+     526:	46c0      	nop			; (mov r8, r8)
+     528:	40000c00 	.word	0x40000c00
+     52c:	00000181 	.word	0x00000181
+     530:	40000c08 	.word	0x40000c08
+     534:	000001c1 	.word	0x000001c1
+
+00000538 <system_gclk_gen_enable>:
+ *
+ * \param[in] generator  Generic Clock Generator index to enable
+ */
+void system_gclk_gen_enable(
+		const uint8_t generator)
+{
+     538:	b510      	push	{r4, lr}
+     53a:	0004      	movs	r4, r0
+	if (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){
+     53c:	4a0b      	ldr	r2, [pc, #44]	; (56c <system_gclk_gen_enable+0x34>)
+     53e:	7853      	ldrb	r3, [r2, #1]
+	while (system_gclk_is_syncing()) {
+     540:	b25b      	sxtb	r3, r3
+     542:	2b00      	cmp	r3, #0
+     544:	dbfb      	blt.n	53e <system_gclk_gen_enable+0x6>
+	cpu_irq_enter_critical();
+     546:	4b0a      	ldr	r3, [pc, #40]	; (570 <system_gclk_gen_enable+0x38>)
+     548:	4798      	blx	r3
+	};
+
+	system_interrupt_enter_critical_section();
+
+	/* Select the requested generator */
+	*((uint8_t*)&GCLK->GENCTRL.reg) = generator;
+     54a:	4b0a      	ldr	r3, [pc, #40]	; (574 <system_gclk_gen_enable+0x3c>)
+     54c:	701c      	strb	r4, [r3, #0]
+	if (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){
+     54e:	4a07      	ldr	r2, [pc, #28]	; (56c <system_gclk_gen_enable+0x34>)
+     550:	7853      	ldrb	r3, [r2, #1]
+	while (system_gclk_is_syncing()) {
+     552:	b25b      	sxtb	r3, r3
+     554:	2b00      	cmp	r3, #0
+     556:	dbfb      	blt.n	550 <system_gclk_gen_enable+0x18>
+		/* Wait for synchronization */
+	};
+
+	/* Enable generator */
+	GCLK->GENCTRL.reg |= GCLK_GENCTRL_GENEN;
+     558:	4a04      	ldr	r2, [pc, #16]	; (56c <system_gclk_gen_enable+0x34>)
+     55a:	6851      	ldr	r1, [r2, #4]
+     55c:	2380      	movs	r3, #128	; 0x80
+     55e:	025b      	lsls	r3, r3, #9
+     560:	430b      	orrs	r3, r1
+     562:	6053      	str	r3, [r2, #4]
+	cpu_irq_leave_critical();
+     564:	4b04      	ldr	r3, [pc, #16]	; (578 <system_gclk_gen_enable+0x40>)
+     566:	4798      	blx	r3
+
+	system_interrupt_leave_critical_section();
+}
+     568:	bd10      	pop	{r4, pc}
+     56a:	46c0      	nop			; (mov r8, r8)
+     56c:	40000c00 	.word	0x40000c00
+     570:	00000181 	.word	0x00000181
+     574:	40000c04 	.word	0x40000c04
+     578:	000001c1 	.word	0x000001c1
+
+0000057c <system_gclk_gen_get_hz>:
+ *
+ * \return The frequency of the generic clock generator, in Hz.
+ */
+uint32_t system_gclk_gen_get_hz(
+		const uint8_t generator)
+{
+     57c:	b570      	push	{r4, r5, r6, lr}
+     57e:	0004      	movs	r4, r0
+	if (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){
+     580:	4a1a      	ldr	r2, [pc, #104]	; (5ec <system_gclk_gen_get_hz+0x70>)
+     582:	7853      	ldrb	r3, [r2, #1]
+	while (system_gclk_is_syncing()) {
+     584:	b25b      	sxtb	r3, r3
+     586:	2b00      	cmp	r3, #0
+     588:	dbfb      	blt.n	582 <system_gclk_gen_get_hz+0x6>
+	cpu_irq_enter_critical();
+     58a:	4b19      	ldr	r3, [pc, #100]	; (5f0 <system_gclk_gen_get_hz+0x74>)
+     58c:	4798      	blx	r3
+	};
+
+	system_interrupt_enter_critical_section();
+
+	/* Select the appropriate generator */
+	*((uint8_t*)&GCLK->GENCTRL.reg) = generator;
+     58e:	4b19      	ldr	r3, [pc, #100]	; (5f4 <system_gclk_gen_get_hz+0x78>)
+     590:	701c      	strb	r4, [r3, #0]
+	if (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){
+     592:	4a16      	ldr	r2, [pc, #88]	; (5ec <system_gclk_gen_get_hz+0x70>)
+     594:	7853      	ldrb	r3, [r2, #1]
+	while (system_gclk_is_syncing()) {
+     596:	b25b      	sxtb	r3, r3
+     598:	2b00      	cmp	r3, #0
+     59a:	dbfb      	blt.n	594 <system_gclk_gen_get_hz+0x18>
+		/* Wait for synchronization */
+	};
+
+	/* Get the frequency of the source connected to the GCLK generator */
+	uint32_t gen_input_hz = system_clock_source_get_hz(
+			(enum system_clock_source)GCLK->GENCTRL.bit.SRC);
+     59c:	4e13      	ldr	r6, [pc, #76]	; (5ec <system_gclk_gen_get_hz+0x70>)
+     59e:	6870      	ldr	r0, [r6, #4]
+     5a0:	04c0      	lsls	r0, r0, #19
+     5a2:	0ec0      	lsrs	r0, r0, #27
+	uint32_t gen_input_hz = system_clock_source_get_hz(
+     5a4:	4b14      	ldr	r3, [pc, #80]	; (5f8 <system_gclk_gen_get_hz+0x7c>)
+     5a6:	4798      	blx	r3
+     5a8:	0005      	movs	r5, r0
+
+	*((uint8_t*)&GCLK->GENCTRL.reg) = generator;
+     5aa:	4b12      	ldr	r3, [pc, #72]	; (5f4 <system_gclk_gen_get_hz+0x78>)
+     5ac:	701c      	strb	r4, [r3, #0]
+
+	uint8_t divsel = GCLK->GENCTRL.bit.DIVSEL;
+     5ae:	6876      	ldr	r6, [r6, #4]
+     5b0:	02f6      	lsls	r6, r6, #11
+     5b2:	0ff6      	lsrs	r6, r6, #31
+
+	/* Select the appropriate generator division register */
+	*((uint8_t*)&GCLK->GENDIV.reg) = generator;
+     5b4:	4b11      	ldr	r3, [pc, #68]	; (5fc <system_gclk_gen_get_hz+0x80>)
+     5b6:	701c      	strb	r4, [r3, #0]
+	if (GCLK->STATUS.reg & GCLK_STATUS_SYNCBUSY){
+     5b8:	4a0c      	ldr	r2, [pc, #48]	; (5ec <system_gclk_gen_get_hz+0x70>)
+     5ba:	7853      	ldrb	r3, [r2, #1]
+	while (system_gclk_is_syncing()) {
+     5bc:	b25b      	sxtb	r3, r3
+     5be:	2b00      	cmp	r3, #0
+     5c0:	dbfb      	blt.n	5ba <system_gclk_gen_get_hz+0x3e>
+		/* Wait for synchronization */
+	};
+
+	uint32_t divider = GCLK->GENDIV.bit.DIV;
+     5c2:	4b0a      	ldr	r3, [pc, #40]	; (5ec <system_gclk_gen_get_hz+0x70>)
+     5c4:	689c      	ldr	r4, [r3, #8]
+     5c6:	0224      	lsls	r4, r4, #8
+     5c8:	0c24      	lsrs	r4, r4, #16
+	cpu_irq_leave_critical();
+     5ca:	4b0d      	ldr	r3, [pc, #52]	; (600 <system_gclk_gen_get_hz+0x84>)
+     5cc:	4798      	blx	r3
+
+	system_interrupt_leave_critical_section();
+
+	/* Check if the generator is using fractional or binary division */
+	if (!divsel && divider > 1) {
+     5ce:	2e00      	cmp	r6, #0
+     5d0:	d107      	bne.n	5e2 <system_gclk_gen_get_hz+0x66>
+     5d2:	2c01      	cmp	r4, #1
+     5d4:	d907      	bls.n	5e6 <system_gclk_gen_get_hz+0x6a>
+		gen_input_hz /= divider;
+     5d6:	0021      	movs	r1, r4
+     5d8:	0028      	movs	r0, r5
+     5da:	4b0a      	ldr	r3, [pc, #40]	; (604 <system_gclk_gen_get_hz+0x88>)
+     5dc:	4798      	blx	r3
+     5de:	0005      	movs	r5, r0
+     5e0:	e001      	b.n	5e6 <system_gclk_gen_get_hz+0x6a>
+	} else if (divsel) {
+		gen_input_hz >>= (divider+1);
+     5e2:	3401      	adds	r4, #1
+     5e4:	40e5      	lsrs	r5, r4
+	}
+
+	return gen_input_hz;
+}
+     5e6:	0028      	movs	r0, r5
+     5e8:	bd70      	pop	{r4, r5, r6, pc}
+     5ea:	46c0      	nop			; (mov r8, r8)
+     5ec:	40000c00 	.word	0x40000c00
+     5f0:	00000181 	.word	0x00000181
+     5f4:	40000c04 	.word	0x40000c04
+     5f8:	0000024d 	.word	0x0000024d
+     5fc:	40000c08 	.word	0x40000c08
+     600:	000001c1 	.word	0x000001c1
+     604:	000018f5 	.word	0x000018f5
+
+00000608 <system_gclk_chan_disable>:
+ *
+ * \param[in] channel  Generic Clock channel to disable
+ */
+void system_gclk_chan_disable(
+		const uint8_t channel)
+{
+     608:	b510      	push	{r4, lr}
+     60a:	0004      	movs	r4, r0
+	cpu_irq_enter_critical();
+     60c:	4b0f      	ldr	r3, [pc, #60]	; (64c <system_gclk_chan_disable+0x44>)
+     60e:	4798      	blx	r3
+	system_interrupt_enter_critical_section();
+
+	/* Select the requested generator channel */
+	*((uint8_t*)&GCLK->CLKCTRL.reg) = channel;
+     610:	4b0f      	ldr	r3, [pc, #60]	; (650 <system_gclk_chan_disable+0x48>)
+     612:	701c      	strb	r4, [r3, #0]
+
+	/* Sanity check WRTLOCK */
+	Assert(!GCLK->CLKCTRL.bit.WRTLOCK);
+
+	/* Switch to known-working source so that the channel can be disabled */
+	uint32_t prev_gen_id = GCLK->CLKCTRL.bit.GEN;
+     614:	4a0f      	ldr	r2, [pc, #60]	; (654 <system_gclk_chan_disable+0x4c>)
+     616:	8853      	ldrh	r3, [r2, #2]
+     618:	051b      	lsls	r3, r3, #20
+     61a:	0f18      	lsrs	r0, r3, #28
+	GCLK->CLKCTRL.bit.GEN = 0;
+     61c:	8853      	ldrh	r3, [r2, #2]
+     61e:	490e      	ldr	r1, [pc, #56]	; (658 <system_gclk_chan_disable+0x50>)
+     620:	400b      	ands	r3, r1
+     622:	8053      	strh	r3, [r2, #2]
+
+	/* Disable the generic clock */
+	GCLK->CLKCTRL.reg &= ~GCLK_CLKCTRL_CLKEN;
+     624:	8853      	ldrh	r3, [r2, #2]
+     626:	490d      	ldr	r1, [pc, #52]	; (65c <system_gclk_chan_disable+0x54>)
+     628:	400b      	ands	r3, r1
+     62a:	8053      	strh	r3, [r2, #2]
+	while (GCLK->CLKCTRL.reg & GCLK_CLKCTRL_CLKEN) {
+     62c:	0011      	movs	r1, r2
+     62e:	2280      	movs	r2, #128	; 0x80
+     630:	01d2      	lsls	r2, r2, #7
+     632:	884b      	ldrh	r3, [r1, #2]
+     634:	4213      	tst	r3, r2
+     636:	d1fc      	bne.n	632 <system_gclk_chan_disable+0x2a>
+		/* Wait for clock to become disabled */
+	}
+
+	/* Restore previous configured clock generator */
+	GCLK->CLKCTRL.bit.GEN = prev_gen_id;
+     638:	4906      	ldr	r1, [pc, #24]	; (654 <system_gclk_chan_disable+0x4c>)
+     63a:	884a      	ldrh	r2, [r1, #2]
+     63c:	0203      	lsls	r3, r0, #8
+     63e:	4806      	ldr	r0, [pc, #24]	; (658 <system_gclk_chan_disable+0x50>)
+     640:	4002      	ands	r2, r0
+     642:	4313      	orrs	r3, r2
+     644:	804b      	strh	r3, [r1, #2]
+	cpu_irq_leave_critical();
+     646:	4b06      	ldr	r3, [pc, #24]	; (660 <system_gclk_chan_disable+0x58>)
+     648:	4798      	blx	r3
+
+	system_interrupt_leave_critical_section();
+}
+     64a:	bd10      	pop	{r4, pc}
+     64c:	00000181 	.word	0x00000181
+     650:	40000c02 	.word	0x40000c02
+     654:	40000c00 	.word	0x40000c00
+     658:	fffff0ff 	.word	0xfffff0ff
+     65c:	ffffbfff 	.word	0xffffbfff
+     660:	000001c1 	.word	0x000001c1
+
+00000664 <system_gclk_chan_set_config>:
+{
+     664:	b510      	push	{r4, lr}
+	new_clkctrl_config |= config->source_generator << GCLK_CLKCTRL_GEN_Pos;
+     666:	780c      	ldrb	r4, [r1, #0]
+     668:	0224      	lsls	r4, r4, #8
+     66a:	4304      	orrs	r4, r0
+	system_gclk_chan_disable(channel);
+     66c:	4b02      	ldr	r3, [pc, #8]	; (678 <system_gclk_chan_set_config+0x14>)
+     66e:	4798      	blx	r3
+	GCLK->CLKCTRL.reg = new_clkctrl_config;
+     670:	b2a4      	uxth	r4, r4
+     672:	4b02      	ldr	r3, [pc, #8]	; (67c <system_gclk_chan_set_config+0x18>)
+     674:	805c      	strh	r4, [r3, #2]
+}
+     676:	bd10      	pop	{r4, pc}
+     678:	00000609 	.word	0x00000609
+     67c:	40000c00 	.word	0x40000c00
+
+00000680 <system_gclk_chan_get_hz>:
+ *
+ * \return The frequency of the generic clock channel, in Hz.
+ */
+uint32_t system_gclk_chan_get_hz(
+		const uint8_t channel)
+{
+     680:	b510      	push	{r4, lr}
+     682:	0004      	movs	r4, r0
+	cpu_irq_enter_critical();
+     684:	4b06      	ldr	r3, [pc, #24]	; (6a0 <system_gclk_chan_get_hz+0x20>)
+     686:	4798      	blx	r3
+	uint8_t gen_id;
+
+	system_interrupt_enter_critical_section();
+
+	/* Select the requested generic clock channel */
+	*((uint8_t*)&GCLK->CLKCTRL.reg) = channel;
+     688:	4b06      	ldr	r3, [pc, #24]	; (6a4 <system_gclk_chan_get_hz+0x24>)
+     68a:	701c      	strb	r4, [r3, #0]
+	gen_id = GCLK->CLKCTRL.bit.GEN;
+     68c:	4b06      	ldr	r3, [pc, #24]	; (6a8 <system_gclk_chan_get_hz+0x28>)
+     68e:	885c      	ldrh	r4, [r3, #2]
+     690:	0524      	lsls	r4, r4, #20
+     692:	0f24      	lsrs	r4, r4, #28
+	cpu_irq_leave_critical();
+     694:	4b05      	ldr	r3, [pc, #20]	; (6ac <system_gclk_chan_get_hz+0x2c>)
+     696:	4798      	blx	r3
+
+	system_interrupt_leave_critical_section();
+
+	/* Return the clock speed of the associated GCLK generator */
+	return system_gclk_gen_get_hz(gen_id);
+     698:	0020      	movs	r0, r4
+     69a:	4b05      	ldr	r3, [pc, #20]	; (6b0 <system_gclk_chan_get_hz+0x30>)
+     69c:	4798      	blx	r3
+}
+     69e:	bd10      	pop	{r4, pc}
+     6a0:	00000181 	.word	0x00000181
+     6a4:	40000c02 	.word	0x40000c02
+     6a8:	40000c00 	.word	0x40000c00
+     6ac:	000001c1 	.word	0x000001c1
+     6b0:	0000057d 	.word	0x0000057d
+
+000006b4 <_system_pinmux_config>:
+ */
+static void _system_pinmux_config(
+		PortGroup *const port,
+		const uint32_t pin_mask,
+		const struct system_pinmux_config *const config)
+{
+     6b4:	b530      	push	{r4, r5, lr}
+
+	/* Track the configuration bits into a temporary variable before writing */
+	uint32_t pin_cfg = 0;
+
+	/* Enabled powersave mode, don't create configuration */
+	if (!config->powersave) {
+     6b6:	78d3      	ldrb	r3, [r2, #3]
+     6b8:	2b00      	cmp	r3, #0
+     6ba:	d135      	bne.n	728 <_system_pinmux_config+0x74>
+		/* Enable the pin peripheral MUX flag if non-GPIO selected (pinmux will
+		 * be written later) and store the new MUX mask */
+		if (config->mux_position != SYSTEM_PINMUX_GPIO) {
+     6bc:	7813      	ldrb	r3, [r2, #0]
+     6be:	2b80      	cmp	r3, #128	; 0x80
+     6c0:	d029      	beq.n	716 <_system_pinmux_config+0x62>
+			pin_cfg |= PORT_WRCONFIG_PMUXEN;
+			pin_cfg |= (config->mux_position << PORT_WRCONFIG_PMUX_Pos);
+     6c2:	061b      	lsls	r3, r3, #24
+     6c4:	2480      	movs	r4, #128	; 0x80
+     6c6:	0264      	lsls	r4, r4, #9
+     6c8:	4323      	orrs	r3, r4
+		}
+
+		/* Check if the user has requested that the input buffer be enabled */
+		if ((config->direction == SYSTEM_PINMUX_PIN_DIR_INPUT) ||
+     6ca:	7854      	ldrb	r4, [r2, #1]
+     6cc:	2502      	movs	r5, #2
+     6ce:	43ac      	bics	r4, r5
+     6d0:	d106      	bne.n	6e0 <_system_pinmux_config+0x2c>
+				(config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT_WITH_READBACK)) {
+			/* Enable input buffer flag */
+			pin_cfg |= PORT_WRCONFIG_INEN;
+
+			/* Enable pull-up/pull-down control flag if requested */
+			if (config->input_pull != SYSTEM_PINMUX_PIN_PULL_NONE) {
+     6d2:	7894      	ldrb	r4, [r2, #2]
+     6d4:	2c00      	cmp	r4, #0
+     6d6:	d120      	bne.n	71a <_system_pinmux_config+0x66>
+			pin_cfg |= PORT_WRCONFIG_INEN;
+     6d8:	2480      	movs	r4, #128	; 0x80
+     6da:	02a4      	lsls	r4, r4, #10
+     6dc:	4323      	orrs	r3, r4
+				pin_cfg |= PORT_WRCONFIG_PULLEN;
+			}
+
+			/* Clear the port DIR bits to disable the output buffer */
+			port->DIRCLR.reg = pin_mask;
+     6de:	6041      	str	r1, [r0, #4]
+		}
+
+		/* Check if the user has requested that the output buffer be enabled */
+		if ((config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT) ||
+     6e0:	7854      	ldrb	r4, [r2, #1]
+     6e2:	3c01      	subs	r4, #1
+     6e4:	2c01      	cmp	r4, #1
+     6e6:	d91c      	bls.n	722 <_system_pinmux_config+0x6e>
+		port->DIRCLR.reg = pin_mask;
+	}
+
+	/* The Write Configuration register (WRCONFIG) requires the
+	 * pins to to grouped into two 16-bit half-words - split them out here */
+	uint32_t lower_pin_mask = (pin_mask & 0xFFFF);
+     6e8:	040d      	lsls	r5, r1, #16
+     6ea:	0c2d      	lsrs	r5, r5, #16
+
+	/* Configure the lower 16-bits of the port to the desired configuration,
+	 * including the pin peripheral multiplexer just in case it is enabled */
+	port->WRCONFIG.reg
+		= (lower_pin_mask << PORT_WRCONFIG_PINMASK_Pos) |
+			pin_cfg | PORT_WRCONFIG_WRPMUX | PORT_WRCONFIG_WRPINCFG;
+     6ec:	24a0      	movs	r4, #160	; 0xa0
+     6ee:	05e4      	lsls	r4, r4, #23
+     6f0:	432c      	orrs	r4, r5
+     6f2:	431c      	orrs	r4, r3
+		= (lower_pin_mask << PORT_WRCONFIG_PINMASK_Pos) |
+     6f4:	6284      	str	r4, [r0, #40]	; 0x28
+	uint32_t upper_pin_mask = (pin_mask >> 16);
+     6f6:	0c0d      	lsrs	r5, r1, #16
+
+	/* Configure the upper 16-bits of the port to the desired configuration,
+	 * including the pin peripheral multiplexer just in case it is enabled */
+	port->WRCONFIG.reg
+		= (upper_pin_mask << PORT_WRCONFIG_PINMASK_Pos) |
+			pin_cfg | PORT_WRCONFIG_WRPMUX | PORT_WRCONFIG_WRPINCFG |
+     6f8:	24d0      	movs	r4, #208	; 0xd0
+     6fa:	0624      	lsls	r4, r4, #24
+     6fc:	432c      	orrs	r4, r5
+     6fe:	431c      	orrs	r4, r3
+		= (upper_pin_mask << PORT_WRCONFIG_PINMASK_Pos) |
+     700:	6284      	str	r4, [r0, #40]	; 0x28
+			PORT_WRCONFIG_HWSEL;
+
+	if(!config->powersave) {
+     702:	78d4      	ldrb	r4, [r2, #3]
+     704:	2c00      	cmp	r4, #0
+     706:	d122      	bne.n	74e <_system_pinmux_config+0x9a>
+		/* Set the pull-up state once the port pins are configured if one was
+		 * requested and it does not violate the valid set of port
+		 * configurations */
+		if (pin_cfg & PORT_WRCONFIG_PULLEN) {
+     708:	035b      	lsls	r3, r3, #13
+     70a:	d51c      	bpl.n	746 <_system_pinmux_config+0x92>
+			/* Set the OUT register bits to enable the pull-up if requested,
+			 * clear to enable pull-down */
+			if (config->input_pull == SYSTEM_PINMUX_PIN_PULL_UP) {
+     70c:	7893      	ldrb	r3, [r2, #2]
+     70e:	2b01      	cmp	r3, #1
+     710:	d01e      	beq.n	750 <_system_pinmux_config+0x9c>
+				port->OUTSET.reg = pin_mask;
+			} else {
+				port->OUTCLR.reg = pin_mask;
+     712:	6141      	str	r1, [r0, #20]
+     714:	e017      	b.n	746 <_system_pinmux_config+0x92>
+	uint32_t pin_cfg = 0;
+     716:	2300      	movs	r3, #0
+     718:	e7d7      	b.n	6ca <_system_pinmux_config+0x16>
+				pin_cfg |= PORT_WRCONFIG_PULLEN;
+     71a:	24c0      	movs	r4, #192	; 0xc0
+     71c:	02e4      	lsls	r4, r4, #11
+     71e:	4323      	orrs	r3, r4
+     720:	e7dd      	b.n	6de <_system_pinmux_config+0x2a>
+			pin_cfg &= ~PORT_WRCONFIG_PULLEN;
+     722:	4c0d      	ldr	r4, [pc, #52]	; (758 <_system_pinmux_config+0xa4>)
+     724:	4023      	ands	r3, r4
+     726:	e7df      	b.n	6e8 <_system_pinmux_config+0x34>
+		port->DIRCLR.reg = pin_mask;
+     728:	6041      	str	r1, [r0, #4]
+	uint32_t lower_pin_mask = (pin_mask & 0xFFFF);
+     72a:	040c      	lsls	r4, r1, #16
+     72c:	0c24      	lsrs	r4, r4, #16
+			pin_cfg | PORT_WRCONFIG_WRPMUX | PORT_WRCONFIG_WRPINCFG;
+     72e:	23a0      	movs	r3, #160	; 0xa0
+     730:	05db      	lsls	r3, r3, #23
+     732:	4323      	orrs	r3, r4
+		= (lower_pin_mask << PORT_WRCONFIG_PINMASK_Pos) |
+     734:	6283      	str	r3, [r0, #40]	; 0x28
+	uint32_t upper_pin_mask = (pin_mask >> 16);
+     736:	0c0c      	lsrs	r4, r1, #16
+			pin_cfg | PORT_WRCONFIG_WRPMUX | PORT_WRCONFIG_WRPINCFG |
+     738:	23d0      	movs	r3, #208	; 0xd0
+     73a:	061b      	lsls	r3, r3, #24
+     73c:	4323      	orrs	r3, r4
+		= (upper_pin_mask << PORT_WRCONFIG_PINMASK_Pos) |
+     73e:	6283      	str	r3, [r0, #40]	; 0x28
+	if(!config->powersave) {
+     740:	78d3      	ldrb	r3, [r2, #3]
+     742:	2b00      	cmp	r3, #0
+     744:	d103      	bne.n	74e <_system_pinmux_config+0x9a>
+			}
+		}
+
+		/* Check if the user has requested that the output buffer be enabled */
+		if ((config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT) ||
+     746:	7853      	ldrb	r3, [r2, #1]
+     748:	3b01      	subs	r3, #1
+     74a:	2b01      	cmp	r3, #1
+     74c:	d902      	bls.n	754 <_system_pinmux_config+0xa0>
+				(config->direction == SYSTEM_PINMUX_PIN_DIR_OUTPUT_WITH_READBACK)) {
+			/* Set the port DIR bits to enable the output buffer */
+			port->DIRSET.reg = pin_mask;
+		}
+	}
+}
+     74e:	bd30      	pop	{r4, r5, pc}
+				port->OUTSET.reg = pin_mask;
+     750:	6181      	str	r1, [r0, #24]
+     752:	e7f8      	b.n	746 <_system_pinmux_config+0x92>
+			port->DIRSET.reg = pin_mask;
+     754:	6081      	str	r1, [r0, #8]
+}
+     756:	e7fa      	b.n	74e <_system_pinmux_config+0x9a>
+     758:	fffbffff 	.word	0xfffbffff
+
+0000075c <system_pinmux_pin_set_config>:
+ * \param[in] config    Configuration settings for the pin
+ */
+void system_pinmux_pin_set_config(
+		const uint8_t gpio_pin,
+		const struct system_pinmux_config *const config)
+{
+     75c:	b510      	push	{r4, lr}
+     75e:	000a      	movs	r2, r1
+	uint8_t group_index = (gpio_pin / 32);
+
+	/* Array of available ports */
+	Port *const ports[PORT_INST_NUM] = PORT_INSTS;
+
+	if (port_index < PORT_INST_NUM) {
+     760:	09c1      	lsrs	r1, r0, #7
+		return &(ports[port_index]->Group[group_index]);
+	} else {
+		Assert(false);
+		return NULL;
+     762:	2300      	movs	r3, #0
+	if (port_index < PORT_INST_NUM) {
+     764:	2900      	cmp	r1, #0
+     766:	d104      	bne.n	772 <system_pinmux_pin_set_config+0x16>
+		return &(ports[port_index]->Group[group_index]);
+     768:	0943      	lsrs	r3, r0, #5
+     76a:	01db      	lsls	r3, r3, #7
+     76c:	4905      	ldr	r1, [pc, #20]	; (784 <system_pinmux_pin_set_config+0x28>)
+     76e:	468c      	mov	ip, r1
+     770:	4463      	add	r3, ip
+	PortGroup *const port = system_pinmux_get_group_from_gpio_pin(gpio_pin);
+	uint32_t pin_mask = (1UL << (gpio_pin % 32));
+     772:	241f      	movs	r4, #31
+     774:	4020      	ands	r0, r4
+     776:	2101      	movs	r1, #1
+     778:	4081      	lsls	r1, r0
+
+	_system_pinmux_config(port, pin_mask, config);
+     77a:	0018      	movs	r0, r3
+     77c:	4b02      	ldr	r3, [pc, #8]	; (788 <system_pinmux_pin_set_config+0x2c>)
+     77e:	4798      	blx	r3
+}
+     780:	bd10      	pop	{r4, pc}
+     782:	46c0      	nop			; (mov r8, r8)
+     784:	41004400 	.word	0x41004400
+     788:	000006b5 	.word	0x000006b5
+
+0000078c <_system_dummy_init>:
+ */
+void _system_dummy_init(void);
+void _system_dummy_init(void)
+{
+	return;
+}
+     78c:	4770      	bx	lr
+	...
+
+00000790 <system_init>:
+ *  - Board hardware initialization (via the Board module)
+ *  - Event system driver initialization (via the EVSYS module)
+ *  - External Interrupt driver initialization (via the EXTINT module)
+ */
+void system_init(void)
+{
+     790:	b510      	push	{r4, lr}
+	/* Configure GCLK and clock sources according to conf_clocks.h */
+	system_clock_init();
+     792:	4b05      	ldr	r3, [pc, #20]	; (7a8 <system_init+0x18>)
+     794:	4798      	blx	r3
+
+	/* Initialize board hardware */
+	system_board_init();
+     796:	4b05      	ldr	r3, [pc, #20]	; (7ac <system_init+0x1c>)
+     798:	4798      	blx	r3
+
+	/* Initialize EVSYS hardware */
+	_system_events_init();
+     79a:	4b05      	ldr	r3, [pc, #20]	; (7b0 <system_init+0x20>)
+     79c:	4798      	blx	r3
+
+	/* Initialize External hardware */
+	_system_extint_init();
+     79e:	4b05      	ldr	r3, [pc, #20]	; (7b4 <system_init+0x24>)
+     7a0:	4798      	blx	r3
+	
+	/* Initialize DIVAS hardware */
+	_system_divas_init();
+     7a2:	4b05      	ldr	r3, [pc, #20]	; (7b8 <system_init+0x28>)
+     7a4:	4798      	blx	r3
+}
+     7a6:	bd10      	pop	{r4, pc}
+     7a8:	000003c5 	.word	0x000003c5
+     7ac:	000001f1 	.word	0x000001f1
+     7b0:	0000078d 	.word	0x0000078d
+     7b4:	0000078d 	.word	0x0000078d
+     7b8:	0000078d 	.word	0x0000078d
+
+000007bc <Dummy_Handler>:
+
+/**
+ * \brief Default interrupt handler for unused IRQs.
+ */
+void Dummy_Handler(void)
+{
+     7bc:	e7fe      	b.n	7bc <Dummy_Handler>
+	...
+
+000007c0 <Reset_Handler>:
+{
+     7c0:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+        if (pSrc != pDest) {
+     7c2:	4a2a      	ldr	r2, [pc, #168]	; (86c <Reset_Handler+0xac>)
+     7c4:	4b2a      	ldr	r3, [pc, #168]	; (870 <Reset_Handler+0xb0>)
+     7c6:	429a      	cmp	r2, r3
+     7c8:	d011      	beq.n	7ee <Reset_Handler+0x2e>
+                for (; pDest < &_erelocate;) {
+     7ca:	001a      	movs	r2, r3
+     7cc:	4b29      	ldr	r3, [pc, #164]	; (874 <Reset_Handler+0xb4>)
+     7ce:	429a      	cmp	r2, r3
+     7d0:	d20d      	bcs.n	7ee <Reset_Handler+0x2e>
+     7d2:	4a29      	ldr	r2, [pc, #164]	; (878 <Reset_Handler+0xb8>)
+     7d4:	3303      	adds	r3, #3
+     7d6:	1a9b      	subs	r3, r3, r2
+     7d8:	089b      	lsrs	r3, r3, #2
+     7da:	3301      	adds	r3, #1
+     7dc:	009b      	lsls	r3, r3, #2
+     7de:	2200      	movs	r2, #0
+                        *pDest++ = *pSrc++;
+     7e0:	4823      	ldr	r0, [pc, #140]	; (870 <Reset_Handler+0xb0>)
+     7e2:	4922      	ldr	r1, [pc, #136]	; (86c <Reset_Handler+0xac>)
+     7e4:	588c      	ldr	r4, [r1, r2]
+     7e6:	5084      	str	r4, [r0, r2]
+     7e8:	3204      	adds	r2, #4
+                for (; pDest < &_erelocate;) {
+     7ea:	429a      	cmp	r2, r3
+     7ec:	d1fa      	bne.n	7e4 <Reset_Handler+0x24>
+        for (pDest = &_szero; pDest < &_ezero;) {
+     7ee:	4a23      	ldr	r2, [pc, #140]	; (87c <Reset_Handler+0xbc>)
+     7f0:	4b23      	ldr	r3, [pc, #140]	; (880 <Reset_Handler+0xc0>)
+     7f2:	429a      	cmp	r2, r3
+     7f4:	d20a      	bcs.n	80c <Reset_Handler+0x4c>
+     7f6:	43d3      	mvns	r3, r2
+     7f8:	4921      	ldr	r1, [pc, #132]	; (880 <Reset_Handler+0xc0>)
+     7fa:	185b      	adds	r3, r3, r1
+     7fc:	2103      	movs	r1, #3
+     7fe:	438b      	bics	r3, r1
+     800:	3304      	adds	r3, #4
+     802:	189b      	adds	r3, r3, r2
+                *pDest++ = 0;
+     804:	2100      	movs	r1, #0
+     806:	c202      	stmia	r2!, {r1}
+        for (pDest = &_szero; pDest < &_ezero;) {
+     808:	4293      	cmp	r3, r2
+     80a:	d1fc      	bne.n	806 <Reset_Handler+0x46>
+        SCB->VTOR = ((uint32_t) pSrc & SCB_VTOR_TBLOFF_Msk);
+     80c:	4a1d      	ldr	r2, [pc, #116]	; (884 <Reset_Handler+0xc4>)
+     80e:	21ff      	movs	r1, #255	; 0xff
+     810:	4b1d      	ldr	r3, [pc, #116]	; (888 <Reset_Handler+0xc8>)
+     812:	438b      	bics	r3, r1
+     814:	6093      	str	r3, [r2, #8]
+        SBMATRIX->SFR[SBMATRIX_SLAVE_HMCRAMC0].reg = 2;
+     816:	39fd      	subs	r1, #253	; 0xfd
+     818:	2390      	movs	r3, #144	; 0x90
+     81a:	005b      	lsls	r3, r3, #1
+     81c:	4a1b      	ldr	r2, [pc, #108]	; (88c <Reset_Handler+0xcc>)
+     81e:	50d1      	str	r1, [r2, r3]
+        USB->DEVICE.QOSCTRL.bit.CQOS = 2;
+     820:	4a1b      	ldr	r2, [pc, #108]	; (890 <Reset_Handler+0xd0>)
+     822:	78d3      	ldrb	r3, [r2, #3]
+     824:	2503      	movs	r5, #3
+     826:	43ab      	bics	r3, r5
+     828:	2402      	movs	r4, #2
+     82a:	4323      	orrs	r3, r4
+     82c:	70d3      	strb	r3, [r2, #3]
+        USB->DEVICE.QOSCTRL.bit.DQOS = 2;
+     82e:	78d3      	ldrb	r3, [r2, #3]
+     830:	270c      	movs	r7, #12
+     832:	43bb      	bics	r3, r7
+     834:	2608      	movs	r6, #8
+     836:	4333      	orrs	r3, r6
+     838:	70d3      	strb	r3, [r2, #3]
+        DMAC->QOSCTRL.bit.DQOS = 2;
+     83a:	4b16      	ldr	r3, [pc, #88]	; (894 <Reset_Handler+0xd4>)
+     83c:	7b98      	ldrb	r0, [r3, #14]
+     83e:	2230      	movs	r2, #48	; 0x30
+     840:	4390      	bics	r0, r2
+     842:	2220      	movs	r2, #32
+     844:	4310      	orrs	r0, r2
+     846:	7398      	strb	r0, [r3, #14]
+        DMAC->QOSCTRL.bit.FQOS = 2;
+     848:	7b99      	ldrb	r1, [r3, #14]
+     84a:	43b9      	bics	r1, r7
+     84c:	4331      	orrs	r1, r6
+     84e:	7399      	strb	r1, [r3, #14]
+        DMAC->QOSCTRL.bit.WRBQOS = 2;
+     850:	7b9a      	ldrb	r2, [r3, #14]
+     852:	43aa      	bics	r2, r5
+     854:	4322      	orrs	r2, r4
+     856:	739a      	strb	r2, [r3, #14]
+        NVMCTRL->CTRLB.bit.MANW = 1;
+     858:	4a0f      	ldr	r2, [pc, #60]	; (898 <Reset_Handler+0xd8>)
+     85a:	6853      	ldr	r3, [r2, #4]
+     85c:	2180      	movs	r1, #128	; 0x80
+     85e:	430b      	orrs	r3, r1
+     860:	6053      	str	r3, [r2, #4]
+        __libc_init_array();
+     862:	4b0e      	ldr	r3, [pc, #56]	; (89c <Reset_Handler+0xdc>)
+     864:	4798      	blx	r3
+        main();
+     866:	4b0e      	ldr	r3, [pc, #56]	; (8a0 <Reset_Handler+0xe0>)
+     868:	4798      	blx	r3
+     86a:	e7fe      	b.n	86a <Reset_Handler+0xaa>
+     86c:	00001abc 	.word	0x00001abc
+     870:	20000000 	.word	0x20000000
+     874:	2000000c 	.word	0x2000000c
+     878:	20000004 	.word	0x20000004
+     87c:	2000000c 	.word	0x2000000c
+     880:	20000048 	.word	0x20000048
+     884:	e000ed00 	.word	0xe000ed00
+     888:	00000000 	.word	0x00000000
+     88c:	41007000 	.word	0x41007000
+     890:	41005000 	.word	0x41005000
+     894:	41004800 	.word	0x41004800
+     898:	41004000 	.word	0x41004000
+     89c:	00001a0d 	.word	0x00001a0d
+     8a0:	00001871 	.word	0x00001871
+
+000008a4 <LCD_Write_Bus>:
+	}
+}
+
+void LCD_Write_Bus(char VH, char VL)
+{
+	REG_PORT_OUTCLR1 = 0x0000ffff;
+     8a4:	4804      	ldr	r0, [pc, #16]	; (8b8 <LCD_Write_Bus+0x14>)
+     8a6:	4b05      	ldr	r3, [pc, #20]	; (8bc <LCD_Write_Bus+0x18>)
+     8a8:	6003      	str	r3, [r0, #0]
+	REG_PORT_OUTSET1 = (VH >> 8) | VL;
+     8aa:	4b05      	ldr	r3, [pc, #20]	; (8c0 <LCD_Write_Bus+0x1c>)
+     8ac:	6019      	str	r1, [r3, #0]
+	REG_PORT_OUTCLR1 = LCD_WR;
+     8ae:	2280      	movs	r2, #128	; 0x80
+     8b0:	0292      	lsls	r2, r2, #10
+     8b2:	6002      	str	r2, [r0, #0]
+	REG_PORT_OUTSET1 = LCD_WR;
+     8b4:	601a      	str	r2, [r3, #0]
+}
+     8b6:	4770      	bx	lr
+     8b8:	41004494 	.word	0x41004494
+     8bc:	0000ffff 	.word	0x0000ffff
+     8c0:	41004498 	.word	0x41004498
+
+000008c4 <LCD_Write_COM16>:
+
+void LCD_Write_COM16(char VH, char VL)
+{
+     8c4:	b510      	push	{r4, lr}
+	REG_PORT_OUTCLR1 = LCD_DC;
+     8c6:	2280      	movs	r2, #128	; 0x80
+     8c8:	0412      	lsls	r2, r2, #16
+     8ca:	4b02      	ldr	r3, [pc, #8]	; (8d4 <LCD_Write_COM16+0x10>)
+     8cc:	601a      	str	r2, [r3, #0]
+	LCD_Write_Bus(VH,VL);
+     8ce:	4b02      	ldr	r3, [pc, #8]	; (8d8 <LCD_Write_COM16+0x14>)
+     8d0:	4798      	blx	r3
+}
+     8d2:	bd10      	pop	{r4, pc}
+     8d4:	41004494 	.word	0x41004494
+     8d8:	000008a5 	.word	0x000008a5
+
+000008dc <LCD_Write_DATA8>:
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_Bus(VH,VL);
+}
+
+void LCD_Write_DATA8(char VL)
+{
+     8dc:	b510      	push	{r4, lr}
+     8de:	0001      	movs	r1, r0
+	REG_PORT_OUTSET1 = LCD_DC;
+     8e0:	2280      	movs	r2, #128	; 0x80
+     8e2:	0412      	lsls	r2, r2, #16
+     8e4:	4b02      	ldr	r3, [pc, #8]	; (8f0 <LCD_Write_DATA8+0x14>)
+     8e6:	601a      	str	r2, [r3, #0]
+	LCD_Write_Bus(0x00, VL);
+     8e8:	2000      	movs	r0, #0
+     8ea:	4b02      	ldr	r3, [pc, #8]	; (8f4 <LCD_Write_DATA8+0x18>)
+     8ec:	4798      	blx	r3
+}
+     8ee:	bd10      	pop	{r4, pc}
+     8f0:	41004498 	.word	0x41004498
+     8f4:	000008a5 	.word	0x000008a5
+
+000008f8 <InitLCD>:
+
+void InitLCD(void)
+{
+     8f8:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+			(120+100+15+15+5). This does not include writing all black
+			to the display.
+	6) pull Chip Select high.
+	*/
+	
+	REG_PORT_DIRSET1 = 0x00010000;
+     8fa:	2380      	movs	r3, #128	; 0x80
+     8fc:	025b      	lsls	r3, r3, #9
+     8fe:	4afe      	ldr	r2, [pc, #1016]	; (cf8 <InitLCD+0x400>)
+     900:	6013      	str	r3, [r2, #0]
+	REG_PORT_OUTSET1 = PORT_PB16;
+     902:	4cfe      	ldr	r4, [pc, #1016]	; (cfc <InitLCD+0x404>)
+     904:	6023      	str	r3, [r4, #0]
+	
+	REG_PORT_OUTSET1 = LCD_Reset;
+     906:	2580      	movs	r5, #128	; 0x80
+     908:	05ed      	lsls	r5, r5, #23
+     90a:	6025      	str	r5, [r4, #0]
+	delay_ms(5);
+     90c:	2005      	movs	r0, #5
+     90e:	4ffc      	ldr	r7, [pc, #1008]	; (d00 <InitLCD+0x408>)
+     910:	47b8      	blx	r7
+	REG_PORT_OUTCLR1 = LCD_Reset;
+     912:	4efc      	ldr	r6, [pc, #1008]	; (d04 <InitLCD+0x40c>)
+     914:	6035      	str	r5, [r6, #0]
+	delay_ms(15);
+     916:	200f      	movs	r0, #15
+     918:	47b8      	blx	r7
+	REG_PORT_OUTSET1 = LCD_Reset;
+     91a:	6025      	str	r5, [r4, #0]
+	REG_PORT_OUTCLR1 = LCD_CS;		//LCD CS pin can be permanently grounded per data sheet version 0.00 page 85.
+     91c:	2380      	movs	r3, #128	; 0x80
+     91e:	03db      	lsls	r3, r3, #15
+     920:	6033      	str	r3, [r6, #0]
+									//However, we're going to do whatever I stole from the Chinese in this instance
+									//because this is a fucking load of bullshit
+									
+	LCD_Write_COM16(0xF0,0x00);	LCD_Write_DATA8(0x55);
+     922:	2100      	movs	r1, #0
+     924:	20f0      	movs	r0, #240	; 0xf0
+     926:	4cf8      	ldr	r4, [pc, #992]	; (d08 <InitLCD+0x410>)
+     928:	47a0      	blx	r4
+     92a:	2055      	movs	r0, #85	; 0x55
+     92c:	4df7      	ldr	r5, [pc, #988]	; (d0c <InitLCD+0x414>)
+     92e:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0,0x01);	LCD_Write_DATA8(0xAA);
+     930:	2101      	movs	r1, #1
+     932:	20f0      	movs	r0, #240	; 0xf0
+     934:	47a0      	blx	r4
+     936:	20aa      	movs	r0, #170	; 0xaa
+     938:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0,0x02);	LCD_Write_DATA8(0x52);
+     93a:	2102      	movs	r1, #2
+     93c:	20f0      	movs	r0, #240	; 0xf0
+     93e:	47a0      	blx	r4
+     940:	2052      	movs	r0, #82	; 0x52
+     942:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0,0x03);	LCD_Write_DATA8(0x08);
+     944:	2103      	movs	r1, #3
+     946:	20f0      	movs	r0, #240	; 0xf0
+     948:	47a0      	blx	r4
+     94a:	2008      	movs	r0, #8
+     94c:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0,0x04);	LCD_Write_DATA8(0x01);
+     94e:	2104      	movs	r1, #4
+     950:	20f0      	movs	r0, #240	; 0xf0
+     952:	47a0      	blx	r4
+     954:	2001      	movs	r0, #1
+     956:	47a8      	blx	r5
+	
+	//#AVDD Set AVDD 5.2V
+	LCD_Write_COM16(0xB0,0x00);	LCD_Write_DATA8(0x0D);
+     958:	2100      	movs	r1, #0
+     95a:	20b0      	movs	r0, #176	; 0xb0
+     95c:	47a0      	blx	r4
+     95e:	200d      	movs	r0, #13
+     960:	47a8      	blx	r5
+	LCD_Write_COM16(0xB0,0x01);	LCD_Write_DATA8(0x0D);
+     962:	2101      	movs	r1, #1
+     964:	20b0      	movs	r0, #176	; 0xb0
+     966:	47a0      	blx	r4
+     968:	200d      	movs	r0, #13
+     96a:	47a8      	blx	r5
+	LCD_Write_COM16(0xB0,0x02);	LCD_Write_DATA8(0x0D);
+     96c:	2102      	movs	r1, #2
+     96e:	20b0      	movs	r0, #176	; 0xb0
+     970:	47a0      	blx	r4
+     972:	200d      	movs	r0, #13
+     974:	47a8      	blx	r5
+	
+	//#AVDD ratio
+	LCD_Write_COM16(0xB6,0x00);	LCD_Write_DATA8(0x34);
+     976:	2100      	movs	r1, #0
+     978:	20b6      	movs	r0, #182	; 0xb6
+     97a:	47a0      	blx	r4
+     97c:	2034      	movs	r0, #52	; 0x34
+     97e:	47a8      	blx	r5
+	LCD_Write_COM16(0xB6,0x01);	LCD_Write_DATA8(0x34);
+     980:	2101      	movs	r1, #1
+     982:	20b6      	movs	r0, #182	; 0xb6
+     984:	47a0      	blx	r4
+     986:	2034      	movs	r0, #52	; 0x34
+     988:	47a8      	blx	r5
+	LCD_Write_COM16(0xB6,0x02);	LCD_Write_DATA8(0x34);
+     98a:	2102      	movs	r1, #2
+     98c:	20b6      	movs	r0, #182	; 0xb6
+     98e:	47a0      	blx	r4
+     990:	2034      	movs	r0, #52	; 0x34
+     992:	47a8      	blx	r5
+	 
+	//#AVEE  -5.2V
+	LCD_Write_COM16(0xB1,0x00);	LCD_Write_DATA8(0x0D);
+     994:	2100      	movs	r1, #0
+     996:	20b1      	movs	r0, #177	; 0xb1
+     998:	47a0      	blx	r4
+     99a:	200d      	movs	r0, #13
+     99c:	47a8      	blx	r5
+	LCD_Write_COM16(0xB1,0x01);	LCD_Write_DATA8(0x0D);
+     99e:	2101      	movs	r1, #1
+     9a0:	20b1      	movs	r0, #177	; 0xb1
+     9a2:	47a0      	blx	r4
+     9a4:	200d      	movs	r0, #13
+     9a6:	47a8      	blx	r5
+	LCD_Write_COM16(0xB1,0x02);	LCD_Write_DATA8(0x0D);
+     9a8:	2102      	movs	r1, #2
+     9aa:	20b1      	movs	r0, #177	; 0xb1
+     9ac:	47a0      	blx	r4
+     9ae:	200d      	movs	r0, #13
+     9b0:	47a8      	blx	r5
+	
+	//#AVEE ratio
+	LCD_Write_COM16(0xB7,0x00);	LCD_Write_DATA8(0x34);
+     9b2:	2100      	movs	r1, #0
+     9b4:	20b7      	movs	r0, #183	; 0xb7
+     9b6:	47a0      	blx	r4
+     9b8:	2034      	movs	r0, #52	; 0x34
+     9ba:	47a8      	blx	r5
+	LCD_Write_COM16(0xB7,0x01);	LCD_Write_DATA8(0x34);
+     9bc:	2101      	movs	r1, #1
+     9be:	20b7      	movs	r0, #183	; 0xb7
+     9c0:	47a0      	blx	r4
+     9c2:	2034      	movs	r0, #52	; 0x34
+     9c4:	47a8      	blx	r5
+	LCD_Write_COM16(0xB7,0x02);	LCD_Write_DATA8(0x34);
+     9c6:	2102      	movs	r1, #2
+     9c8:	20b7      	movs	r0, #183	; 0xb7
+     9ca:	47a0      	blx	r4
+     9cc:	2034      	movs	r0, #52	; 0x34
+     9ce:	47a8      	blx	r5
+	
+	//#VCL  -2.5V
+	LCD_Write_COM16(0xB2,0x00);	LCD_Write_DATA8(0x00);
+     9d0:	2100      	movs	r1, #0
+     9d2:	20b2      	movs	r0, #178	; 0xb2
+     9d4:	47a0      	blx	r4
+     9d6:	2000      	movs	r0, #0
+     9d8:	47a8      	blx	r5
+	LCD_Write_COM16(0xB2,0x01);	LCD_Write_DATA8(0x00);
+     9da:	2101      	movs	r1, #1
+     9dc:	20b2      	movs	r0, #178	; 0xb2
+     9de:	47a0      	blx	r4
+     9e0:	2000      	movs	r0, #0
+     9e2:	47a8      	blx	r5
+	LCD_Write_COM16(0xB2,0x02);	LCD_Write_DATA8(0x00);
+     9e4:	2102      	movs	r1, #2
+     9e6:	20b2      	movs	r0, #178	; 0xb2
+     9e8:	47a0      	blx	r4
+     9ea:	2000      	movs	r0, #0
+     9ec:	47a8      	blx	r5
+	
+	//#VCL ratio
+	LCD_Write_COM16(0xB8,0x00);	LCD_Write_DATA8(0x24);
+     9ee:	2100      	movs	r1, #0
+     9f0:	20b8      	movs	r0, #184	; 0xb8
+     9f2:	47a0      	blx	r4
+     9f4:	2024      	movs	r0, #36	; 0x24
+     9f6:	47a8      	blx	r5
+	LCD_Write_COM16(0xB8,0x01);	LCD_Write_DATA8(0x24);
+     9f8:	2101      	movs	r1, #1
+     9fa:	20b8      	movs	r0, #184	; 0xb8
+     9fc:	47a0      	blx	r4
+     9fe:	2024      	movs	r0, #36	; 0x24
+     a00:	47a8      	blx	r5
+	LCD_Write_COM16(0xB8,0x02);	LCD_Write_DATA8(0x24); 
+     a02:	2102      	movs	r1, #2
+     a04:	20b8      	movs	r0, #184	; 0xb8
+     a06:	47a0      	blx	r4
+     a08:	2024      	movs	r0, #36	; 0x24
+     a0a:	47a8      	blx	r5
+	
+	//#VGH  15V
+	LCD_Write_COM16(0xBF,0x00);	LCD_Write_DATA8(0x01);
+     a0c:	2100      	movs	r1, #0
+     a0e:	20bf      	movs	r0, #191	; 0xbf
+     a10:	47a0      	blx	r4
+     a12:	2001      	movs	r0, #1
+     a14:	47a8      	blx	r5
+	LCD_Write_COM16(0xB3,0x00);	LCD_Write_DATA8(0x0F);
+     a16:	2100      	movs	r1, #0
+     a18:	20b3      	movs	r0, #179	; 0xb3
+     a1a:	47a0      	blx	r4
+     a1c:	200f      	movs	r0, #15
+     a1e:	47a8      	blx	r5
+	LCD_Write_COM16(0xB3,0x01);	LCD_Write_DATA8(0x0F);
+     a20:	2101      	movs	r1, #1
+     a22:	20b3      	movs	r0, #179	; 0xb3
+     a24:	47a0      	blx	r4
+     a26:	200f      	movs	r0, #15
+     a28:	47a8      	blx	r5
+	LCD_Write_COM16(0xB3,0x02);	LCD_Write_DATA8(0x0F);
+     a2a:	2102      	movs	r1, #2
+     a2c:	20b3      	movs	r0, #179	; 0xb3
+     a2e:	47a0      	blx	r4
+     a30:	200f      	movs	r0, #15
+     a32:	47a8      	blx	r5
+	
+	//#VGH  ratio
+	LCD_Write_COM16(0xB9,0x00);	LCD_Write_DATA8(0x34);
+     a34:	2100      	movs	r1, #0
+     a36:	20b9      	movs	r0, #185	; 0xb9
+     a38:	47a0      	blx	r4
+     a3a:	2034      	movs	r0, #52	; 0x34
+     a3c:	47a8      	blx	r5
+	LCD_Write_COM16(0xB9,0x01);	LCD_Write_DATA8(0x34);
+     a3e:	2101      	movs	r1, #1
+     a40:	20b9      	movs	r0, #185	; 0xb9
+     a42:	47a0      	blx	r4
+     a44:	2034      	movs	r0, #52	; 0x34
+     a46:	47a8      	blx	r5
+	LCD_Write_COM16(0xB9,0x02);	LCD_Write_DATA8(0x34); 
+     a48:	2102      	movs	r1, #2
+     a4a:	20b9      	movs	r0, #185	; 0xb9
+     a4c:	47a0      	blx	r4
+     a4e:	2034      	movs	r0, #52	; 0x34
+     a50:	47a8      	blx	r5
+	
+	//#VGL_REG  -10V
+	LCD_Write_COM16(0xB5,0x00);	LCD_Write_DATA8(0x08);
+     a52:	2100      	movs	r1, #0
+     a54:	20b5      	movs	r0, #181	; 0xb5
+     a56:	47a0      	blx	r4
+     a58:	2008      	movs	r0, #8
+     a5a:	47a8      	blx	r5
+	LCD_Write_COM16(0xB5,0x00);	LCD_Write_DATA8(0x08);
+     a5c:	2100      	movs	r1, #0
+     a5e:	20b5      	movs	r0, #181	; 0xb5
+     a60:	47a0      	blx	r4
+     a62:	2008      	movs	r0, #8
+     a64:	47a8      	blx	r5
+	LCD_Write_COM16(0xB5,0x01);	LCD_Write_DATA8(0x08);
+     a66:	2101      	movs	r1, #1
+     a68:	20b5      	movs	r0, #181	; 0xb5
+     a6a:	47a0      	blx	r4
+     a6c:	2008      	movs	r0, #8
+     a6e:	47a8      	blx	r5
+	LCD_Write_COM16(0xC2,0x00);	LCD_Write_DATA8(0x03);
+     a70:	2100      	movs	r1, #0
+     a72:	20c2      	movs	r0, #194	; 0xc2
+     a74:	47a0      	blx	r4
+     a76:	2003      	movs	r0, #3
+     a78:	47a8      	blx	r5
+	
+	//#VGLX  ratio
+	LCD_Write_COM16(0xBA,0x00);	LCD_Write_DATA8(0x24);
+     a7a:	2100      	movs	r1, #0
+     a7c:	20ba      	movs	r0, #186	; 0xba
+     a7e:	47a0      	blx	r4
+     a80:	2024      	movs	r0, #36	; 0x24
+     a82:	47a8      	blx	r5
+	LCD_Write_COM16(0xBA,0x01);	LCD_Write_DATA8(0x24);
+     a84:	2101      	movs	r1, #1
+     a86:	20ba      	movs	r0, #186	; 0xba
+     a88:	47a0      	blx	r4
+     a8a:	2024      	movs	r0, #36	; 0x24
+     a8c:	47a8      	blx	r5
+	LCD_Write_COM16(0xBA,0x02);	LCD_Write_DATA8(0x24);
+     a8e:	2102      	movs	r1, #2
+     a90:	20ba      	movs	r0, #186	; 0xba
+     a92:	47a0      	blx	r4
+     a94:	2024      	movs	r0, #36	; 0x24
+     a96:	47a8      	blx	r5
+	
+	//#VGMP/VGSP 4.5V/0V
+	LCD_Write_COM16(0xBC,0x00);	LCD_Write_DATA8(0x00);
+     a98:	2100      	movs	r1, #0
+     a9a:	20bc      	movs	r0, #188	; 0xbc
+     a9c:	47a0      	blx	r4
+     a9e:	2000      	movs	r0, #0
+     aa0:	47a8      	blx	r5
+	LCD_Write_COM16(0xBC,0x01);	LCD_Write_DATA8(0x78);
+     aa2:	2101      	movs	r1, #1
+     aa4:	20bc      	movs	r0, #188	; 0xbc
+     aa6:	47a0      	blx	r4
+     aa8:	2078      	movs	r0, #120	; 0x78
+     aaa:	47a8      	blx	r5
+	LCD_Write_COM16(0xBC,0x02);	LCD_Write_DATA8(0x00);
+     aac:	2102      	movs	r1, #2
+     aae:	20bc      	movs	r0, #188	; 0xbc
+     ab0:	47a0      	blx	r4
+     ab2:	2000      	movs	r0, #0
+     ab4:	47a8      	blx	r5
+	
+	//#VGMN/VGSN -4.5V/0V
+	LCD_Write_COM16(0xBD,0x00);	LCD_Write_DATA8(0x00);
+     ab6:	2100      	movs	r1, #0
+     ab8:	20bd      	movs	r0, #189	; 0xbd
+     aba:	47a0      	blx	r4
+     abc:	2000      	movs	r0, #0
+     abe:	47a8      	blx	r5
+	LCD_Write_COM16(0xBD,0x01);	LCD_Write_DATA8(0x78);
+     ac0:	2101      	movs	r1, #1
+     ac2:	20bd      	movs	r0, #189	; 0xbd
+     ac4:	47a0      	blx	r4
+     ac6:	2078      	movs	r0, #120	; 0x78
+     ac8:	47a8      	blx	r5
+	LCD_Write_COM16(0xBD,0x02);	LCD_Write_DATA8(0x00);
+     aca:	2102      	movs	r1, #2
+     acc:	20bd      	movs	r0, #189	; 0xbd
+     ace:	47a0      	blx	r4
+     ad0:	2000      	movs	r0, #0
+     ad2:	47a8      	blx	r5
+	
+	//#VCOM  -1.325V
+	LCD_Write_COM16(0xBE,0x00);	LCD_Write_DATA8(0x00);
+     ad4:	2100      	movs	r1, #0
+     ad6:	20be      	movs	r0, #190	; 0xbe
+     ad8:	47a0      	blx	r4
+     ada:	2000      	movs	r0, #0
+     adc:	47a8      	blx	r5
+	LCD_Write_COM16(0xBE,0x01);	LCD_Write_DATA8(0x89);
+     ade:	2101      	movs	r1, #1
+     ae0:	20be      	movs	r0, #190	; 0xbe
+     ae2:	47a0      	blx	r4
+     ae4:	2089      	movs	r0, #137	; 0x89
+     ae6:	47a8      	blx	r5
+	
+	 //Gamma Setting	 
+	LCD_Write_COM16(0xD1,0x00);	LCD_Write_DATA8(0x00);
+     ae8:	2100      	movs	r1, #0
+     aea:	20d1      	movs	r0, #209	; 0xd1
+     aec:	47a0      	blx	r4
+     aee:	2000      	movs	r0, #0
+     af0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x01);	LCD_Write_DATA8(0x2D);
+     af2:	2101      	movs	r1, #1
+     af4:	20d1      	movs	r0, #209	; 0xd1
+     af6:	47a0      	blx	r4
+     af8:	202d      	movs	r0, #45	; 0x2d
+     afa:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x02);	LCD_Write_DATA8(0x00);
+     afc:	2102      	movs	r1, #2
+     afe:	20d1      	movs	r0, #209	; 0xd1
+     b00:	47a0      	blx	r4
+     b02:	2000      	movs	r0, #0
+     b04:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x03);	LCD_Write_DATA8(0x2E);
+     b06:	2103      	movs	r1, #3
+     b08:	20d1      	movs	r0, #209	; 0xd1
+     b0a:	47a0      	blx	r4
+     b0c:	202e      	movs	r0, #46	; 0x2e
+     b0e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x04);	LCD_Write_DATA8(0x00); 
+     b10:	2104      	movs	r1, #4
+     b12:	20d1      	movs	r0, #209	; 0xd1
+     b14:	47a0      	blx	r4
+     b16:	2000      	movs	r0, #0
+     b18:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x05);	LCD_Write_DATA8(0x32);
+     b1a:	2105      	movs	r1, #5
+     b1c:	20d1      	movs	r0, #209	; 0xd1
+     b1e:	47a0      	blx	r4
+     b20:	2032      	movs	r0, #50	; 0x32
+     b22:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x06);	LCD_Write_DATA8(0x00);
+     b24:	2106      	movs	r1, #6
+     b26:	20d1      	movs	r0, #209	; 0xd1
+     b28:	47a0      	blx	r4
+     b2a:	2000      	movs	r0, #0
+     b2c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x07);	LCD_Write_DATA8(0x44);
+     b2e:	2107      	movs	r1, #7
+     b30:	20d1      	movs	r0, #209	; 0xd1
+     b32:	47a0      	blx	r4
+     b34:	2044      	movs	r0, #68	; 0x44
+     b36:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x08);	LCD_Write_DATA8(0x00);
+     b38:	2108      	movs	r1, #8
+     b3a:	20d1      	movs	r0, #209	; 0xd1
+     b3c:	47a0      	blx	r4
+     b3e:	2000      	movs	r0, #0
+     b40:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x09);	LCD_Write_DATA8(0x53);
+     b42:	2109      	movs	r1, #9
+     b44:	20d1      	movs	r0, #209	; 0xd1
+     b46:	47a0      	blx	r4
+     b48:	2053      	movs	r0, #83	; 0x53
+     b4a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x0A);	LCD_Write_DATA8(0x00);
+     b4c:	210a      	movs	r1, #10
+     b4e:	20d1      	movs	r0, #209	; 0xd1
+     b50:	47a0      	blx	r4
+     b52:	2000      	movs	r0, #0
+     b54:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x0B);	LCD_Write_DATA8(0x88);
+     b56:	210b      	movs	r1, #11
+     b58:	20d1      	movs	r0, #209	; 0xd1
+     b5a:	47a0      	blx	r4
+     b5c:	2088      	movs	r0, #136	; 0x88
+     b5e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x0C);	LCD_Write_DATA8(0x00);
+     b60:	210c      	movs	r1, #12
+     b62:	20d1      	movs	r0, #209	; 0xd1
+     b64:	47a0      	blx	r4
+     b66:	2000      	movs	r0, #0
+     b68:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x0D);	LCD_Write_DATA8(0xB6);
+     b6a:	210d      	movs	r1, #13
+     b6c:	20d1      	movs	r0, #209	; 0xd1
+     b6e:	47a0      	blx	r4
+     b70:	20b6      	movs	r0, #182	; 0xb6
+     b72:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x0E);	LCD_Write_DATA8(0x00);
+     b74:	210e      	movs	r1, #14
+     b76:	20d1      	movs	r0, #209	; 0xd1
+     b78:	47a0      	blx	r4
+     b7a:	2000      	movs	r0, #0
+     b7c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x0F);	LCD_Write_DATA8(0xF3);
+     b7e:	210f      	movs	r1, #15
+     b80:	20d1      	movs	r0, #209	; 0xd1
+     b82:	47a0      	blx	r4
+     b84:	20f3      	movs	r0, #243	; 0xf3
+     b86:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x10);	LCD_Write_DATA8(0x01);
+     b88:	2110      	movs	r1, #16
+     b8a:	20d1      	movs	r0, #209	; 0xd1
+     b8c:	47a0      	blx	r4
+     b8e:	2001      	movs	r0, #1
+     b90:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x11);	LCD_Write_DATA8(0x22);
+     b92:	2111      	movs	r1, #17
+     b94:	20d1      	movs	r0, #209	; 0xd1
+     b96:	47a0      	blx	r4
+     b98:	2022      	movs	r0, #34	; 0x22
+     b9a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x12);	LCD_Write_DATA8(0x01);
+     b9c:	2112      	movs	r1, #18
+     b9e:	20d1      	movs	r0, #209	; 0xd1
+     ba0:	47a0      	blx	r4
+     ba2:	2001      	movs	r0, #1
+     ba4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x13);	LCD_Write_DATA8(0x64);
+     ba6:	2113      	movs	r1, #19
+     ba8:	20d1      	movs	r0, #209	; 0xd1
+     baa:	47a0      	blx	r4
+     bac:	2064      	movs	r0, #100	; 0x64
+     bae:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x14);	LCD_Write_DATA8(0x01);
+     bb0:	2114      	movs	r1, #20
+     bb2:	20d1      	movs	r0, #209	; 0xd1
+     bb4:	47a0      	blx	r4
+     bb6:	2001      	movs	r0, #1
+     bb8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x15);	LCD_Write_DATA8(0x92);
+     bba:	2115      	movs	r1, #21
+     bbc:	20d1      	movs	r0, #209	; 0xd1
+     bbe:	47a0      	blx	r4
+     bc0:	2092      	movs	r0, #146	; 0x92
+     bc2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x16);	LCD_Write_DATA8(0x01);
+     bc4:	2116      	movs	r1, #22
+     bc6:	20d1      	movs	r0, #209	; 0xd1
+     bc8:	47a0      	blx	r4
+     bca:	2001      	movs	r0, #1
+     bcc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x17);	LCD_Write_DATA8(0xD4);
+     bce:	2117      	movs	r1, #23
+     bd0:	20d1      	movs	r0, #209	; 0xd1
+     bd2:	47a0      	blx	r4
+     bd4:	20d4      	movs	r0, #212	; 0xd4
+     bd6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x18);	LCD_Write_DATA8(0x02);	
+     bd8:	2118      	movs	r1, #24
+     bda:	20d1      	movs	r0, #209	; 0xd1
+     bdc:	47a0      	blx	r4
+     bde:	2002      	movs	r0, #2
+     be0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x19);	LCD_Write_DATA8(0x07);
+     be2:	2119      	movs	r1, #25
+     be4:	20d1      	movs	r0, #209	; 0xd1
+     be6:	47a0      	blx	r4
+     be8:	2007      	movs	r0, #7
+     bea:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x1A);	LCD_Write_DATA8(0x02);
+     bec:	211a      	movs	r1, #26
+     bee:	20d1      	movs	r0, #209	; 0xd1
+     bf0:	47a0      	blx	r4
+     bf2:	2002      	movs	r0, #2
+     bf4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x1B);	LCD_Write_DATA8(0x08);
+     bf6:	211b      	movs	r1, #27
+     bf8:	20d1      	movs	r0, #209	; 0xd1
+     bfa:	47a0      	blx	r4
+     bfc:	2008      	movs	r0, #8
+     bfe:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x1C);	LCD_Write_DATA8(0x02);
+     c00:	211c      	movs	r1, #28
+     c02:	20d1      	movs	r0, #209	; 0xd1
+     c04:	47a0      	blx	r4
+     c06:	2002      	movs	r0, #2
+     c08:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x1D);	LCD_Write_DATA8(0x34);
+     c0a:	211d      	movs	r1, #29
+     c0c:	20d1      	movs	r0, #209	; 0xd1
+     c0e:	47a0      	blx	r4
+     c10:	2034      	movs	r0, #52	; 0x34
+     c12:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x1E);	LCD_Write_DATA8(0x02);
+     c14:	211e      	movs	r1, #30
+     c16:	20d1      	movs	r0, #209	; 0xd1
+     c18:	47a0      	blx	r4
+     c1a:	2002      	movs	r0, #2
+     c1c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x1F);	LCD_Write_DATA8(0x5F);
+     c1e:	211f      	movs	r1, #31
+     c20:	20d1      	movs	r0, #209	; 0xd1
+     c22:	47a0      	blx	r4
+     c24:	205f      	movs	r0, #95	; 0x5f
+     c26:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x20);	LCD_Write_DATA8(0x02);
+     c28:	2120      	movs	r1, #32
+     c2a:	20d1      	movs	r0, #209	; 0xd1
+     c2c:	47a0      	blx	r4
+     c2e:	2002      	movs	r0, #2
+     c30:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x21);	LCD_Write_DATA8(0x78);
+     c32:	2121      	movs	r1, #33	; 0x21
+     c34:	20d1      	movs	r0, #209	; 0xd1
+     c36:	47a0      	blx	r4
+     c38:	2078      	movs	r0, #120	; 0x78
+     c3a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x22);	LCD_Write_DATA8(0x02);
+     c3c:	2122      	movs	r1, #34	; 0x22
+     c3e:	20d1      	movs	r0, #209	; 0xd1
+     c40:	47a0      	blx	r4
+     c42:	2002      	movs	r0, #2
+     c44:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x23);	LCD_Write_DATA8(0x94);
+     c46:	2123      	movs	r1, #35	; 0x23
+     c48:	20d1      	movs	r0, #209	; 0xd1
+     c4a:	47a0      	blx	r4
+     c4c:	2094      	movs	r0, #148	; 0x94
+     c4e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x24);	LCD_Write_DATA8(0x02);
+     c50:	2124      	movs	r1, #36	; 0x24
+     c52:	20d1      	movs	r0, #209	; 0xd1
+     c54:	47a0      	blx	r4
+     c56:	2002      	movs	r0, #2
+     c58:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x25);	LCD_Write_DATA8(0xA6);
+     c5a:	2125      	movs	r1, #37	; 0x25
+     c5c:	20d1      	movs	r0, #209	; 0xd1
+     c5e:	47a0      	blx	r4
+     c60:	20a6      	movs	r0, #166	; 0xa6
+     c62:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x26);	LCD_Write_DATA8(0x02);
+     c64:	2126      	movs	r1, #38	; 0x26
+     c66:	20d1      	movs	r0, #209	; 0xd1
+     c68:	47a0      	blx	r4
+     c6a:	2002      	movs	r0, #2
+     c6c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x27);	LCD_Write_DATA8(0xBB);
+     c6e:	2127      	movs	r1, #39	; 0x27
+     c70:	20d1      	movs	r0, #209	; 0xd1
+     c72:	47a0      	blx	r4
+     c74:	20bb      	movs	r0, #187	; 0xbb
+     c76:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x28);	LCD_Write_DATA8(0x02); 
+     c78:	2128      	movs	r1, #40	; 0x28
+     c7a:	20d1      	movs	r0, #209	; 0xd1
+     c7c:	47a0      	blx	r4
+     c7e:	2002      	movs	r0, #2
+     c80:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x29);	LCD_Write_DATA8(0xCA);
+     c82:	2129      	movs	r1, #41	; 0x29
+     c84:	20d1      	movs	r0, #209	; 0xd1
+     c86:	47a0      	blx	r4
+     c88:	20ca      	movs	r0, #202	; 0xca
+     c8a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x2A);	LCD_Write_DATA8(0x02);
+     c8c:	212a      	movs	r1, #42	; 0x2a
+     c8e:	20d1      	movs	r0, #209	; 0xd1
+     c90:	47a0      	blx	r4
+     c92:	2002      	movs	r0, #2
+     c94:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x2B);	LCD_Write_DATA8(0xDB);
+     c96:	212b      	movs	r1, #43	; 0x2b
+     c98:	20d1      	movs	r0, #209	; 0xd1
+     c9a:	47a0      	blx	r4
+     c9c:	20db      	movs	r0, #219	; 0xdb
+     c9e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x2C);	LCD_Write_DATA8(0x02);
+     ca0:	212c      	movs	r1, #44	; 0x2c
+     ca2:	20d1      	movs	r0, #209	; 0xd1
+     ca4:	47a0      	blx	r4
+     ca6:	2002      	movs	r0, #2
+     ca8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x2D);	LCD_Write_DATA8(0xE8);
+     caa:	212d      	movs	r1, #45	; 0x2d
+     cac:	20d1      	movs	r0, #209	; 0xd1
+     cae:	47a0      	blx	r4
+     cb0:	20e8      	movs	r0, #232	; 0xe8
+     cb2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x2E);	LCD_Write_DATA8(0x02);
+     cb4:	212e      	movs	r1, #46	; 0x2e
+     cb6:	20d1      	movs	r0, #209	; 0xd1
+     cb8:	47a0      	blx	r4
+     cba:	2002      	movs	r0, #2
+     cbc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x2F);	LCD_Write_DATA8(0xF9);
+     cbe:	212f      	movs	r1, #47	; 0x2f
+     cc0:	20d1      	movs	r0, #209	; 0xd1
+     cc2:	47a0      	blx	r4
+     cc4:	20f9      	movs	r0, #249	; 0xf9
+     cc6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x30);	LCD_Write_DATA8(0x03); 
+     cc8:	2130      	movs	r1, #48	; 0x30
+     cca:	20d1      	movs	r0, #209	; 0xd1
+     ccc:	47a0      	blx	r4
+     cce:	2003      	movs	r0, #3
+     cd0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x31);	LCD_Write_DATA8(0x1F);
+     cd2:	2131      	movs	r1, #49	; 0x31
+     cd4:	20d1      	movs	r0, #209	; 0xd1
+     cd6:	47a0      	blx	r4
+     cd8:	201f      	movs	r0, #31
+     cda:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x32);	LCD_Write_DATA8(0x03);
+     cdc:	2132      	movs	r1, #50	; 0x32
+     cde:	20d1      	movs	r0, #209	; 0xd1
+     ce0:	47a0      	blx	r4
+     ce2:	2003      	movs	r0, #3
+     ce4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD1,0x33);	LCD_Write_DATA8(0x7F);
+     ce6:	2133      	movs	r1, #51	; 0x33
+     ce8:	20d1      	movs	r0, #209	; 0xd1
+     cea:	47a0      	blx	r4
+     cec:	207f      	movs	r0, #127	; 0x7f
+     cee:	47a8      	blx	r5
+	
+	LCD_Write_COM16(0xD2,0x00);	LCD_Write_DATA8(0x00);
+     cf0:	2100      	movs	r1, #0
+     cf2:	20d2      	movs	r0, #210	; 0xd2
+     cf4:	47a0      	blx	r4
+     cf6:	e00b      	b.n	d10 <InitLCD+0x418>
+     cf8:	41004488 	.word	0x41004488
+     cfc:	41004498 	.word	0x41004498
+     d00:	00000155 	.word	0x00000155
+     d04:	41004494 	.word	0x41004494
+     d08:	000008c5 	.word	0x000008c5
+     d0c:	000008dd 	.word	0x000008dd
+     d10:	2000      	movs	r0, #0
+     d12:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x01);	LCD_Write_DATA8(0x2D);
+     d14:	2101      	movs	r1, #1
+     d16:	20d2      	movs	r0, #210	; 0xd2
+     d18:	47a0      	blx	r4
+     d1a:	202d      	movs	r0, #45	; 0x2d
+     d1c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x02);	LCD_Write_DATA8(0x00);
+     d1e:	2102      	movs	r1, #2
+     d20:	20d2      	movs	r0, #210	; 0xd2
+     d22:	47a0      	blx	r4
+     d24:	2000      	movs	r0, #0
+     d26:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x03);	LCD_Write_DATA8(0x2E);
+     d28:	2103      	movs	r1, #3
+     d2a:	20d2      	movs	r0, #210	; 0xd2
+     d2c:	47a0      	blx	r4
+     d2e:	202e      	movs	r0, #46	; 0x2e
+     d30:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x04);	LCD_Write_DATA8(0x00); 
+     d32:	2104      	movs	r1, #4
+     d34:	20d2      	movs	r0, #210	; 0xd2
+     d36:	47a0      	blx	r4
+     d38:	2000      	movs	r0, #0
+     d3a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x05);	LCD_Write_DATA8(0x32);
+     d3c:	2105      	movs	r1, #5
+     d3e:	20d2      	movs	r0, #210	; 0xd2
+     d40:	47a0      	blx	r4
+     d42:	2032      	movs	r0, #50	; 0x32
+     d44:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x06);	LCD_Write_DATA8(0x00);
+     d46:	2106      	movs	r1, #6
+     d48:	20d2      	movs	r0, #210	; 0xd2
+     d4a:	47a0      	blx	r4
+     d4c:	2000      	movs	r0, #0
+     d4e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x07);	LCD_Write_DATA8(0x44);
+     d50:	2107      	movs	r1, #7
+     d52:	20d2      	movs	r0, #210	; 0xd2
+     d54:	47a0      	blx	r4
+     d56:	2044      	movs	r0, #68	; 0x44
+     d58:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x08);	LCD_Write_DATA8(0x00);
+     d5a:	2108      	movs	r1, #8
+     d5c:	20d2      	movs	r0, #210	; 0xd2
+     d5e:	47a0      	blx	r4
+     d60:	2000      	movs	r0, #0
+     d62:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x09);	LCD_Write_DATA8(0x53);
+     d64:	2109      	movs	r1, #9
+     d66:	20d2      	movs	r0, #210	; 0xd2
+     d68:	47a0      	blx	r4
+     d6a:	2053      	movs	r0, #83	; 0x53
+     d6c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x0A);	LCD_Write_DATA8(0x00);
+     d6e:	210a      	movs	r1, #10
+     d70:	20d2      	movs	r0, #210	; 0xd2
+     d72:	47a0      	blx	r4
+     d74:	2000      	movs	r0, #0
+     d76:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x0B);	LCD_Write_DATA8(0x88);
+     d78:	210b      	movs	r1, #11
+     d7a:	20d2      	movs	r0, #210	; 0xd2
+     d7c:	47a0      	blx	r4
+     d7e:	2088      	movs	r0, #136	; 0x88
+     d80:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x0C);	LCD_Write_DATA8(0x00);
+     d82:	210c      	movs	r1, #12
+     d84:	20d2      	movs	r0, #210	; 0xd2
+     d86:	47a0      	blx	r4
+     d88:	2000      	movs	r0, #0
+     d8a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x0D);	LCD_Write_DATA8(0xB6);
+     d8c:	210d      	movs	r1, #13
+     d8e:	20d2      	movs	r0, #210	; 0xd2
+     d90:	47a0      	blx	r4
+     d92:	20b6      	movs	r0, #182	; 0xb6
+     d94:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x0E);	LCD_Write_DATA8(0x00);
+     d96:	210e      	movs	r1, #14
+     d98:	20d2      	movs	r0, #210	; 0xd2
+     d9a:	47a0      	blx	r4
+     d9c:	2000      	movs	r0, #0
+     d9e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x0F);	LCD_Write_DATA8(0xF3);
+     da0:	210f      	movs	r1, #15
+     da2:	20d2      	movs	r0, #210	; 0xd2
+     da4:	47a0      	blx	r4
+     da6:	20f3      	movs	r0, #243	; 0xf3
+     da8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x10);	LCD_Write_DATA8(0x01);
+     daa:	2110      	movs	r1, #16
+     dac:	20d2      	movs	r0, #210	; 0xd2
+     dae:	47a0      	blx	r4
+     db0:	2001      	movs	r0, #1
+     db2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x11);	LCD_Write_DATA8(0x22);
+     db4:	2111      	movs	r1, #17
+     db6:	20d2      	movs	r0, #210	; 0xd2
+     db8:	47a0      	blx	r4
+     dba:	2022      	movs	r0, #34	; 0x22
+     dbc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x12);	LCD_Write_DATA8(0x01);
+     dbe:	2112      	movs	r1, #18
+     dc0:	20d2      	movs	r0, #210	; 0xd2
+     dc2:	47a0      	blx	r4
+     dc4:	2001      	movs	r0, #1
+     dc6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x13);	LCD_Write_DATA8(0x64);
+     dc8:	2113      	movs	r1, #19
+     dca:	20d2      	movs	r0, #210	; 0xd2
+     dcc:	47a0      	blx	r4
+     dce:	2064      	movs	r0, #100	; 0x64
+     dd0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x14);	LCD_Write_DATA8(0x01);
+     dd2:	2114      	movs	r1, #20
+     dd4:	20d2      	movs	r0, #210	; 0xd2
+     dd6:	47a0      	blx	r4
+     dd8:	2001      	movs	r0, #1
+     dda:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x15);	LCD_Write_DATA8(0x92);
+     ddc:	2115      	movs	r1, #21
+     dde:	20d2      	movs	r0, #210	; 0xd2
+     de0:	47a0      	blx	r4
+     de2:	2092      	movs	r0, #146	; 0x92
+     de4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x16);	LCD_Write_DATA8(0x01);
+     de6:	2116      	movs	r1, #22
+     de8:	20d2      	movs	r0, #210	; 0xd2
+     dea:	47a0      	blx	r4
+     dec:	2001      	movs	r0, #1
+     dee:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x17);	LCD_Write_DATA8(0xD4);
+     df0:	2117      	movs	r1, #23
+     df2:	20d2      	movs	r0, #210	; 0xd2
+     df4:	47a0      	blx	r4
+     df6:	20d4      	movs	r0, #212	; 0xd4
+     df8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x18);	LCD_Write_DATA8(0x02);	
+     dfa:	2118      	movs	r1, #24
+     dfc:	20d2      	movs	r0, #210	; 0xd2
+     dfe:	47a0      	blx	r4
+     e00:	2002      	movs	r0, #2
+     e02:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x19);	LCD_Write_DATA8(0x07);
+     e04:	2119      	movs	r1, #25
+     e06:	20d2      	movs	r0, #210	; 0xd2
+     e08:	47a0      	blx	r4
+     e0a:	2007      	movs	r0, #7
+     e0c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x1A);	LCD_Write_DATA8(0x02);
+     e0e:	211a      	movs	r1, #26
+     e10:	20d2      	movs	r0, #210	; 0xd2
+     e12:	47a0      	blx	r4
+     e14:	2002      	movs	r0, #2
+     e16:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x1B);	LCD_Write_DATA8(0x08);
+     e18:	211b      	movs	r1, #27
+     e1a:	20d2      	movs	r0, #210	; 0xd2
+     e1c:	47a0      	blx	r4
+     e1e:	2008      	movs	r0, #8
+     e20:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x1C);	LCD_Write_DATA8(0x02);
+     e22:	211c      	movs	r1, #28
+     e24:	20d2      	movs	r0, #210	; 0xd2
+     e26:	47a0      	blx	r4
+     e28:	2002      	movs	r0, #2
+     e2a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x1D);	LCD_Write_DATA8(0x34);
+     e2c:	211d      	movs	r1, #29
+     e2e:	20d2      	movs	r0, #210	; 0xd2
+     e30:	47a0      	blx	r4
+     e32:	2034      	movs	r0, #52	; 0x34
+     e34:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x1E);	LCD_Write_DATA8(0x02);
+     e36:	211e      	movs	r1, #30
+     e38:	20d2      	movs	r0, #210	; 0xd2
+     e3a:	47a0      	blx	r4
+     e3c:	2002      	movs	r0, #2
+     e3e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x1F);	LCD_Write_DATA8(0x5F);
+     e40:	211f      	movs	r1, #31
+     e42:	20d2      	movs	r0, #210	; 0xd2
+     e44:	47a0      	blx	r4
+     e46:	205f      	movs	r0, #95	; 0x5f
+     e48:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x20);	LCD_Write_DATA8(0x02);
+     e4a:	2120      	movs	r1, #32
+     e4c:	20d2      	movs	r0, #210	; 0xd2
+     e4e:	47a0      	blx	r4
+     e50:	2002      	movs	r0, #2
+     e52:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x21);	LCD_Write_DATA8(0x78);
+     e54:	2121      	movs	r1, #33	; 0x21
+     e56:	20d2      	movs	r0, #210	; 0xd2
+     e58:	47a0      	blx	r4
+     e5a:	2078      	movs	r0, #120	; 0x78
+     e5c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x22);	LCD_Write_DATA8(0x02);
+     e5e:	2122      	movs	r1, #34	; 0x22
+     e60:	20d2      	movs	r0, #210	; 0xd2
+     e62:	47a0      	blx	r4
+     e64:	2002      	movs	r0, #2
+     e66:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x23);	LCD_Write_DATA8(0x94);
+     e68:	2123      	movs	r1, #35	; 0x23
+     e6a:	20d2      	movs	r0, #210	; 0xd2
+     e6c:	47a0      	blx	r4
+     e6e:	2094      	movs	r0, #148	; 0x94
+     e70:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x24);	LCD_Write_DATA8(0x02);
+     e72:	2124      	movs	r1, #36	; 0x24
+     e74:	20d2      	movs	r0, #210	; 0xd2
+     e76:	47a0      	blx	r4
+     e78:	2002      	movs	r0, #2
+     e7a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x25);	LCD_Write_DATA8(0xA6);
+     e7c:	2125      	movs	r1, #37	; 0x25
+     e7e:	20d2      	movs	r0, #210	; 0xd2
+     e80:	47a0      	blx	r4
+     e82:	20a6      	movs	r0, #166	; 0xa6
+     e84:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x26);	LCD_Write_DATA8(0x02);
+     e86:	2126      	movs	r1, #38	; 0x26
+     e88:	20d2      	movs	r0, #210	; 0xd2
+     e8a:	47a0      	blx	r4
+     e8c:	2002      	movs	r0, #2
+     e8e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x27);	LCD_Write_DATA8(0xBB);
+     e90:	2127      	movs	r1, #39	; 0x27
+     e92:	20d2      	movs	r0, #210	; 0xd2
+     e94:	47a0      	blx	r4
+     e96:	20bb      	movs	r0, #187	; 0xbb
+     e98:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x28);	LCD_Write_DATA8(0x02); 
+     e9a:	2128      	movs	r1, #40	; 0x28
+     e9c:	20d2      	movs	r0, #210	; 0xd2
+     e9e:	47a0      	blx	r4
+     ea0:	2002      	movs	r0, #2
+     ea2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x29);	LCD_Write_DATA8(0xCA);
+     ea4:	2129      	movs	r1, #41	; 0x29
+     ea6:	20d2      	movs	r0, #210	; 0xd2
+     ea8:	47a0      	blx	r4
+     eaa:	20ca      	movs	r0, #202	; 0xca
+     eac:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x2A);	LCD_Write_DATA8(0x02);
+     eae:	212a      	movs	r1, #42	; 0x2a
+     eb0:	20d2      	movs	r0, #210	; 0xd2
+     eb2:	47a0      	blx	r4
+     eb4:	2002      	movs	r0, #2
+     eb6:	4dfe      	ldr	r5, [pc, #1016]	; (12b0 <InitLCD+0x9b8>)
+     eb8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x2B);	LCD_Write_DATA8(0xDB);
+     eba:	212b      	movs	r1, #43	; 0x2b
+     ebc:	20d2      	movs	r0, #210	; 0xd2
+     ebe:	4cfd      	ldr	r4, [pc, #1012]	; (12b4 <InitLCD+0x9bc>)
+     ec0:	47a0      	blx	r4
+     ec2:	20db      	movs	r0, #219	; 0xdb
+     ec4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x2C);	LCD_Write_DATA8(0x02);
+     ec6:	212c      	movs	r1, #44	; 0x2c
+     ec8:	20d2      	movs	r0, #210	; 0xd2
+     eca:	47a0      	blx	r4
+     ecc:	2002      	movs	r0, #2
+     ece:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x2D);	LCD_Write_DATA8(0xE8);
+     ed0:	212d      	movs	r1, #45	; 0x2d
+     ed2:	20d2      	movs	r0, #210	; 0xd2
+     ed4:	47a0      	blx	r4
+     ed6:	20e8      	movs	r0, #232	; 0xe8
+     ed8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x2E);	LCD_Write_DATA8(0x02);
+     eda:	212e      	movs	r1, #46	; 0x2e
+     edc:	20d2      	movs	r0, #210	; 0xd2
+     ede:	47a0      	blx	r4
+     ee0:	2002      	movs	r0, #2
+     ee2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x2F);	LCD_Write_DATA8(0xF9);
+     ee4:	212f      	movs	r1, #47	; 0x2f
+     ee6:	20d2      	movs	r0, #210	; 0xd2
+     ee8:	47a0      	blx	r4
+     eea:	20f9      	movs	r0, #249	; 0xf9
+     eec:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x30);	LCD_Write_DATA8(0x03); 
+     eee:	2130      	movs	r1, #48	; 0x30
+     ef0:	20d2      	movs	r0, #210	; 0xd2
+     ef2:	47a0      	blx	r4
+     ef4:	2003      	movs	r0, #3
+     ef6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x31);	LCD_Write_DATA8(0x1F);
+     ef8:	2131      	movs	r1, #49	; 0x31
+     efa:	20d2      	movs	r0, #210	; 0xd2
+     efc:	47a0      	blx	r4
+     efe:	201f      	movs	r0, #31
+     f00:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x32);	LCD_Write_DATA8(0x03);
+     f02:	2132      	movs	r1, #50	; 0x32
+     f04:	20d2      	movs	r0, #210	; 0xd2
+     f06:	47a0      	blx	r4
+     f08:	2003      	movs	r0, #3
+     f0a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD2,0x33);	LCD_Write_DATA8(0x7F);
+     f0c:	2133      	movs	r1, #51	; 0x33
+     f0e:	20d2      	movs	r0, #210	; 0xd2
+     f10:	47a0      	blx	r4
+     f12:	207f      	movs	r0, #127	; 0x7f
+     f14:	47a8      	blx	r5
+		 
+	LCD_Write_COM16(0xD3,0x00);	LCD_Write_DATA8(0x00);
+     f16:	2100      	movs	r1, #0
+     f18:	20d3      	movs	r0, #211	; 0xd3
+     f1a:	47a0      	blx	r4
+     f1c:	2000      	movs	r0, #0
+     f1e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x01);	LCD_Write_DATA8(0x2D);
+     f20:	2101      	movs	r1, #1
+     f22:	20d3      	movs	r0, #211	; 0xd3
+     f24:	47a0      	blx	r4
+     f26:	202d      	movs	r0, #45	; 0x2d
+     f28:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x02);	LCD_Write_DATA8(0x00);
+     f2a:	2102      	movs	r1, #2
+     f2c:	20d3      	movs	r0, #211	; 0xd3
+     f2e:	47a0      	blx	r4
+     f30:	2000      	movs	r0, #0
+     f32:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x03);	LCD_Write_DATA8(0x2E);
+     f34:	2103      	movs	r1, #3
+     f36:	20d3      	movs	r0, #211	; 0xd3
+     f38:	47a0      	blx	r4
+     f3a:	202e      	movs	r0, #46	; 0x2e
+     f3c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x04);	LCD_Write_DATA8(0x00); 
+     f3e:	2104      	movs	r1, #4
+     f40:	20d3      	movs	r0, #211	; 0xd3
+     f42:	47a0      	blx	r4
+     f44:	2000      	movs	r0, #0
+     f46:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x05);	LCD_Write_DATA8(0x32);
+     f48:	2105      	movs	r1, #5
+     f4a:	20d3      	movs	r0, #211	; 0xd3
+     f4c:	47a0      	blx	r4
+     f4e:	2032      	movs	r0, #50	; 0x32
+     f50:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x06);	LCD_Write_DATA8(0x00);
+     f52:	2106      	movs	r1, #6
+     f54:	20d3      	movs	r0, #211	; 0xd3
+     f56:	47a0      	blx	r4
+     f58:	2000      	movs	r0, #0
+     f5a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x07);	LCD_Write_DATA8(0x44);
+     f5c:	2107      	movs	r1, #7
+     f5e:	20d3      	movs	r0, #211	; 0xd3
+     f60:	47a0      	blx	r4
+     f62:	2044      	movs	r0, #68	; 0x44
+     f64:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x08);	LCD_Write_DATA8(0x00);
+     f66:	2108      	movs	r1, #8
+     f68:	20d3      	movs	r0, #211	; 0xd3
+     f6a:	47a0      	blx	r4
+     f6c:	2000      	movs	r0, #0
+     f6e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x09);	LCD_Write_DATA8(0x53);
+     f70:	2109      	movs	r1, #9
+     f72:	20d3      	movs	r0, #211	; 0xd3
+     f74:	47a0      	blx	r4
+     f76:	2053      	movs	r0, #83	; 0x53
+     f78:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x0A);	LCD_Write_DATA8(0x00);
+     f7a:	210a      	movs	r1, #10
+     f7c:	20d3      	movs	r0, #211	; 0xd3
+     f7e:	47a0      	blx	r4
+     f80:	2000      	movs	r0, #0
+     f82:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x0B);	LCD_Write_DATA8(0x88);
+     f84:	210b      	movs	r1, #11
+     f86:	20d3      	movs	r0, #211	; 0xd3
+     f88:	47a0      	blx	r4
+     f8a:	2088      	movs	r0, #136	; 0x88
+     f8c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x0C);	LCD_Write_DATA8(0x00);
+     f8e:	210c      	movs	r1, #12
+     f90:	20d3      	movs	r0, #211	; 0xd3
+     f92:	47a0      	blx	r4
+     f94:	2000      	movs	r0, #0
+     f96:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x0D);	LCD_Write_DATA8(0xB6);
+     f98:	210d      	movs	r1, #13
+     f9a:	20d3      	movs	r0, #211	; 0xd3
+     f9c:	47a0      	blx	r4
+     f9e:	20b6      	movs	r0, #182	; 0xb6
+     fa0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x0E);	LCD_Write_DATA8(0x00);
+     fa2:	210e      	movs	r1, #14
+     fa4:	20d3      	movs	r0, #211	; 0xd3
+     fa6:	47a0      	blx	r4
+     fa8:	2000      	movs	r0, #0
+     faa:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x0F);	LCD_Write_DATA8(0xF3);
+     fac:	210f      	movs	r1, #15
+     fae:	20d3      	movs	r0, #211	; 0xd3
+     fb0:	47a0      	blx	r4
+     fb2:	20f3      	movs	r0, #243	; 0xf3
+     fb4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x10);	LCD_Write_DATA8(0x01);
+     fb6:	2110      	movs	r1, #16
+     fb8:	20d3      	movs	r0, #211	; 0xd3
+     fba:	47a0      	blx	r4
+     fbc:	2001      	movs	r0, #1
+     fbe:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x11);	LCD_Write_DATA8(0x22);
+     fc0:	2111      	movs	r1, #17
+     fc2:	20d3      	movs	r0, #211	; 0xd3
+     fc4:	47a0      	blx	r4
+     fc6:	2022      	movs	r0, #34	; 0x22
+     fc8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x12);	LCD_Write_DATA8(0x01);
+     fca:	2112      	movs	r1, #18
+     fcc:	20d3      	movs	r0, #211	; 0xd3
+     fce:	47a0      	blx	r4
+     fd0:	2001      	movs	r0, #1
+     fd2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x13);	LCD_Write_DATA8(0x64);
+     fd4:	2113      	movs	r1, #19
+     fd6:	20d3      	movs	r0, #211	; 0xd3
+     fd8:	47a0      	blx	r4
+     fda:	2064      	movs	r0, #100	; 0x64
+     fdc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x14);	LCD_Write_DATA8(0x01);
+     fde:	2114      	movs	r1, #20
+     fe0:	20d3      	movs	r0, #211	; 0xd3
+     fe2:	47a0      	blx	r4
+     fe4:	2001      	movs	r0, #1
+     fe6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x15);	LCD_Write_DATA8(0x92);
+     fe8:	2115      	movs	r1, #21
+     fea:	20d3      	movs	r0, #211	; 0xd3
+     fec:	47a0      	blx	r4
+     fee:	2092      	movs	r0, #146	; 0x92
+     ff0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x16);	LCD_Write_DATA8(0x01);
+     ff2:	2116      	movs	r1, #22
+     ff4:	20d3      	movs	r0, #211	; 0xd3
+     ff6:	47a0      	blx	r4
+     ff8:	2001      	movs	r0, #1
+     ffa:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x17);	LCD_Write_DATA8(0xD4);
+     ffc:	2117      	movs	r1, #23
+     ffe:	20d3      	movs	r0, #211	; 0xd3
+    1000:	47a0      	blx	r4
+    1002:	20d4      	movs	r0, #212	; 0xd4
+    1004:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x18);	LCD_Write_DATA8(0x02);	
+    1006:	2118      	movs	r1, #24
+    1008:	20d3      	movs	r0, #211	; 0xd3
+    100a:	47a0      	blx	r4
+    100c:	2002      	movs	r0, #2
+    100e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x19);	LCD_Write_DATA8(0x07);
+    1010:	2119      	movs	r1, #25
+    1012:	20d3      	movs	r0, #211	; 0xd3
+    1014:	47a0      	blx	r4
+    1016:	2007      	movs	r0, #7
+    1018:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x1A);	LCD_Write_DATA8(0x02);
+    101a:	211a      	movs	r1, #26
+    101c:	20d3      	movs	r0, #211	; 0xd3
+    101e:	47a0      	blx	r4
+    1020:	2002      	movs	r0, #2
+    1022:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x1B);	LCD_Write_DATA8(0x08);
+    1024:	211b      	movs	r1, #27
+    1026:	20d3      	movs	r0, #211	; 0xd3
+    1028:	47a0      	blx	r4
+    102a:	2008      	movs	r0, #8
+    102c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x1C);	LCD_Write_DATA8(0x02);
+    102e:	211c      	movs	r1, #28
+    1030:	20d3      	movs	r0, #211	; 0xd3
+    1032:	47a0      	blx	r4
+    1034:	2002      	movs	r0, #2
+    1036:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x1D);	LCD_Write_DATA8(0x34);
+    1038:	211d      	movs	r1, #29
+    103a:	20d3      	movs	r0, #211	; 0xd3
+    103c:	47a0      	blx	r4
+    103e:	2034      	movs	r0, #52	; 0x34
+    1040:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x1E);	LCD_Write_DATA8(0x02);
+    1042:	211e      	movs	r1, #30
+    1044:	20d3      	movs	r0, #211	; 0xd3
+    1046:	47a0      	blx	r4
+    1048:	2002      	movs	r0, #2
+    104a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x1F);	LCD_Write_DATA8(0x5F);
+    104c:	211f      	movs	r1, #31
+    104e:	20d3      	movs	r0, #211	; 0xd3
+    1050:	47a0      	blx	r4
+    1052:	205f      	movs	r0, #95	; 0x5f
+    1054:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x20);	LCD_Write_DATA8(0x02);
+    1056:	2120      	movs	r1, #32
+    1058:	20d3      	movs	r0, #211	; 0xd3
+    105a:	47a0      	blx	r4
+    105c:	2002      	movs	r0, #2
+    105e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x21);	LCD_Write_DATA8(0x78);
+    1060:	2121      	movs	r1, #33	; 0x21
+    1062:	20d3      	movs	r0, #211	; 0xd3
+    1064:	47a0      	blx	r4
+    1066:	2078      	movs	r0, #120	; 0x78
+    1068:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x22);	LCD_Write_DATA8(0x02);
+    106a:	2122      	movs	r1, #34	; 0x22
+    106c:	20d3      	movs	r0, #211	; 0xd3
+    106e:	47a0      	blx	r4
+    1070:	2002      	movs	r0, #2
+    1072:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x23);	LCD_Write_DATA8(0x94);
+    1074:	2123      	movs	r1, #35	; 0x23
+    1076:	20d3      	movs	r0, #211	; 0xd3
+    1078:	47a0      	blx	r4
+    107a:	2094      	movs	r0, #148	; 0x94
+    107c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x24);	LCD_Write_DATA8(0x02);
+    107e:	2124      	movs	r1, #36	; 0x24
+    1080:	20d3      	movs	r0, #211	; 0xd3
+    1082:	47a0      	blx	r4
+    1084:	2002      	movs	r0, #2
+    1086:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x25);	LCD_Write_DATA8(0xA6);
+    1088:	2125      	movs	r1, #37	; 0x25
+    108a:	20d3      	movs	r0, #211	; 0xd3
+    108c:	47a0      	blx	r4
+    108e:	20a6      	movs	r0, #166	; 0xa6
+    1090:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x26);	LCD_Write_DATA8(0x02);
+    1092:	2126      	movs	r1, #38	; 0x26
+    1094:	20d3      	movs	r0, #211	; 0xd3
+    1096:	47a0      	blx	r4
+    1098:	2002      	movs	r0, #2
+    109a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x27);	LCD_Write_DATA8(0xBB);
+    109c:	2127      	movs	r1, #39	; 0x27
+    109e:	20d3      	movs	r0, #211	; 0xd3
+    10a0:	47a0      	blx	r4
+    10a2:	20bb      	movs	r0, #187	; 0xbb
+    10a4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x28);	LCD_Write_DATA8(0x02); 
+    10a6:	2128      	movs	r1, #40	; 0x28
+    10a8:	20d3      	movs	r0, #211	; 0xd3
+    10aa:	47a0      	blx	r4
+    10ac:	2002      	movs	r0, #2
+    10ae:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x29);	LCD_Write_DATA8(0xCA);
+    10b0:	2129      	movs	r1, #41	; 0x29
+    10b2:	20d3      	movs	r0, #211	; 0xd3
+    10b4:	47a0      	blx	r4
+    10b6:	20ca      	movs	r0, #202	; 0xca
+    10b8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x2A);	LCD_Write_DATA8(0x02);
+    10ba:	212a      	movs	r1, #42	; 0x2a
+    10bc:	20d3      	movs	r0, #211	; 0xd3
+    10be:	47a0      	blx	r4
+    10c0:	2002      	movs	r0, #2
+    10c2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x2B);	LCD_Write_DATA8(0xDB);
+    10c4:	212b      	movs	r1, #43	; 0x2b
+    10c6:	20d3      	movs	r0, #211	; 0xd3
+    10c8:	47a0      	blx	r4
+    10ca:	20db      	movs	r0, #219	; 0xdb
+    10cc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x2C);	LCD_Write_DATA8(0x02);
+    10ce:	212c      	movs	r1, #44	; 0x2c
+    10d0:	20d3      	movs	r0, #211	; 0xd3
+    10d2:	47a0      	blx	r4
+    10d4:	2002      	movs	r0, #2
+    10d6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x2D);	LCD_Write_DATA8(0xE8);
+    10d8:	212d      	movs	r1, #45	; 0x2d
+    10da:	20d3      	movs	r0, #211	; 0xd3
+    10dc:	47a0      	blx	r4
+    10de:	20e8      	movs	r0, #232	; 0xe8
+    10e0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x2E);	LCD_Write_DATA8(0x02);
+    10e2:	212e      	movs	r1, #46	; 0x2e
+    10e4:	20d3      	movs	r0, #211	; 0xd3
+    10e6:	47a0      	blx	r4
+    10e8:	2002      	movs	r0, #2
+    10ea:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x2F);	LCD_Write_DATA8(0xF9);
+    10ec:	212f      	movs	r1, #47	; 0x2f
+    10ee:	20d3      	movs	r0, #211	; 0xd3
+    10f0:	47a0      	blx	r4
+    10f2:	20f9      	movs	r0, #249	; 0xf9
+    10f4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x30);	LCD_Write_DATA8(0x03); 
+    10f6:	2130      	movs	r1, #48	; 0x30
+    10f8:	20d3      	movs	r0, #211	; 0xd3
+    10fa:	47a0      	blx	r4
+    10fc:	2003      	movs	r0, #3
+    10fe:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x31);	LCD_Write_DATA8(0x1F);
+    1100:	2131      	movs	r1, #49	; 0x31
+    1102:	20d3      	movs	r0, #211	; 0xd3
+    1104:	47a0      	blx	r4
+    1106:	201f      	movs	r0, #31
+    1108:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x32);	LCD_Write_DATA8(0x03);
+    110a:	2132      	movs	r1, #50	; 0x32
+    110c:	20d3      	movs	r0, #211	; 0xd3
+    110e:	47a0      	blx	r4
+    1110:	2003      	movs	r0, #3
+    1112:	47a8      	blx	r5
+	LCD_Write_COM16(0xD3,0x33);	LCD_Write_DATA8(0x7F);
+    1114:	2133      	movs	r1, #51	; 0x33
+    1116:	20d3      	movs	r0, #211	; 0xd3
+    1118:	47a0      	blx	r4
+    111a:	207f      	movs	r0, #127	; 0x7f
+    111c:	47a8      	blx	r5
+		 
+	LCD_Write_COM16(0xD4,0x00);	LCD_Write_DATA8(0x00);
+    111e:	2100      	movs	r1, #0
+    1120:	20d4      	movs	r0, #212	; 0xd4
+    1122:	47a0      	blx	r4
+    1124:	2000      	movs	r0, #0
+    1126:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x01);	LCD_Write_DATA8(0x2D);
+    1128:	2101      	movs	r1, #1
+    112a:	20d4      	movs	r0, #212	; 0xd4
+    112c:	47a0      	blx	r4
+    112e:	202d      	movs	r0, #45	; 0x2d
+    1130:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x02);	LCD_Write_DATA8(0x00);
+    1132:	2102      	movs	r1, #2
+    1134:	20d4      	movs	r0, #212	; 0xd4
+    1136:	47a0      	blx	r4
+    1138:	2000      	movs	r0, #0
+    113a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x03);	LCD_Write_DATA8(0x2E);
+    113c:	2103      	movs	r1, #3
+    113e:	20d4      	movs	r0, #212	; 0xd4
+    1140:	47a0      	blx	r4
+    1142:	202e      	movs	r0, #46	; 0x2e
+    1144:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x04);	LCD_Write_DATA8(0x00); 
+    1146:	2104      	movs	r1, #4
+    1148:	20d4      	movs	r0, #212	; 0xd4
+    114a:	47a0      	blx	r4
+    114c:	2000      	movs	r0, #0
+    114e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x05);	LCD_Write_DATA8(0x32);
+    1150:	2105      	movs	r1, #5
+    1152:	20d4      	movs	r0, #212	; 0xd4
+    1154:	47a0      	blx	r4
+    1156:	2032      	movs	r0, #50	; 0x32
+    1158:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x06);	LCD_Write_DATA8(0x00);
+    115a:	2106      	movs	r1, #6
+    115c:	20d4      	movs	r0, #212	; 0xd4
+    115e:	47a0      	blx	r4
+    1160:	2000      	movs	r0, #0
+    1162:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x07);	LCD_Write_DATA8(0x44);
+    1164:	2107      	movs	r1, #7
+    1166:	20d4      	movs	r0, #212	; 0xd4
+    1168:	47a0      	blx	r4
+    116a:	2044      	movs	r0, #68	; 0x44
+    116c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x08);	LCD_Write_DATA8(0x00);
+    116e:	2108      	movs	r1, #8
+    1170:	20d4      	movs	r0, #212	; 0xd4
+    1172:	47a0      	blx	r4
+    1174:	2000      	movs	r0, #0
+    1176:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x09);	LCD_Write_DATA8(0x53);
+    1178:	2109      	movs	r1, #9
+    117a:	20d4      	movs	r0, #212	; 0xd4
+    117c:	47a0      	blx	r4
+    117e:	2053      	movs	r0, #83	; 0x53
+    1180:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x0A);	LCD_Write_DATA8(0x00);
+    1182:	210a      	movs	r1, #10
+    1184:	20d4      	movs	r0, #212	; 0xd4
+    1186:	47a0      	blx	r4
+    1188:	2000      	movs	r0, #0
+    118a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x0B);	LCD_Write_DATA8(0x88);
+    118c:	210b      	movs	r1, #11
+    118e:	20d4      	movs	r0, #212	; 0xd4
+    1190:	47a0      	blx	r4
+    1192:	2088      	movs	r0, #136	; 0x88
+    1194:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x0C);	LCD_Write_DATA8(0x00);
+    1196:	210c      	movs	r1, #12
+    1198:	20d4      	movs	r0, #212	; 0xd4
+    119a:	47a0      	blx	r4
+    119c:	2000      	movs	r0, #0
+    119e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x0D);	LCD_Write_DATA8(0xB6);
+    11a0:	210d      	movs	r1, #13
+    11a2:	20d4      	movs	r0, #212	; 0xd4
+    11a4:	47a0      	blx	r4
+    11a6:	20b6      	movs	r0, #182	; 0xb6
+    11a8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x0E);	LCD_Write_DATA8(0x00);
+    11aa:	210e      	movs	r1, #14
+    11ac:	20d4      	movs	r0, #212	; 0xd4
+    11ae:	47a0      	blx	r4
+    11b0:	2000      	movs	r0, #0
+    11b2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x0F);	LCD_Write_DATA8(0xF3);
+    11b4:	210f      	movs	r1, #15
+    11b6:	20d4      	movs	r0, #212	; 0xd4
+    11b8:	47a0      	blx	r4
+    11ba:	20f3      	movs	r0, #243	; 0xf3
+    11bc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x10);	LCD_Write_DATA8(0x01);
+    11be:	2110      	movs	r1, #16
+    11c0:	20d4      	movs	r0, #212	; 0xd4
+    11c2:	47a0      	blx	r4
+    11c4:	2001      	movs	r0, #1
+    11c6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x11);	LCD_Write_DATA8(0x22);
+    11c8:	2111      	movs	r1, #17
+    11ca:	20d4      	movs	r0, #212	; 0xd4
+    11cc:	47a0      	blx	r4
+    11ce:	2022      	movs	r0, #34	; 0x22
+    11d0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x12);	LCD_Write_DATA8(0x01);
+    11d2:	2112      	movs	r1, #18
+    11d4:	20d4      	movs	r0, #212	; 0xd4
+    11d6:	47a0      	blx	r4
+    11d8:	2001      	movs	r0, #1
+    11da:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x13);	LCD_Write_DATA8(0x64);
+    11dc:	2113      	movs	r1, #19
+    11de:	20d4      	movs	r0, #212	; 0xd4
+    11e0:	47a0      	blx	r4
+    11e2:	2064      	movs	r0, #100	; 0x64
+    11e4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x14);	LCD_Write_DATA8(0x01);
+    11e6:	2114      	movs	r1, #20
+    11e8:	20d4      	movs	r0, #212	; 0xd4
+    11ea:	47a0      	blx	r4
+    11ec:	2001      	movs	r0, #1
+    11ee:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x15);	LCD_Write_DATA8(0x92);
+    11f0:	2115      	movs	r1, #21
+    11f2:	20d4      	movs	r0, #212	; 0xd4
+    11f4:	47a0      	blx	r4
+    11f6:	2092      	movs	r0, #146	; 0x92
+    11f8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x16);	LCD_Write_DATA8(0x01);
+    11fa:	2116      	movs	r1, #22
+    11fc:	20d4      	movs	r0, #212	; 0xd4
+    11fe:	47a0      	blx	r4
+    1200:	2001      	movs	r0, #1
+    1202:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x17);	LCD_Write_DATA8(0xD4);
+    1204:	2117      	movs	r1, #23
+    1206:	20d4      	movs	r0, #212	; 0xd4
+    1208:	47a0      	blx	r4
+    120a:	20d4      	movs	r0, #212	; 0xd4
+    120c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x18);	LCD_Write_DATA8(0x02);	
+    120e:	2118      	movs	r1, #24
+    1210:	20d4      	movs	r0, #212	; 0xd4
+    1212:	47a0      	blx	r4
+    1214:	2002      	movs	r0, #2
+    1216:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x19);	LCD_Write_DATA8(0x07);
+    1218:	2119      	movs	r1, #25
+    121a:	20d4      	movs	r0, #212	; 0xd4
+    121c:	47a0      	blx	r4
+    121e:	2007      	movs	r0, #7
+    1220:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x1A);	LCD_Write_DATA8(0x02);
+    1222:	211a      	movs	r1, #26
+    1224:	20d4      	movs	r0, #212	; 0xd4
+    1226:	47a0      	blx	r4
+    1228:	2002      	movs	r0, #2
+    122a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x1B);	LCD_Write_DATA8(0x08);
+    122c:	211b      	movs	r1, #27
+    122e:	20d4      	movs	r0, #212	; 0xd4
+    1230:	47a0      	blx	r4
+    1232:	2008      	movs	r0, #8
+    1234:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x1C);	LCD_Write_DATA8(0x02);
+    1236:	211c      	movs	r1, #28
+    1238:	20d4      	movs	r0, #212	; 0xd4
+    123a:	47a0      	blx	r4
+    123c:	2002      	movs	r0, #2
+    123e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x1D);	LCD_Write_DATA8(0x34);
+    1240:	211d      	movs	r1, #29
+    1242:	20d4      	movs	r0, #212	; 0xd4
+    1244:	47a0      	blx	r4
+    1246:	2034      	movs	r0, #52	; 0x34
+    1248:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x1E);	LCD_Write_DATA8(0x02);
+    124a:	211e      	movs	r1, #30
+    124c:	20d4      	movs	r0, #212	; 0xd4
+    124e:	47a0      	blx	r4
+    1250:	2002      	movs	r0, #2
+    1252:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x1F);	LCD_Write_DATA8(0x5F);
+    1254:	211f      	movs	r1, #31
+    1256:	20d4      	movs	r0, #212	; 0xd4
+    1258:	47a0      	blx	r4
+    125a:	205f      	movs	r0, #95	; 0x5f
+    125c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x20);	LCD_Write_DATA8(0x02);
+    125e:	2120      	movs	r1, #32
+    1260:	20d4      	movs	r0, #212	; 0xd4
+    1262:	47a0      	blx	r4
+    1264:	2002      	movs	r0, #2
+    1266:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x21);	LCD_Write_DATA8(0x78);
+    1268:	2121      	movs	r1, #33	; 0x21
+    126a:	20d4      	movs	r0, #212	; 0xd4
+    126c:	47a0      	blx	r4
+    126e:	2078      	movs	r0, #120	; 0x78
+    1270:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x22);	LCD_Write_DATA8(0x02);
+    1272:	2122      	movs	r1, #34	; 0x22
+    1274:	20d4      	movs	r0, #212	; 0xd4
+    1276:	47a0      	blx	r4
+    1278:	2002      	movs	r0, #2
+    127a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x23);	LCD_Write_DATA8(0x94);
+    127c:	2123      	movs	r1, #35	; 0x23
+    127e:	20d4      	movs	r0, #212	; 0xd4
+    1280:	47a0      	blx	r4
+    1282:	2094      	movs	r0, #148	; 0x94
+    1284:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x24);	LCD_Write_DATA8(0x02);
+    1286:	2124      	movs	r1, #36	; 0x24
+    1288:	20d4      	movs	r0, #212	; 0xd4
+    128a:	47a0      	blx	r4
+    128c:	2002      	movs	r0, #2
+    128e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x25);	LCD_Write_DATA8(0xA6);
+    1290:	2125      	movs	r1, #37	; 0x25
+    1292:	20d4      	movs	r0, #212	; 0xd4
+    1294:	47a0      	blx	r4
+    1296:	20a6      	movs	r0, #166	; 0xa6
+    1298:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x26);	LCD_Write_DATA8(0x02);
+    129a:	2126      	movs	r1, #38	; 0x26
+    129c:	20d4      	movs	r0, #212	; 0xd4
+    129e:	47a0      	blx	r4
+    12a0:	2002      	movs	r0, #2
+    12a2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x27);	LCD_Write_DATA8(0xBB);
+    12a4:	2127      	movs	r1, #39	; 0x27
+    12a6:	20d4      	movs	r0, #212	; 0xd4
+    12a8:	47a0      	blx	r4
+    12aa:	20bb      	movs	r0, #187	; 0xbb
+    12ac:	47a8      	blx	r5
+    12ae:	e003      	b.n	12b8 <InitLCD+0x9c0>
+    12b0:	000008dd 	.word	0x000008dd
+    12b4:	000008c5 	.word	0x000008c5
+	LCD_Write_COM16(0xD4,0x28);	LCD_Write_DATA8(0x02); 
+    12b8:	2128      	movs	r1, #40	; 0x28
+    12ba:	20d4      	movs	r0, #212	; 0xd4
+    12bc:	47a0      	blx	r4
+    12be:	2002      	movs	r0, #2
+    12c0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x29);	LCD_Write_DATA8(0xCA);
+    12c2:	2129      	movs	r1, #41	; 0x29
+    12c4:	20d4      	movs	r0, #212	; 0xd4
+    12c6:	47a0      	blx	r4
+    12c8:	20ca      	movs	r0, #202	; 0xca
+    12ca:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x2A);	LCD_Write_DATA8(0x02);
+    12cc:	212a      	movs	r1, #42	; 0x2a
+    12ce:	20d4      	movs	r0, #212	; 0xd4
+    12d0:	47a0      	blx	r4
+    12d2:	2002      	movs	r0, #2
+    12d4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x2B);	LCD_Write_DATA8(0xDB);
+    12d6:	212b      	movs	r1, #43	; 0x2b
+    12d8:	20d4      	movs	r0, #212	; 0xd4
+    12da:	47a0      	blx	r4
+    12dc:	20db      	movs	r0, #219	; 0xdb
+    12de:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x2C);	LCD_Write_DATA8(0x02);
+    12e0:	212c      	movs	r1, #44	; 0x2c
+    12e2:	20d4      	movs	r0, #212	; 0xd4
+    12e4:	47a0      	blx	r4
+    12e6:	2002      	movs	r0, #2
+    12e8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x2D);	LCD_Write_DATA8(0xE8);
+    12ea:	212d      	movs	r1, #45	; 0x2d
+    12ec:	20d4      	movs	r0, #212	; 0xd4
+    12ee:	47a0      	blx	r4
+    12f0:	20e8      	movs	r0, #232	; 0xe8
+    12f2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x2E);	LCD_Write_DATA8(0x02);
+    12f4:	212e      	movs	r1, #46	; 0x2e
+    12f6:	20d4      	movs	r0, #212	; 0xd4
+    12f8:	47a0      	blx	r4
+    12fa:	2002      	movs	r0, #2
+    12fc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x2F);	LCD_Write_DATA8(0xF9);
+    12fe:	212f      	movs	r1, #47	; 0x2f
+    1300:	20d4      	movs	r0, #212	; 0xd4
+    1302:	47a0      	blx	r4
+    1304:	20f9      	movs	r0, #249	; 0xf9
+    1306:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x30);	LCD_Write_DATA8(0x03); 
+    1308:	2130      	movs	r1, #48	; 0x30
+    130a:	20d4      	movs	r0, #212	; 0xd4
+    130c:	47a0      	blx	r4
+    130e:	2003      	movs	r0, #3
+    1310:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x31);	LCD_Write_DATA8(0x1F);
+    1312:	2131      	movs	r1, #49	; 0x31
+    1314:	20d4      	movs	r0, #212	; 0xd4
+    1316:	47a0      	blx	r4
+    1318:	201f      	movs	r0, #31
+    131a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x32);	LCD_Write_DATA8(0x03);
+    131c:	2132      	movs	r1, #50	; 0x32
+    131e:	20d4      	movs	r0, #212	; 0xd4
+    1320:	47a0      	blx	r4
+    1322:	2003      	movs	r0, #3
+    1324:	47a8      	blx	r5
+	LCD_Write_COM16(0xD4,0x33);	LCD_Write_DATA8(0x7F);
+    1326:	2133      	movs	r1, #51	; 0x33
+    1328:	20d4      	movs	r0, #212	; 0xd4
+    132a:	47a0      	blx	r4
+    132c:	207f      	movs	r0, #127	; 0x7f
+    132e:	47a8      	blx	r5
+		 
+	LCD_Write_COM16(0xD5,0x00);	LCD_Write_DATA8(0x00);
+    1330:	2100      	movs	r1, #0
+    1332:	20d5      	movs	r0, #213	; 0xd5
+    1334:	47a0      	blx	r4
+    1336:	2000      	movs	r0, #0
+    1338:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x01);	LCD_Write_DATA8(0x2D);
+    133a:	2101      	movs	r1, #1
+    133c:	20d5      	movs	r0, #213	; 0xd5
+    133e:	47a0      	blx	r4
+    1340:	202d      	movs	r0, #45	; 0x2d
+    1342:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x02);	LCD_Write_DATA8(0x00);
+    1344:	2102      	movs	r1, #2
+    1346:	20d5      	movs	r0, #213	; 0xd5
+    1348:	47a0      	blx	r4
+    134a:	2000      	movs	r0, #0
+    134c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x03);	LCD_Write_DATA8(0x2E);
+    134e:	2103      	movs	r1, #3
+    1350:	20d5      	movs	r0, #213	; 0xd5
+    1352:	47a0      	blx	r4
+    1354:	202e      	movs	r0, #46	; 0x2e
+    1356:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x04);	LCD_Write_DATA8(0x00); 
+    1358:	2104      	movs	r1, #4
+    135a:	20d5      	movs	r0, #213	; 0xd5
+    135c:	47a0      	blx	r4
+    135e:	2000      	movs	r0, #0
+    1360:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x05);	LCD_Write_DATA8(0x32);
+    1362:	2105      	movs	r1, #5
+    1364:	20d5      	movs	r0, #213	; 0xd5
+    1366:	47a0      	blx	r4
+    1368:	2032      	movs	r0, #50	; 0x32
+    136a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x06);	LCD_Write_DATA8(0x00);
+    136c:	2106      	movs	r1, #6
+    136e:	20d5      	movs	r0, #213	; 0xd5
+    1370:	47a0      	blx	r4
+    1372:	2000      	movs	r0, #0
+    1374:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x07);	LCD_Write_DATA8(0x44);
+    1376:	2107      	movs	r1, #7
+    1378:	20d5      	movs	r0, #213	; 0xd5
+    137a:	47a0      	blx	r4
+    137c:	2044      	movs	r0, #68	; 0x44
+    137e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x08);	LCD_Write_DATA8(0x00);
+    1380:	2108      	movs	r1, #8
+    1382:	20d5      	movs	r0, #213	; 0xd5
+    1384:	47a0      	blx	r4
+    1386:	2000      	movs	r0, #0
+    1388:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x09);	LCD_Write_DATA8(0x53);
+    138a:	2109      	movs	r1, #9
+    138c:	20d5      	movs	r0, #213	; 0xd5
+    138e:	47a0      	blx	r4
+    1390:	2053      	movs	r0, #83	; 0x53
+    1392:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x0A);	LCD_Write_DATA8(0x00);
+    1394:	210a      	movs	r1, #10
+    1396:	20d5      	movs	r0, #213	; 0xd5
+    1398:	47a0      	blx	r4
+    139a:	2000      	movs	r0, #0
+    139c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x0B);	LCD_Write_DATA8(0x88);
+    139e:	210b      	movs	r1, #11
+    13a0:	20d5      	movs	r0, #213	; 0xd5
+    13a2:	47a0      	blx	r4
+    13a4:	2088      	movs	r0, #136	; 0x88
+    13a6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x0C);	LCD_Write_DATA8(0x00);
+    13a8:	210c      	movs	r1, #12
+    13aa:	20d5      	movs	r0, #213	; 0xd5
+    13ac:	47a0      	blx	r4
+    13ae:	2000      	movs	r0, #0
+    13b0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x0D);	LCD_Write_DATA8(0xB6);
+    13b2:	210d      	movs	r1, #13
+    13b4:	20d5      	movs	r0, #213	; 0xd5
+    13b6:	47a0      	blx	r4
+    13b8:	20b6      	movs	r0, #182	; 0xb6
+    13ba:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x0E);	LCD_Write_DATA8(0x00);
+    13bc:	210e      	movs	r1, #14
+    13be:	20d5      	movs	r0, #213	; 0xd5
+    13c0:	47a0      	blx	r4
+    13c2:	2000      	movs	r0, #0
+    13c4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x0F);	LCD_Write_DATA8(0xF3);
+    13c6:	210f      	movs	r1, #15
+    13c8:	20d5      	movs	r0, #213	; 0xd5
+    13ca:	47a0      	blx	r4
+    13cc:	20f3      	movs	r0, #243	; 0xf3
+    13ce:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x10);	LCD_Write_DATA8(0x01);
+    13d0:	2110      	movs	r1, #16
+    13d2:	20d5      	movs	r0, #213	; 0xd5
+    13d4:	47a0      	blx	r4
+    13d6:	2001      	movs	r0, #1
+    13d8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x11);	LCD_Write_DATA8(0x22);
+    13da:	2111      	movs	r1, #17
+    13dc:	20d5      	movs	r0, #213	; 0xd5
+    13de:	47a0      	blx	r4
+    13e0:	2022      	movs	r0, #34	; 0x22
+    13e2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x12);	LCD_Write_DATA8(0x01);
+    13e4:	2112      	movs	r1, #18
+    13e6:	20d5      	movs	r0, #213	; 0xd5
+    13e8:	47a0      	blx	r4
+    13ea:	2001      	movs	r0, #1
+    13ec:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x13);	LCD_Write_DATA8(0x64);
+    13ee:	2113      	movs	r1, #19
+    13f0:	20d5      	movs	r0, #213	; 0xd5
+    13f2:	47a0      	blx	r4
+    13f4:	2064      	movs	r0, #100	; 0x64
+    13f6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x14);	LCD_Write_DATA8(0x01);
+    13f8:	2114      	movs	r1, #20
+    13fa:	20d5      	movs	r0, #213	; 0xd5
+    13fc:	47a0      	blx	r4
+    13fe:	2001      	movs	r0, #1
+    1400:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x15);	LCD_Write_DATA8(0x92);
+    1402:	2115      	movs	r1, #21
+    1404:	20d5      	movs	r0, #213	; 0xd5
+    1406:	47a0      	blx	r4
+    1408:	2092      	movs	r0, #146	; 0x92
+    140a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x16);	LCD_Write_DATA8(0x01);
+    140c:	2116      	movs	r1, #22
+    140e:	20d5      	movs	r0, #213	; 0xd5
+    1410:	47a0      	blx	r4
+    1412:	2001      	movs	r0, #1
+    1414:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x17);	LCD_Write_DATA8(0xD4);
+    1416:	2117      	movs	r1, #23
+    1418:	20d5      	movs	r0, #213	; 0xd5
+    141a:	47a0      	blx	r4
+    141c:	20d4      	movs	r0, #212	; 0xd4
+    141e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x18);	LCD_Write_DATA8(0x02);	
+    1420:	2118      	movs	r1, #24
+    1422:	20d5      	movs	r0, #213	; 0xd5
+    1424:	47a0      	blx	r4
+    1426:	2002      	movs	r0, #2
+    1428:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x19);	LCD_Write_DATA8(0x07);
+    142a:	2119      	movs	r1, #25
+    142c:	20d5      	movs	r0, #213	; 0xd5
+    142e:	47a0      	blx	r4
+    1430:	2007      	movs	r0, #7
+    1432:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x1A);	LCD_Write_DATA8(0x02);
+    1434:	211a      	movs	r1, #26
+    1436:	20d5      	movs	r0, #213	; 0xd5
+    1438:	47a0      	blx	r4
+    143a:	2002      	movs	r0, #2
+    143c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x1B);	LCD_Write_DATA8(0x08);
+    143e:	211b      	movs	r1, #27
+    1440:	20d5      	movs	r0, #213	; 0xd5
+    1442:	47a0      	blx	r4
+    1444:	2008      	movs	r0, #8
+    1446:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x1C);	LCD_Write_DATA8(0x02);
+    1448:	211c      	movs	r1, #28
+    144a:	20d5      	movs	r0, #213	; 0xd5
+    144c:	47a0      	blx	r4
+    144e:	2002      	movs	r0, #2
+    1450:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x1D);	LCD_Write_DATA8(0x34);
+    1452:	211d      	movs	r1, #29
+    1454:	20d5      	movs	r0, #213	; 0xd5
+    1456:	47a0      	blx	r4
+    1458:	2034      	movs	r0, #52	; 0x34
+    145a:	4dfe      	ldr	r5, [pc, #1016]	; (1854 <InitLCD+0xf5c>)
+    145c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x1E);	LCD_Write_DATA8(0x02);
+    145e:	211e      	movs	r1, #30
+    1460:	20d5      	movs	r0, #213	; 0xd5
+    1462:	4cfd      	ldr	r4, [pc, #1012]	; (1858 <InitLCD+0xf60>)
+    1464:	47a0      	blx	r4
+    1466:	2002      	movs	r0, #2
+    1468:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x1F);	LCD_Write_DATA8(0x5F);
+    146a:	211f      	movs	r1, #31
+    146c:	20d5      	movs	r0, #213	; 0xd5
+    146e:	47a0      	blx	r4
+    1470:	205f      	movs	r0, #95	; 0x5f
+    1472:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x20);	LCD_Write_DATA8(0x02);
+    1474:	2120      	movs	r1, #32
+    1476:	20d5      	movs	r0, #213	; 0xd5
+    1478:	47a0      	blx	r4
+    147a:	2002      	movs	r0, #2
+    147c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x21);	LCD_Write_DATA8(0x78);
+    147e:	2121      	movs	r1, #33	; 0x21
+    1480:	20d5      	movs	r0, #213	; 0xd5
+    1482:	47a0      	blx	r4
+    1484:	2078      	movs	r0, #120	; 0x78
+    1486:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x22);	LCD_Write_DATA8(0x02);
+    1488:	2122      	movs	r1, #34	; 0x22
+    148a:	20d5      	movs	r0, #213	; 0xd5
+    148c:	47a0      	blx	r4
+    148e:	2002      	movs	r0, #2
+    1490:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x23);	LCD_Write_DATA8(0x94);
+    1492:	2123      	movs	r1, #35	; 0x23
+    1494:	20d5      	movs	r0, #213	; 0xd5
+    1496:	47a0      	blx	r4
+    1498:	2094      	movs	r0, #148	; 0x94
+    149a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x24);	LCD_Write_DATA8(0x02);
+    149c:	2124      	movs	r1, #36	; 0x24
+    149e:	20d5      	movs	r0, #213	; 0xd5
+    14a0:	47a0      	blx	r4
+    14a2:	2002      	movs	r0, #2
+    14a4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x25);	LCD_Write_DATA8(0xA6);
+    14a6:	2125      	movs	r1, #37	; 0x25
+    14a8:	20d5      	movs	r0, #213	; 0xd5
+    14aa:	47a0      	blx	r4
+    14ac:	20a6      	movs	r0, #166	; 0xa6
+    14ae:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x26);	LCD_Write_DATA8(0x02);
+    14b0:	2126      	movs	r1, #38	; 0x26
+    14b2:	20d5      	movs	r0, #213	; 0xd5
+    14b4:	47a0      	blx	r4
+    14b6:	2002      	movs	r0, #2
+    14b8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x27);	LCD_Write_DATA8(0xBB);
+    14ba:	2127      	movs	r1, #39	; 0x27
+    14bc:	20d5      	movs	r0, #213	; 0xd5
+    14be:	47a0      	blx	r4
+    14c0:	20bb      	movs	r0, #187	; 0xbb
+    14c2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x28);	LCD_Write_DATA8(0x02); 
+    14c4:	2128      	movs	r1, #40	; 0x28
+    14c6:	20d5      	movs	r0, #213	; 0xd5
+    14c8:	47a0      	blx	r4
+    14ca:	2002      	movs	r0, #2
+    14cc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x29);	LCD_Write_DATA8(0xCA);
+    14ce:	2129      	movs	r1, #41	; 0x29
+    14d0:	20d5      	movs	r0, #213	; 0xd5
+    14d2:	47a0      	blx	r4
+    14d4:	20ca      	movs	r0, #202	; 0xca
+    14d6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x2A);	LCD_Write_DATA8(0x02);
+    14d8:	212a      	movs	r1, #42	; 0x2a
+    14da:	20d5      	movs	r0, #213	; 0xd5
+    14dc:	47a0      	blx	r4
+    14de:	2002      	movs	r0, #2
+    14e0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x2B);	LCD_Write_DATA8(0xDB);
+    14e2:	212b      	movs	r1, #43	; 0x2b
+    14e4:	20d5      	movs	r0, #213	; 0xd5
+    14e6:	47a0      	blx	r4
+    14e8:	20db      	movs	r0, #219	; 0xdb
+    14ea:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x2C);	LCD_Write_DATA8(0x02);
+    14ec:	212c      	movs	r1, #44	; 0x2c
+    14ee:	20d5      	movs	r0, #213	; 0xd5
+    14f0:	47a0      	blx	r4
+    14f2:	2002      	movs	r0, #2
+    14f4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x2D);	LCD_Write_DATA8(0xE8);
+    14f6:	212d      	movs	r1, #45	; 0x2d
+    14f8:	20d5      	movs	r0, #213	; 0xd5
+    14fa:	47a0      	blx	r4
+    14fc:	20e8      	movs	r0, #232	; 0xe8
+    14fe:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x2E);	LCD_Write_DATA8(0x02);
+    1500:	212e      	movs	r1, #46	; 0x2e
+    1502:	20d5      	movs	r0, #213	; 0xd5
+    1504:	47a0      	blx	r4
+    1506:	2002      	movs	r0, #2
+    1508:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x2F);	LCD_Write_DATA8(0xF9);
+    150a:	212f      	movs	r1, #47	; 0x2f
+    150c:	20d5      	movs	r0, #213	; 0xd5
+    150e:	47a0      	blx	r4
+    1510:	20f9      	movs	r0, #249	; 0xf9
+    1512:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x30);	LCD_Write_DATA8(0x03); 
+    1514:	2130      	movs	r1, #48	; 0x30
+    1516:	20d5      	movs	r0, #213	; 0xd5
+    1518:	47a0      	blx	r4
+    151a:	2003      	movs	r0, #3
+    151c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x31);	LCD_Write_DATA8(0x1F);
+    151e:	2131      	movs	r1, #49	; 0x31
+    1520:	20d5      	movs	r0, #213	; 0xd5
+    1522:	47a0      	blx	r4
+    1524:	201f      	movs	r0, #31
+    1526:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x32);	LCD_Write_DATA8(0x03);
+    1528:	2132      	movs	r1, #50	; 0x32
+    152a:	20d5      	movs	r0, #213	; 0xd5
+    152c:	47a0      	blx	r4
+    152e:	2003      	movs	r0, #3
+    1530:	47a8      	blx	r5
+	LCD_Write_COM16(0xD5,0x33);	LCD_Write_DATA8(0x7F);
+    1532:	2133      	movs	r1, #51	; 0x33
+    1534:	20d5      	movs	r0, #213	; 0xd5
+    1536:	47a0      	blx	r4
+    1538:	207f      	movs	r0, #127	; 0x7f
+    153a:	47a8      	blx	r5
+		 
+	LCD_Write_COM16(0xD6,0x00);	LCD_Write_DATA8(0x00);
+    153c:	2100      	movs	r1, #0
+    153e:	20d6      	movs	r0, #214	; 0xd6
+    1540:	47a0      	blx	r4
+    1542:	2000      	movs	r0, #0
+    1544:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x01);	LCD_Write_DATA8(0x2D);
+    1546:	2101      	movs	r1, #1
+    1548:	20d6      	movs	r0, #214	; 0xd6
+    154a:	47a0      	blx	r4
+    154c:	202d      	movs	r0, #45	; 0x2d
+    154e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x02);	LCD_Write_DATA8(0x00);
+    1550:	2102      	movs	r1, #2
+    1552:	20d6      	movs	r0, #214	; 0xd6
+    1554:	47a0      	blx	r4
+    1556:	2000      	movs	r0, #0
+    1558:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x03);	LCD_Write_DATA8(0x2E);
+    155a:	2103      	movs	r1, #3
+    155c:	20d6      	movs	r0, #214	; 0xd6
+    155e:	47a0      	blx	r4
+    1560:	202e      	movs	r0, #46	; 0x2e
+    1562:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x04);	LCD_Write_DATA8(0x00); 
+    1564:	2104      	movs	r1, #4
+    1566:	20d6      	movs	r0, #214	; 0xd6
+    1568:	47a0      	blx	r4
+    156a:	2000      	movs	r0, #0
+    156c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x05);	LCD_Write_DATA8(0x32);
+    156e:	2105      	movs	r1, #5
+    1570:	20d6      	movs	r0, #214	; 0xd6
+    1572:	47a0      	blx	r4
+    1574:	2032      	movs	r0, #50	; 0x32
+    1576:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x06);	LCD_Write_DATA8(0x00);
+    1578:	2106      	movs	r1, #6
+    157a:	20d6      	movs	r0, #214	; 0xd6
+    157c:	47a0      	blx	r4
+    157e:	2000      	movs	r0, #0
+    1580:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x07);	LCD_Write_DATA8(0x44);
+    1582:	2107      	movs	r1, #7
+    1584:	20d6      	movs	r0, #214	; 0xd6
+    1586:	47a0      	blx	r4
+    1588:	2044      	movs	r0, #68	; 0x44
+    158a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x08);	LCD_Write_DATA8(0x00);
+    158c:	2108      	movs	r1, #8
+    158e:	20d6      	movs	r0, #214	; 0xd6
+    1590:	47a0      	blx	r4
+    1592:	2000      	movs	r0, #0
+    1594:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x09);	LCD_Write_DATA8(0x53);
+    1596:	2109      	movs	r1, #9
+    1598:	20d6      	movs	r0, #214	; 0xd6
+    159a:	47a0      	blx	r4
+    159c:	2053      	movs	r0, #83	; 0x53
+    159e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x0A);	LCD_Write_DATA8(0x00);
+    15a0:	210a      	movs	r1, #10
+    15a2:	20d6      	movs	r0, #214	; 0xd6
+    15a4:	47a0      	blx	r4
+    15a6:	2000      	movs	r0, #0
+    15a8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x0B);	LCD_Write_DATA8(0x88);
+    15aa:	210b      	movs	r1, #11
+    15ac:	20d6      	movs	r0, #214	; 0xd6
+    15ae:	47a0      	blx	r4
+    15b0:	2088      	movs	r0, #136	; 0x88
+    15b2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x0C);	LCD_Write_DATA8(0x00);
+    15b4:	210c      	movs	r1, #12
+    15b6:	20d6      	movs	r0, #214	; 0xd6
+    15b8:	47a0      	blx	r4
+    15ba:	2000      	movs	r0, #0
+    15bc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x0D);	LCD_Write_DATA8(0xB6);
+    15be:	210d      	movs	r1, #13
+    15c0:	20d6      	movs	r0, #214	; 0xd6
+    15c2:	47a0      	blx	r4
+    15c4:	20b6      	movs	r0, #182	; 0xb6
+    15c6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x0E);	LCD_Write_DATA8(0x00);
+    15c8:	210e      	movs	r1, #14
+    15ca:	20d6      	movs	r0, #214	; 0xd6
+    15cc:	47a0      	blx	r4
+    15ce:	2000      	movs	r0, #0
+    15d0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x0F);	LCD_Write_DATA8(0xF3);
+    15d2:	210f      	movs	r1, #15
+    15d4:	20d6      	movs	r0, #214	; 0xd6
+    15d6:	47a0      	blx	r4
+    15d8:	20f3      	movs	r0, #243	; 0xf3
+    15da:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x10);	LCD_Write_DATA8(0x01);
+    15dc:	2110      	movs	r1, #16
+    15de:	20d6      	movs	r0, #214	; 0xd6
+    15e0:	47a0      	blx	r4
+    15e2:	2001      	movs	r0, #1
+    15e4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x11);	LCD_Write_DATA8(0x22);
+    15e6:	2111      	movs	r1, #17
+    15e8:	20d6      	movs	r0, #214	; 0xd6
+    15ea:	47a0      	blx	r4
+    15ec:	2022      	movs	r0, #34	; 0x22
+    15ee:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x12);	LCD_Write_DATA8(0x01);
+    15f0:	2112      	movs	r1, #18
+    15f2:	20d6      	movs	r0, #214	; 0xd6
+    15f4:	47a0      	blx	r4
+    15f6:	2001      	movs	r0, #1
+    15f8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x13);	LCD_Write_DATA8(0x64);
+    15fa:	2113      	movs	r1, #19
+    15fc:	20d6      	movs	r0, #214	; 0xd6
+    15fe:	47a0      	blx	r4
+    1600:	2064      	movs	r0, #100	; 0x64
+    1602:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x14);	LCD_Write_DATA8(0x01);
+    1604:	2114      	movs	r1, #20
+    1606:	20d6      	movs	r0, #214	; 0xd6
+    1608:	47a0      	blx	r4
+    160a:	2001      	movs	r0, #1
+    160c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x15);	LCD_Write_DATA8(0x92);
+    160e:	2115      	movs	r1, #21
+    1610:	20d6      	movs	r0, #214	; 0xd6
+    1612:	47a0      	blx	r4
+    1614:	2092      	movs	r0, #146	; 0x92
+    1616:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x16);	LCD_Write_DATA8(0x01);
+    1618:	2116      	movs	r1, #22
+    161a:	20d6      	movs	r0, #214	; 0xd6
+    161c:	47a0      	blx	r4
+    161e:	2001      	movs	r0, #1
+    1620:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x17);	LCD_Write_DATA8(0xD4);
+    1622:	2117      	movs	r1, #23
+    1624:	20d6      	movs	r0, #214	; 0xd6
+    1626:	47a0      	blx	r4
+    1628:	20d4      	movs	r0, #212	; 0xd4
+    162a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x18);	LCD_Write_DATA8(0x02);	
+    162c:	2118      	movs	r1, #24
+    162e:	20d6      	movs	r0, #214	; 0xd6
+    1630:	47a0      	blx	r4
+    1632:	2002      	movs	r0, #2
+    1634:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x19);	LCD_Write_DATA8(0x07);
+    1636:	2119      	movs	r1, #25
+    1638:	20d6      	movs	r0, #214	; 0xd6
+    163a:	47a0      	blx	r4
+    163c:	2007      	movs	r0, #7
+    163e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x1A);	LCD_Write_DATA8(0x02);
+    1640:	211a      	movs	r1, #26
+    1642:	20d6      	movs	r0, #214	; 0xd6
+    1644:	47a0      	blx	r4
+    1646:	2002      	movs	r0, #2
+    1648:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x1B);	LCD_Write_DATA8(0x08);
+    164a:	211b      	movs	r1, #27
+    164c:	20d6      	movs	r0, #214	; 0xd6
+    164e:	47a0      	blx	r4
+    1650:	2008      	movs	r0, #8
+    1652:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x1C);	LCD_Write_DATA8(0x02);
+    1654:	211c      	movs	r1, #28
+    1656:	20d6      	movs	r0, #214	; 0xd6
+    1658:	47a0      	blx	r4
+    165a:	2002      	movs	r0, #2
+    165c:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x1D);	LCD_Write_DATA8(0x34);
+    165e:	211d      	movs	r1, #29
+    1660:	20d6      	movs	r0, #214	; 0xd6
+    1662:	47a0      	blx	r4
+    1664:	2034      	movs	r0, #52	; 0x34
+    1666:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x1E);	LCD_Write_DATA8(0x02);
+    1668:	211e      	movs	r1, #30
+    166a:	20d6      	movs	r0, #214	; 0xd6
+    166c:	47a0      	blx	r4
+    166e:	2002      	movs	r0, #2
+    1670:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x1F);	LCD_Write_DATA8(0x5F);
+    1672:	211f      	movs	r1, #31
+    1674:	20d6      	movs	r0, #214	; 0xd6
+    1676:	47a0      	blx	r4
+    1678:	205f      	movs	r0, #95	; 0x5f
+    167a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x20);	LCD_Write_DATA8(0x02);
+    167c:	2120      	movs	r1, #32
+    167e:	20d6      	movs	r0, #214	; 0xd6
+    1680:	47a0      	blx	r4
+    1682:	2002      	movs	r0, #2
+    1684:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x21);	LCD_Write_DATA8(0x78);
+    1686:	2121      	movs	r1, #33	; 0x21
+    1688:	20d6      	movs	r0, #214	; 0xd6
+    168a:	47a0      	blx	r4
+    168c:	2078      	movs	r0, #120	; 0x78
+    168e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x22);	LCD_Write_DATA8(0x02);
+    1690:	2122      	movs	r1, #34	; 0x22
+    1692:	20d6      	movs	r0, #214	; 0xd6
+    1694:	47a0      	blx	r4
+    1696:	2002      	movs	r0, #2
+    1698:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x23);	LCD_Write_DATA8(0x94);
+    169a:	2123      	movs	r1, #35	; 0x23
+    169c:	20d6      	movs	r0, #214	; 0xd6
+    169e:	47a0      	blx	r4
+    16a0:	2094      	movs	r0, #148	; 0x94
+    16a2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x24);	LCD_Write_DATA8(0x02);
+    16a4:	2124      	movs	r1, #36	; 0x24
+    16a6:	20d6      	movs	r0, #214	; 0xd6
+    16a8:	47a0      	blx	r4
+    16aa:	2002      	movs	r0, #2
+    16ac:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x25);	LCD_Write_DATA8(0xA6);
+    16ae:	2125      	movs	r1, #37	; 0x25
+    16b0:	20d6      	movs	r0, #214	; 0xd6
+    16b2:	47a0      	blx	r4
+    16b4:	20a6      	movs	r0, #166	; 0xa6
+    16b6:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x26);	LCD_Write_DATA8(0x02);
+    16b8:	2126      	movs	r1, #38	; 0x26
+    16ba:	20d6      	movs	r0, #214	; 0xd6
+    16bc:	47a0      	blx	r4
+    16be:	2002      	movs	r0, #2
+    16c0:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x27);	LCD_Write_DATA8(0xBB);
+    16c2:	2127      	movs	r1, #39	; 0x27
+    16c4:	20d6      	movs	r0, #214	; 0xd6
+    16c6:	47a0      	blx	r4
+    16c8:	20bb      	movs	r0, #187	; 0xbb
+    16ca:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x28);	LCD_Write_DATA8(0x02); 
+    16cc:	2128      	movs	r1, #40	; 0x28
+    16ce:	20d6      	movs	r0, #214	; 0xd6
+    16d0:	47a0      	blx	r4
+    16d2:	2002      	movs	r0, #2
+    16d4:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x29);	LCD_Write_DATA8(0xCA);
+    16d6:	2129      	movs	r1, #41	; 0x29
+    16d8:	20d6      	movs	r0, #214	; 0xd6
+    16da:	47a0      	blx	r4
+    16dc:	20ca      	movs	r0, #202	; 0xca
+    16de:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x2A);	LCD_Write_DATA8(0x02);
+    16e0:	212a      	movs	r1, #42	; 0x2a
+    16e2:	20d6      	movs	r0, #214	; 0xd6
+    16e4:	47a0      	blx	r4
+    16e6:	2002      	movs	r0, #2
+    16e8:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x2B);	LCD_Write_DATA8(0xDB);
+    16ea:	212b      	movs	r1, #43	; 0x2b
+    16ec:	20d6      	movs	r0, #214	; 0xd6
+    16ee:	47a0      	blx	r4
+    16f0:	20db      	movs	r0, #219	; 0xdb
+    16f2:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x2C);	LCD_Write_DATA8(0x02);
+    16f4:	212c      	movs	r1, #44	; 0x2c
+    16f6:	20d6      	movs	r0, #214	; 0xd6
+    16f8:	47a0      	blx	r4
+    16fa:	2002      	movs	r0, #2
+    16fc:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x2D);	LCD_Write_DATA8(0xE8);
+    16fe:	212d      	movs	r1, #45	; 0x2d
+    1700:	20d6      	movs	r0, #214	; 0xd6
+    1702:	47a0      	blx	r4
+    1704:	20e8      	movs	r0, #232	; 0xe8
+    1706:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x2E);	LCD_Write_DATA8(0x02);
+    1708:	212e      	movs	r1, #46	; 0x2e
+    170a:	20d6      	movs	r0, #214	; 0xd6
+    170c:	47a0      	blx	r4
+    170e:	2002      	movs	r0, #2
+    1710:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x2F);	LCD_Write_DATA8(0xF9);
+    1712:	212f      	movs	r1, #47	; 0x2f
+    1714:	20d6      	movs	r0, #214	; 0xd6
+    1716:	47a0      	blx	r4
+    1718:	20f9      	movs	r0, #249	; 0xf9
+    171a:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x30);	LCD_Write_DATA8(0x03); 
+    171c:	2130      	movs	r1, #48	; 0x30
+    171e:	20d6      	movs	r0, #214	; 0xd6
+    1720:	47a0      	blx	r4
+    1722:	2003      	movs	r0, #3
+    1724:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x31);	LCD_Write_DATA8(0x1F);
+    1726:	2131      	movs	r1, #49	; 0x31
+    1728:	20d6      	movs	r0, #214	; 0xd6
+    172a:	47a0      	blx	r4
+    172c:	201f      	movs	r0, #31
+    172e:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x32);	LCD_Write_DATA8(0x03);
+    1730:	2132      	movs	r1, #50	; 0x32
+    1732:	20d6      	movs	r0, #214	; 0xd6
+    1734:	47a0      	blx	r4
+    1736:	2003      	movs	r0, #3
+    1738:	47a8      	blx	r5
+	LCD_Write_COM16(0xD6,0x33);	LCD_Write_DATA8(0x7F);
+    173a:	2133      	movs	r1, #51	; 0x33
+    173c:	20d6      	movs	r0, #214	; 0xd6
+    173e:	47a0      	blx	r4
+    1740:	207f      	movs	r0, #127	; 0x7f
+    1742:	47a8      	blx	r5
+	 
+	//#LV2 Page 0 enable
+	LCD_Write_COM16(0xF0,0x00);	LCD_Write_DATA8(0x55);
+    1744:	2100      	movs	r1, #0
+    1746:	20f0      	movs	r0, #240	; 0xf0
+    1748:	47a0      	blx	r4
+    174a:	2055      	movs	r0, #85	; 0x55
+    174c:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0,0x01);	LCD_Write_DATA8(0xAA);
+    174e:	2101      	movs	r1, #1
+    1750:	20f0      	movs	r0, #240	; 0xf0
+    1752:	47a0      	blx	r4
+    1754:	20aa      	movs	r0, #170	; 0xaa
+    1756:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0,0x02);	LCD_Write_DATA8(0x52);
+    1758:	2102      	movs	r1, #2
+    175a:	20f0      	movs	r0, #240	; 0xf0
+    175c:	47a0      	blx	r4
+    175e:	2052      	movs	r0, #82	; 0x52
+    1760:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0,0x03);	LCD_Write_DATA8(0x08);
+    1762:	2103      	movs	r1, #3
+    1764:	20f0      	movs	r0, #240	; 0xf0
+    1766:	47a0      	blx	r4
+    1768:	2008      	movs	r0, #8
+    176a:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0,0x04);	LCD_Write_DATA8(0x00); 
+    176c:	2104      	movs	r1, #4
+    176e:	20f0      	movs	r0, #240	; 0xf0
+    1770:	47a0      	blx	r4
+    1772:	2000      	movs	r0, #0
+    1774:	47a8      	blx	r5
+	
+	//#DISPLAY CONTROL
+	LCD_Write_COM16(0xB1,0x00);	LCD_Write_DATA8(0xCC);
+    1776:	2100      	movs	r1, #0
+    1778:	20b1      	movs	r0, #177	; 0xb1
+    177a:	47a0      	blx	r4
+    177c:	20cc      	movs	r0, #204	; 0xcc
+    177e:	47a8      	blx	r5
+	LCD_Write_COM16(0xB1,0x01);	LCD_Write_DATA8(0x00); 
+    1780:	2101      	movs	r1, #1
+    1782:	20b1      	movs	r0, #177	; 0xb1
+    1784:	47a0      	blx	r4
+    1786:	2000      	movs	r0, #0
+    1788:	47a8      	blx	r5
+	
+	//#SOURCE HOLD TIME
+	LCD_Write_COM16(0xB6,0x00);	LCD_Write_DATA8(0x05);
+    178a:	2100      	movs	r1, #0
+    178c:	20b6      	movs	r0, #182	; 0xb6
+    178e:	47a0      	blx	r4
+    1790:	2005      	movs	r0, #5
+    1792:	47a8      	blx	r5
+	
+	//Set Gate EQ     
+	LCD_Write_COM16(0xB7,0x00);	LCD_Write_DATA8(0x70); 
+    1794:	2100      	movs	r1, #0
+    1796:	20b7      	movs	r0, #183	; 0xb7
+    1798:	47a0      	blx	r4
+    179a:	2070      	movs	r0, #112	; 0x70
+    179c:	47a8      	blx	r5
+	LCD_Write_COM16(0xB7,0x01);	LCD_Write_DATA8(0x70);
+    179e:	2101      	movs	r1, #1
+    17a0:	20b7      	movs	r0, #183	; 0xb7
+    17a2:	47a0      	blx	r4
+    17a4:	2070      	movs	r0, #112	; 0x70
+    17a6:	47a8      	blx	r5
+	
+	//#Source EQ control (Mode 2)
+	LCD_Write_COM16(0xB8,0x00);	LCD_Write_DATA8(0x01);
+    17a8:	2100      	movs	r1, #0
+    17aa:	20b8      	movs	r0, #184	; 0xb8
+    17ac:	47a0      	blx	r4
+    17ae:	2001      	movs	r0, #1
+    17b0:	47a8      	blx	r5
+	LCD_Write_COM16(0xB8,0x01);	LCD_Write_DATA8(0x03);
+    17b2:	2101      	movs	r1, #1
+    17b4:	20b8      	movs	r0, #184	; 0xb8
+    17b6:	47a0      	blx	r4
+    17b8:	2003      	movs	r0, #3
+    17ba:	47a8      	blx	r5
+	LCD_Write_COM16(0xB8,0x02);	LCD_Write_DATA8(0x03);
+    17bc:	2102      	movs	r1, #2
+    17be:	20b8      	movs	r0, #184	; 0xb8
+    17c0:	47a0      	blx	r4
+    17c2:	2003      	movs	r0, #3
+    17c4:	47a8      	blx	r5
+	LCD_Write_COM16(0xB8,0x03);	LCD_Write_DATA8(0x03);
+    17c6:	2103      	movs	r1, #3
+    17c8:	20b8      	movs	r0, #184	; 0xb8
+    17ca:	47a0      	blx	r4
+    17cc:	2003      	movs	r0, #3
+    17ce:	47a8      	blx	r5
+	
+	//#INVERSION MODE
+	LCD_Write_COM16(0xBC,0x00);	LCD_Write_DATA8(0x02);
+    17d0:	2100      	movs	r1, #0
+    17d2:	20bc      	movs	r0, #188	; 0xbc
+    17d4:	47a0      	blx	r4
+    17d6:	2002      	movs	r0, #2
+    17d8:	47a8      	blx	r5
+	LCD_Write_COM16(0xBC,0x01);	LCD_Write_DATA8(0x00);	
+    17da:	2101      	movs	r1, #1
+    17dc:	20bc      	movs	r0, #188	; 0xbc
+    17de:	47a0      	blx	r4
+    17e0:	2000      	movs	r0, #0
+    17e2:	47a8      	blx	r5
+	LCD_Write_COM16(0xBC,0x02);	LCD_Write_DATA8(0x00); 
+    17e4:	2102      	movs	r1, #2
+    17e6:	20bc      	movs	r0, #188	; 0xbc
+    17e8:	47a0      	blx	r4
+    17ea:	2000      	movs	r0, #0
+    17ec:	47a8      	blx	r5
+	
+	//#Timing control
+	LCD_Write_COM16(0xC9,0x00);	LCD_Write_DATA8(0xD0);   
+    17ee:	2100      	movs	r1, #0
+    17f0:	20c9      	movs	r0, #201	; 0xc9
+    17f2:	47a0      	blx	r4
+    17f4:	20d0      	movs	r0, #208	; 0xd0
+    17f6:	47a8      	blx	r5
+	LCD_Write_COM16(0xC9,0x01);	LCD_Write_DATA8(0x02);
+    17f8:	2101      	movs	r1, #1
+    17fa:	20c9      	movs	r0, #201	; 0xc9
+    17fc:	47a0      	blx	r4
+    17fe:	2002      	movs	r0, #2
+    1800:	47a8      	blx	r5
+	LCD_Write_COM16(0xC9,0x02);	LCD_Write_DATA8(0x50);
+    1802:	2102      	movs	r1, #2
+    1804:	20c9      	movs	r0, #201	; 0xc9
+    1806:	47a0      	blx	r4
+    1808:	2050      	movs	r0, #80	; 0x50
+    180a:	47a8      	blx	r5
+	LCD_Write_COM16(0xC9,0x03);	LCD_Write_DATA8(0x50); 
+    180c:	2103      	movs	r1, #3
+    180e:	20c9      	movs	r0, #201	; 0xc9
+    1810:	47a0      	blx	r4
+    1812:	2050      	movs	r0, #80	; 0x50
+    1814:	47a8      	blx	r5
+	LCD_Write_COM16(0xC9,0x04);	LCD_Write_DATA8(0x50); 
+    1816:	2104      	movs	r1, #4
+    1818:	20c9      	movs	r0, #201	; 0xc9
+    181a:	47a0      	blx	r4
+    181c:	2050      	movs	r0, #80	; 0x50
+    181e:	47a8      	blx	r5
+	
+
+   	LCD_Write_COM16(0x35,0x00);   LCD_Write_DATA8(0x00); 
+    1820:	2100      	movs	r1, #0
+    1822:	2035      	movs	r0, #53	; 0x35
+    1824:	47a0      	blx	r4
+    1826:	2000      	movs	r0, #0
+    1828:	47a8      	blx	r5
+
+
+  	LCD_Write_COM16(0x3A,0x00);   LCD_Write_DATA8(0x55); //Data format 16-Bits
+    182a:	2100      	movs	r1, #0
+    182c:	203a      	movs	r0, #58	; 0x3a
+    182e:	47a0      	blx	r4
+    1830:	2055      	movs	r0, #85	; 0x55
+    1832:	47a8      	blx	r5
+
+  	LCD_Write_COM16(0x36,0x00);   LCD_Write_DATA8(0x00);   
+    1834:	2100      	movs	r1, #0
+    1836:	2036      	movs	r0, #54	; 0x36
+    1838:	47a0      	blx	r4
+    183a:	2000      	movs	r0, #0
+    183c:	47a8      	blx	r5
+
+
+  	LCD_Write_COM16(0x11,0x00);   //StartUp  
+    183e:	2100      	movs	r1, #0
+    1840:	2011      	movs	r0, #17
+    1842:	47a0      	blx	r4
+  
+  	delay_ms(120);
+    1844:	2078      	movs	r0, #120	; 0x78
+    1846:	4d05      	ldr	r5, [pc, #20]	; (185c <InitLCD+0xf64>)
+    1848:	47a8      	blx	r5
+
+  	LCD_Write_COM16(0x29,0x00);   //Display On  
+    184a:	2100      	movs	r1, #0
+    184c:	2029      	movs	r0, #41	; 0x29
+    184e:	47a0      	blx	r4
+	  
+   	delay_ms(100);
+    1850:	2064      	movs	r0, #100	; 0x64
+    1852:	e005      	b.n	1860 <InitLCD+0xf68>
+    1854:	000008dd 	.word	0x000008dd
+    1858:	000008c5 	.word	0x000008c5
+    185c:	00000155 	.word	0x00000155
+    1860:	47a8      	blx	r5
+	
+	REG_PORT_OUTSET1 = LCD_CS;
+    1862:	2280      	movs	r2, #128	; 0x80
+    1864:	03d2      	lsls	r2, r2, #15
+    1866:	4b01      	ldr	r3, [pc, #4]	; (186c <InitLCD+0xf74>)
+    1868:	601a      	str	r2, [r3, #0]
+	
+	//no idea what this shit does so whatever
+	//	setColor(255, 255, 255);
+	//	setBackColor(0, 0, 0);
+	
+}
+    186a:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+    186c:	41004498 	.word	0x41004498
+
+00001870 <main>:
+{
+    1870:	b570      	push	{r4, r5, r6, lr}
+	system_init();
+    1872:	4b17      	ldr	r3, [pc, #92]	; (18d0 <main+0x60>)
+    1874:	4798      	blx	r3
+	delay_init();
+    1876:	4b17      	ldr	r3, [pc, #92]	; (18d4 <main+0x64>)
+    1878:	4798      	blx	r3
+	REG_PORT_DIRSET1 = 0x0000ffff;		//this is the LCD data bus, PB00 - PB15
+    187a:	4b17      	ldr	r3, [pc, #92]	; (18d8 <main+0x68>)
+    187c:	4a17      	ldr	r2, [pc, #92]	; (18dc <main+0x6c>)
+    187e:	601a      	str	r2, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_Reset;
+    1880:	2580      	movs	r5, #128	; 0x80
+    1882:	05ed      	lsls	r5, r5, #23
+    1884:	601d      	str	r5, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_CS;
+    1886:	2480      	movs	r4, #128	; 0x80
+    1888:	03e4      	lsls	r4, r4, #15
+    188a:	601c      	str	r4, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_WR;
+    188c:	2080      	movs	r0, #128	; 0x80
+    188e:	0280      	lsls	r0, r0, #10
+    1890:	6018      	str	r0, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_DC;
+    1892:	2180      	movs	r1, #128	; 0x80
+    1894:	0409      	lsls	r1, r1, #16
+    1896:	6019      	str	r1, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_RD;
+    1898:	3201      	adds	r2, #1
+    189a:	601a      	str	r2, [r3, #0]
+	REG_PORT_OUTCLR1 = LCD_Reset;
+    189c:	4b10      	ldr	r3, [pc, #64]	; (18e0 <main+0x70>)
+    189e:	601d      	str	r5, [r3, #0]
+	REG_PORT_OUTCLR1 = LCD_CS;
+    18a0:	601c      	str	r4, [r3, #0]
+	REG_PORT_OUTCLR1 = LCD_WR;
+    18a2:	6018      	str	r0, [r3, #0]
+	REG_PORT_OUTCLR1 = LCD_DC;
+    18a4:	6019      	str	r1, [r3, #0]
+	REG_PORT_OUTCLR1 = LCD_RD;
+    18a6:	601a      	str	r2, [r3, #0]
+	InitLCD();
+    18a8:	4b0e      	ldr	r3, [pc, #56]	; (18e4 <main+0x74>)
+    18aa:	4798      	blx	r3
+	PortGroup *const port_base = port_get_group_from_gpio_pin(gpio_pin);
+	uint32_t pin_mask  = (1UL << (gpio_pin % 32));
+
+	/* Set the pin to high or low atomically based on the requested level */
+	if (level) {
+		port_base->OUTSET.reg = pin_mask;
+    18ac:	4c0e      	ldr	r4, [pc, #56]	; (18e8 <main+0x78>)
+			delay_ms(1000);
+    18ae:	4d0f      	ldr	r5, [pc, #60]	; (18ec <main+0x7c>)
+    18b0:	e005      	b.n	18be <main+0x4e>
+    18b2:	20fa      	movs	r0, #250	; 0xfa
+    18b4:	0080      	lsls	r0, r0, #2
+    18b6:	47a8      	blx	r5
+	} else {
+		port_base->OUTCLR.reg = pin_mask;
+    18b8:	2380      	movs	r3, #128	; 0x80
+    18ba:	05db      	lsls	r3, r3, #23
+    18bc:	6163      	str	r3, [r4, #20]
+	return (port_base->IN.reg & pin_mask);
+    18be:	4b0c      	ldr	r3, [pc, #48]	; (18f0 <main+0x80>)
+    18c0:	6a1b      	ldr	r3, [r3, #32]
+		if (port_pin_get_input_level(BUTTON_0_PIN) == BUTTON_0_ACTIVE) {
+    18c2:	041b      	lsls	r3, r3, #16
+    18c4:	d5f5      	bpl.n	18b2 <main+0x42>
+		port_base->OUTSET.reg = pin_mask;
+    18c6:	2380      	movs	r3, #128	; 0x80
+    18c8:	05db      	lsls	r3, r3, #23
+    18ca:	61a3      	str	r3, [r4, #24]
+    18cc:	e7f7      	b.n	18be <main+0x4e>
+    18ce:	46c0      	nop			; (mov r8, r8)
+    18d0:	00000791 	.word	0x00000791
+    18d4:	00000115 	.word	0x00000115
+    18d8:	41004488 	.word	0x41004488
+    18dc:	0000ffff 	.word	0x0000ffff
+    18e0:	41004494 	.word	0x41004494
+    18e4:	000008f9 	.word	0x000008f9
+    18e8:	41004480 	.word	0x41004480
+    18ec:	00000155 	.word	0x00000155
+    18f0:	41004400 	.word	0x41004400
+
+000018f4 <__udivsi3>:
+    18f4:	2200      	movs	r2, #0
+    18f6:	0843      	lsrs	r3, r0, #1
+    18f8:	428b      	cmp	r3, r1
+    18fa:	d374      	bcc.n	19e6 <__udivsi3+0xf2>
+    18fc:	0903      	lsrs	r3, r0, #4
+    18fe:	428b      	cmp	r3, r1
+    1900:	d35f      	bcc.n	19c2 <__udivsi3+0xce>
+    1902:	0a03      	lsrs	r3, r0, #8
+    1904:	428b      	cmp	r3, r1
+    1906:	d344      	bcc.n	1992 <__udivsi3+0x9e>
+    1908:	0b03      	lsrs	r3, r0, #12
+    190a:	428b      	cmp	r3, r1
+    190c:	d328      	bcc.n	1960 <__udivsi3+0x6c>
+    190e:	0c03      	lsrs	r3, r0, #16
+    1910:	428b      	cmp	r3, r1
+    1912:	d30d      	bcc.n	1930 <__udivsi3+0x3c>
+    1914:	22ff      	movs	r2, #255	; 0xff
+    1916:	0209      	lsls	r1, r1, #8
+    1918:	ba12      	rev	r2, r2
+    191a:	0c03      	lsrs	r3, r0, #16
+    191c:	428b      	cmp	r3, r1
+    191e:	d302      	bcc.n	1926 <__udivsi3+0x32>
+    1920:	1212      	asrs	r2, r2, #8
+    1922:	0209      	lsls	r1, r1, #8
+    1924:	d065      	beq.n	19f2 <__udivsi3+0xfe>
+    1926:	0b03      	lsrs	r3, r0, #12
+    1928:	428b      	cmp	r3, r1
+    192a:	d319      	bcc.n	1960 <__udivsi3+0x6c>
+    192c:	e000      	b.n	1930 <__udivsi3+0x3c>
+    192e:	0a09      	lsrs	r1, r1, #8
+    1930:	0bc3      	lsrs	r3, r0, #15
+    1932:	428b      	cmp	r3, r1
+    1934:	d301      	bcc.n	193a <__udivsi3+0x46>
+    1936:	03cb      	lsls	r3, r1, #15
+    1938:	1ac0      	subs	r0, r0, r3
+    193a:	4152      	adcs	r2, r2
+    193c:	0b83      	lsrs	r3, r0, #14
+    193e:	428b      	cmp	r3, r1
+    1940:	d301      	bcc.n	1946 <__udivsi3+0x52>
+    1942:	038b      	lsls	r3, r1, #14
+    1944:	1ac0      	subs	r0, r0, r3
+    1946:	4152      	adcs	r2, r2
+    1948:	0b43      	lsrs	r3, r0, #13
+    194a:	428b      	cmp	r3, r1
+    194c:	d301      	bcc.n	1952 <__udivsi3+0x5e>
+    194e:	034b      	lsls	r3, r1, #13
+    1950:	1ac0      	subs	r0, r0, r3
+    1952:	4152      	adcs	r2, r2
+    1954:	0b03      	lsrs	r3, r0, #12
+    1956:	428b      	cmp	r3, r1
+    1958:	d301      	bcc.n	195e <__udivsi3+0x6a>
+    195a:	030b      	lsls	r3, r1, #12
+    195c:	1ac0      	subs	r0, r0, r3
+    195e:	4152      	adcs	r2, r2
+    1960:	0ac3      	lsrs	r3, r0, #11
+    1962:	428b      	cmp	r3, r1
+    1964:	d301      	bcc.n	196a <__udivsi3+0x76>
+    1966:	02cb      	lsls	r3, r1, #11
+    1968:	1ac0      	subs	r0, r0, r3
+    196a:	4152      	adcs	r2, r2
+    196c:	0a83      	lsrs	r3, r0, #10
+    196e:	428b      	cmp	r3, r1
+    1970:	d301      	bcc.n	1976 <__udivsi3+0x82>
+    1972:	028b      	lsls	r3, r1, #10
+    1974:	1ac0      	subs	r0, r0, r3
+    1976:	4152      	adcs	r2, r2
+    1978:	0a43      	lsrs	r3, r0, #9
+    197a:	428b      	cmp	r3, r1
+    197c:	d301      	bcc.n	1982 <__udivsi3+0x8e>
+    197e:	024b      	lsls	r3, r1, #9
+    1980:	1ac0      	subs	r0, r0, r3
+    1982:	4152      	adcs	r2, r2
+    1984:	0a03      	lsrs	r3, r0, #8
+    1986:	428b      	cmp	r3, r1
+    1988:	d301      	bcc.n	198e <__udivsi3+0x9a>
+    198a:	020b      	lsls	r3, r1, #8
+    198c:	1ac0      	subs	r0, r0, r3
+    198e:	4152      	adcs	r2, r2
+    1990:	d2cd      	bcs.n	192e <__udivsi3+0x3a>
+    1992:	09c3      	lsrs	r3, r0, #7
+    1994:	428b      	cmp	r3, r1
+    1996:	d301      	bcc.n	199c <__udivsi3+0xa8>
+    1998:	01cb      	lsls	r3, r1, #7
+    199a:	1ac0      	subs	r0, r0, r3
+    199c:	4152      	adcs	r2, r2
+    199e:	0983      	lsrs	r3, r0, #6
+    19a0:	428b      	cmp	r3, r1
+    19a2:	d301      	bcc.n	19a8 <__udivsi3+0xb4>
+    19a4:	018b      	lsls	r3, r1, #6
+    19a6:	1ac0      	subs	r0, r0, r3
+    19a8:	4152      	adcs	r2, r2
+    19aa:	0943      	lsrs	r3, r0, #5
+    19ac:	428b      	cmp	r3, r1
+    19ae:	d301      	bcc.n	19b4 <__udivsi3+0xc0>
+    19b0:	014b      	lsls	r3, r1, #5
+    19b2:	1ac0      	subs	r0, r0, r3
+    19b4:	4152      	adcs	r2, r2
+    19b6:	0903      	lsrs	r3, r0, #4
+    19b8:	428b      	cmp	r3, r1
+    19ba:	d301      	bcc.n	19c0 <__udivsi3+0xcc>
+    19bc:	010b      	lsls	r3, r1, #4
+    19be:	1ac0      	subs	r0, r0, r3
+    19c0:	4152      	adcs	r2, r2
+    19c2:	08c3      	lsrs	r3, r0, #3
+    19c4:	428b      	cmp	r3, r1
+    19c6:	d301      	bcc.n	19cc <__udivsi3+0xd8>
+    19c8:	00cb      	lsls	r3, r1, #3
+    19ca:	1ac0      	subs	r0, r0, r3
+    19cc:	4152      	adcs	r2, r2
+    19ce:	0883      	lsrs	r3, r0, #2
+    19d0:	428b      	cmp	r3, r1
+    19d2:	d301      	bcc.n	19d8 <__udivsi3+0xe4>
+    19d4:	008b      	lsls	r3, r1, #2
+    19d6:	1ac0      	subs	r0, r0, r3
+    19d8:	4152      	adcs	r2, r2
+    19da:	0843      	lsrs	r3, r0, #1
+    19dc:	428b      	cmp	r3, r1
+    19de:	d301      	bcc.n	19e4 <__udivsi3+0xf0>
+    19e0:	004b      	lsls	r3, r1, #1
+    19e2:	1ac0      	subs	r0, r0, r3
+    19e4:	4152      	adcs	r2, r2
+    19e6:	1a41      	subs	r1, r0, r1
+    19e8:	d200      	bcs.n	19ec <__udivsi3+0xf8>
+    19ea:	4601      	mov	r1, r0
+    19ec:	4152      	adcs	r2, r2
+    19ee:	4610      	mov	r0, r2
+    19f0:	4770      	bx	lr
+    19f2:	e7ff      	b.n	19f4 <__udivsi3+0x100>
+    19f4:	b501      	push	{r0, lr}
+    19f6:	2000      	movs	r0, #0
+    19f8:	f000 f806 	bl	1a08 <__aeabi_idiv0>
+    19fc:	bd02      	pop	{r1, pc}
+    19fe:	46c0      	nop			; (mov r8, r8)
+
+00001a00 <__aeabi_uidivmod>:
+    1a00:	2900      	cmp	r1, #0
+    1a02:	d0f7      	beq.n	19f4 <__udivsi3+0x100>
+    1a04:	e776      	b.n	18f4 <__udivsi3>
+    1a06:	4770      	bx	lr
+
+00001a08 <__aeabi_idiv0>:
+    1a08:	4770      	bx	lr
+    1a0a:	46c0      	nop			; (mov r8, r8)
+
+00001a0c <__libc_init_array>:
+    1a0c:	b570      	push	{r4, r5, r6, lr}
+    1a0e:	2600      	movs	r6, #0
+    1a10:	4d0c      	ldr	r5, [pc, #48]	; (1a44 <__libc_init_array+0x38>)
+    1a12:	4c0d      	ldr	r4, [pc, #52]	; (1a48 <__libc_init_array+0x3c>)
+    1a14:	1b64      	subs	r4, r4, r5
+    1a16:	10a4      	asrs	r4, r4, #2
+    1a18:	42a6      	cmp	r6, r4
+    1a1a:	d109      	bne.n	1a30 <__libc_init_array+0x24>
+    1a1c:	2600      	movs	r6, #0
+    1a1e:	f000 f83d 	bl	1a9c <_init>
+    1a22:	4d0a      	ldr	r5, [pc, #40]	; (1a4c <__libc_init_array+0x40>)
+    1a24:	4c0a      	ldr	r4, [pc, #40]	; (1a50 <__libc_init_array+0x44>)
+    1a26:	1b64      	subs	r4, r4, r5
+    1a28:	10a4      	asrs	r4, r4, #2
+    1a2a:	42a6      	cmp	r6, r4
+    1a2c:	d105      	bne.n	1a3a <__libc_init_array+0x2e>
+    1a2e:	bd70      	pop	{r4, r5, r6, pc}
+    1a30:	00b3      	lsls	r3, r6, #2
+    1a32:	58eb      	ldr	r3, [r5, r3]
+    1a34:	4798      	blx	r3
+    1a36:	3601      	adds	r6, #1
+    1a38:	e7ee      	b.n	1a18 <__libc_init_array+0xc>
+    1a3a:	00b3      	lsls	r3, r6, #2
+    1a3c:	58eb      	ldr	r3, [r5, r3]
+    1a3e:	4798      	blx	r3
+    1a40:	3601      	adds	r6, #1
+    1a42:	e7f2      	b.n	1a2a <__libc_init_array+0x1e>
+    1a44:	00001aa8 	.word	0x00001aa8
+    1a48:	00001aa8 	.word	0x00001aa8
+    1a4c:	00001aa8 	.word	0x00001aa8
+    1a50:	00001aac 	.word	0x00001aac
+    1a54:	0000025e 	.word	0x0000025e
+    1a58:	0000025a 	.word	0x0000025a
+    1a5c:	0000025a 	.word	0x0000025a
+    1a60:	000002c0 	.word	0x000002c0
+    1a64:	000002c0 	.word	0x000002c0
+    1a68:	00000272 	.word	0x00000272
+    1a6c:	00000264 	.word	0x00000264
+    1a70:	00000278 	.word	0x00000278
+    1a74:	000002ae 	.word	0x000002ae
+    1a78:	00000348 	.word	0x00000348
+    1a7c:	00000328 	.word	0x00000328
+    1a80:	00000328 	.word	0x00000328
+    1a84:	000003b4 	.word	0x000003b4
+    1a88:	0000033a 	.word	0x0000033a
+    1a8c:	00000356 	.word	0x00000356
+    1a90:	0000032c 	.word	0x0000032c
+    1a94:	00000364 	.word	0x00000364
+    1a98:	000003a4 	.word	0x000003a4
+
+00001a9c <_init>:
+    1a9c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    1a9e:	46c0      	nop			; (mov r8, r8)
+    1aa0:	bcf8      	pop	{r3, r4, r5, r6, r7}
+    1aa2:	bc08      	pop	{r3}
+    1aa4:	469e      	mov	lr, r3
+    1aa6:	4770      	bx	lr
+
+00001aa8 <__init_array_start>:
+    1aa8:	000000dd 	.word	0x000000dd
+
+00001aac <_fini>:
+    1aac:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    1aae:	46c0      	nop			; (mov r8, r8)
+    1ab0:	bcf8      	pop	{r3, r4, r5, r6, r7}
+    1ab2:	bc08      	pop	{r3}
+    1ab4:	469e      	mov	lr, r3
+    1ab6:	4770      	bx	lr
+
+00001ab8 <__fini_array_start>:
+    1ab8:	000000b5 	.word	0x000000b5
