@@ -1,38 +1,9 @@
 /**************************This is 80 width line*******************************/
 
-/**
- * \file
- *
- * \brief Empty user application template
- *
- */
-
-/**
- * \mainpage User Application template doxygen documentation
- *
- * \par Empty user application template
- *
- * This is a bare minimum user application template.
- *
- * For documentation of the board, go \ref group_common_boards "here" for a link
- * to the board-specific documentation.
- *
- * \par Content
- *
- * -# Include the ASF header files (through asf.h)
- * -# Minimal main function that starts with a call to system_init()
- * -# Basic usage of on-board LED and button
- * -# "Insert application code here" comment
- *
- */
-
 /*
  * Include header files for all drivers that have been imported from
  * Atmel Software Framework (ASF).
- */
-/*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
- */
+*/
 #include <asf.h>
 
 /** MACROS ********************************************************************/
@@ -155,9 +126,11 @@ void InitLCD(void)
 	REG_PORT_OUTCLR1 = LCD_Reset;
 	delay_ms(15);
 	REG_PORT_OUTSET1 = LCD_Reset;
-	REG_PORT_OUTCLR1 = LCD_CS;		//LCD CS pin can be permanently grounded per data sheet version 0.00 page 85.
-									//However, we're going to do whatever I stole from the Chinese in this instance
-									//because this is a fucking load of bullshit
+	REG_PORT_OUTCLR1 = LCD_CS;		
+	
+	//LCD CS pin can be permanently grounded per data sheet version 0.00 page 85
+	//However, we're going to do whatever I stole from the Chinese in this 
+	//instance because this is a fucking load of bullshit
 									
 	LCD_Write_COM16(0xF0,0x00);	LCD_Write_DATA8(0x55);
 	LCD_Write_COM16(0xF0,0x01);	LCD_Write_DATA8(0xAA);
@@ -590,7 +563,7 @@ void InitLCD(void)
    	LCD_Write_COM16(0x35,0x00);   LCD_Write_DATA8(0x00); 
 
 
-  	LCD_Write_COM16(0x3A,0x00);   LCD_Write_DATA8(0x55); //Data format 16-Bits
+  	LCD_Write_COM16(0x3A,0x00);   LCD_Write_DATA8(0x55);
 
   	LCD_Write_COM16(0x36,0x00);   LCD_Write_DATA8(0x00);   
 
