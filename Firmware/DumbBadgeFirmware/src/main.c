@@ -44,7 +44,7 @@ void SwapUint16(uint16_t i, uint16_t j);
 void fillRect(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, int pix);
 
-
+/** STUFF BEGINS HERE *********************************************************/
 int main (void)
 {
 	system_init();
