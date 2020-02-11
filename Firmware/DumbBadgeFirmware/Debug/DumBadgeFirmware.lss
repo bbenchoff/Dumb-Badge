@@ -27,9 +27,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  11 .debug_macro  0001a610  00000000  00000000  0004d350  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00009faf  00000000  00000000  00067960  2**0
+ 12 .debug_line   00009fb1  00000000  00000000  00067960  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    0008e76b  00000000  00000000  0007190f  2**0
+ 13 .debug_str    0008e76b  00000000  00000000  00071911  2**0
                   CONTENTS, READONLY, DEBUGGING
  14 .debug_frame  00000c98  00000000  00000000  0010007c  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -4209,6 +4209,8 @@ void LCD_Write_DATA8(char VL)
 
 00001590 <InitLCD>:
 
+
+
 void InitLCD(void)
 {
     1590:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
@@ -6636,11 +6638,6 @@ void InitLCD(void)
     24fc:	03d2      	lsls	r2, r2, #15
     24fe:	4b06      	ldr	r3, [pc, #24]	; (2518 <STACK_SIZE+0x518>)
     2500:	601a      	str	r2, [r3, #0]
-	
-}
-
-void setColorRGB(char r, char g, char b)
-{
 	fore_Color_High = ((r&248)|g>>5);
     2502:	23ff      	movs	r3, #255	; 0xff
     2504:	4a05      	ldr	r2, [pc, #20]	; (251c <STACK_SIZE+0x51c>)
@@ -6648,11 +6645,6 @@ void setColorRGB(char r, char g, char b)
 	fore_Color_Low = ((g&28)<<3|b>>3);
     2508:	4a05      	ldr	r2, [pc, #20]	; (2520 <STACK_SIZE+0x520>)
     250a:	7013      	strb	r3, [r2, #0]
-	fore_Color_Low = (color & 0xFF);
-}
-
-void setBackColorRGB(char r, char g, char b)
-{
 	back_Color_High = ((r&248)|g>>5);
     250c:	2300      	movs	r3, #0
     250e:	4a05      	ldr	r2, [pc, #20]	; (2524 <STACK_SIZE+0x524>)
@@ -6660,6 +6652,10 @@ void setBackColorRGB(char r, char g, char b)
 	back_Color_Low = ((g&28)<<3|b>>3);
     2512:	4a05      	ldr	r2, [pc, #20]	; (2528 <STACK_SIZE+0x528>)
     2514:	7013      	strb	r3, [r2, #0]
+	
+	setColorRGB(255, 255, 255);
+	setBackColorRGB(0, 0, 0);
+	
 }
     2516:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
     2518:	41004498 	.word	0x41004498

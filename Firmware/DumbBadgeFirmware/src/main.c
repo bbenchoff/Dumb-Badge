@@ -317,6 +317,31 @@ void clrXY(void)
 	setXY(0,0,display_Y_size,display_X_size);
 }
 
+void setColorRGB(char r, char g, char b)
+{
+	fore_Color_High = ((r&248)|g>>5);
+	fore_Color_Low = ((g&28)<<3|b>>3);
+}
+
+void setColorHex(uint16_t color)
+{
+	fore_Color_High = (color >> 8);
+	fore_Color_Low = (color & 0xFF);
+}
+
+void setBackColorRGB(char r, char g, char b)
+{
+	back_Color_High = ((r&248)|g>>5);
+	back_Color_Low = ((g&28)<<3|b>>3);
+}
+
+void setBackColorHex(uint16_t color)
+{
+	back_Color_High = (color >> 8);
+	back_Color_Low = (color & 0xFF);
+}
+
+
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 {
 		
@@ -380,6 +405,8 @@ void LCD_Write_DATA8(char VL)
 	REG_PORT_OUTSET1 = LCD_DC;
 	LCD_Write_Bus(0x00, VL);
 }
+
+
 
 void InitLCD(void)
 {
@@ -871,26 +898,3 @@ void InitLCD(void)
 	
 }
 
-void setColorRGB(char r, char g, char b)
-{
-	fore_Color_High = ((r&248)|g>>5);
-	fore_Color_Low = ((g&28)<<3|b>>3);
-}
-
-void setColorHex(uint16_t color)
-{
-	fore_Color_High = (color >> 8);
-	fore_Color_Low = (color & 0xFF);
-}
-
-void setBackColorRGB(char r, char g, char b)
-{
-	back_Color_High = ((r&248)|g>>5);
-	back_Color_Low = ((g&28)<<3|b>>3);
-}
-
-void setBackColorHex(uint16_t color)
-{
-	back_Color_High = (color >> 8);
-	back_Color_Low = (color & 0xFF);
-}
