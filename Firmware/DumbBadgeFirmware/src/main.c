@@ -57,6 +57,9 @@ int main (void)
 	configure_usart();
 
 	/* Pin Initialization, begin with pin cleared */
+
+
+
 	
 	REG_PORT_DIRSET1 = 0x0000ffff;		//this is the LCD data bus, PB00 - PB15
 	REG_PORT_DIRSET1 = PORT_PB00;
@@ -87,24 +90,40 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTCLR1 = LCD_DC;
 	REG_PORT_OUTCLR1 = LCD_RD;
-	
+	REG_PORT_OUTCLR1 = PORT_PB00;
+	REG_PORT_OUTCLR1 = PORT_PB01;
+	REG_PORT_OUTCLR1 = PORT_PB02;
+	REG_PORT_OUTCLR1 = PORT_PB03;
+	REG_PORT_OUTCLR1 = PORT_PB04;
+	REG_PORT_OUTCLR1 = PORT_PB05;
+	REG_PORT_OUTCLR1 = PORT_PB06;
+	REG_PORT_OUTCLR1 = PORT_PB07;
+	REG_PORT_OUTCLR1 = PORT_PB08;
+	REG_PORT_OUTCLR1 = PORT_PB09;
+	REG_PORT_OUTCLR1 = PORT_PB10;
+	REG_PORT_OUTCLR1 = PORT_PB11;
+	REG_PORT_OUTCLR1 = PORT_PB12;
+	REG_PORT_OUTCLR1 = PORT_PB13;
+	REG_PORT_OUTCLR1 = PORT_PB14;
+	REG_PORT_OUTCLR1 = PORT_PB15;
 	
 	InitLCD();
 
 	/* This skeleton code simply sets the LED to the state of the button. */
 	while (1) {
 		
-		
+		/*
 		uint8_t string[] = "This is too fucking hard\r\n";
 		usart_write_buffer_wait(&usart_instance, string, sizeof(string));
-/*		uint16_t temp;
+/		uint16_t temp;
 		while (true) {
 			if (usart_read_wait(&usart_instance, &temp) == STATUS_OK) {
 				while (usart_write_wait(&usart_instance, temp) != STATUS_OK) {
 				}
 			}
-		}*/
+		}
 		
+		*/
 		clrScr();
 		fillRect(0, 466, 799, 479);
 		
