@@ -6,6 +6,7 @@
 */
 #include <asf.h>
 
+
 /** MACROS ********************************************************************/
 #define LCD_Reset PORT_PB30
 #define LCD_CS	PORT_PB22
@@ -18,8 +19,12 @@
 /** VARIABLES *****************************************************************/
 
 char fore_Color_High, fore_Color_Low, back_Color_High, back_Color_Low;
+
 uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
+
+static uint8_t chip_Serial_Number = (0x0080A00C ^ 0x0080A040 ^ 
+									0x0080A044 ^ 0x0080A048) % 65535;
 
 
 /** LOCAL PROTOTYPES **********************************************************/
@@ -39,6 +44,9 @@ void setBackColorHex(uint16_t color);
 void clrScr(void);
 void clrXY(void);
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
+void setPixel(uint16_t color);
+void drawPixel(int x, int y);
+
 
 void fillRect(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, long pix);
@@ -52,14 +60,13 @@ int main (void)
 {
 	system_init();
 	delay_init();
-	
+
+	srand(chip_Serial_Number);
+
 	configure_usart();
 
 	/* Pin Initialization, begin with pin cleared */
 
-
-
-	
 	REG_PORT_DIRSET1 = 0x0000ffff;		//this is the LCD data bus, PB00 - PB15
 	REG_PORT_DIRSET1 = PORT_PB00;
 	REG_PORT_DIRSET1 = PORT_PB01;
@@ -142,6 +149,12 @@ int main (void)
 		fillRect(0, 0, 799, 479);
 		
 		delay_ms(500);
+
+		for(int i = 0; i<10000; i++)
+		{
+			setBackColorRGB((rand()%255),(rand()%255),(rand()%255));
+			drawPixel((rand()%800), (rand()%480));
+		}
 		
 		/* Is button pressed? */
 		/* this is a sanity check and came from the default
@@ -188,6 +201,24 @@ void configure_usart(void)
 	}
 	#endif
 	usart_enable(&usart_instance);
+}
+
+
+/**************************LCD STUFF**********************************/
+
+void setPixel(uint16_t color)
+{
+	//Sets color to rrrrrggggggbbbbb
+	LCD_Write_DATA16((color>>8),(color&0xFF)); 
+}
+
+void drawPixel(int x, int y)
+{
+	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY(x,y,x,y);
+	setPixel((fore_Color_High<<8)|fore_Color_Low);
+	REG_PORT_OUTSET1 = LCD_CS;
+	clrXY();
 }
 
 void fillRect(int x1, int y1, int x2, int y2)
@@ -275,8 +306,6 @@ void LCD_Fast_Fill(int ch, int cl, long pix)
 		}
 }
 	
-
-
 void clrScr(void)
 {
 	REG_PORT_OUTCLR1 = LCD_CS;
@@ -384,9 +413,17 @@ void InitLCD(void)
 	REG_PORT_OUTSET1 = LCD_Reset;
 	REG_PORT_OUTCLR1 = LCD_CS;		
 	
-	//LCD CS pin can be permanently grounded per data sheet version 0.00 page 85
-	//However, we're going to do whatever I stole from the Chinese in this 
-	//instance because this is a fucking load of bullshit
+	/*
+	If you are reading this, I must impress something upon you: I don't have
+	any idea how or why this works. The data sheet for the NT35510 LCD Driver IC
+	is incomplete. I know this because the data sheet _skips_ commands that are
+	used below. I have no idea what this section of code is or does; nor does
+	anyone outside of the people who designed this chip.
+	
+	That said, this section of code does correctly initialize the LCD. If you
+	have any desire to change or edit this code, may whatever god you believe
+	in have mercy on your soul.
+	*/
 									
 	LCD_Write_COM16(0xF0,0x00);	LCD_Write_DATA8(0x55);
 	LCD_Write_COM16(0xF0,0x01);	LCD_Write_DATA8(0xAA);
@@ -513,7 +550,6 @@ void InitLCD(void)
 	LCD_Write_COM16(0xD1,0x31);	LCD_Write_DATA8(0x1F);
 	LCD_Write_COM16(0xD1,0x32);	LCD_Write_DATA8(0x03);
 	LCD_Write_COM16(0xD1,0x33);	LCD_Write_DATA8(0x7F);
-	
 	LCD_Write_COM16(0xD2,0x00);	LCD_Write_DATA8(0x00);
 	LCD_Write_COM16(0xD2,0x01);	LCD_Write_DATA8(0x2D);
 	LCD_Write_COM16(0xD2,0x02);	LCD_Write_DATA8(0x00);
@@ -565,8 +601,7 @@ void InitLCD(void)
 	LCD_Write_COM16(0xD2,0x30);	LCD_Write_DATA8(0x03); 
 	LCD_Write_COM16(0xD2,0x31);	LCD_Write_DATA8(0x1F);
 	LCD_Write_COM16(0xD2,0x32);	LCD_Write_DATA8(0x03);
-	LCD_Write_COM16(0xD2,0x33);	LCD_Write_DATA8(0x7F);
-		 
+	LCD_Write_COM16(0xD2,0x33);	LCD_Write_DATA8(0x7F); 
 	LCD_Write_COM16(0xD3,0x00);	LCD_Write_DATA8(0x00);
 	LCD_Write_COM16(0xD3,0x01);	LCD_Write_DATA8(0x2D);
 	LCD_Write_COM16(0xD3,0x02);	LCD_Write_DATA8(0x00);
@@ -619,7 +654,6 @@ void InitLCD(void)
 	LCD_Write_COM16(0xD3,0x31);	LCD_Write_DATA8(0x1F);
 	LCD_Write_COM16(0xD3,0x32);	LCD_Write_DATA8(0x03);
 	LCD_Write_COM16(0xD3,0x33);	LCD_Write_DATA8(0x7F);
-		 
 	LCD_Write_COM16(0xD4,0x00);	LCD_Write_DATA8(0x00);
 	LCD_Write_COM16(0xD4,0x01);	LCD_Write_DATA8(0x2D);
 	LCD_Write_COM16(0xD4,0x02);	LCD_Write_DATA8(0x00);
@@ -671,8 +705,7 @@ void InitLCD(void)
 	LCD_Write_COM16(0xD4,0x30);	LCD_Write_DATA8(0x03); 
 	LCD_Write_COM16(0xD4,0x31);	LCD_Write_DATA8(0x1F);
 	LCD_Write_COM16(0xD4,0x32);	LCD_Write_DATA8(0x03);
-	LCD_Write_COM16(0xD4,0x33);	LCD_Write_DATA8(0x7F);
-		 
+	LCD_Write_COM16(0xD4,0x33);	LCD_Write_DATA8(0x7F); 
 	LCD_Write_COM16(0xD5,0x00);	LCD_Write_DATA8(0x00);
 	LCD_Write_COM16(0xD5,0x01);	LCD_Write_DATA8(0x2D);
 	LCD_Write_COM16(0xD5,0x02);	LCD_Write_DATA8(0x00);
@@ -724,8 +757,7 @@ void InitLCD(void)
 	LCD_Write_COM16(0xD5,0x30);	LCD_Write_DATA8(0x03); 
 	LCD_Write_COM16(0xD5,0x31);	LCD_Write_DATA8(0x1F);
 	LCD_Write_COM16(0xD5,0x32);	LCD_Write_DATA8(0x03);
-	LCD_Write_COM16(0xD5,0x33);	LCD_Write_DATA8(0x7F);
-		 
+	LCD_Write_COM16(0xD5,0x33);	LCD_Write_DATA8(0x7F); 
 	LCD_Write_COM16(0xD6,0x00);	LCD_Write_DATA8(0x00);
 	LCD_Write_COM16(0xD6,0x01);	LCD_Write_DATA8(0x2D);
 	LCD_Write_COM16(0xD6,0x02);	LCD_Write_DATA8(0x00);
