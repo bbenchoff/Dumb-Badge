@@ -13,7 +13,7 @@
 #define LCD_DC	PORT_PB23
 #define LCD_RD	PORT_PB16
 
-
+#define SwapUint16(x , y) { uint16_t temp = x; x = y; y = temp; }
 
 /** VARIABLES *****************************************************************/
 
@@ -39,20 +39,44 @@ void setBackColorHex(uint16_t color);
 void clrScr(void);
 void clrXY(void);
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
-void SwapUint16(uint16_t i, uint16_t j);
 
 void fillRect(int x1, int y1, int x2, int y2);
-void LCD_Fast_Fill(int ch, int cl, int pix);
+void LCD_Fast_Fill(int ch, int cl, long pix);
+
+void configure_usart(void);
+
+struct usart_module usart_instance;
 
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
 {
 	system_init();
 	delay_init();
+	
+	configure_usart();
 
 	/* Pin Initialization, begin with pin cleared */
+
+
+
 	
 	REG_PORT_DIRSET1 = 0x0000ffff;		//this is the LCD data bus, PB00 - PB15
+	REG_PORT_DIRSET1 = PORT_PB00;
+	REG_PORT_DIRSET1 = PORT_PB01;
+	REG_PORT_DIRSET1 = PORT_PB02;
+	REG_PORT_DIRSET1 = PORT_PB03;
+	REG_PORT_DIRSET1 = PORT_PB04;
+	REG_PORT_DIRSET1 = PORT_PB05;
+	REG_PORT_DIRSET1 = PORT_PB06;
+	REG_PORT_DIRSET1 = PORT_PB07;
+	REG_PORT_DIRSET1 = PORT_PB08;
+	REG_PORT_DIRSET1 = PORT_PB09;
+	REG_PORT_DIRSET1 = PORT_PB10;
+	REG_PORT_DIRSET1 = PORT_PB11;
+	REG_PORT_DIRSET1 = PORT_PB12;
+	REG_PORT_DIRSET1 = PORT_PB13;
+	REG_PORT_DIRSET1 = PORT_PB14;
+	REG_PORT_DIRSET1 = PORT_PB15;
 	
 	REG_PORT_DIRSET1 = LCD_Reset;
 	REG_PORT_DIRSET1 = LCD_CS;
@@ -65,29 +89,57 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTCLR1 = LCD_DC;
 	REG_PORT_OUTCLR1 = LCD_RD;
-	
+	REG_PORT_OUTCLR1 = PORT_PB00;
+	REG_PORT_OUTCLR1 = PORT_PB01;
+	REG_PORT_OUTCLR1 = PORT_PB02;
+	REG_PORT_OUTCLR1 = PORT_PB03;
+	REG_PORT_OUTCLR1 = PORT_PB04;
+	REG_PORT_OUTCLR1 = PORT_PB05;
+	REG_PORT_OUTCLR1 = PORT_PB06;
+	REG_PORT_OUTCLR1 = PORT_PB07;
+	REG_PORT_OUTCLR1 = PORT_PB08;
+	REG_PORT_OUTCLR1 = PORT_PB09;
+	REG_PORT_OUTCLR1 = PORT_PB10;
+	REG_PORT_OUTCLR1 = PORT_PB11;
+	REG_PORT_OUTCLR1 = PORT_PB12;
+	REG_PORT_OUTCLR1 = PORT_PB13;
+	REG_PORT_OUTCLR1 = PORT_PB14;
+	REG_PORT_OUTCLR1 = PORT_PB15;
 	
 	InitLCD();
 
 	/* This skeleton code simply sets the LED to the state of the button. */
 	while (1) {
 		
+		/*
+		uint8_t string[] = "This is too fucking hard\r\n";
+		usart_write_buffer_wait(&usart_instance, string, sizeof(string));
+/		uint16_t temp;
+		while (true) {
+			if (usart_read_wait(&usart_instance, &temp) == STATUS_OK) {
+				while (usart_write_wait(&usart_instance, temp) != STATUS_OK) {
+				}
+			}
+		}
+		
+		*/
 		clrScr();
-		fillRect(0, 466, 799, 479);
+		setColorRGB(255,0,0);
+		fillRect(0,0,799,479);
 		
 		delay_ms(500);
 		
-		setColorRGB(255,255,255);
+		setColorRGB(0,255,0);
 		setBackColorRGB(255,0,0);
 		
-		fillRect(0, 466, 799, 479);
+		fillRect(0, 0, 799, 479);
 		
 		delay_ms(500);
 		
-		setColorRGB(0,255,255);
+		setColorRGB(0,0,255);
 		setBackColorRGB(255,255,0);
 		
-		fillRect(0, 466, 799, 479);
+		fillRect(0, 0, 799, 479);
 		
 		delay_ms(500);
 		
@@ -105,6 +157,39 @@ int main (void)
 	}
 }
 
+/**************************SERCOM STUFF*******************************/
+void configure_usart(void)
+{
+	struct usart_config config_usart;
+	usart_get_config_defaults(&config_usart);
+	#if(SAMR30E)
+	{
+		config_usart.baudrate    = 9600;
+		config_usart.mux_setting = CDC_SERCOM_MUX_SETTING;
+		config_usart.pinmux_pad0 = CDC_SERCOM_PINMUX_PAD0;
+		config_usart.pinmux_pad1 = CDC_SERCOM_PINMUX_PAD1;
+		config_usart.pinmux_pad2 = CDC_SERCOM_PINMUX_PAD2;
+		config_usart.pinmux_pad3 = CDC_SERCOM_PINMUX_PAD3;
+		while (usart_init(&usart_instance,
+		CDC_MODULE, &config_usart) != STATUS_OK) {
+		}
+	}
+	#else
+	{
+		config_usart.baudrate    = 9600;
+		config_usart.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
+		config_usart.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
+		config_usart.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
+		config_usart.pinmux_pad2 = EDBG_CDC_SERCOM_PINMUX_PAD2;
+		config_usart.pinmux_pad3 = EDBG_CDC_SERCOM_PINMUX_PAD3;
+		while (usart_init(&usart_instance,
+		EDBG_CDC_MODULE, &config_usart) != STATUS_OK) {
+		}
+	}
+	#endif
+	usart_enable(&usart_instance);
+}
+
 void fillRect(int x1, int y1, int x2, int y2)
 {
 	if (x1>x2)
@@ -119,11 +204,11 @@ void fillRect(int x1, int y1, int x2, int y2)
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x1, y1, x2, y2);
 	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Fast_Fill(fore_Color_High, fore_Color_Low, (((x2-x1)+1)*((y2-y1)+1)));
+	LCD_Fast_Fill(fore_Color_High, fore_Color_Low, (((long)(x2-x1)+1)*((long)(y2-y1)+1)));
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
-void LCD_Fast_Fill(int ch, int cl, int pix)
+void LCD_Fast_Fill(int ch, int cl, long pix)
 {
 	int blocks;
 
@@ -191,12 +276,6 @@ void LCD_Fast_Fill(int ch, int cl, int pix)
 }
 	
 
-void SwapUint16(uint16_t i, uint16_t j)
-{
-	uint16_t t = i; 
-	i = j; 
-	j = t;
-}
 
 void clrScr(void)
 {
@@ -244,7 +323,7 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 void LCD_Write_Bus(char VH, char VL)
 {
 	REG_PORT_OUTCLR1 = 0x0000ffff;
-	REG_PORT_OUTSET1 = (VH >> 8) | VL;
+	REG_PORT_OUTSET1 = (VH << 8) | VL;
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTSET1 = LCD_WR;
 }
