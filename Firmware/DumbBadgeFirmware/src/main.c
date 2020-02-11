@@ -13,7 +13,7 @@
 #define LCD_DC	PORT_PB23
 #define LCD_RD	PORT_PB16
 
-
+#define SwapUint16(x , y) { uint16_t temp = x; x = y; y = temp; }
 
 /** VARIABLES *****************************************************************/
 
@@ -39,10 +39,9 @@ void setBackColorHex(uint16_t color);
 void clrScr(void);
 void clrXY(void);
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
-void SwapUint16(uint16_t i, uint16_t j);
 
 void fillRect(int x1, int y1, int x2, int y2);
-void LCD_Fast_Fill(int ch, int cl, int pix);
+void LCD_Fast_Fill(int ch, int cl, long pix);
 
 void configure_usart(void);
 
@@ -125,21 +124,22 @@ int main (void)
 		
 		*/
 		clrScr();
-		fillRect(0, 466, 799, 479);
+		setColorRGB(255,0,0);
+		fillRect(0,0,799,479);
 		
 		delay_ms(500);
 		
-		setColorRGB(255,255,255);
+		setColorRGB(0,255,0);
 		setBackColorRGB(255,0,0);
 		
-		fillRect(0, 466, 799, 479);
+		fillRect(0, 0, 799, 479);
 		
 		delay_ms(500);
 		
-		setColorRGB(0,255,255);
+		setColorRGB(0,0,255);
 		setBackColorRGB(255,255,0);
 		
-		fillRect(0, 466, 799, 479);
+		fillRect(0, 0, 799, 479);
 		
 		delay_ms(500);
 		
@@ -204,11 +204,11 @@ void fillRect(int x1, int y1, int x2, int y2)
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x1, y1, x2, y2);
 	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Fast_Fill(fore_Color_High, fore_Color_Low, (((x2-x1)+1)*((y2-y1)+1)));
+	LCD_Fast_Fill(fore_Color_High, fore_Color_Low, (((long)(x2-x1)+1)*((long)(y2-y1)+1)));
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
-void LCD_Fast_Fill(int ch, int cl, int pix)
+void LCD_Fast_Fill(int ch, int cl, long pix)
 {
 	int blocks;
 
@@ -276,12 +276,6 @@ void LCD_Fast_Fill(int ch, int cl, int pix)
 }
 	
 
-void SwapUint16(uint16_t i, uint16_t j)
-{
-	uint16_t t = i; 
-	i = j; 
-	j = t;
-}
 
 void clrScr(void)
 {
@@ -329,7 +323,7 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 void LCD_Write_Bus(char VH, char VL)
 {
 	REG_PORT_OUTCLR1 = 0x0000ffff;
-	REG_PORT_OUTSET1 = (VH >> 8) | VL;
+	REG_PORT_OUTSET1 = (VH << 8) | VL;
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTSET1 = LCD_WR;
 }
