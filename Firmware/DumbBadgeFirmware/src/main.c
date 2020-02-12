@@ -377,13 +377,15 @@ void LCD_Write_DATA8(char VL)
 }
 
 
+/**************************InitLCD()**********************************/
 
 void InitLCD(void)
 {
 	
 	/*
-	InitLCD() sets the pinMode of all the LCD control pins (write, read, D/C, 
-	Chip Select, Reset) as output. Then follows data sheet initialization:
+	InitLCD() sets the pinMode of all the LCD control pins (write,
+	read, D/C, Chip Select, Reset) as output. Then follows data 
+	sheet initialization:
 	
 	0) for some fucking reason, pull PB16 high
 	1) pull Reset high, delay 5ms
@@ -395,9 +397,27 @@ void InitLCD(void)
 			and 100ms delay after turning the display on
 			(command 0x29..)
 			resulting in total time to initialize display as 255ms
-			(120+100+15+15+5). This does not include writing all black
-			to the display.
+			(120+100+15+15+5). This does not include writing all
+			black to the display.
 	6) pull Chip Select high.
+	
+	If you are reading this, I must impress something upon you: I
+	don't have any idea how or why this works. The data sheet for
+	the NT35510 LCD Driver IC is incomplete. This code comes from
+	a vendor example using an 8051 micro.
+		
+	I know the data sheet is incomplete because the commands below
+	are not listed. I have no idea what this section of code is or
+	does; nor does anyone outside of the people who designed this
+	chip.
+	
+	That said, this section of code does correctly initialize the
+	LCD. If you have any desire to change or edit this code, may
+	whatever god you believe in have mercy on your soul.
+		
+	The following code was refactored to be utterly incomprehensible
+	and full of magic numbers on purpose. I suggest you do not screw
+	with this, as there is no documentation at all.
 	*/
 	
 	REG_PORT_DIRSET1 = 0x00010000;
@@ -410,72 +430,29 @@ void InitLCD(void)
 	REG_PORT_OUTSET1 = LCD_Reset;
 	REG_PORT_OUTCLR1 = LCD_CS;		
 	
-	/*
-	If you are reading this, I must impress something upon you: I don't have
-	any idea how or why this works. The data sheet for the NT35510 LCD Driver IC
-	is incomplete. This code comes from a vendor example using an 8051 micro.
 	
-	I know the datasheet is incomplete because the commands below are not listed.
-	I have no idea what this section of code is or does; nor does anyone outside
-	of the people who designed this chip.
+/**************************InitLCD()**********************************/	
+
 	
-	That said, this section of code does correctly initialize the LCD. If you
-	have any desire to change or edit this code, may whatever god you believe
-	in have mercy on your soul.
-	*/
-									
-	LCD_Write_COM16(0xF0,0x00);	LCD_Write_DATA8(0x55);
-	LCD_Write_COM16(0xF0,0x01);	LCD_Write_DATA8(0xAA);
-	LCD_Write_COM16(0xF0,0x02);	LCD_Write_DATA8(0x52);
-	LCD_Write_COM16(0xF0,0x03);	LCD_Write_DATA8(0x08);
-	LCD_Write_COM16(0xF0,0x04);	LCD_Write_DATA8(0x01);
+	static char dataHigh[34] = {0xF0,0xF0,0xF0,0xF0,0xF0,0xB0,0xB0,0xB0,
+		0xB6,0xB6,0xB6,0xB1,0xB1,0xB1,0xB7,0xB7,0xB7,0xB2,0xB2,0xB2,0xB8,
+		0xB8,0xB8,0xBF,0xB3,0xB3,0xB3,0xB9,0xB9,0xB9,0xB5,0xB5,0xB5,0xC2};
+		
+	static char dataLow[34] = {0x00,0x01,0x02,0x03,0x04,0x00,0x01,0x02,
+		0x00,0x01,0x02,0x00,0x01,0x02,0x00,0x01,0x02,0x00,0x01,0x02,0x00,
+		0x01,0x02,0x00,0x01,0x02,0x00,0x01,0x02,0x00,0x00,0x01,0x00};
+		
+	static char data[34] = {0x55,0xAA,0x52,0x08,0x01,0x0D,0x0D,0x0D,0x34,
+		0x34,0x34,0x0D,0x0D,0x0D,0x34,0x34,0x34,0x00,0x00,0x00,0x24,0x24,
+		0x24,0x01,0x0F,0x0F,0x0F,0x34,0x34,0x34,0x08,0x08,0x08,0x03};
+		
+	for(int i = 0; i < 34; i++)
+	{
+		LCD_Write_COM16(dataHigh[i],dataLow[i]);
+		LCD_Write_DATA8(data[i]);
+	}
 	
-	//#AVDD Set AVDD 5.2V
-	LCD_Write_COM16(0xB0,0x00);	LCD_Write_DATA8(0x0D);
-	LCD_Write_COM16(0xB0,0x01);	LCD_Write_DATA8(0x0D);
-	LCD_Write_COM16(0xB0,0x02);	LCD_Write_DATA8(0x0D);
-	
-	//#AVDD ratio
-	LCD_Write_COM16(0xB6,0x00);	LCD_Write_DATA8(0x34);
-	LCD_Write_COM16(0xB6,0x01);	LCD_Write_DATA8(0x34);
-	LCD_Write_COM16(0xB6,0x02);	LCD_Write_DATA8(0x34);
-	 
-	//#AVEE  -5.2V
-	LCD_Write_COM16(0xB1,0x00);	LCD_Write_DATA8(0x0D);
-	LCD_Write_COM16(0xB1,0x01);	LCD_Write_DATA8(0x0D);
-	LCD_Write_COM16(0xB1,0x02);	LCD_Write_DATA8(0x0D);
-	
-	//#AVEE ratio
-	LCD_Write_COM16(0xB7,0x00);	LCD_Write_DATA8(0x34);
-	LCD_Write_COM16(0xB7,0x01);	LCD_Write_DATA8(0x34);
-	LCD_Write_COM16(0xB7,0x02);	LCD_Write_DATA8(0x34);
-	
-	//#VCL  -2.5V
-	LCD_Write_COM16(0xB2,0x00);	LCD_Write_DATA8(0x00);
-	LCD_Write_COM16(0xB2,0x01);	LCD_Write_DATA8(0x00);
-	LCD_Write_COM16(0xB2,0x02);	LCD_Write_DATA8(0x00);
-	
-	//#VCL ratio
-	LCD_Write_COM16(0xB8,0x00);	LCD_Write_DATA8(0x24);
-	LCD_Write_COM16(0xB8,0x01);	LCD_Write_DATA8(0x24);
-	LCD_Write_COM16(0xB8,0x02);	LCD_Write_DATA8(0x24); 
-	
-	//#VGH  15V
-	LCD_Write_COM16(0xBF,0x00);	LCD_Write_DATA8(0x01);
-	LCD_Write_COM16(0xB3,0x00);	LCD_Write_DATA8(0x0F);
-	LCD_Write_COM16(0xB3,0x01);	LCD_Write_DATA8(0x0F);
-	LCD_Write_COM16(0xB3,0x02);	LCD_Write_DATA8(0x0F);
-	
-	//#VGH  ratio
-	LCD_Write_COM16(0xB9,0x00);	LCD_Write_DATA8(0x34);
-	LCD_Write_COM16(0xB9,0x01);	LCD_Write_DATA8(0x34);
-	LCD_Write_COM16(0xB9,0x02);	LCD_Write_DATA8(0x34); 
-	
-	//#VGL_REG  -10V
-	LCD_Write_COM16(0xB5,0x00);	LCD_Write_DATA8(0x08);
-	LCD_Write_COM16(0xB5,0x00);	LCD_Write_DATA8(0x08);
-	LCD_Write_COM16(0xB5,0x01);	LCD_Write_DATA8(0x08);
-	LCD_Write_COM16(0xC2,0x00);	LCD_Write_DATA8(0x03);
+
 	
 	//#VGLX  ratio
 	LCD_Write_COM16(0xBA,0x00);	LCD_Write_DATA8(0x24);
@@ -867,6 +844,53 @@ void InitLCD(void)
 	
 	setColorRGB(255, 255, 255);
 	setBackColorRGB(0, 0, 0);
+	
+	/* put this after the for loop								
+	LCD_Write_COM16(0xF0,0x00);	LCD_Write_DATA8(0x55);
+	LCD_Write_COM16(0xF0,0x01);	LCD_Write_DATA8(0xAA);
+	LCD_Write_COM16(0xF0,0x02);	LCD_Write_DATA8(0x52);
+	LCD_Write_COM16(0xF0,0x03);	LCD_Write_DATA8(0x08);
+	LCD_Write_COM16(0xF0,0x04);	LCD_Write_DATA8(0x01);
+	//#AVDD Set AVDD 5.2V
+	LCD_Write_COM16(0xB0,0x00);	LCD_Write_DATA8(0x0D);
+	LCD_Write_COM16(0xB0,0x01);	LCD_Write_DATA8(0x0D);
+	LCD_Write_COM16(0xB0,0x02);	LCD_Write_DATA8(0x0D);
+	//#AVDD ratio
+	LCD_Write_COM16(0xB6,0x00);	LCD_Write_DATA8(0x34);
+	LCD_Write_COM16(0xB6,0x01);	LCD_Write_DATA8(0x34);
+	LCD_Write_COM16(0xB6,0x02);	LCD_Write_DATA8(0x34);
+	//#AVEE  -5.2V
+	LCD_Write_COM16(0xB1,0x00);	LCD_Write_DATA8(0x0D);
+	LCD_Write_COM16(0xB1,0x01);	LCD_Write_DATA8(0x0D);
+	LCD_Write_COM16(0xB1,0x02);	LCD_Write_DATA8(0x0D);
+	//#AVEE ratio
+	LCD_Write_COM16(0xB7,0x00);	LCD_Write_DATA8(0x34);
+	LCD_Write_COM16(0xB7,0x01);	LCD_Write_DATA8(0x34);
+	LCD_Write_COM16(0xB7,0x02);	LCD_Write_DATA8(0x34);
+	//#VCL  -2.5V
+	LCD_Write_COM16(0xB2,0x00);	LCD_Write_DATA8(0x00);
+	LCD_Write_COM16(0xB2,0x01);	LCD_Write_DATA8(0x00);
+	LCD_Write_COM16(0xB2,0x02);	LCD_Write_DATA8(0x00);
+	//#VCL ratio
+	LCD_Write_COM16(0xB8,0x00);	LCD_Write_DATA8(0x24);
+	LCD_Write_COM16(0xB8,0x01);	LCD_Write_DATA8(0x24);
+	LCD_Write_COM16(0xB8,0x02);	LCD_Write_DATA8(0x24);
+	//#VGH  15V
+	LCD_Write_COM16(0xBF,0x00);	LCD_Write_DATA8(0x01);
+	LCD_Write_COM16(0xB3,0x00);	LCD_Write_DATA8(0x0F);
+	LCD_Write_COM16(0xB3,0x01);	LCD_Write_DATA8(0x0F);
+	LCD_Write_COM16(0xB3,0x02);	LCD_Write_DATA8(0x0F);
+	//#VGH  ratio
+	LCD_Write_COM16(0xB9,0x00);	LCD_Write_DATA8(0x34);
+	LCD_Write_COM16(0xB9,0x01);	LCD_Write_DATA8(0x34);
+	LCD_Write_COM16(0xB9,0x02);	LCD_Write_DATA8(0x34);
+	
+	//#VGL_REG  -10V
+	LCD_Write_COM16(0xB5,0x00);	LCD_Write_DATA8(0x08);
+	LCD_Write_COM16(0xB5,0x00);	LCD_Write_DATA8(0x08);
+	LCD_Write_COM16(0xB5,0x01);	LCD_Write_DATA8(0x08);
+	LCD_Write_COM16(0xC2,0x00);	LCD_Write_DATA8(0x03);
+	*/
 	
 }
 
