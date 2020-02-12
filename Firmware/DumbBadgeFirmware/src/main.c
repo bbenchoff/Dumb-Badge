@@ -149,12 +149,19 @@ int main (void)
 		fillRect(0, 0, 799, 479);
 		
 		delay_ms(500);
+		
+		setColorRGB(0,0,0);
+		setBackColorRGB(0,0,0);
+		
+		fillRect(0, 0, 799, 479);
 
-		for(int i = 0; i<10000; i++)
+		for(int i = 0; i<100000; i++)
 		{
-			setBackColorRGB((rand()%255),(rand()%255),(rand()%255));
+			setColorRGB((rand() % 255),(rand() % 255),(rand() % 255));
 			drawPixel((rand()%800), (rand()%480));
 		}
+		
+		delay_ms(1000);
 		
 		/* Is button pressed? */
 		/* this is a sanity check and came from the default
