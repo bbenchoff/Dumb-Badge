@@ -157,7 +157,12 @@ int main (void)
 
 		for(int i = 0; i<100000; i++)
 		{
-			setColorRGB((rand() % 255),(rand() % 255),(rand() % 255));
+			switch (rand()%3)
+			{
+				case 0: setColorRGB(255,0,0); break;
+				case 1: setColorRGB(0,255,0); break;
+				case 2: setColorRGB(0,0,255); break;
+			}
 			drawPixel((rand()%800), (rand()%480));
 		}
 		
@@ -256,53 +261,11 @@ void LCD_Fast_Fill(int ch, int cl, long pix)
 	blocks = pix/16;
 	for (int i=0; i<blocks; i++)
 	{
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
-		
-		REG_PORT_OUTCLR1 = LCD_WR;
-		REG_PORT_OUTSET1 = LCD_WR;
+		for (int j=0; j<16; j++)
+		{
+			REG_PORT_OUTCLR1 = LCD_WR;
+			REG_PORT_OUTSET1 = LCD_WR;
+		}
 	}
 	
 	if ((pix % 16) != 0)
@@ -450,9 +413,11 @@ void InitLCD(void)
 	/*
 	If you are reading this, I must impress something upon you: I don't have
 	any idea how or why this works. The data sheet for the NT35510 LCD Driver IC
-	is incomplete. I know this because the data sheet _skips_ commands that are
-	used below. I have no idea what this section of code is or does; nor does
-	anyone outside of the people who designed this chip.
+	is incomplete. This code comes from a vendor example using an 8051 micro.
+	
+	I know the datasheet is incomplete because the commands below are not listed.
+	I have no idea what this section of code is or does; nor does anyone outside
+	of the people who designed this chip.
 	
 	That said, this section of code does correctly initialize the LCD. If you
 	have any desire to change or edit this code, may whatever god you believe
