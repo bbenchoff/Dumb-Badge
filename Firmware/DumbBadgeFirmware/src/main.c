@@ -50,6 +50,7 @@ void drawPixel(int x, int y);
 
 void fillRect(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, long pix);
+void drawKare(void);
 
 void configure_usart(void);
 
@@ -68,51 +69,19 @@ int main (void)
 	/* Pin Initialization, begin with pin cleared */
 
 	REG_PORT_DIRSET1 = 0x0000ffff;		//this is the LCD data bus, PB00 - PB15
-	REG_PORT_DIRSET1 = PORT_PB00;
-	REG_PORT_DIRSET1 = PORT_PB01;
-	REG_PORT_DIRSET1 = PORT_PB02;
-	REG_PORT_DIRSET1 = PORT_PB03;
-	REG_PORT_DIRSET1 = PORT_PB04;
-	REG_PORT_DIRSET1 = PORT_PB05;
-	REG_PORT_DIRSET1 = PORT_PB06;
-	REG_PORT_DIRSET1 = PORT_PB07;
-	REG_PORT_DIRSET1 = PORT_PB08;
-	REG_PORT_DIRSET1 = PORT_PB09;
-	REG_PORT_DIRSET1 = PORT_PB10;
-	REG_PORT_DIRSET1 = PORT_PB11;
-	REG_PORT_DIRSET1 = PORT_PB12;
-	REG_PORT_DIRSET1 = PORT_PB13;
-	REG_PORT_DIRSET1 = PORT_PB14;
-	REG_PORT_DIRSET1 = PORT_PB15;
-	
 	REG_PORT_DIRSET1 = LCD_Reset;
 	REG_PORT_DIRSET1 = LCD_CS;
 	REG_PORT_DIRSET1 = LCD_WR;
 	REG_PORT_DIRSET1 = LCD_DC;
 	REG_PORT_DIRSET1 = LCD_RD;
-	
+
+	REG_PORT_OUTCLR1 = 0x0000ffff;	
 	REG_PORT_OUTCLR1 = LCD_Reset;
 	REG_PORT_OUTCLR1 = LCD_CS;
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTCLR1 = LCD_DC;
 	REG_PORT_OUTCLR1 = LCD_RD;
-	REG_PORT_OUTCLR1 = PORT_PB00;
-	REG_PORT_OUTCLR1 = PORT_PB01;
-	REG_PORT_OUTCLR1 = PORT_PB02;
-	REG_PORT_OUTCLR1 = PORT_PB03;
-	REG_PORT_OUTCLR1 = PORT_PB04;
-	REG_PORT_OUTCLR1 = PORT_PB05;
-	REG_PORT_OUTCLR1 = PORT_PB06;
-	REG_PORT_OUTCLR1 = PORT_PB07;
-	REG_PORT_OUTCLR1 = PORT_PB08;
-	REG_PORT_OUTCLR1 = PORT_PB09;
-	REG_PORT_OUTCLR1 = PORT_PB10;
-	REG_PORT_OUTCLR1 = PORT_PB11;
-	REG_PORT_OUTCLR1 = PORT_PB12;
-	REG_PORT_OUTCLR1 = PORT_PB13;
-	REG_PORT_OUTCLR1 = PORT_PB14;
-	REG_PORT_OUTCLR1 = PORT_PB15;
-	
+
 	InitLCD();
 
 	/* This skeleton code simply sets the LED to the state of the button. */
@@ -131,8 +100,18 @@ int main (void)
 		
 		*/
 		clrScr();
+		setColorRGB(0,0,0);
+		setBackColorRGB(0,0,0);
+		fillRect(0,0,799,479);
+		
+		drawKare();
+		
+		delay_ms(5000);
+		
 		setColorRGB(255,0,0);
 		fillRect(0,0,799,479);
+		
+		/*
 		
 		delay_ms(500);
 		
@@ -155,7 +134,7 @@ int main (void)
 		
 		fillRect(0, 0, 799, 479);
 
-		for(int i = 0; i<100000; i++)
+		for(int i = 0; i<100; i++)
 		{
 			switch (rand()%3)
 			{
@@ -166,6 +145,7 @@ int main (void)
 			drawPixel((rand()%800), (rand()%480));
 		}
 		
+		*/
 		delay_ms(1000);
 		
 		/* Is button pressed? */
@@ -236,18 +216,15 @@ void drawPixel(int x, int y)
 void fillRect(int x1, int y1, int x2, int y2)
 {
 	if (x1>x2)
-	{
 		SwapUint16(x1, x2);
-	}
 	if (y1>y2)
-	{
 		SwapUint16(y1, y2);
-	}
 	
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x1, y1, x2, y2);
 	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Fast_Fill(fore_Color_High, fore_Color_Low, (((long)(x2-x1)+1)*((long)(y2-y1)+1)));
+	LCD_Fast_Fill(fore_Color_High, fore_Color_Low, 
+		(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
@@ -284,7 +261,7 @@ void clrScr(void)
 
 void clrXY(void)
 {
-	setXY(0,0,display_Y_size,display_X_size);
+	setXY(0,0,display_X_size,display_Y_size);
 }
 
 void setColorRGB(char r, char g, char b)
@@ -376,9 +353,46 @@ void LCD_Write_DATA8(char VL)
 	LCD_Write_Bus(0x00, VL);
 }
 
+void drawKare(void)
+{
+
+	uint16_t graphic[104] = {10,10,20,20,20,0,380,10,380,10,390,20,0,20,10,290,390,20,400,290,
+		10,290,20,300,380,290,390,300,20,300,380,310,0,30,50,40,0,50,50,60,80,30,280,40,70,40,
+		80,190,80,190,280,200,280,40,290,190,0,70,50,80,0,90,50,100,0,110,50,120,0,130,50,140,
+		0,150,50,160,0,170,50,180,0,190,50,200,300,200,370,210,30,220,370,230,30,240,370,250,
+		30,260,370,270,90,280,300,290};
+		
+	uint16_t happyface[28] = {180,80,190,130,170,130,190,140,140,60,150,100,210,60,220,100,
+		130,150,140,160,140,160,220,170,220,150,230,160};
+
+	int offsetGraphicX = 190;
+	int offsetGraphicY = 70;
+	int scaleGraphic = 1;
+	
+	setBackColorRGB(0,0,0);
+	setColorRGB(0,0,0);
+	
+	fillRect(0,0,display_X_size,display_Y_size);
+	
+	setColorRGB(255,255,255);
+	setBackColorRGB(0,0,0);
+	
+	for(int i = 0; i < 104; i = i+4)
+	{
+		fillRect(graphic[i]+offsetGraphicX,graphic[i+1]+offsetGraphicY,graphic[i+2]+offsetGraphicX,graphic[i+3]+offsetGraphicY);
+	}
+	
+	for(int i = 0; i < 28; i = i+4)
+	{
+		fillRect((happyface[i]+offsetGraphicX)*scaleGraphic,(happyface[i+1]+offsetGraphicY)*scaleGraphic,
+		(happyface[i+2]+offsetGraphicX)*scaleGraphic,(happyface[i+3]+offsetGraphicY)*scaleGraphic);
+	}
+	
+}
+
+
 
 /**************************InitLCD()**********************************/
-
 void InitLCD(void)
 {
 	
@@ -399,6 +413,7 @@ void InitLCD(void)
 			resulting in total time to initialize display as 255ms
 			(120+100+15+15+5). This does not include writing all
 			black to the display.
+		5b) I have changed this to a 5ms startup; seems to work.
 	6) pull Chip Select high.
 	
 	If you are reading this, I must impress something upon you: I
@@ -430,7 +445,7 @@ void InitLCD(void)
 	REG_PORT_OUTSET1 = LCD_Reset;
 	REG_PORT_OUTCLR1 = LCD_CS;		
 	
-static char dataHigh[70] = {0xF0,0xF0,0xF0,0xF0,0xF0,0xB0,0xB0,
+static char baal[70] = {0xF0,0xF0,0xF0,0xF0,0xF0,0xB0,0xB0,
 		0xB0,0xB6,0xB6,0xB6,0xB1,0xB1,0xB1,0xB7,0xB7,0xB7,0xB2,0xB2,
 		0xB2,0xB8,0xB8,0xB8,0xBF,0xB3,0xB3,0xB3,0xB9,0xB9,0xB9,0xB5,
 		0xB5,0xB5,0xC2,0xBA,0xBA,0xBA,0xBC,0xBC,0xBC,0xBD,0xBD,0xBD,
@@ -438,35 +453,36 @@ static char dataHigh[70] = {0xF0,0xF0,0xF0,0xF0,0xF0,0xB0,0xB0,
 		0xB8,0xB8,0xB8,0xB8,0xBC,0xBC,0xBC,0xC9,0xC9,0xC9,0xC9,0xC9,
 		0x35,0x3A,0x36};
 		
-static char dataLow[70] = {0x00,0x01,0x02,0x03,0x04,0x00,0x01,
+static char maweth[70] = {0x00,0x01,0x02,0x03,0x04,0x00,0x01,
 		0x02,0x00,0x01,0x02,0x00,0x01,0x02,0x00,0x01,0x02,0x00,0x01,
 		0x02,0x00,0x01,0x02,0x00,0x01,0x02,0x00,0x01,0x02,0x00,0x00,
 		0x01,0x00,0x00,0x01,0x02,0x00,0x01,0x02,0x00,0x01,0x02,0x00,
 		0x01,0x00,0x01,0x02,0x03,0x04,0x00,0x00,0x00,0x00,0x01,0x00,
 		0x01,0x02,0x03,0x00,0x01,0x02,0x00,0x01,0x02,0x03,0x04,0x00,
 		0x00,0x00};
-		
-static char data[70] = {0x55,0xAA,0x52,0x08,0x01,0x0D,0x0D,0x0D,
+				
+static char lucifer[70] = {0x55,0xAA,0x52,0x08,0x01,0x0D,0x0D,0x0D,
 		0x34,0x34,0x34,0x0D,0x0D,0x0D,0x34,0x34,0x34,0x00,0x00,0x00,
 		0x24,0x24,0x24,0x01,0x0F,0x0F,0x0F,0x34,0x34,0x34,0x08,0x08,
 		0x08,0x03,0x24,0x24,0x24,0x00,0x78,0x00,0x00,0x78,0x00,0x00,
 		0x89,0x55,0xAA,0x52,0x08,0x00,0xCC,0x00,0x05,0x70,0x70,0x01,
 		0x03,0x03,0x03,0x02,0x00,0x00,0xD0,0x02,0x50,0x50,0x50,0x00,
 		0x55,0x00};
+
 		
 	for(int i = 0; i < 70; i++)
 	{
-		LCD_Write_COM16(dataHigh[i],dataLow[i]);
-		LCD_Write_DATA8(data[i]);
+		LCD_Write_COM16(baal[i],maweth[i]);
+		LCD_Write_DATA8(lucifer[i]);
 	}
 	
   	LCD_Write_COM16(0x11,0x00);   //StartUp  
   
-  	delay_ms(5);
+  	delay_ms(100);
 
   	LCD_Write_COM16(0x29,0x00);   //Display On  
 	  
-   	delay_ms(5);
+   	delay_ms(120);
 	
 	REG_PORT_OUTSET1 = LCD_CS;
 	
