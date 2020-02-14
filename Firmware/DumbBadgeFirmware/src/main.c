@@ -50,7 +50,7 @@ void drawPixel(int x, int y);
 
 void fillRect(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, long pix);
-void drawKare(void);
+void drawKare(int emotion);
 
 void configure_usart(void);
 
@@ -102,7 +102,7 @@ int main (void)
 		setBackColorRGB(0,0,0);
 		fillRect(0,0,799,479);
 		
-		drawKare();
+		drawKare(1);
 		
 		
 		setColorRGB(255,0,255);
@@ -350,11 +350,17 @@ void LCD_Write_DATA8(char VL)
 	LCD_Write_Bus(0x00, VL);
 }
 
-/**************************InitLCD()**********************************/
 /***********drawKare ** It's the boot graphic*************************/
-void drawKare(void)
+//
+//	drawKare(int emotion) is the boot animation displayed on startup
+//	this displays an 'emotion':
+//	emotion = 0:	a 'happy terminal'; normal mode
+//	emotion = 1:	a lowercase pi, for using a Raspberry Pi as the 
+//					endpoint of the serial (non USB) serial port.
+//	emotion = 2:	the 'sad terming'; idk, macs had a 'sad mac'.
+//
+void drawKare(int emotion)
 {
-
 	uint16_t graphic[104] = {10,10,20,20,20,0,380,10,380,10,390,20,0,
 		20,10,290,390,20,400,290,10,290,20,300,380,290,390,300,20,
 		300,380,310,0,30,50,40,0,50,50,60,80,30,280,40,70,40,80,190,
@@ -363,36 +369,52 @@ void drawKare(void)
 		300,200,370,210,30,220,370,230,30,240,370,250,30,260,370,
 		270,90,280,300,290};
 		
-	uint16_t happyface[28] = {180,80,190,130,170,130,190,140,140,
+	uint8_t happyface[28] = {180,80,190,130,170,130,190,140,140,
 		60,150,100,210,60,220,100,130,150,140,160,140,160,220,170,
 		220,150,230,160};
+		
+	uint8_t raspberryBeret[20] = {120,60,240,80,110,70,120,90,150,
+		60,170,170,200,60,220,160,210,160,230,170};
 
-	int offsetGraphicX = 200;
-	int offsetGraphicY = 70;
-	int scaleGraphic = 1;
-	
+	int offsetGraphicX = 210; //centered seems to be 210
+	int offsetGraphicY = 70;  //about 70
 
-	
 	fillRect(0,0,display_X_size,display_Y_size);
 	
-	setColorRGB(219,189,51);
-	setBackColorRGB(219,189,51);
-
-	setColorRGB(219,200,51);
-	
+	setColorRGB(255,255,255);
+	setBackColorRGB(0,0,0);
+		
 	for(int i = 0; i < 104; i = i+4)
 	{
 		fillRect(graphic[i]+offsetGraphicX,graphic[i+1]+offsetGraphicY,
 		graphic[i+2]+offsetGraphicX,graphic[i+3]+offsetGraphicY);
 	}
-	
-	for(int i = 0; i < 28; i = i+4)
+	switch(emotion)
 	{
-		fillRect((happyface[i]+offsetGraphicX)*scaleGraphic,
-		(happyface[i+1]+offsetGraphicY)*scaleGraphic,
-		(happyface[i+2]+offsetGraphicX)*scaleGraphic,(happyface[i+3]+
-		offsetGraphicY)*scaleGraphic);
+			case 0:
+				for(int i = 0; i < 28; i = i+4)
+				{
+					fillRect((happyface[i]+offsetGraphicX),
+					(happyface[i+1]+offsetGraphicY),
+					(happyface[i+2]+offsetGraphicX),
+					(happyface[i+3]+offsetGraphicY));
+				}
+				break;
+			case 1:
+				for(int i = 0; i < 20; i = i+4)
+				{
+					fillRect((raspberryBeret[i]+offsetGraphicX),
+						(raspberryBeret[i+1]+offsetGraphicY),
+						(raspberryBeret[i+2]+offsetGraphicX),
+						(raspberryBeret[i+3]+offsetGraphicY));
+				}
+				break;
+			case 2:
+				//make a sad terminal thing go here
+				break;
 	}
+	
+
 	
 	delay_ms(2000);
 	
