@@ -105,7 +105,7 @@ int main (void)
 		drawKare();
 		
 		
-		setColorRGB(255,0,0);
+		setColorRGB(255,0,255);
 		fillRect(0,0,799,479);
 		
 		/*
@@ -350,17 +350,22 @@ void LCD_Write_DATA8(char VL)
 	LCD_Write_Bus(0x00, VL);
 }
 
+/**************************InitLCD()**********************************/
+/***********drawKare ** It's the boot graphic*************************/
 void drawKare(void)
 {
 
-	uint16_t graphic[104] = {10,10,20,20,20,0,380,10,380,10,390,20,0,20,10,290,390,20,400,290,
-		10,290,20,300,380,290,390,300,20,300,380,310,0,30,50,40,0,50,50,60,80,30,280,40,70,40,
-		80,190,80,190,280,200,280,40,290,190,0,70,50,80,0,90,50,100,0,110,50,120,0,130,50,140,
-		0,150,50,160,0,170,50,180,0,190,50,200,300,200,370,210,30,220,370,230,30,240,370,250,
-		30,260,370,270,90,280,300,290};
+	uint16_t graphic[104] = {10,10,20,20,20,0,380,10,380,10,390,20,0,
+		20,10,290,390,20,400,290,10,290,20,300,380,290,390,300,20,
+		300,380,310,0,30,50,40,0,50,50,60,80,30,280,40,70,40,80,190,
+		80,190,280,200,280,40,290,190,0,70,50,80,0,90,50,100,0,110,
+		50,120,0,130,50,140,0,150,50,160,0,170,50,180,0,190,50,200,
+		300,200,370,210,30,220,370,230,30,240,370,250,30,260,370,
+		270,90,280,300,290};
 		
-	uint16_t happyface[28] = {180,80,190,130,170,130,190,140,140,60,150,100,210,60,220,100,
-		130,150,140,160,140,160,220,170,220,150,230,160};
+	uint16_t happyface[28] = {180,80,190,130,170,130,190,140,140,
+		60,150,100,210,60,220,100,130,150,140,160,140,160,220,170,
+		220,150,230,160};
 
 	int offsetGraphicX = 200;
 	int offsetGraphicY = 70;
@@ -377,13 +382,16 @@ void drawKare(void)
 	
 	for(int i = 0; i < 104; i = i+4)
 	{
-		fillRect(graphic[i]+offsetGraphicX,graphic[i+1]+offsetGraphicY,graphic[i+2]+offsetGraphicX,graphic[i+3]+offsetGraphicY);
+		fillRect(graphic[i]+offsetGraphicX,graphic[i+1]+offsetGraphicY,
+		graphic[i+2]+offsetGraphicX,graphic[i+3]+offsetGraphicY);
 	}
 	
 	for(int i = 0; i < 28; i = i+4)
 	{
-		fillRect((happyface[i]+offsetGraphicX)*scaleGraphic,(happyface[i+1]+offsetGraphicY)*scaleGraphic,
-		(happyface[i+2]+offsetGraphicX)*scaleGraphic,(happyface[i+3]+offsetGraphicY)*scaleGraphic);
+		fillRect((happyface[i]+offsetGraphicX)*scaleGraphic,
+		(happyface[i+1]+offsetGraphicY)*scaleGraphic,
+		(happyface[i+2]+offsetGraphicX)*scaleGraphic,(happyface[i+3]+
+		offsetGraphicY)*scaleGraphic);
 	}
 	
 	delay_ms(2000);
@@ -459,7 +467,7 @@ static char lucifer[70] = {0x55,0xAA,0x52,0x08,0x01,0x0D,0x0D,0x0D,
 		0x03,0x03,0x03,0x02,0x00,0x00,0xD0,0x02,0x50,0x50,0x50,0x00,
 		0x55,0x00};
 		
-static char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
+static unsigned char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
 		0x00,0x53,0x00,0x88,0x00,0xB6,0x00,0xF3,0x01,0x22,0x01,0x64,
 		0x01,0x92,0x01,0xD4,0x02,0x07,0x02,0x08,0x02,0x34,0x02,0x5F,
 		0x02,0x78,0x02,0x94,0x02,0xA6,0x02,0xBB,0x02,0xDB,0x02,0xF9,
@@ -482,7 +490,7 @@ static char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
 	}
 	
 	for(char k = 0xD1; k < 0xD6; k++)
-		for(char l = 0x00; l < 0x33; l++)
+		for(int l = 0; l < 48; l++)
 		{
 			LCD_Write_COM16(k,l);
 			LCD_Write_DATA8(beelzebub[l]);

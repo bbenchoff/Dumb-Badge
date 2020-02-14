@@ -19,19 +19,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 0000301a  00000000  00000000  0004147f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    0000440b  00000000  00000000  00044499  2**0
+  8 .debug_loc    000043fe  00000000  00000000  00044499  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_aranges 00000498  00000000  00000000  000488a4  2**0
+  9 .debug_aranges 00000498  00000000  00000000  00048897  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 000005a8  00000000  00000000  00048d3c  2**0
+ 10 .debug_ranges 000005a8  00000000  00000000  00048d2f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  0001a610  00000000  00000000  000492e4  2**0
+ 11 .debug_macro  0001a610  00000000  00000000  000492d7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00009dca  00000000  00000000  000638f4  2**0
+ 12 .debug_line   00009ddc  00000000  00000000  000638e7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    0008e7d3  00000000  00000000  0006d6be  2**0
+ 13 .debug_str    0008e7d3  00000000  00000000  0006d6c3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  00000cb8  00000000  00000000  000fbe94  2**2
+ 14 .debug_frame  00000cb8  00000000  00000000  000fbe98  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -4074,23 +4074,25 @@ void LCD_Write_DATA8(char VL)
 
 000014e8 <drawKare>:
 
+/**************************InitLCD()**********************************/
+/***********drawKare ** It's the boot graphic*************************/
 void drawKare(void)
 {
     14e8:	b570      	push	{r4, r5, r6, lr}
     14ea:	b0c2      	sub	sp, #264	; 0x108
 
-	uint16_t graphic[104] = {10,10,20,20,20,0,380,10,380,10,390,20,0,20,10,290,390,20,400,290,
+	uint16_t graphic[104] = {10,10,20,20,20,0,380,10,380,10,390,20,0,
     14ec:	22d0      	movs	r2, #208	; 0xd0
     14ee:	4920      	ldr	r1, [pc, #128]	; (1570 <drawKare+0x88>)
     14f0:	a80e      	add	r0, sp, #56	; 0x38
     14f2:	4c20      	ldr	r4, [pc, #128]	; (1574 <drawKare+0x8c>)
     14f4:	47a0      	blx	r4
-		10,290,20,300,380,290,390,300,20,300,380,310,0,30,50,40,0,50,50,60,80,30,280,40,70,40,
-		80,190,80,190,280,200,280,40,290,190,0,70,50,80,0,90,50,100,0,110,50,120,0,130,50,140,
-		0,150,50,160,0,170,50,180,0,190,50,200,300,200,370,210,30,220,370,230,30,240,370,250,
-		30,260,370,270,90,280,300,290};
+		80,190,280,200,280,40,290,190,0,70,50,80,0,90,50,100,0,110,
+		50,120,0,130,50,140,0,150,50,160,0,170,50,180,0,190,50,200,
+		300,200,370,210,30,220,370,230,30,240,370,250,30,260,370,
+		270,90,280,300,290};
 		
-	uint16_t happyface[28] = {180,80,190,130,170,130,190,140,140,60,150,100,210,60,220,100,
+	uint16_t happyface[28] = {180,80,190,130,170,130,190,140,140,
     14f6:	2238      	movs	r2, #56	; 0x38
     14f8:	491f      	ldr	r1, [pc, #124]	; (1578 <drawKare+0x90>)
     14fa:	3150      	adds	r1, #80	; 0x50
@@ -4133,11 +4135,15 @@ void drawKare(void)
 	
 	for(int i = 0; i < 104; i = i+4)
 	{
-		fillRect(graphic[i]+offsetGraphicX,graphic[i+1]+offsetGraphicY,graphic[i+2]+offsetGraphicX,graphic[i+3]+offsetGraphicY);
+		fillRect(graphic[i]+offsetGraphicX,graphic[i+1]+offsetGraphicY,
     152c:	4d15      	ldr	r5, [pc, #84]	; (1584 <drawKare+0x9c>)
+		graphic[i+2]+offsetGraphicX,graphic[i+3]+offsetGraphicY);
     152e:	88e3      	ldrh	r3, [r4, #6]
+		fillRect(graphic[i]+offsetGraphicX,graphic[i+1]+offsetGraphicY,
     1530:	3346      	adds	r3, #70	; 0x46
+		graphic[i+2]+offsetGraphicX,graphic[i+3]+offsetGraphicY);
     1532:	88a2      	ldrh	r2, [r4, #4]
+		fillRect(graphic[i]+offsetGraphicX,graphic[i+1]+offsetGraphicY,
     1534:	32c8      	adds	r2, #200	; 0xc8
     1536:	8861      	ldrh	r1, [r4, #2]
     1538:	3146      	adds	r1, #70	; 0x46
@@ -4154,16 +4160,18 @@ void drawKare(void)
 	
 	for(int i = 0; i < 28; i = i+4)
 	{
-		fillRect((happyface[i]+offsetGraphicX)*scaleGraphic,(happyface[i+1]+offsetGraphicY)*scaleGraphic,
+		fillRect((happyface[i]+offsetGraphicX)*scaleGraphic,
     154a:	4d0e      	ldr	r5, [pc, #56]	; (1584 <drawKare+0x9c>)
-		(happyface[i+2]+offsetGraphicX)*scaleGraphic,(happyface[i+3]+offsetGraphicY)*scaleGraphic);
+		(happyface[i+1]+offsetGraphicY)*scaleGraphic,
+		(happyface[i+2]+offsetGraphicX)*scaleGraphic,(happyface[i+3]+
     154c:	88e3      	ldrh	r3, [r4, #6]
     154e:	3346      	adds	r3, #70	; 0x46
     1550:	88a2      	ldrh	r2, [r4, #4]
     1552:	32c8      	adds	r2, #200	; 0xc8
-		fillRect((happyface[i]+offsetGraphicX)*scaleGraphic,(happyface[i+1]+offsetGraphicY)*scaleGraphic,
+		(happyface[i+1]+offsetGraphicY)*scaleGraphic,
     1554:	8861      	ldrh	r1, [r4, #2]
     1556:	3146      	adds	r1, #70	; 0x46
+		fillRect((happyface[i]+offsetGraphicX)*scaleGraphic,
     1558:	8820      	ldrh	r0, [r4, #0]
     155a:	30c8      	adds	r0, #200	; 0xc8
     155c:	47a8      	blx	r5
@@ -4171,6 +4179,7 @@ void drawKare(void)
 	for(int i = 0; i < 28; i = i+4)
     1560:	42b4      	cmp	r4, r6
     1562:	d1f3      	bne.n	154c <drawKare+0x64>
+		offsetGraphicY)*scaleGraphic);
 	}
 	
 	delay_ms(2000);
@@ -4262,7 +4271,7 @@ void InitLCD(void)
 	}
 	
 	for(char k = 0xD1; k < 0xD6; k++)
-		for(char l = 0x00; l < 0x33; l++)
+		for(int l = 0; l < 48; l++)
 		{
 			LCD_Write_COM16(k,l);
     15e8:	4d1c      	ldr	r5, [pc, #112]	; (165c <InitLCD+0xc0>)
@@ -4278,9 +4287,9 @@ void InitLCD(void)
 			LCD_Write_DATA8(beelzebub[l]);
     15f6:	5de0      	ldrb	r0, [r4, r7]
     15f8:	47b0      	blx	r6
+		for(int l = 0; l < 48; l++)
     15fa:	3401      	adds	r4, #1
-		for(char l = 0x00; l < 0x33; l++)
-    15fc:	2c33      	cmp	r4, #51	; 0x33
+    15fc:	2c30      	cmp	r4, #48	; 0x30
     15fe:	d1f7      	bne.n	15f0 <InitLCD+0x54>
 	for(char k = 0xD1; k < 0xD6; k++)
     1600:	9b01      	ldr	r3, [sp, #4]
@@ -4456,32 +4465,32 @@ void InitLCD(void)
     1706:	23f8      	movs	r3, #248	; 0xf8
     1708:	7033      	strb	r3, [r6, #0]
 	fore_Color_Low = ((g&28)<<3|b>>3);
-    170a:	703c      	strb	r4, [r7, #0]
+    170a:	3bd9      	subs	r3, #217	; 0xd9
+    170c:	703b      	strb	r3, [r7, #0]
 		fillRect(0,0,799,479);
-    170c:	23e0      	movs	r3, #224	; 0xe0
-    170e:	33ff      	adds	r3, #255	; 0xff
-    1710:	4a17      	ldr	r2, [pc, #92]	; (1770 <main+0xf4>)
-    1712:	0021      	movs	r1, r4
-    1714:	0020      	movs	r0, r4
-    1716:	47a8      	blx	r5
+    170e:	23e0      	movs	r3, #224	; 0xe0
+    1710:	33ff      	adds	r3, #255	; 0xff
+    1712:	4a17      	ldr	r2, [pc, #92]	; (1770 <main+0xf4>)
+    1714:	0021      	movs	r1, r4
+    1716:	0020      	movs	r0, r4
+    1718:	47a8      	blx	r5
 		delay_ms(1000);
-    1718:	20fa      	movs	r0, #250	; 0xfa
-    171a:	0080      	lsls	r0, r0, #2
-    171c:	4b0f      	ldr	r3, [pc, #60]	; (175c <main+0xe0>)
-    171e:	4798      	blx	r3
+    171a:	20fa      	movs	r0, #250	; 0xfa
+    171c:	0080      	lsls	r0, r0, #2
+    171e:	4b0f      	ldr	r3, [pc, #60]	; (175c <main+0xe0>)
+    1720:	4798      	blx	r3
 	return (port_base->IN.reg & pin_mask);
-    1720:	4b16      	ldr	r3, [pc, #88]	; (177c <main+0x100>)
-    1722:	6a1b      	ldr	r3, [r3, #32]
+    1722:	4b16      	ldr	r3, [pc, #88]	; (177c <main+0x100>)
+    1724:	6a1b      	ldr	r3, [r3, #32]
 		if (port_pin_get_input_level(BUTTON_0_PIN) == BUTTON_0_ACTIVE) {
-    1724:	041b      	lsls	r3, r3, #16
-    1726:	d5d5      	bpl.n	16d4 <main+0x58>
+    1726:	041b      	lsls	r3, r3, #16
+    1728:	d5d4      	bpl.n	16d4 <main+0x58>
 		port_base->OUTSET.reg = pin_mask;
-    1728:	2280      	movs	r2, #128	; 0x80
-    172a:	05d2      	lsls	r2, r2, #23
-    172c:	4b0c      	ldr	r3, [pc, #48]	; (1760 <main+0xe4>)
-    172e:	619a      	str	r2, [r3, #24]
-    1730:	e7d8      	b.n	16e4 <main+0x68>
-    1732:	46c0      	nop			; (mov r8, r8)
+    172a:	2280      	movs	r2, #128	; 0x80
+    172c:	05d2      	lsls	r2, r2, #23
+    172e:	4b0c      	ldr	r3, [pc, #48]	; (1760 <main+0xe4>)
+    1730:	619a      	str	r2, [r3, #24]
+    1732:	e7d7      	b.n	16e4 <main+0x68>
     1734:	000010d5 	.word	0x000010d5
     1738:	00000115 	.word	0x00000115
     173c:	00001949 	.word	0x00001949
