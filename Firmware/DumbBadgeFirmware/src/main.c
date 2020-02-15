@@ -18,7 +18,7 @@
 
 /** VARIABLES *****************************************************************/
 
-char fore_Color_High, fore_Color_Low, back_Color_High, back_Color_Low;
+uint16_t fore_Color_High, fore_Color_Low, back_Color_High, back_Color_Low;
 
 uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
@@ -36,9 +36,9 @@ void LCD_Write_COM8(char VL);
 void LCD_Write_DATA16(char VH, char VL);
 void LCD_Write_DATA8(char VL);
 
-void setColorRGB(char r, char g, char b);
+void setColorRGB(unsigned char r, unsigned char g, unsigned char b);
 void setColorHex(uint16_t color);
-void setBackColorRGB(char r, char g, char b);
+void setBackColorRGB(unsigned char r, unsigned char g, unsigned char b);
 void setBackColorHex(uint16_t color);
 
 void clrScr(void);
@@ -61,9 +61,7 @@ int main (void)
 {
 	system_init();
 	delay_init();
-
 	srand(chip_Serial_Number);
-
 	configure_usart();
 
 	/* Pin Initialization, begin with pin cleared */
@@ -73,7 +71,7 @@ int main (void)
 	REG_PORT_DIRSET1 = LCD_WR;
 	REG_PORT_DIRSET1 = LCD_DC;
 	REG_PORT_DIRSET1 = LCD_RD;
-	REG_PORT_OUTCLR1 = 0x0000ffff;	
+	REG_PORT_OUTCLR1 = 0x0000ffff;
 	REG_PORT_OUTCLR1 = LCD_Reset;
 	REG_PORT_OUTCLR1 = LCD_CS;
 	REG_PORT_OUTCLR1 = LCD_WR;
@@ -81,6 +79,13 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_RD;
 
 	InitLCD();
+	setColorRGB(0,0,0);
+	setBackColorRGB(0,0,0);
+	fillRect(0,0,799,479);
+	drawKare(0);
+	delay_ms(2000);
+	setColorRGB(0,0,0);
+	fillRect(0,0,799,479);
 
 	/* This skeleton code simply sets the LED to the state of the button. */
 	while (1) {
@@ -98,15 +103,10 @@ int main (void)
 		
 		*/
 		clrScr();
-		setColorRGB(0,0,0);
+		setColorRGB(rand()%64,rand()%64,rand()%64);
 		setBackColorRGB(0,0,0);
-		fillRect(0,0,799,479);
-		
-		drawKare(1);
-		
-		
-		setColorRGB(255,0,255);
-		fillRect(0,0,799,479);
+		fillRect(0,0,80,80);
+		delay_ms(100);
 		
 		/*
 		
@@ -143,7 +143,7 @@ int main (void)
 		}
 		
 		*/
-		delay_ms(1000);
+		
 		
 		/* Is button pressed? */
 		/* this is a sanity check and came from the default
@@ -261,7 +261,7 @@ void clrXY(void)
 	setXY(0,0,display_X_size,display_Y_size);
 }
 
-void setColorRGB(char r, char g, char b)
+void setColorRGB(unsigned char r, unsigned char g, unsigned char b)
 {
 	fore_Color_High = ((r&248)|g>>5);
 	fore_Color_Low = ((g&28)<<3|b>>3);
@@ -273,7 +273,7 @@ void setColorHex(uint16_t color)
 	fore_Color_Low = (color & 0xFF);
 }
 
-void setBackColorRGB(char r, char g, char b)
+void setBackColorRGB(unsigned char r, unsigned char g, unsigned char b)
 {
 	back_Color_High = ((r&248)|g>>5);
 	back_Color_Low = ((g&28)<<3|b>>3);
@@ -303,7 +303,6 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 	LCD_Write_DATA8(x2>>8);
 	LCD_Write_COM16(0x2a,0x03);
 	LCD_Write_DATA8(x2);
-
 
 	LCD_Write_COM16(0x2b,0x00);
 	LCD_Write_DATA8(y1>>8);
@@ -351,17 +350,21 @@ void LCD_Write_DATA8(char VL)
 }
 
 /***********drawKare ** It's the boot graphic*************************/
-//
 //	drawKare(int emotion) is the boot animation displayed on startup
 //	this displays an 'emotion':
 //	emotion = 0:	a 'happy terminal'; normal mode
 //	emotion = 1:	a lowercase pi, for using a Raspberry Pi as the 
 //					endpoint of the serial (non USB) serial port.
-//	emotion = 2:	the 'sad terming'; idk, macs had a 'sad mac'.
+//	emotion = 2:	the 'sad terminal'; idk, macs had a 'sad mac'.
 //
+//	yes, this is full of magic numbers but this will be the only
+//	graphic in the entire project. Please note this is the most
+//	space efficient way to do this; a 40x31 bitmap is 930 bytes, 
+//	whereas	this is (104*2)+28+20, or 256 bytes.
+/*********************************************************************/
 void drawKare(int emotion)
 {
-	uint16_t graphic[104] = {10,10,20,20,20,0,380,10,380,10,390,20,0,
+	uint16_t body[104] = {10,10,20,20,20,0,380,10,380,10,390,20,0,
 		20,10,290,390,20,400,290,10,290,20,300,380,290,390,300,20,
 		300,380,310,0,30,50,40,0,50,50,60,80,30,280,40,70,40,80,190,
 		80,190,280,200,280,40,290,190,0,70,50,80,0,90,50,100,0,110,
@@ -369,44 +372,49 @@ void drawKare(int emotion)
 		300,200,370,210,30,220,370,230,30,240,370,250,30,260,370,
 		270,90,280,300,290};
 		
-	uint8_t happyface[28] = {180,80,190,130,170,130,190,140,140,
+	//Yeah, these are uint8 arrays.		
+	uint8_t happyTerm[28] = {180,80,190,130,170,130,190,140,140,
 		60,150,100,210,60,220,100,130,150,140,160,140,160,220,170,
 		220,150,230,160};
 		
-	uint8_t raspberryBeret[20] = {120,60,240,80,110,70,120,90,150,
+	uint8_t rPiBeret[20] = {120,60,240,80,110,70,120,90,150,
 		60,170,170,200,60,220,160,210,160,230,170};
 
-	int offsetGraphicX = 210; //centered seems to be 210
-	int offsetGraphicY = 70;  //about 70
+	int offsetGraphicX = 300;	
+	int offsetGraphicY = 150;	
+	int iSv = 2;				//an inverse scale factor
 
+	setColorRGB(0,0,0);
 	fillRect(0,0,display_X_size,display_Y_size);
-	
 	setColorRGB(255,255,255);
 	setBackColorRGB(0,0,0);
 		
 	for(int i = 0; i < 104; i = i+4)
 	{
-		fillRect(graphic[i]+offsetGraphicX,graphic[i+1]+offsetGraphicY,
-		graphic[i+2]+offsetGraphicX,graphic[i+3]+offsetGraphicY);
+		fillRect(((body[i]/iSv)+(offsetGraphicX)),
+		((body[i+1]/iSv)+(offsetGraphicY)),
+		((body[i+2]/iSv)+(offsetGraphicX)),
+		((body[i+3]/iSv)+(offsetGraphicY)));
 	}
 	switch(emotion)
 	{
 			case 0:
 				for(int i = 0; i < 28; i = i+4)
 				{
-					fillRect((happyface[i]+offsetGraphicX),
-					(happyface[i+1]+offsetGraphicY),
-					(happyface[i+2]+offsetGraphicX),
-					(happyface[i+3]+offsetGraphicY));
+					fillRect(((happyTerm[i]/iSv)+(offsetGraphicX)),
+					((happyTerm[i+1]/iSv)+(offsetGraphicY)),
+					((happyTerm[i+2]/iSv)+(offsetGraphicX)),
+					((happyTerm[i+3]/iSv)+(offsetGraphicY)));
 				}
 				break;
 			case 1:
 				for(int i = 0; i < 20; i = i+4)
 				{
-					fillRect((raspberryBeret[i]+offsetGraphicX),
-						(raspberryBeret[i+1]+offsetGraphicY),
-						(raspberryBeret[i+2]+offsetGraphicX),
-						(raspberryBeret[i+3]+offsetGraphicY));
+					fillRect((
+					(rPiBeret[i]/iSv)+(offsetGraphicX)),
+					((rPiBeret[i+1]/iSv)+(offsetGraphicY)),
+					((rPiBeret[i+2]/iSv)+(offsetGraphicX)),
+					((rPiBeret[i+3]/iSv)+(offsetGraphicY)));
 				}
 				break;
 			case 2:
@@ -414,9 +422,7 @@ void drawKare(int emotion)
 				break;
 	}
 	
-
-	
-	delay_ms(2000);
+	delay_ms(5000);
 	
 }
 
