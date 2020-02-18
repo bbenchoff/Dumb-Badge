@@ -23,7 +23,7 @@ uint16_t fore_Color_High, fore_Color_Low, back_Color_High, back_Color_Low;
 uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
 
-static uint8_t chip_Serial_Number = (0x0080A00C ^ 0x0080A040 ^ 
+static uint16_t chip_Serial_Number = (0x0080A00C ^ 0x0080A040 ^ 
 									0x0080A044 ^ 0x0080A048) % 65535;
 
 
@@ -36,7 +36,7 @@ void LCD_Write_COM8(char VL);
 void LCD_Write_DATA16(char VH, char VL);
 void LCD_Write_DATA8(char VL);
 
-void setColorRGB(unsigned char r, unsigned char g, unsigned char b);
+void setColorRGB(uint8_t r, uint8_t g, uint8_t b);
 void setColorHex(uint16_t color);
 void setBackColorRGB(unsigned char r, unsigned char g, unsigned char b);
 void setBackColorHex(uint16_t color);
@@ -103,11 +103,33 @@ int main (void)
 		
 		*/
 		clrScr();
-		setColorRGB(rand()%64,rand()%64,rand()%64);
-		setBackColorRGB(0,0,0);
-		fillRect(0,0,80,80);
-		delay_ms(100);
 		
+		int red, green, blue;
+		red = 255;
+		while(1)
+		{
+			if(red > 0 && blue == 0)
+			{
+				red--;
+				green++;
+			}
+			if(green > 0 && red == 0)
+			{
+				green--;
+				blue++;
+			}
+			if(blue > 0 && green == 0)
+			{
+				red++;
+				blue--;
+			}
+			setColorRGB(red, green, blue);
+			fillRect(0,0,40,40);
+			if(red == 255)
+				delay_ms(100);
+		}
+		
+
 		/*
 		
 		delay_ms(500);
@@ -261,7 +283,7 @@ void clrXY(void)
 	setXY(0,0,display_X_size,display_Y_size);
 }
 
-void setColorRGB(unsigned char r, unsigned char g, unsigned char b)
+void setColorRGB(uint8_t r, uint8_t g, uint8_t b)
 {
 	fore_Color_High = ((r&248)|g>>5);
 	fore_Color_Low = ((g&28)<<3|b>>3);
@@ -384,9 +406,7 @@ void drawKare(int emotion)
 	int offsetGraphicY = 150;	
 	int iSv = 2;				//an inverse scale factor
 
-	setColorRGB(0,0,0);
-	fillRect(0,0,display_X_size,display_Y_size);
-	setColorRGB(255,255,255);
+	setColorHex(chip_Serial_Number);
 	setBackColorRGB(0,0,0);
 		
 	for(int i = 0; i < 104; i = i+4)
@@ -523,6 +543,8 @@ static unsigned char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
 			LCD_Write_COM16(k,l);
 			LCD_Write_DATA8(beelzebub[l]);
 		}
+		
+
 	
   	LCD_Write_COM16(0x11,0x00);   //StartUp  
   
