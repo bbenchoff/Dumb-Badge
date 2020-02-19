@@ -5,14 +5,15 @@
  * Atmel Software Framework (ASF).
 */
 #include <asf.h>
-
+#include "definitions.h"
 
 /** MACROS ********************************************************************/
-#define LCD_Reset PORT_PB30
-#define LCD_CS	PORT_PB22
-#define LCD_WR	PORT_PB17
-#define LCD_DC	PORT_PB23
-#define LCD_RD	PORT_PB16
+#define LCD_Reset	PORT_PB30
+#define LCD_CS		PORT_PB22
+#define LCD_WR		PORT_PB17
+#define LCD_DC		PORT_PB23
+#define LCD_RD		PORT_PB16
+
 
 #define SwapUint16(x , y) { uint16_t temp = x; x = y; y = temp; }
 
@@ -25,6 +26,7 @@ uint16_t display_Y_size = 799;
 
 static uint16_t chip_Serial_Number = (0x0080A00C ^ 0x0080A040 ^ 
 									0x0080A044 ^ 0x0080A048) % 65535;
+									
 
 
 /** LOCAL PROTOTYPES **********************************************************/
@@ -54,7 +56,9 @@ void drawKare(int emotion);
 
 void configure_usart(void);
 
+
 struct usart_module usart_instance;
+
 
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
@@ -62,7 +66,7 @@ int main (void)
 	system_init();
 	delay_init();
 	srand(chip_Serial_Number);
-	configure_usart();
+	//configure_usart();
 
 	/* Pin Initialization, begin with pin cleared */
 	REG_PORT_DIRSET1 = 0x0000ffff;		//this is the LCD data bus, PB00 - PB15
@@ -71,6 +75,7 @@ int main (void)
 	REG_PORT_DIRSET1 = LCD_WR;
 	REG_PORT_DIRSET1 = LCD_DC;
 	REG_PORT_DIRSET1 = LCD_RD;
+	
 	REG_PORT_OUTCLR1 = 0x0000ffff;
 	REG_PORT_OUTCLR1 = LCD_Reset;
 	REG_PORT_OUTCLR1 = LCD_CS;
@@ -83,7 +88,6 @@ int main (void)
 	setBackColorRGB(0,0,0);
 	fillRect(0,0,799,479);
 	drawKare(0);
-	delay_ms(2000);
 	setColorRGB(0,0,0);
 	fillRect(0,0,799,479);
 
@@ -105,7 +109,9 @@ int main (void)
 		clrScr();
 		
 		int red, green, blue;
-		red = 255;
+		red = 0;
+		green = 128;
+		blue = 64;
 		while(1)
 		{
 			if(red > 0 && blue == 0)
@@ -124,62 +130,25 @@ int main (void)
 				blue--;
 			}
 			setColorRGB(red, green, blue);
-			fillRect(0,0,40,40);
-			if(red == 255)
-				delay_ms(100);
-		}
-		
+			drawKare(0);
 
-		/*
-		
-		delay_ms(500);
-		
-		setColorRGB(0,255,0);
-		setBackColorRGB(255,0,0);
-		
-		fillRect(0, 0, 799, 479);
-		
-		delay_ms(500);
-		
-		setColorRGB(0,0,255);
-		setBackColorRGB(255,255,0);
-		
-		fillRect(0, 0, 799, 479);
-		
-		delay_ms(500);
-		
-		setColorRGB(0,0,0);
-		setBackColorRGB(0,0,0);
-		
-		fillRect(0, 0, 799, 479);
-
-		for(int i = 0; i<100; i++)
-		{
-			switch (rand()%3)
-			{
-				case 0: setColorRGB(255,0,0); break;
-				case 1: setColorRGB(0,255,0); break;
-				case 2: setColorRGB(0,0,255); break;
-			}
-			drawPixel((rand()%800), (rand()%480));
 		}
+
+		/*	
 		
-		*/
-		
-		
-		/* Is button pressed? */
-		/* this is a sanity check and came from the default
-		microchip 'set the clocks and blink a LED' project */
+	
 		if (port_pin_get_input_level(BUTTON_0_PIN) == BUTTON_0_ACTIVE) {
-			/* Yes, so turn LED on. */
+
 			delay_ms(1000);
 			port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE);
 		} else {
-			/* No, so turn LED off. */
+
 			port_pin_set_output_level(LED_0_PIN, !LED_0_ACTIVE);
 		}
+		*/
 	}
 }
+
 
 /**************************SERCOM STUFF*******************************/
 void configure_usart(void)
@@ -345,6 +314,7 @@ void LCD_Write_Bus(char VH, char VL)
 	REG_PORT_OUTSET1 = (VH << 8) | VL;
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTSET1 = LCD_WR;
+
 }
 
 void LCD_Write_COM16(char VH, char VL)
@@ -406,7 +376,6 @@ void drawKare(int emotion)
 	int offsetGraphicY = 150;	
 	int iSv = 2;				//an inverse scale factor
 
-	setColorHex(chip_Serial_Number);
 	setBackColorRGB(0,0,0);
 		
 	for(int i = 0; i < 104; i = i+4)
@@ -441,9 +410,6 @@ void drawKare(int emotion)
 				//make a sad terminal thing go here
 				break;
 	}
-	
-	delay_ms(5000);
-	
 }
 
 
@@ -535,6 +501,7 @@ static unsigned char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
 	{
 		LCD_Write_COM16(belial[i],mulciber[i]);
 		LCD_Write_DATA8(lucifer[i]);
+		delay_ms(1);
 	}
 	
 	for(char k = 0xD1; k < 0xD6; k++)
@@ -542,6 +509,7 @@ static unsigned char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
 		{
 			LCD_Write_COM16(k,l);
 			LCD_Write_DATA8(beelzebub[l]);
+			delay_ms(1);
 		}
 		
 
