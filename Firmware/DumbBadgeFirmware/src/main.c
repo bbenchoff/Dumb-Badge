@@ -5,7 +5,7 @@
  * Atmel Software Framework (ASF).
 */
 #include <asf.h>
-#include "definitions.h"
+
 
 /** MACROS ********************************************************************/
 #define LCD_Reset	PORT_PB30
@@ -26,8 +26,6 @@ uint16_t display_Y_size = 799;
 
 static uint16_t chip_Serial_Number = (0x0080A00C ^ 0x0080A040 ^ 
 									0x0080A044 ^ 0x0080A048) % 65535;
-									
-
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -48,6 +46,7 @@ void clrXY(void);
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 void setPixel(uint16_t color);
 void drawPixel(int x, int y);
+void SetBrightness(char brightness);
 
 
 void fillRect(int x1, int y1, int x2, int y2);
@@ -66,7 +65,7 @@ int main (void)
 	system_init();
 	delay_init();
 	srand(chip_Serial_Number);
-	//configure_usart();
+	configure_usart();
 
 	/* Pin Initialization, begin with pin cleared */
 	REG_PORT_DIRSET1 = 0x0000ffff;		//this is the LCD data bus, PB00 - PB15
@@ -84,29 +83,28 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_RD;
 
 	InitLCD();
-	setColorRGB(0,0,0);
 	setBackColorRGB(0,0,0);
-	fillRect(0,0,799,479);
-	drawKare(0);
 	setColorRGB(0,0,0);
-	fillRect(0,0,799,479);
+	fillRect(0,0,799,489);
 
-	/* This skeleton code simply sets the LED to the state of the button. */
+
 	while (1) {
 		
-		/*
-		uint8_t string[] = "This is too fucking hard\r\n";
-		usart_write_buffer_wait(&usart_instance, string, sizeof(string));
-/		uint16_t temp;
-		while (true) {
-			if (usart_read_wait(&usart_instance, &temp) == STATUS_OK) {
-				while (usart_write_wait(&usart_instance, temp) != STATUS_OK) {
-				}
-			}
-		}
+		uint16_t temp;
 		
-		*/
+		//uint8_t string[] = "This is too fucking hard\r\n";
+		//usart_write_buffer_wait(&usart_instance, string, sizeof(string));
+		
+		//while (true) {
+		//	if (usart_read_wait(&usart_instance, &temp) == STATUS_OK) {
+		//		while (usart_write_wait(&usart_instance, temp) != STATUS_OK) {
+		//		}
+		//	}
+		//}
+		
+
 		clrScr();
+		
 		
 		int red, green, blue;
 		red = 0;
@@ -130,22 +128,26 @@ int main (void)
 				blue--;
 			}
 			setColorRGB(red, green, blue);
+			SetBrightness(red);
 			drawKare(0);
+			
+			uint8_t RGBData[20];
+			
+			//usart_write_buffer_wait(&usart_instance, ("%i /n",red), 3);
+			
 
+			
 		}
-
-		/*	
 		
-	
-		if (port_pin_get_input_level(BUTTON_0_PIN) == BUTTON_0_ACTIVE) {
-
-			delay_ms(1000);
-			port_pin_set_output_level(LED_0_PIN, LED_0_ACTIVE);
-		} else {
-
-			port_pin_set_output_level(LED_0_PIN, !LED_0_ACTIVE);
-		}
+		/*
+		setColorRGB(100,100,100);
+		drawKare(0);
+		for(int i = 0; i > 255 ; i++)
+			SetBrightness(i);
 		*/
+		
+		
+
 	}
 }
 
@@ -198,7 +200,7 @@ void drawPixel(int x, int y)
 	setXY(x,y,x,y);
 	setPixel((fore_Color_High<<8)|fore_Color_Low);
 	REG_PORT_OUTSET1 = LCD_CS;
-	clrXY();
+	//clrXY();
 }
 
 void fillRect(int x1, int y1, int x2, int y2)
@@ -339,6 +341,14 @@ void LCD_Write_DATA8(char VL)
 {
 	REG_PORT_OUTSET1 = LCD_DC;
 	LCD_Write_Bus(0x00, VL);
+}
+
+void SetBrightness(char brightness)
+{
+	REG_PORT_OUTCLR1 = LCD_CS;
+	LCD_Write_COM16(0x00,0x51);
+	LCD_Write_DATA8(brightness);
+	REG_PORT_OUTSET1 = LCD_CS;
 }
 
 /***********drawKare ** It's the boot graphic*************************/
@@ -501,7 +511,6 @@ static unsigned char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
 	{
 		LCD_Write_COM16(belial[i],mulciber[i]);
 		LCD_Write_DATA8(lucifer[i]);
-		delay_ms(1);
 	}
 	
 	for(char k = 0xD1; k < 0xD6; k++)
@@ -509,7 +518,6 @@ static unsigned char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
 		{
 			LCD_Write_COM16(k,l);
 			LCD_Write_DATA8(beelzebub[l]);
-			delay_ms(1);
 		}
 		
 
