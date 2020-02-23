@@ -131,9 +131,11 @@ int main (void)
 			SetBrightness(red);
 			drawKare(0);
 			
+			
+
 			uint8_t RGBData[20];
 			
-			//usart_write_buffer_wait(&usart_instance, ("%i /n",red), 3);
+			usart_write_buffer_wait(&usart_instance, ("%s /n",red), 3);
 			
 
 			
@@ -200,8 +202,9 @@ void drawPixel(int x, int y)
 	setXY(x,y,x,y);
 	setPixel((fore_Color_High<<8)|fore_Color_Low);
 	REG_PORT_OUTSET1 = LCD_CS;
-	//clrXY();
 }
+
+
 
 void fillRect(int x1, int y1, int x2, int y2)
 {
@@ -254,7 +257,7 @@ void clrXY(void)
 	setXY(0,0,display_X_size,display_Y_size);
 }
 
-void setColorRGB(uint8_t r, uint8_t g, uint8_t b)
+void setColorRGB(unsigned char r, unsigned char g, unsigned char b)
 {
 	fore_Color_High = ((r&248)|g>>5);
 	fore_Color_Low = ((g&28)<<3|b>>3);
@@ -342,6 +345,8 @@ void LCD_Write_DATA8(char VL)
 	REG_PORT_OUTSET1 = LCD_DC;
 	LCD_Write_Bus(0x00, VL);
 }
+
+
 
 void SetBrightness(char brightness)
 {
