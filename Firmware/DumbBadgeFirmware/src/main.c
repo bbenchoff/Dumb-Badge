@@ -51,7 +51,7 @@ void clrXY(void);
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 void setPixel(uint16_t color);
 void drawPixel(int x, int y);
-void SetBrightness(char brightness);
+
 
 
 void fillRect(int x1, int y1, int x2, int y2);
@@ -67,17 +67,9 @@ struct usart_module usart_USB;
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
 {
-	system_init();
-	delay_init();
-	srand(chip_Serial_Number);
-	configure_usart_USB();
-	
-	configure_console();
-	
-	printf("Hello World\n\r");
 
 	/* Pin Initialization, begin with pin cleared */
-	REG_PORT_DIRSET1 = 0x0000ffff;		//this is the LCD data bus, PB00 - PB15
+	REG_PORT_DIRSET1 = 0x0000ffff;		//LCD data bus, PB00 - PB15
 	REG_PORT_DIRSET1 = LCD_Reset;
 	REG_PORT_DIRSET1 = LCD_CS;
 	REG_PORT_DIRSET1 = LCD_WR;
@@ -90,67 +82,48 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTCLR1 = LCD_DC;
 	REG_PORT_OUTCLR1 = LCD_RD;
-
+	
+	system_init();
+	delay_init();
+	//srand(chip_Serial_Number);
+	configure_usart_USB();
+	
+	configure_console();
+	
+	printf("Hello World\n\r");
+	
 	InitLCD();
-	setBackColorRGB(0,0,0);
-	setColorRGB(0,0,0);
-	fillRect(0,0,799,489);
+	clrScr();
 
+	int red, green, blue;
+	red = 0;
+	green = 128;
+	blue = 64;
 
 	while (1) {
 		
-		uint16_t temp;
-		
-		clrScr();
-		
-		
-		int red, green, blue;
-		red = 0;
-		green = 128;
-		blue = 64;
-		while(1)
+		if(red > 0 && blue == 0)
 		{
-			if(red > 0 && blue == 0)
-			{
-				red--;
-				green++;
-			}
-			if(green > 0 && red == 0)
-			{
-				green--;
-				blue++;
-			}
-			if(blue > 0 && green == 0)
-			{
-				red++;
-				blue--;
-			}
-			setColorRGB(red, green, blue);
-			SetBrightness(red);
-			drawKare(0);
-			
-			
-
-			uint8_t RGBData[20];
-			
-			printf("%x, %x, %x,", red, green, blue);
-
-			
-			usart_write_buffer_wait(&usart_USB, ("%s /n",red), 3);
-
-
-			
+			red--;
+			green++;
 		}
-		
-		/*
-		setColorRGB(100,100,100);
+		if(green > 0 && red == 0)
+		{
+			green--;
+			blue++;
+		}
+		if(blue > 0 && green == 0)
+		{
+			red++;
+			blue--;
+		}
+		setColorRGB(red, green, blue);
 		drawKare(0);
-		for(int i = 0; i > 255 ; i++)
-			SetBrightness(i);
-		*/
-		
-		
+			
+		printf("%i,\t %i,\t %i, \r", red, green, blue);
 
+		usart_write_buffer_wait(&usart_USB, ("%s /n",red), 3);
+	
 	}
 }
 
@@ -245,7 +218,8 @@ void clrXY(void)
 	setXY(0,0,display_X_size,display_Y_size);
 }
 
-void setColorRGB(unsigned char r, unsigned char g, unsigned char b)
+void setColorRGB(unsigned char r, unsigned char g, 
+		unsigned char b)
 {
 	fore_Color_High = ((r&248)|g>>5);
 	fore_Color_Low = ((g&28)<<3|b>>3);
@@ -257,7 +231,8 @@ void setColorHex(uint16_t color)
 	fore_Color_Low = (color & 0xFF);
 }
 
-void setBackColorRGB(unsigned char r, unsigned char g, unsigned char b)
+void setBackColorRGB(unsigned char r, 
+		unsigned char g, unsigned char b)
 {
 	back_Color_High = ((r&248)|g>>5);
 	back_Color_Low = ((g&28)<<3|b>>3);
@@ -270,7 +245,8 @@ void setBackColorHex(uint16_t color)
 }
 
 
-void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
+void setXY(uint16_t x1, uint16_t y1, 
+		uint16_t x2, uint16_t y2)
 {
 		
 	SwapUint16(x1, y1);
@@ -334,15 +310,6 @@ void LCD_Write_DATA8(char VL)
 	LCD_Write_Bus(0x00, VL);
 }
 
-
-
-void SetBrightness(char brightness)
-{
-	REG_PORT_OUTCLR1 = LCD_CS;
-	LCD_Write_COM16(0x00,0x51);
-	LCD_Write_DATA8(brightness);
-	REG_PORT_OUTSET1 = LCD_CS;
-}
 
 /***********drawKare ** It's the boot graphic*************************/
 //	drawKare(int emotion) is the boot animation displayed on startup
@@ -415,23 +382,23 @@ void drawKare(int emotion)
 	}
 }
 
-
-
 /**************************InitLCD()**********************************/
 void InitLCD(void)
 {
-	
 	/*
 	InitLCD() sets the pinMode of all the LCD control pins (write,
 	read, D/C, Chip Select, Reset) as output. Then follows data 
 	sheet initialization:
 	
-	0) for some fucking reason, pull PB16 high
-	1) pull Reset high, delay 5ms
-	2) pull Reset low, delay 15ms
-	3) pull Reset high, delay 15ms
-	4) pull Chip Select low
-	5) Write initialization procedure for LCD
+	0)	for some fucking reason, pull PB16 high
+		0a)	This is actually necessary for reasons
+		I can not conceive of. Just leave it in there
+		and by the way don't use PB16 for anything.
+	1)	pull Reset high, delay 5ms
+	2)	pull Reset low, delay 15ms
+	3)	pull Reset high, delay 15ms
+	4)	pull Chip Select low
+	5)	Write initialization procedure for LCD
 		5a) this includes 120ms delay after startup
 			and 100ms delay after turning the display on
 			(command 0x29..)
@@ -440,6 +407,8 @@ void InitLCD(void)
 			black to the display.
 		5b) I have changed this to a 5ms startup; seems to work.
 	6) pull Chip Select high.
+	7) finally, set the color of background and foreground,
+		then blank the screen (fillRect(0,0,799,489))
 	
 	If you are reading this, I must impress something upon you: I
 	don't have any idea how or why this works. The data sheet for
@@ -484,21 +453,21 @@ static char lucifer[70] = {0x55,0xAA,0x52,0x08,0x01,0x0D,0x0D,0x0D,
 		0x03,0x03,0x03,0x02,0x00,0x00,0xD0,0x02,0x50,0x50,0x50,0x00,
 		0x55,0x00};
 		
-static unsigned char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
-		0x00,0x53,0x00,0x88,0x00,0xB6,0x00,0xF3,0x01,0x22,0x01,0x64,
-		0x01,0x92,0x01,0xD4,0x02,0x07,0x02,0x08,0x02,0x34,0x02,0x5F,
-		0x02,0x78,0x02,0x94,0x02,0xA6,0x02,0xBB,0x02,0xDB,0x02,0xF9,
-		0x03,0x1F,0x03,0x7F};
+static unsigned char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,
+		0x00,0x44,0x00,0x53,0x00,0x88,0x00,0xB6,0x00,0xF3,0x01,0x22,
+		0x01,0x64,0x01,0x92,0x01,0xD4,0x02,0x07,0x02,0x08,0x02,0x34,
+		0x02,0x5F,0x02,0x78,0x02,0x94,0x02,0xA6,0x02,0xBB,0x02,0xDB,
+		0x02,0xF9,0x03,0x1F,0x03,0x7F};
 		
-		REG_PORT_DIRSET1 = 0x00010000;
-		REG_PORT_OUTSET1 = PORT_PB16;
-		
-		REG_PORT_OUTSET1 = LCD_Reset;
-		delay_ms(5);
-		REG_PORT_OUTCLR1 = LCD_Reset;
-		delay_ms(15);
-		REG_PORT_OUTSET1 = LCD_Reset;
-		REG_PORT_OUTCLR1 = LCD_CS;
+	REG_PORT_DIRSET1 = 0x00010000;
+	REG_PORT_OUTSET1 = PORT_PB16;
+	
+	REG_PORT_OUTSET1 = LCD_Reset;
+	delay_ms(5);
+	REG_PORT_OUTCLR1 = LCD_Reset;
+	delay_ms(15);
+	REG_PORT_OUTSET1 = LCD_Reset;
+	REG_PORT_OUTCLR1 = LCD_CS;
 
 	for(int i = 0; i < 70; i++)
 	{
@@ -513,20 +482,14 @@ static unsigned char beelzebub[48] = {0x00,0x2D,0x00,0x2E,0x00,0x32,0x00,0x44,
 			LCD_Write_DATA8(beelzebub[l]);
 		}
 		
-
-	
-  	LCD_Write_COM16(0x11,0x00);   //StartUp  
-  
+  	LCD_Write_COM16(0x11,0x00);   //Start Up  
   	delay_ms(5);
-
   	LCD_Write_COM16(0x29,0x00);   //Display On  
-	  
    	delay_ms(5);
-	
 	REG_PORT_OUTSET1 = LCD_CS;
 	
-	setColorRGB(255, 255, 255);
+	setColorRGB(0,0,0);
 	setBackColorRGB(0, 0, 0);
-	
+	fillRect(0,0,799,489);
 }
 
