@@ -1,4 +1,5 @@
-src/main.d src/main.o: ../src/main.c ../src/asf.h \
+src/config/config_usart.d src/config/config_usart.o: \
+ ../src/config/config_usart.c ../src/config/config_usart.h ../src/asf.h \
  ../src/ASF/sam0/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h ../src/ASF/sam0/utils/status_codes.h \
@@ -133,8 +134,9 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  ../src/ASF/sam0/drivers/sercom/usart/usart.h \
  ../src/ASF/sam0/utils/stdio/stdio_serial/stdio_serial.h \
  ../src/ASF/common/services/serial/serial.h \
- ../src/ASF/common/services/serial/sam0_usart/usart_serial.h \
- ../src/config/config_usart.h
+ ../src/ASF/common/services/serial/sam0_usart/usart_serial.h
+
+../src/config/config_usart.h:
 
 ../src/asf.h:
 
@@ -411,5 +413,3 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/ASF/common/services/serial/serial.h:
 
 ../src/ASF/common/services/serial/sam0_usart/usart_serial.h:
-
-../src/config/config_usart.h:

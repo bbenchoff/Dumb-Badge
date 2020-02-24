@@ -5,7 +5,7 @@
  * Atmel Software Framework (ASF).
 */
 #include <asf.h>
-
+#include "config_usart.h"
 
 /** MACROS ********************************************************************/
 #define LCD_Reset	PORT_PB30
@@ -24,8 +24,13 @@ uint16_t fore_Color_High, fore_Color_Low, back_Color_High, back_Color_Low;
 uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
 
+
+/*
+/	Fix this serial number thing because it doesn't work.
+/	I think you need pointers.
+*/
 static uint16_t chip_Serial_Number = (0x0080A00C ^ 0x0080A040 ^ 
-									0x0080A044 ^ 0x0080A048) % 65535;
+									0x0080A044 ^ 0x0080A048);
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -53,10 +58,10 @@ void fillRect(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, long pix);
 void drawKare(int emotion);
 
-void configure_usart(void);
+void configure_usart_USB(void);
 
+struct usart_module usart_USB;
 
-struct usart_module usart_instance;
 
 
 /** STUFF BEGINS HERE *********************************************************/
@@ -65,7 +70,11 @@ int main (void)
 	system_init();
 	delay_init();
 	srand(chip_Serial_Number);
-	configure_usart();
+	configure_usart_USB();
+	
+	configure_console();
+	
+	printf("Hello World\n\r");
 
 	/* Pin Initialization, begin with pin cleared */
 	REG_PORT_DIRSET1 = 0x0000ffff;		//this is the LCD data bus, PB00 - PB15
@@ -92,17 +101,6 @@ int main (void)
 		
 		uint16_t temp;
 		
-		//uint8_t string[] = "This is too fucking hard\r\n";
-		//usart_write_buffer_wait(&usart_instance, string, sizeof(string));
-		
-		//while (true) {
-		//	if (usart_read_wait(&usart_instance, &temp) == STATUS_OK) {
-		//		while (usart_write_wait(&usart_instance, temp) != STATUS_OK) {
-		//		}
-		//	}
-		//}
-		
-
 		clrScr();
 		
 		
@@ -135,8 +133,11 @@ int main (void)
 
 			uint8_t RGBData[20];
 			
-			usart_write_buffer_wait(&usart_instance, ("%s /n",red), 3);
+			printf("%x, %x, %x,", red, green, blue);
+
 			
+			usart_write_buffer_wait(&usart_USB, ("%s /n",red), 3);
+
 
 			
 		}
@@ -155,37 +156,24 @@ int main (void)
 
 
 /**************************SERCOM STUFF*******************************/
-void configure_usart(void)
+void configure_usart_USB(void)
 {
-	struct usart_config config_usart;
-	usart_get_config_defaults(&config_usart);
-	#if(SAMR30E)
-	{
-		config_usart.baudrate    = 9600;
-		config_usart.mux_setting = CDC_SERCOM_MUX_SETTING;
-		config_usart.pinmux_pad0 = CDC_SERCOM_PINMUX_PAD0;
-		config_usart.pinmux_pad1 = CDC_SERCOM_PINMUX_PAD1;
-		config_usart.pinmux_pad2 = CDC_SERCOM_PINMUX_PAD2;
-		config_usart.pinmux_pad3 = CDC_SERCOM_PINMUX_PAD3;
-		while (usart_init(&usart_instance,
-		CDC_MODULE, &config_usart) != STATUS_OK) {
+	struct usart_config config_usart_USB;
+	usart_get_config_defaults(&config_usart_USB);
+
+		config_usart_USB.baudrate    = 9600;
+		config_usart_USB.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
+		config_usart_USB.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
+		config_usart_USB.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
+		config_usart_USB.pinmux_pad2 = EDBG_CDC_SERCOM_PINMUX_PAD2;
+		config_usart_USB.pinmux_pad3 = EDBG_CDC_SERCOM_PINMUX_PAD3;
+		while (usart_init(&usart_USB,
+		EDBG_CDC_MODULE, &config_usart_USB) != STATUS_OK) {
 		}
-	}
-	#else
-	{
-		config_usart.baudrate    = 9600;
-		config_usart.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
-		config_usart.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
-		config_usart.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
-		config_usart.pinmux_pad2 = EDBG_CDC_SERCOM_PINMUX_PAD2;
-		config_usart.pinmux_pad3 = EDBG_CDC_SERCOM_PINMUX_PAD3;
-		while (usart_init(&usart_instance,
-		EDBG_CDC_MODULE, &config_usart) != STATUS_OK) {
-		}
-	}
-	#endif
-	usart_enable(&usart_instance);
+
+	usart_enable(&usart_USB);
 }
+
 
 
 /**************************LCD STUFF**********************************/

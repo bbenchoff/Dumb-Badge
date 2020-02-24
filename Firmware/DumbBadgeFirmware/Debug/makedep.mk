@@ -38,5 +38,7 @@ src\ASF\sam0\utils\stdio\write.c
 
 src\ASF\sam0\utils\syscalls\gcc\syscalls.c
 
+src\config\config_usart.c
+
 src\main.c
 
