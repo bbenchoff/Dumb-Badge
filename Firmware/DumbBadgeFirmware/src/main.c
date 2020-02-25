@@ -95,7 +95,7 @@ int main (void)
 	InitLCD();
 	clrScr();
 
-	int red, green, blue;
+	uint8_t red, green, blue;
 	red = 0;
 	green = 128;
 	blue = 64;
@@ -120,9 +120,9 @@ int main (void)
 		setColorRGB(red, green, blue);
 		drawKare(0);
 			
-		printf("%i,\t %i,\t %i, \r", red, green, blue);
+		printf("%i,   %i,   %i\n \r", (char) red, green, blue);
 
-		usart_write_buffer_wait(&usart_USB, ("%s /n",red), 3);
+		usart_write_buffer_wait(&usart_USB, red, 3);
 	
 	}
 }
