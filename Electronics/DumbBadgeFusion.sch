@@ -14093,7 +14093,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </bus>
 <bus name="KEYROW[0..9]">
 <segment>
-<wire x1="137.16" y1="99.06" x2="137.16" y2="60.96" width="0.762" layer="92"/>
+<wire x1="137.16" y1="91.44" x2="137.16" y2="60.96" width="0.762" layer="92"/>
 <label x="139.7" y="66.04" size="1.778" layer="95" rot="R90"/>
 </segment>
 </bus>
