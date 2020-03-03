@@ -8,7 +8,7 @@
 </settings>
 <grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="no" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
-<layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
+<layer number="1" name="Top" color="4" fill="1" visible="no" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="no"/>
 <layer number="3" name="Route3" color="17" fill="1" visible="no" active="no"/>
 <layer number="4" name="Route4" color="18" fill="1" visible="no" active="no"/>
@@ -33,7 +33,7 @@
 <layer number="23" name="tOrigins" color="15" fill="1" visible="no" active="yes"/>
 <layer number="24" name="bOrigins" color="15" fill="1" visible="yes" active="yes"/>
 <layer number="25" name="tNames" color="7" fill="1" visible="no" active="yes"/>
-<layer number="26" name="bNames" color="7" fill="1" visible="no" active="yes"/>
+<layer number="26" name="bNames" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="27" name="tValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="28" name="bValues" color="7" fill="1" visible="no" active="yes"/>
 <layer number="29" name="tStop" color="7" fill="3" visible="no" active="yes"/>
@@ -4017,7 +4017,7 @@ design rules under a new name.</description>
 <attribute name="NAME" x="58.42" y="69.131" size="0.6096" layer="26" font="vector" ratio="18" rot="MR270"/>
 <attribute name="VALUE" x="53.594" y="66.718" size="0.4064" layer="28" font="vector" ratio="10" rot="MR270"/>
 </element>
-<element name="X4" library="adafruit2" package="XTAL3215" value="32.768" x="60.341" y="71.347" smashed="yes" rot="MR180">
+<element name="X4" library="adafruit2" package="XTAL3215" value="NX3215SA-32.768K-STD-MUA-8" x="60.341" y="71.347" smashed="yes" rot="MR180">
 <attribute name="NAME" x="62.343" y="70.868" size="0.6096" layer="26" font="vector" ratio="20" rot="MR90"/>
 <attribute name="VALUE" x="57.741" y="75.227" size="1.016" layer="28" font="vector" rot="MR180"/>
 </element>
@@ -4067,7 +4067,7 @@ design rules under a new name.</description>
 <attribute name="PROD_ID" value="RES-09823" x="155.194" y="94.488" size="1.778" layer="28" rot="MR270" display="off"/>
 <attribute name="VALUE" x="155.956" y="94.488" size="0.6096" layer="28" font="vector" ratio="20" rot="MR270" align="top-center"/>
 </element>
-<element name="DIODES" library="USBC" package="SOT-23-5" value="TDP3E001DRLR-SOT-23-5SOT-23-5" x="152.0952" y="99.6696" smashed="yes" rot="MR270">
+<element name="TPD3E001" library="USBC" package="SOT-23-5" value="TDP3E001DRLR-SOT-23-5SOT-23-5" x="152.0952" y="99.6696" smashed="yes" rot="MR270">
 <attribute name="NAME" x="150.9522" y="97.1296" size="0.6096" layer="26" font="vector" ratio="20" rot="MR0" align="bottom-center"/>
 <attribute name="VALUE" x="152.0952" y="97.1296" size="0.6096" layer="28" font="vector" ratio="20" rot="MR0" align="bottom-center"/>
 </element>
@@ -4226,7 +4226,7 @@ design rules under a new name.</description>
 <attribute name="NAME" x="39.878" y="63.373" size="0.6096" layer="26" font="vector" ratio="20" rot="MR180"/>
 <attribute name="VALUE" x="40.132" y="63.373" size="0.6096" layer="28" font="vector" ratio="20" rot="MR180"/>
 </element>
-<element name="U$30" library="FPC" package="62684-501100ALF" value="50PINFPC" x="33.29" y="81.5975" smashed="yes" rot="MR90"/>
+<element name="FPC50CONN" library="FPC" package="62684-501100ALF" value="50PINFPC" x="33.29" y="81.5975" smashed="yes" rot="MR90"/>
 <element name="IC1" library="adafruit" package="SSOP20" value="74245MTC" x="40.894" y="83.185" smashed="yes" rot="MR270">
 <attribute name="NAME" x="42.2539" y="81.661" size="0.8128" layer="26" font="vector" ratio="20" rot="MR0"/>
 <attribute name="VALUE" x="41.574" y="86.4349" size="1.27" layer="28" rot="MR270"/>
@@ -4377,7 +4377,7 @@ design rules under a new name.</description>
 <contactref element="S1" pad="5"/>
 <contactref element="S1" pad="3"/>
 <contactref element="R2" pad="2"/>
-<contactref element="DIODES" pad="3"/>
+<contactref element="TPD3E001" pad="3"/>
 <contactref element="C1" pad="2"/>
 <contactref element="USB" pad="B1A12"/>
 <contactref element="USB" pad="A1B12"/>
@@ -4416,22 +4416,22 @@ design rules under a new name.</description>
 <contactref element="C9" pad="2"/>
 <contactref element="C8" pad="2"/>
 <contactref element="R12" pad="1"/>
-<contactref element="U$30" pad="A50"/>
-<contactref element="U$30" pad="A45"/>
-<contactref element="U$30" pad="A9"/>
-<contactref element="U$30" pad="A10"/>
-<contactref element="U$30" pad="A29"/>
-<contactref element="U$30" pad="A36"/>
-<contactref element="U$30" pad="A35"/>
-<contactref element="U$30" pad="A34"/>
-<contactref element="U$30" pad="A33"/>
-<contactref element="U$30" pad="A32"/>
-<contactref element="U$30" pad="A31"/>
-<contactref element="U$30" pad="A30"/>
-<contactref element="U$30" pad="A38"/>
-<contactref element="U$30" pad="A5"/>
-<contactref element="U$30" pad="A6"/>
-<contactref element="U$30" pad="A7"/>
+<contactref element="FPC50CONN" pad="A50"/>
+<contactref element="FPC50CONN" pad="A45"/>
+<contactref element="FPC50CONN" pad="A9"/>
+<contactref element="FPC50CONN" pad="A10"/>
+<contactref element="FPC50CONN" pad="A29"/>
+<contactref element="FPC50CONN" pad="A36"/>
+<contactref element="FPC50CONN" pad="A35"/>
+<contactref element="FPC50CONN" pad="A34"/>
+<contactref element="FPC50CONN" pad="A33"/>
+<contactref element="FPC50CONN" pad="A32"/>
+<contactref element="FPC50CONN" pad="A31"/>
+<contactref element="FPC50CONN" pad="A30"/>
+<contactref element="FPC50CONN" pad="A38"/>
+<contactref element="FPC50CONN" pad="A5"/>
+<contactref element="FPC50CONN" pad="A6"/>
+<contactref element="FPC50CONN" pad="A7"/>
 <contactref element="IC1" pad="10"/>
 <contactref element="IC2" pad="10"/>
 <contactref element="IC3" pad="10"/>
@@ -4955,9 +4955,9 @@ design rules under a new name.</description>
 </signal>
 <signal name="3V3">
 <contactref element="VREG" pad="2"/>
-<contactref element="U$30" pad="A43"/>
-<contactref element="U$30" pad="A44"/>
-<contactref element="U$30" pad="A4"/>
+<contactref element="FPC50CONN" pad="A43"/>
+<contactref element="FPC50CONN" pad="A44"/>
+<contactref element="FPC50CONN" pad="A4"/>
 <contactref element="TP6" pad="TP"/>
 <wire x1="29.591" y1="52.324" x2="29.464" y2="52.324" width="0.3048" layer="16"/>
 <wire x1="44.831" y1="67.183" x2="41.148" y2="70.866" width="0.3048" layer="16"/>
@@ -5150,7 +5150,7 @@ design rules under a new name.</description>
 <signal name="USB_P">
 <contactref element="USB" pad="A6"/>
 <contactref element="USB" pad="B6"/>
-<contactref element="DIODES" pad="2"/>
+<contactref element="TPD3E001" pad="2"/>
 <wire x1="157.63" y1="99.012" x2="155.623" y2="99.012" width="0.3048" layer="16"/>
 <wire x1="155.623" y1="99.012" x2="155.5802" y2="99.0548" width="0.3048" layer="16"/>
 <wire x1="154.9452" y1="99.0548" x2="154.305" y2="99.695" width="0.3048" layer="16"/>
@@ -5208,7 +5208,7 @@ design rules under a new name.</description>
 <signal name="USB_N">
 <contactref element="USB" pad="A7"/>
 <contactref element="USB" pad="B7"/>
-<contactref element="DIODES" pad="1"/>
+<contactref element="TPD3E001" pad="1"/>
 <wire x1="157.63" y1="99.512" x2="155.25" y2="99.512" width="0.3048" layer="16"/>
 <wire x1="154.1424" y1="100.6196" x2="153.3953" y2="100.6196" width="0.3048" layer="16"/>
 <wire x1="155.25" y1="99.512" x2="154.1424" y2="100.6196" width="0.3048" layer="16"/>
@@ -5431,7 +5431,7 @@ design rules under a new name.</description>
 <contactref element="BATT_LOW" pad="A"/>
 <contactref element="DONE" pad="A"/>
 <wire x1="12.386" y1="71.121" x2="12.7" y2="71.121" width="0.3048" layer="16"/>
-<contactref element="DIODES" pad="5"/>
+<contactref element="TPD3E001" pad="5"/>
 <contactref element="C1" pad="1"/>
 <contactref element="USB" pad="B4A9"/>
 <contactref element="USB" pad="A4B9"/>
@@ -5712,8 +5712,8 @@ design rules under a new name.</description>
 <contactref element="D1" pad="A"/>
 <contactref element="R12" pad="2"/>
 <contactref element="C9" pad="1"/>
-<contactref element="U$30" pad="A2"/>
-<contactref element="U$30" pad="A3"/>
+<contactref element="FPC50CONN" pad="A2"/>
+<contactref element="FPC50CONN" pad="A3"/>
 <contactref element="TP8" pad="TP"/>
 <wire x1="40.64" y1="60.364" x2="42.799" y2="60.364" width="0.508" layer="16"/>
 <wire x1="37.78" y1="58.8311" x2="38.5111" y2="58.8311" width="0.508" layer="16"/>
@@ -5765,7 +5765,7 @@ design rules under a new name.</description>
 <contactref element="D1" pad="C"/>
 <contactref element="C11" pad="1"/>
 <contactref element="C10" pad="1"/>
-<contactref element="U$30" pad="A1"/>
+<contactref element="FPC50CONN" pad="A1"/>
 <contactref element="TP7" pad="TP"/>
 <wire x1="36.7665" y1="65.532" x2="35.98" y2="64.7455" width="0.8128" layer="16"/>
 <wire x1="35.98" y1="64.7455" x2="35.98" y2="62.738" width="0.8128" layer="16"/>
@@ -5803,7 +5803,7 @@ design rules under a new name.</description>
 <wire x1="41.187" y1="56.681" x2="42.672" y2="58.166" width="0.3048" layer="16"/>
 </signal>
 <signal name="LCDRST">
-<contactref element="U$30" pad="A8"/>
+<contactref element="FPC50CONN" pad="A8"/>
 <contactref element="IC3" pad="15"/>
 <wire x1="37.894" y1="90.099" x2="36.266" y2="90.099" width="0.254" layer="16"/>
 <wire x1="36.266" y1="90.099" x2="35.56" y2="90.805" width="0.254" layer="16"/>
@@ -5814,90 +5814,90 @@ design rules under a new name.</description>
 <wire x1="35.1025" y1="72.8475" x2="33.54" y2="72.8475" width="0.254" layer="16"/>
 </signal>
 <signal name="DOTCLK">
-<contactref element="U$30" pad="A11"/>
+<contactref element="FPC50CONN" pad="A11"/>
 </signal>
 <signal name="DE">
-<contactref element="U$30" pad="A12"/>
+<contactref element="FPC50CONN" pad="A12"/>
 </signal>
 <signal name="DB00">
-<contactref element="U$30" pad="A13"/>
+<contactref element="FPC50CONN" pad="A13"/>
 <contactref element="IC2" pad="11"/>
 <wire x1="37.894" y1="72.894" x2="36.3435" y2="72.894" width="0.254" layer="16"/>
 <wire x1="36.3435" y1="72.894" x2="33.89" y2="75.3475" width="0.254" layer="16"/>
 <wire x1="33.89" y1="75.3475" x2="33.54" y2="75.3475" width="0.254" layer="16"/>
 </signal>
 <signal name="DB01">
-<contactref element="U$30" pad="A14"/>
+<contactref element="FPC50CONN" pad="A14"/>
 <contactref element="IC2" pad="12"/>
 <wire x1="33.54" y1="75.8475" x2="34.0075" y2="75.8475" width="0.254" layer="16"/>
 <wire x1="36.311" y1="73.544" x2="37.894" y2="73.544" width="0.254" layer="16"/>
 <wire x1="34.0075" y1="75.8475" x2="36.311" y2="73.544" width="0.254" layer="16"/>
 </signal>
 <signal name="DB02">
-<contactref element="U$30" pad="A15"/>
+<contactref element="FPC50CONN" pad="A15"/>
 <contactref element="IC2" pad="13"/>
 <wire x1="33.54" y1="76.3475" x2="34.1425" y2="76.3475" width="0.254" layer="16"/>
 <wire x1="36.296" y1="74.194" x2="37.894" y2="74.194" width="0.254" layer="16"/>
 <wire x1="34.1425" y1="76.3475" x2="36.296" y2="74.194" width="0.254" layer="16"/>
 </signal>
 <signal name="DB03">
-<contactref element="U$30" pad="A16"/>
+<contactref element="FPC50CONN" pad="A16"/>
 <contactref element="IC2" pad="14"/>
 <wire x1="33.54" y1="76.8475" x2="34.2775" y2="76.8475" width="0.254" layer="16"/>
 <wire x1="36.281" y1="74.844" x2="37.894" y2="74.844" width="0.254" layer="16"/>
 <wire x1="34.2775" y1="76.8475" x2="36.281" y2="74.844" width="0.254" layer="16"/>
 </signal>
 <signal name="DB04">
-<contactref element="U$30" pad="A17"/>
+<contactref element="FPC50CONN" pad="A17"/>
 <contactref element="IC2" pad="15"/>
 <wire x1="33.54" y1="77.3475" x2="34.4125" y2="77.3475" width="0.254" layer="16"/>
 <wire x1="36.266" y1="75.494" x2="37.894" y2="75.494" width="0.254" layer="16"/>
 <wire x1="34.4125" y1="77.3475" x2="36.266" y2="75.494" width="0.254" layer="16"/>
 </signal>
 <signal name="DB05">
-<contactref element="U$30" pad="A18"/>
+<contactref element="FPC50CONN" pad="A18"/>
 <contactref element="IC2" pad="16"/>
 <wire x1="33.54" y1="77.8475" x2="34.5475" y2="77.8475" width="0.254" layer="16"/>
 <wire x1="36.251" y1="76.144" x2="37.894" y2="76.144" width="0.254" layer="16"/>
 <wire x1="34.5475" y1="77.8475" x2="36.251" y2="76.144" width="0.254" layer="16"/>
 </signal>
 <signal name="DB06">
-<contactref element="U$30" pad="A19"/>
+<contactref element="FPC50CONN" pad="A19"/>
 <contactref element="IC2" pad="17"/>
 <wire x1="33.54" y1="78.3475" x2="34.6825" y2="78.3475" width="0.254" layer="16"/>
 <wire x1="36.236" y1="76.794" x2="37.894" y2="76.794" width="0.254" layer="16"/>
 <wire x1="34.6825" y1="78.3475" x2="36.236" y2="76.794" width="0.254" layer="16"/>
 </signal>
 <signal name="DB07">
-<contactref element="U$30" pad="A20"/>
+<contactref element="FPC50CONN" pad="A20"/>
 <contactref element="IC2" pad="18"/>
 <wire x1="33.54" y1="78.8475" x2="34.8175" y2="78.8475" width="0.254" layer="16"/>
 <wire x1="36.221" y1="77.444" x2="37.894" y2="77.444" width="0.254" layer="16"/>
 <wire x1="34.8175" y1="78.8475" x2="36.221" y2="77.444" width="0.254" layer="16"/>
 </signal>
 <signal name="DB08">
-<contactref element="U$30" pad="A21"/>
+<contactref element="FPC50CONN" pad="A21"/>
 <contactref element="IC1" pad="11"/>
 <wire x1="33.54" y1="79.3475" x2="34.8975" y2="79.3475" width="0.254" layer="16"/>
 <wire x1="35.81" y1="80.26" x2="37.894" y2="80.26" width="0.254" layer="16"/>
 <wire x1="34.8975" y1="79.3475" x2="35.81" y2="80.26" width="0.254" layer="16"/>
 </signal>
 <signal name="DB09">
-<contactref element="U$30" pad="A22"/>
+<contactref element="FPC50CONN" pad="A22"/>
 <contactref element="IC1" pad="12"/>
 <wire x1="33.54" y1="79.8475" x2="34.7625" y2="79.8475" width="0.254" layer="16"/>
 <wire x1="35.825" y1="80.91" x2="37.894" y2="80.91" width="0.254" layer="16"/>
 <wire x1="34.7625" y1="79.8475" x2="35.825" y2="80.91" width="0.254" layer="16"/>
 </signal>
 <signal name="DB10">
-<contactref element="U$30" pad="A23"/>
+<contactref element="FPC50CONN" pad="A23"/>
 <contactref element="IC1" pad="13"/>
 <wire x1="33.54" y1="80.3475" x2="34.6275" y2="80.3475" width="0.254" layer="16"/>
 <wire x1="35.84" y1="81.56" x2="37.894" y2="81.56" width="0.254" layer="16"/>
 <wire x1="34.6275" y1="80.3475" x2="35.84" y2="81.56" width="0.254" layer="16"/>
 </signal>
 <signal name="DB11">
-<contactref element="U$30" pad="A24"/>
+<contactref element="FPC50CONN" pad="A24"/>
 <contactref element="IC1" pad="14"/>
 <wire x1="33.54" y1="80.8475" x2="34.4322375" y2="80.8475" width="0.254" layer="16"/>
 <wire x1="34.4322375" y1="80.8475" x2="35.84736875" y2="82.26263125" width="0.254" layer="16"/>
@@ -5905,75 +5905,75 @@ design rules under a new name.</description>
 <wire x1="37.84136875" y1="82.26263125" x2="37.894" y2="82.21" width="0.254" layer="16"/>
 </signal>
 <signal name="DB12">
-<contactref element="U$30" pad="A25"/>
+<contactref element="FPC50CONN" pad="A25"/>
 <contactref element="IC1" pad="15"/>
 <wire x1="33.54" y1="81.3475" x2="34.3575" y2="81.3475" width="0.254" layer="16"/>
 <wire x1="35.87" y1="82.86" x2="37.894" y2="82.86" width="0.254" layer="16"/>
 <wire x1="34.3575" y1="81.3475" x2="35.87" y2="82.86" width="0.254" layer="16"/>
 </signal>
 <signal name="DB13">
-<contactref element="U$30" pad="A26"/>
+<contactref element="FPC50CONN" pad="A26"/>
 <contactref element="IC1" pad="16"/>
 <wire x1="33.54" y1="81.8475" x2="34.1622375" y2="81.8475" width="0.254" layer="16"/>
 <wire x1="35.8247375" y1="83.51" x2="37.894" y2="83.51" width="0.254" layer="16"/>
 <wire x1="34.1622375" y1="81.8475" x2="35.8247375" y2="83.51" width="0.254" layer="16"/>
 </signal>
 <signal name="DB14">
-<contactref element="U$30" pad="A27"/>
+<contactref element="FPC50CONN" pad="A27"/>
 <contactref element="IC1" pad="17"/>
 <wire x1="33.54" y1="82.3475" x2="34.0875" y2="82.3475" width="0.254" layer="16"/>
 <wire x1="35.9" y1="84.16" x2="37.894" y2="84.16" width="0.254" layer="16"/>
 <wire x1="34.0875" y1="82.3475" x2="35.9" y2="84.16" width="0.254" layer="16"/>
 </signal>
 <signal name="DB15">
-<contactref element="U$30" pad="A28"/>
+<contactref element="FPC50CONN" pad="A28"/>
 <contactref element="IC1" pad="18"/>
 <wire x1="33.54" y1="82.8475" x2="33.9525" y2="82.8475" width="0.254" layer="16"/>
 <wire x1="35.915" y1="84.81" x2="37.894" y2="84.81" width="0.254" layer="16"/>
 <wire x1="33.9525" y1="82.8475" x2="35.915" y2="84.81" width="0.254" layer="16"/>
 </signal>
 <signal name="SDO">
-<contactref element="U$30" pad="A37"/>
+<contactref element="FPC50CONN" pad="A37"/>
 </signal>
 <signal name="RD">
-<contactref element="U$30" pad="A39"/>
+<contactref element="FPC50CONN" pad="A39"/>
 <contactref element="IC3" pad="11"/>
 <wire x1="33.54" y1="88.3475" x2="34.8425" y2="88.3475" width="0.254" layer="16"/>
 <wire x1="35.691" y1="87.499" x2="37.894" y2="87.499" width="0.254" layer="16"/>
 <wire x1="34.8425" y1="88.3475" x2="35.691" y2="87.499" width="0.254" layer="16"/>
 </signal>
 <signal name="WR">
-<contactref element="U$30" pad="A40"/>
+<contactref element="FPC50CONN" pad="A40"/>
 <contactref element="IC3" pad="12"/>
 <wire x1="33.54" y1="88.8475" x2="34.9775" y2="88.8475" width="0.254" layer="16"/>
 <wire x1="35.676" y1="88.149" x2="37.894" y2="88.149" width="0.254" layer="16"/>
 <wire x1="34.9775" y1="88.8475" x2="35.676" y2="88.149" width="0.254" layer="16"/>
 </signal>
 <signal name="D/C">
-<contactref element="U$30" pad="A41"/>
+<contactref element="FPC50CONN" pad="A41"/>
 <contactref element="IC3" pad="13"/>
 <wire x1="33.54" y1="89.3475" x2="35.1125" y2="89.3475" width="0.254" layer="16"/>
 <wire x1="35.661" y1="88.799" x2="37.894" y2="88.799" width="0.254" layer="16"/>
 <wire x1="35.1125" y1="89.3475" x2="35.661" y2="88.799" width="0.254" layer="16"/>
 </signal>
 <signal name="CS">
-<contactref element="U$30" pad="A42"/>
+<contactref element="FPC50CONN" pad="A42"/>
 <contactref element="IC3" pad="14"/>
 <wire x1="33.54" y1="89.8475" x2="35.2475" y2="89.8475" width="0.254" layer="16"/>
 <wire x1="35.646" y1="89.449" x2="37.894" y2="89.449" width="0.254" layer="16"/>
 <wire x1="35.2475" y1="89.8475" x2="35.646" y2="89.449" width="0.254" layer="16"/>
 </signal>
 <signal name="XR/SCL">
-<contactref element="U$30" pad="A46"/>
+<contactref element="FPC50CONN" pad="A46"/>
 </signal>
 <signal name="YD/SDA">
-<contactref element="U$30" pad="A47"/>
+<contactref element="FPC50CONN" pad="A47"/>
 </signal>
 <signal name="XL/INT">
-<contactref element="U$30" pad="A48"/>
+<contactref element="FPC50CONN" pad="A48"/>
 </signal>
 <signal name="YU/RES">
-<contactref element="U$30" pad="A49"/>
+<contactref element="FPC50CONN" pad="A49"/>
 </signal>
 <signal name="VCC">
 <contactref element="IC1" pad="20"/>
