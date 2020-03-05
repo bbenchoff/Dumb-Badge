@@ -10752,7 +10752,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="R2" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="1KOHM" device="-0603-1/10W-1%" package3d_urn="urn:adsk.eagle:package:39650/1" value="5.1k"/>
 <part name="R3" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="1KOHM" device="-0603-1/10W-1%" package3d_urn="urn:adsk.eagle:package:39650/1" value="5.1k"/>
 <part name="U$6" library="microbuilder" deviceset="GND" device=""/>
-<part name="TPD3E001" library="USBC" deviceset="TDP3E001DRLR-SOT-23-5" device="SOT-23-5"/>
+<part name="U5" library="USBC" deviceset="TDP3E001DRLR-SOT-23-5" device="SOT-23-5"/>
 <part name="P+1" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VCC" device="" value="VUSB"/>
 <part name="P+2" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="VCC" device="" value="VUSB"/>
 <part name="C1" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="1.0UF" device="-0805-25V-10%" package3d_urn="urn:adsk.eagle:package:37429/1" value="0.1uF"/>
@@ -13101,7 +13101,7 @@ and R18 should be &lt; 1% resistors</text>
 <instance part="U$6" gate="G$1" x="142.24" y="220.98" smashed="yes">
 <attribute name="VALUE" x="140.716" y="218.44" size="1.27" layer="96"/>
 </instance>
-<instance part="TPD3E001" gate="G$1" x="40.64" y="220.98" smashed="yes" rot="R180"/>
+<instance part="U5" gate="G$1" x="40.64" y="220.98" smashed="yes" rot="R180"/>
 <instance part="P+1" gate="VCC" x="68.58" y="236.22" smashed="yes">
 <attribute name="VALUE" x="66.04" y="233.68" size="1.778" layer="96" rot="R90"/>
 </instance>
@@ -13405,7 +13405,7 @@ and R18 should be &lt; 1% resistors</text>
 <junction x="142.24" y="228.6"/>
 </segment>
 <segment>
-<pinref part="TPD3E001" gate="G$1" pin="3"/>
+<pinref part="U5" gate="G$1" pin="3"/>
 <pinref part="C1" gate="G$1" pin="2"/>
 <wire x1="27.94" y1="226.06" x2="25.4" y2="226.06" width="0.1524" layer="91"/>
 <wire x1="25.4" y1="226.06" x2="25.4" y2="210.82" width="0.1524" layer="91"/>
@@ -13629,7 +13629,7 @@ and R18 should be &lt; 1% resistors</text>
 <wire x1="78.74" y1="215.9" x2="83.82" y2="215.9" width="0.1524" layer="91"/>
 <wire x1="78.74" y1="215.9" x2="68.58" y2="215.9" width="0.1524" layer="91"/>
 <junction x="78.74" y="215.9"/>
-<pinref part="TPD3E001" gate="G$1" pin="IO1"/>
+<pinref part="U5" gate="G$1" pin="IO1"/>
 <wire x1="68.58" y1="215.9" x2="58.42" y2="215.9" width="0.1524" layer="91"/>
 <wire x1="68.58" y1="210.82" x2="68.58" y2="215.9" width="0.1524" layer="91"/>
 <junction x="68.58" y="215.9"/>
@@ -13648,7 +13648,7 @@ and R18 should be &lt; 1% resistors</text>
 <junction x="78.74" y="223.52"/>
 <wire x1="68.58" y1="223.52" x2="66.04" y2="223.52" width="0.1524" layer="91"/>
 <wire x1="66.04" y1="223.52" x2="66.04" y2="220.98" width="0.1524" layer="91"/>
-<pinref part="TPD3E001" gate="G$1" pin="IO2"/>
+<pinref part="U5" gate="G$1" pin="IO2"/>
 <wire x1="66.04" y1="220.98" x2="60.96" y2="220.98" width="0.1524" layer="91"/>
 <wire x1="60.96" y1="220.98" x2="58.42" y2="220.98" width="0.1524" layer="91"/>
 <wire x1="60.96" y1="210.82" x2="60.96" y2="220.98" width="0.1524" layer="91"/>
@@ -13828,7 +13828,7 @@ and R18 should be &lt; 1% resistors</text>
 <pinref part="P+2" gate="VCC" pin="VCC"/>
 <wire x1="15.24" y1="236.22" x2="15.24" y2="233.68" width="0.1524" layer="91"/>
 <wire x1="15.24" y1="233.68" x2="15.24" y2="226.06" width="0.1524" layer="91"/>
-<pinref part="TPD3E001" gate="G$1" pin="5"/>
+<pinref part="U5" gate="G$1" pin="5"/>
 <wire x1="15.24" y1="226.06" x2="15.24" y2="215.9" width="0.1524" layer="91"/>
 <wire x1="15.24" y1="215.9" x2="27.94" y2="215.9" width="0.1524" layer="91"/>
 <pinref part="C1" gate="G$1" pin="1"/>

@@ -12891,7 +12891,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="C3" library="microbuilder" deviceset="CAP_CERAMIC" device="0805-NOOUTLINE" value="2.2uF"/>
 <part name="U$11" library="microbuilder" deviceset="5.0V" device=""/>
 <part name="U$19" library="microbuilder" deviceset="VBAT" device=""/>
-<part name="LED1" library="microbuilder" deviceset="LED" device="0805_NOOUTLINE" value="RED"/>
+<part name="LED1" library="microbuilder" deviceset="LED" device="0805_NOOUTLINE" value="LOW BATT"/>
 <part name="R20" library="microbuilder" deviceset="RESISTOR" device="0805_NOOUTLINE" value="1K"/>
 <part name="R13" library="microbuilder" deviceset="RESISTOR" device="0805_NOOUTLINE" value="200K"/>
 <part name="U$27" library="microbuilder" deviceset="VBAT" device=""/>
@@ -12912,8 +12912,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="R9" library="microbuilder" deviceset="RESISTOR" device="0805_NOOUTLINE" value="270K"/>
 <part name="R10" library="microbuilder" deviceset="RESISTOR" device="0805_NOOUTLINE" value="100K"/>
 <part name="GND4" library="supply1" deviceset="GND" device=""/>
-<part name="DONE" library="microbuilder" deviceset="LED" device="0805_NOOUTLINE" value="GREEN"/>
-<part name="BATT_LOW" library="microbuilder" deviceset="LED" device="0805_NOOUTLINE" value="ORANGE"/>
+<part name="LED3" library="microbuilder" deviceset="LED" device="0805_NOOUTLINE" value="GREEN"/>
+<part name="LED2" library="microbuilder" deviceset="LED" device="0805_NOOUTLINE" value="ORANGE"/>
 <part name="R11" library="microbuilder" deviceset="RESISTOR" device="0805_NOOUTLINE" value="1K"/>
 <part name="R14" library="microbuilder" deviceset="RESISTOR" device="0805_NOOUTLINE" value="1K"/>
 <part name="C7" library="microbuilder" deviceset="CAP_CERAMIC" device="0805-NOOUTLINE" value="10uF"/>
@@ -12987,7 +12987,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="U$12" library="microbuilder" deviceset="5.0V" device="" value="3V3"/>
 <part name="TP9" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
 <part name="TP10" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
-<part name="TP11" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
 <part name="TP12" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
 <part name="TP13" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
 <part name="TP14" library="testpad" library_urn="urn:adsk.eagle:library:385" deviceset="TP" device="B1,27" package3d_urn="urn:adsk.eagle:package:27944/2"/>
@@ -13922,10 +13921,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <attribute name="DRAWING_NAME" x="186.69" y="16.51" size="2.54" layer="94" font="vector"/>
 <attribute name="LAST_DATE_TIME" x="186.69" y="11.43" size="2.286" layer="94" font="vector"/>
 <attribute name="SHEET" x="200.66" y="6.35" size="2.54" layer="94" font="vector"/>
-</instance>
-<instance part="TP11" gate="G$1" x="10.16" y="180.34" smashed="yes">
-<attribute name="NAME" x="8.89" y="181.61" size="1.778" layer="95"/>
-<attribute name="TP_SIGNAL_NAME" x="11.43" y="179.07" size="1.778" layer="97"/>
 </instance>
 <instance part="TP12" gate="G$1" x="119.38" y="27.94" smashed="yes" rot="R270">
 <attribute name="NAME" x="111.506" y="28.194" size="1.778" layer="95"/>
@@ -15358,11 +15353,11 @@ and R18 should be &lt; 1% resistors</text>
 <instance part="GND4" gate="1" x="193.04" y="144.78" smashed="yes">
 <attribute name="VALUE" x="190.5" y="142.24" size="1.778" layer="96"/>
 </instance>
-<instance part="DONE" gate="G$1" x="170.18" y="160.02" smashed="yes" rot="R270">
+<instance part="LED3" gate="G$1" x="170.18" y="160.02" smashed="yes" rot="R270">
 <attribute name="NAME" x="174.625" y="161.29" size="1.27" layer="95" rot="R270" align="center"/>
 <attribute name="VALUE" x="167.386" y="161.29" size="1.27" layer="96" rot="R270" align="center"/>
 </instance>
-<instance part="BATT_LOW" gate="G$1" x="160.02" y="160.02" smashed="yes" rot="R270">
+<instance part="LED2" gate="G$1" x="160.02" y="160.02" smashed="yes" rot="R270">
 <attribute name="NAME" x="164.465" y="161.29" size="1.27" layer="95" rot="R270" align="center"/>
 <attribute name="VALUE" x="157.226" y="161.29" size="1.27" layer="96" rot="R270" align="center"/>
 </instance>
@@ -15935,11 +15930,11 @@ and R18 should be &lt; 1% resistors</text>
 </segment>
 <segment>
 <pinref part="U$36" gate="G$1" pin="VBUS"/>
-<pinref part="BATT_LOW" gate="G$1" pin="A"/>
+<pinref part="LED2" gate="G$1" pin="A"/>
 <wire x1="160.02" y1="170.18" x2="160.02" y2="165.1" width="0.1524" layer="91"/>
 </segment>
 <segment>
-<pinref part="DONE" gate="G$1" pin="A"/>
+<pinref part="LED3" gate="G$1" pin="A"/>
 <pinref part="U$45" gate="G$1" pin="VBUS"/>
 <wire x1="170.18" y1="165.1" x2="170.18" y2="170.18" width="0.1524" layer="91"/>
 <pinref part="TP1" gate="G$1" pin="TP"/>
@@ -15992,14 +15987,14 @@ and R18 should be &lt; 1% resistors</text>
 </net>
 <net name="N$17" class="0">
 <segment>
-<pinref part="DONE" gate="G$1" pin="C"/>
+<pinref part="LED3" gate="G$1" pin="C"/>
 <pinref part="R14" gate="G$1" pin="2"/>
 <wire x1="170.18" y1="157.48" x2="170.18" y2="154.94" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$18" class="0">
 <segment>
-<pinref part="BATT_LOW" gate="G$1" pin="C"/>
+<pinref part="LED2" gate="G$1" pin="C"/>
 <pinref part="R11" gate="G$1" pin="2"/>
 <wire x1="160.02" y1="157.48" x2="160.02" y2="154.94" width="0.1524" layer="91"/>
 </segment>
