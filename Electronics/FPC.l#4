@@ -326,22 +326,6 @@
 <smd name="P39" x="-24.13" y="-3.175" dx="1.27" dy="0.635" layer="1" rot="R90"/>
 <text x="-25.4" y="5.08" size="1.016" layer="21" font="vector" ratio="20">Samtec HLE-120-02-G-DV-BE-A                    Pi Attaches Upside Down</text>
 </package>
-<package name="SOT(5)">
-<smd name="VCC" x="-0.5" y="0.725" dx="0.45" dy="0.3" layer="1" rot="R270"/>
-<smd name="IO3" x="0.5" y="0.725" dx="0.45" dy="0.3" layer="1" rot="R270"/>
-<smd name="IO1" x="-0.5" y="-0.725" dx="0.45" dy="0.3" layer="1" rot="R270"/>
-<smd name="IO2" x="0" y="-0.725" dx="0.45" dy="0.3" layer="1" rot="R270"/>
-<smd name="GND" x="0.5" y="-0.725" dx="0.45" dy="0.3" layer="1" rot="R270"/>
-<wire x1="-0.7" y1="0.7" x2="-1" y2="0.7" width="0.127" layer="21"/>
-<wire x1="-1" y1="0.7" x2="-1" y2="-0.7" width="0.127" layer="21"/>
-<wire x1="-1" y1="-0.7" x2="-0.7" y2="-0.7" width="0.127" layer="21"/>
-<wire x1="0.7" y1="-0.7" x2="1" y2="-0.7" width="0.127" layer="21"/>
-<wire x1="1" y1="-0.7" x2="1" y2="0.7" width="0.127" layer="21"/>
-<wire x1="1" y1="0.7" x2="0.7" y2="0.7" width="0.127" layer="21"/>
-<wire x1="-0.3" y1="0.7" x2="0.3" y2="0.7" width="0.127" layer="21"/>
-<wire x1="-0.3" y1="-0.7" x2="-0.2" y2="-0.7" width="0.127" layer="21"/>
-<wire x1="0.2" y1="-0.7" x2="0.3" y2="-0.7" width="0.127" layer="21"/>
-</package>
 </packages>
 <symbols>
 <symbol name="50PINFPC">
@@ -446,21 +430,6 @@
 <wire x1="-50.8" y1="7.62" x2="-50.8" y2="-7.62" width="0.254" layer="94"/>
 <wire x1="-50.8" y1="-7.62" x2="50.8" y2="-7.62" width="0.254" layer="94"/>
 <wire x1="50.8" y1="-7.62" x2="50.8" y2="7.62" width="0.254" layer="94"/>
-</symbol>
-<symbol name="TPD3E001">
-<pin name="IO3" x="-12.7" y="7.62" length="middle"/>
-<pin name="VCC" x="-12.7" y="-7.62" length="middle"/>
-<pin name="GND" x="12.7" y="7.62" length="middle" rot="R180"/>
-<pin name="IO2" x="12.7" y="0" length="middle" rot="R180"/>
-<pin name="IO1" x="12.7" y="-7.62" length="middle" rot="R180"/>
-<wire x1="-7.62" y1="-7.62" x2="-7.62" y2="-10.16" width="0.254" layer="94"/>
-<wire x1="-7.62" y1="-10.16" x2="7.62" y2="-10.16" width="0.254" layer="94"/>
-<wire x1="7.62" y1="-10.16" x2="7.62" y2="10.16" width="0.254" layer="94"/>
-<wire x1="7.62" y1="10.16" x2="-7.62" y2="10.16" width="0.254" layer="94"/>
-<wire x1="-7.62" y1="10.16" x2="-7.62" y2="-7.62" width="0.254" layer="94"/>
-<text x="-7.874" y="10.922" size="1.6764" layer="94" ratio="0">TPD3E001</text>
-<text x="-7.874" y="10.922" size="1.6764" layer="94" ratio="0">TPD3E001</text>
-<text x="-7.62" y="-12.7" size="1.6764" layer="94" ratio="0">USB ESD</text>
 </symbol>
 </symbols>
 <devicesets>
@@ -629,25 +598,6 @@
 <connect gate="G$1" pin="P7" pad="P7"/>
 <connect gate="G$1" pin="P8" pad="P8"/>
 <connect gate="G$1" pin="P9" pad="P9"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="TPD3E001SOT5">
-<gates>
-<gate name="G$1" symbol="TPD3E001" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="SOT(5)">
-<connects>
-<connect gate="G$1" pin="GND" pad="GND"/>
-<connect gate="G$1" pin="IO1" pad="IO1"/>
-<connect gate="G$1" pin="IO2" pad="IO2"/>
-<connect gate="G$1" pin="IO3" pad="IO3"/>
-<connect gate="G$1" pin="VCC" pad="VCC"/>
 </connects>
 <technologies>
 <technology name=""/>
