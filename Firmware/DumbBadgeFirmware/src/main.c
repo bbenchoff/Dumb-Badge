@@ -94,6 +94,10 @@ int main (void)
 	
 	InitLCD();
 	clrScr();
+	setColorRGB(0,0,0);
+	setBackColorRGB(0,0,0);
+	fillRect(0,0,display_X_size,display_Y_size);
+	delay_ms(1000);
 
 	uint8_t red, green, blue;
 	red = 0;
