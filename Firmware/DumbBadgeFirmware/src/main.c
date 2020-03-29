@@ -14,6 +14,24 @@
 #define LCD_DC		PORT_PB23
 #define LCD_RD		PORT_PB16
 
+#define KB_ROW0		PORT_PA02
+#define KB_ROW1		PORT_PA03
+#define KB_ROW2		PORT_PA04	
+#define KB_ROW3		PORT_PA05
+#define KB_ROW4		PORT_PA06
+#define KB_ROW5		PORT_PA07
+#define KB_ROW6		PORT_PA10
+#define KB_ROW7		PORT_PA11
+#define KB_ROW8		PORT_PA12
+#define KB_ROW9		PORT_PA13
+
+#define	KB_COL0		PORT_PA16
+#define	KB_COL1		PORT_PA17
+#define	KB_COL2		PORT_PA18
+#define	KB_COL3		PORT_PA19
+#define	KB_COL4		PORT_PA20
+#define	KB_COL5		PORT_PA21
+#define	KB_COL6		PORT_PA27
 
 #define SwapUint16(x , y) { uint16_t temp = x; x = y; y = temp; }
 
