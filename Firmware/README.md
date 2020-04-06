@@ -1,7 +1,6 @@
 ## Install baremetal toolchain
 
-sudo apt-get install gcc-arm-none-eabi make git gcc
-sudo apt-get install libudev-dev
+`sudo apt-get install gcc-arm-none-eabi make git gcc libudev-dev`
 
 [Download Microchip Advanced Software Framework (latest ASF v3.47)](https://gallery.microchip.com/packages/4CE20911-D794-4550-8B94-6C66A93228B8/3.48.0.1845)
 
