@@ -19,3 +19,5 @@ This will produce a binary used to upload code
 Test the led_toggle_flash.bin by uploading to SamD21 board with the following
 
 `edbg -b -p -v -f led_toggle_flash.bin -t atmel_cm0p`
+
+The toolchain and uploading has been verified on your machine. Now we need a makefile and such for the real code.
