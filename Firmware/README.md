@@ -2,7 +2,7 @@
 
 `sudo apt-get install gcc-arm-none-eabi make git gcc libudev-dev`
 
-[Download Microchip Advanced Software Framework (latest ASF v3.47)](https://gallery.microchip.com/packages/4CE20911-D794-4550-8B94-6C66A93228B8/3.48.0.1845)
+[Download Microchip Advanced Software Framework](https://www.microchip.com/mymicrochip/filehandler.aspx?ddocname=en1000272) or you could [find the latest version here](https://www.microchip.com/mplab/avr-support/avr-and-sam-downloads-archive). Look for Advanced Software Framework (ASF) and grab the latest version. Unzip that somewhere.
 
 This will allow you to compile the example program
 \xdk-asf-3.48.0\sam0\applications\led_toggle\samd21_xplained_pro
