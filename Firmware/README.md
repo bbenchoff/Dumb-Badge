@@ -12,6 +12,8 @@ Run make on that, should produce /samd21_xplained_pro/gcc/led_toggle_flash.bin
 ## Install edbg
 [edbg](https://github.com/ataradov/edbg) is a tool for progamming ARM through Atmel edbg-based boards. Install that.
 
+You can either clone it and do a `make all` or download the binary if you don't give a fuck about security.
+
 This will produce a binary used to upload code
 
 ## Burn firmware
