@@ -301,12 +301,10 @@ void setXY(uint16_t x1, uint16_t y1,
 
 void LCD_Write_Bus(char VH, char VL)
 {
-	REG_PORT_OUTCLR1 = LCD_RD;
 	REG_PORT_OUTCLR1 = 0x0000ffff;
 	REG_PORT_OUTSET1 = (VH << 8) | VL;
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTSET1 = LCD_WR;
-
 }
 
 void LCD_Write_COM16(char VH, char VL)
