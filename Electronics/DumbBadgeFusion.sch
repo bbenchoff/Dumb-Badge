@@ -4283,90 +4283,6 @@ thin small outline package</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="SamacSys_Parts">
-<description>&lt;b&gt;https://componentsearchengine.com&lt;/b&gt;&lt;p&gt;
-&lt;author&gt;Created by SamacSys&lt;/author&gt;</description>
-<packages>
-<package name="AYZ0102AGRLC">
-<description>&lt;b&gt;AYZ0102AGRLC&lt;/b&gt;&lt;br&gt;
-</description>
-<smd name="1" x="-2.5" y="2.05" dx="1.2" dy="1" layer="1" rot="R90"/>
-<smd name="2" x="0" y="2.05" dx="1.2" dy="1" layer="1" rot="R90"/>
-<smd name="3" x="2.5" y="2.05" dx="1.2" dy="1" layer="1" rot="R90"/>
-<pad name="4" x="-1.5" y="-0.55" drill="0.85" diameter="1.381"/>
-<pad name="5" x="1.5" y="-0.55" drill="0.85" diameter="1.381"/>
-<text x="0" y="0" size="1.27" layer="25" align="center">&gt;NAME</text>
-<text x="0" y="0" size="1.27" layer="27" align="center">&gt;VALUE</text>
-<wire x1="-3.6" y1="0.95" x2="3.6" y2="0.95" width="0.2" layer="51"/>
-<wire x1="3.6" y1="0.95" x2="3.6" y2="-2.05" width="0.2" layer="51"/>
-<wire x1="3.6" y1="-2.05" x2="-3.6" y2="-2.05" width="0.2" layer="51"/>
-<wire x1="-3.6" y1="-2.05" x2="-3.6" y2="0.95" width="0.2" layer="51"/>
-<wire x1="-3.6" y1="0.95" x2="3.6" y2="0.95" width="0.1" layer="21"/>
-<wire x1="3.6" y1="0.95" x2="3.6" y2="-2.05" width="0.1" layer="21"/>
-<wire x1="3.6" y1="-2.05" x2="-3.6" y2="-2.05" width="0.1" layer="21"/>
-<wire x1="-3.6" y1="-2.05" x2="-3.6" y2="0.95" width="0.1" layer="21"/>
-<wire x1="-4.6" y1="4.05" x2="4.6" y2="4.05" width="0.1" layer="51"/>
-<wire x1="4.6" y1="4.05" x2="4.6" y2="-4.05" width="0.1" layer="51"/>
-<wire x1="4.6" y1="-4.05" x2="-4.6" y2="-4.05" width="0.1" layer="51"/>
-<wire x1="-4.6" y1="-4.05" x2="-4.6" y2="4.05" width="0.1" layer="51"/>
-<wire x1="-2.6" y1="2.95" x2="-2.6" y2="2.95" width="0.2" layer="21"/>
-<wire x1="-2.6" y1="2.95" x2="-2.4" y2="2.95" width="0.2" layer="21" curve="-180"/>
-<wire x1="-2.4" y1="2.95" x2="-2.4" y2="2.95" width="0.2" layer="21"/>
-<wire x1="-2.4" y1="2.95" x2="-2.6" y2="2.95" width="0.2" layer="21" curve="-180"/>
-<wire x1="0" y1="-2.05" x2="0" y2="-3.05" width="0.2" layer="51"/>
-<wire x1="0" y1="-3.05" x2="-1.5" y2="-3.05" width="0.2" layer="51"/>
-<wire x1="-1.5" y1="-3.05" x2="-1.5" y2="-2.05" width="0.2" layer="51"/>
-<wire x1="-1.5" y1="-2.05" x2="-1.5" y2="-3.05" width="0.1" layer="21"/>
-<wire x1="-1.5" y1="-3.05" x2="0" y2="-3.05" width="0.1" layer="21"/>
-<wire x1="0" y1="-3.05" x2="0" y2="-2.05" width="0.1" layer="21"/>
-</package>
-</packages>
-<symbols>
-<symbol name="AYZ0102AGRLC">
-<wire x1="5.08" y1="2.54" x2="15.24" y2="2.54" width="0.254" layer="94"/>
-<wire x1="15.24" y1="-7.62" x2="15.24" y2="2.54" width="0.254" layer="94"/>
-<wire x1="15.24" y1="-7.62" x2="5.08" y2="-7.62" width="0.254" layer="94"/>
-<wire x1="5.08" y1="2.54" x2="5.08" y2="-7.62" width="0.254" layer="94"/>
-<text x="16.51" y="7.62" size="1.778" layer="95" align="center-left">&gt;NAME</text>
-<text x="16.51" y="5.08" size="1.778" layer="96" align="center-left">&gt;VALUE</text>
-<pin name="1" x="0" y="0" length="middle"/>
-<pin name="2" x="0" y="-2.54" length="middle"/>
-<pin name="3" x="0" y="-5.08" length="middle"/>
-<pin name="4" x="20.32" y="0" length="middle" rot="R180"/>
-<pin name="5" x="20.32" y="-2.54" length="middle" rot="R180"/>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="AYZ0102AGRLC" prefix="S">
-<description>&lt;b&gt;Switch slide 100mA 12VDC SPDT PCB Slide Switch SPDT On-On 100 mA Slide&lt;/b&gt;&lt;p&gt;
-Source: &lt;a href="https://componentsearchengine.com/Datasheets/1/AYZ0102AGRLC.pdf"&gt; Datasheet &lt;/a&gt;</description>
-<gates>
-<gate name="G$1" symbol="AYZ0102AGRLC" x="0" y="0"/>
-</gates>
-<devices>
-<device name="" package="AYZ0102AGRLC">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-<connect gate="G$1" pin="3" pad="3"/>
-<connect gate="G$1" pin="4" pad="4"/>
-<connect gate="G$1" pin="5" pad="5"/>
-</connects>
-<technologies>
-<technology name="">
-<attribute name="DESCRIPTION" value="Switch slide 100mA 12VDC SPDT PCB Slide Switch SPDT On-On 100 mA Slide" constant="no"/>
-<attribute name="HEIGHT" value="1mm" constant="no"/>
-<attribute name="MANUFACTURER_NAME" value="C &amp; K COMPONENTS" constant="no"/>
-<attribute name="MANUFACTURER_PART_NUMBER" value="AYZ0102AGRLC" constant="no"/>
-<attribute name="MOUSER_PART_NUMBER" value="611-AYZ0102AGRLC" constant="no"/>
-<attribute name="MOUSER_PRICE-STOCK" value="https://www.mouser.com/Search/Refine.aspx?Keyword=611-AYZ0102AGRLC" constant="no"/>
-</technology>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="USBC">
 <packages>
 <package name="TYPE-C-31-M-12">
@@ -9166,6 +9082,15 @@ In this library the device names are the same as the pin names of the symbols, t
 <wire x1="-0.3" y1="-0.7" x2="-0.2" y2="-0.7" width="0.127" layer="21"/>
 <wire x1="0.2" y1="-0.7" x2="0.3" y2="-0.7" width="0.127" layer="21"/>
 </package>
+<package name="OS102011MA1QN1">
+<pad name="CASE1" x="0" y="0" drill="1.524" diameter="2" shape="long" rot="R90"/>
+<pad name="CASE2" x="8.2042" y="0" drill="1.524" diameter="2" shape="long" rot="R90"/>
+<pad name="P$1" x="2.1082" y="0" drill="0.85" diameter="1.27"/>
+<pad name="P$2" x="4.1148" y="0" drill="0.85" diameter="1.27"/>
+<pad name="P$3" x="6.1214" y="0" drill="0.85" diameter="1.27"/>
+<wire x1="0" y1="-2" x2="8.2" y2="-2" width="0.127" layer="21"/>
+<wire x1="0" y1="2" x2="8.2" y2="2" width="0.127" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="50PINFPC">
@@ -9285,6 +9210,19 @@ In this library the device names are the same as the pin names of the symbols, t
 <text x="-7.874" y="10.922" size="1.6764" layer="94" ratio="0">TPD3E001</text>
 <text x="-7.874" y="10.922" size="1.6764" layer="94" ratio="0">TPD3E001</text>
 <text x="-7.62" y="-12.7" size="1.6764" layer="94" ratio="0">USB ESD</text>
+</symbol>
+<symbol name="DPSTSWITCH">
+<pin name="P$1" x="-5.08" y="2.54" visible="off" length="short"/>
+<pin name="P$2" x="5.08" y="0" visible="off" length="short" rot="R180"/>
+<pin name="P$3" x="-5.08" y="-2.54" visible="off" length="short"/>
+<circle x="2.032" y="0" radius="0.359209375" width="0.127" layer="94"/>
+<circle x="-2.032" y="2.54" radius="0.359209375" width="0.127" layer="94"/>
+<circle x="-2.032" y="-2.54" radius="0.359209375" width="0.127" layer="94"/>
+<wire x1="2.286" y1="0.254" x2="0" y2="2.286" width="0.127" layer="94"/>
+<text x="-1.524" y="2.032" size="1.27" layer="94" font="vector" ratio="17">1</text>
+<text x="-1.524" y="-3.048" size="1.27" layer="94" font="vector" ratio="17">3</text>
+<text x="0.508" y="-0.508" size="1.27" layer="94" font="vector" ratio="17">2</text>
+<pin name="CASE" x="2.54" y="-2.54" visible="off" length="point" direction="nc"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -9418,6 +9356,24 @@ In this library the device names are the same as the pin names of the symbols, t
 <connect gate="G$1" pin="IO2" pad="IO2"/>
 <connect gate="G$1" pin="IO3" pad="IO3"/>
 <connect gate="G$1" pin="VCC" pad="VCC"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="OS102011MA1QN1">
+<gates>
+<gate name="G$1" symbol="DPSTSWITCH" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="OS102011MA1QN1">
+<connects>
+<connect gate="G$1" pin="CASE" pad="CASE1 CASE2"/>
+<connect gate="G$1" pin="P$1" pad="P$1"/>
+<connect gate="G$1" pin="P$2" pad="P$2"/>
+<connect gate="G$1" pin="P$3" pad="P$3"/>
 </connects>
 <technologies>
 <technology name=""/>
@@ -13596,9 +13552,6 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <part name="U$53" library="microbuilder" deviceset="5.0V" device=""/>
 <part name="U$54" library="microbuilder" deviceset="5.0V" device="" value="3V3"/>
 <part name="DE9FEMALE" library="Serial" deviceset="EDGEMOUNTDE9" device=""/>
-<part name="S1" library="SamacSys_Parts" deviceset="AYZ0102AGRLC" device=""/>
-<part name="U$1" library="microbuilder" deviceset="GND" device=""/>
-<part name="U$3" library="microbuilder" deviceset="GND" device=""/>
 <part name="USB" library="USBC" deviceset="TYPE-C-31-M-12" device=""/>
 <part name="R2" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="1KOHM" device="-0603-1/10W-1%" package3d_urn="urn:adsk.eagle:package:39650/1" value="5.1k"/>
 <part name="R3" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="1KOHM" device="-0603-1/10W-1%" package3d_urn="urn:adsk.eagle:package:39650/1" value="5.1k"/>
@@ -13747,6 +13700,8 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <part name="GND13" library="supply1" deviceset="GND" device=""/>
 <part name="C13" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="1.0UF" device="-0805-25V-10%" package3d_urn="urn:adsk.eagle:package:37429/1" value="1.0uF"/>
 <part name="GND21" library="supply1" deviceset="GND" device=""/>
+<part name="U$5" library="FPC" deviceset="OS102011MA1QN1" device=""/>
+<part name="U$13" library="microbuilder" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -15224,16 +15179,6 @@ and R18 should be &lt; 1% resistors</text>
 <instance part="U$54" gate="G$1" x="256.54" y="228.6" smashed="yes">
 <attribute name="VALUE" x="255.016" y="229.616" size="1.27" layer="96"/>
 </instance>
-<instance part="S1" gate="G$1" x="121.92" y="111.76" smashed="yes">
-<attribute name="NAME" x="127" y="102.616" size="1.778" layer="95" align="center-left"/>
-<attribute name="VALUE" x="127" y="115.824" size="1.778" layer="96" align="center-left"/>
-</instance>
-<instance part="U$1" gate="G$1" x="144.78" y="101.6" smashed="yes">
-<attribute name="VALUE" x="143.256" y="99.06" size="1.27" layer="96"/>
-</instance>
-<instance part="U$3" gate="G$1" x="119.38" y="99.06" smashed="yes">
-<attribute name="VALUE" x="117.856" y="96.52" size="1.27" layer="96"/>
-</instance>
 <instance part="USB" gate="G$1" x="99.06" y="220.98" smashed="yes"/>
 <instance part="R2" gate="G$1" x="124.46" y="231.14" smashed="yes">
 <attribute name="NAME" x="124.46" y="232.664" size="1.778" layer="95" font="vector" align="bottom-center"/>
@@ -15510,6 +15455,10 @@ and R18 should be &lt; 1% resistors</text>
 <attribute name="NAME" x="181.61" y="113.03" size="1.778" layer="95"/>
 <attribute name="TP_SIGNAL_NAME" x="184.15" y="110.49" size="1.778" layer="97"/>
 </instance>
+<instance part="U$5" gate="G$1" x="58.42" y="96.52" smashed="yes" rot="R180"/>
+<instance part="U$13" gate="G$1" x="66.04" y="91.44" smashed="yes">
+<attribute name="VALUE" x="64.516" y="88.9" size="1.27" layer="96"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -15523,22 +15472,6 @@ and R18 should be &lt; 1% resistors</text>
 <junction x="241.3" y="208.28"/>
 <wire x1="256.54" y1="208.28" x2="256.54" y2="213.36" width="0.1524" layer="91"/>
 <pinref part="C5" gate="G$1" pin="2"/>
-</segment>
-<segment>
-<wire x1="144.78" y1="109.22" x2="144.78" y2="104.14" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GND"/>
-<pinref part="S1" gate="G$1" pin="4"/>
-<wire x1="142.24" y1="111.76" x2="144.78" y2="111.76" width="0.1524" layer="91"/>
-<wire x1="144.78" y1="111.76" x2="144.78" y2="109.22" width="0.1524" layer="91"/>
-<pinref part="S1" gate="G$1" pin="5"/>
-<wire x1="142.24" y1="109.22" x2="144.78" y2="109.22" width="0.1524" layer="91"/>
-<junction x="144.78" y="109.22"/>
-</segment>
-<segment>
-<wire x1="119.38" y1="106.68" x2="119.38" y2="101.6" width="0.1524" layer="91"/>
-<pinref part="U$3" gate="G$1" pin="GND"/>
-<pinref part="S1" gate="G$1" pin="3"/>
-<wire x1="121.92" y1="106.68" x2="119.38" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 <segment>
 <pinref part="R2" gate="G$1" pin="2"/>
@@ -15672,6 +15605,11 @@ and R18 should be &lt; 1% resistors</text>
 <wire x1="162.56" y1="205.74" x2="162.56" y2="205.994" width="0.1524" layer="91"/>
 <junction x="162.56" y="205.994"/>
 </segment>
+<segment>
+<pinref part="U$5" gate="G$1" pin="P$1"/>
+<pinref part="U$13" gate="G$1" pin="GND"/>
+<wire x1="63.5" y1="93.98" x2="66.04" y2="93.98" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="5.0V" class="0">
 <segment>
@@ -15804,11 +15742,6 @@ and R18 should be &lt; 1% resistors</text>
 </net>
 <net name="ENABLE" class="0">
 <segment>
-<wire x1="121.92" y1="109.22" x2="106.68" y2="109.22" width="0.1524" layer="91"/>
-<label x="111.76" y="109.22" size="1.778" layer="95"/>
-<pinref part="S1" gate="G$1" pin="2"/>
-</segment>
-<segment>
 <pinref part="U2" gate="G$1" pin="EN"/>
 <wire x1="43.18" y1="139.7" x2="38.1" y2="139.7" width="0.1524" layer="91"/>
 <label x="30.48" y="139.7" size="1.778" layer="95"/>
@@ -15816,6 +15749,11 @@ and R18 should be &lt; 1% resistors</text>
 <wire x1="38.1" y1="139.7" x2="30.48" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="38.1" y1="139.7" x2="38.1" y2="152.4" width="0.1524" layer="91"/>
 <junction x="38.1" y="139.7"/>
+</segment>
+<segment>
+<pinref part="U$5" gate="G$1" pin="P$2"/>
+<wire x1="53.34" y1="96.52" x2="40.64" y2="96.52" width="0.1524" layer="91"/>
+<label x="41.656" y="96.52" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$24" class="0">
