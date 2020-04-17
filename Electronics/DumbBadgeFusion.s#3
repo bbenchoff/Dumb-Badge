@@ -13509,6 +13509,8 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <part name="U$18" library="microbuilder" deviceset="5.0V" device=""/>
 <part name="U$30" library="FPC" deviceset="SAMTEC_PI_REVERSE" device=""/>
 <part name="GND20" library="supply1" deviceset="GND" device=""/>
+<part name="C12" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="1.0UF" device="-0805-25V-10%" package3d_urn="urn:adsk.eagle:package:37429/1" value="1.0uF"/>
+<part name="GND12" library="supply1" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -13643,6 +13645,13 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <instance part="R19" gate="G$1" x="220.98" y="165.1" smashed="yes">
 <attribute name="NAME" x="220.98" y="166.624" size="1.778" layer="95" font="vector" align="bottom-center"/>
 <attribute name="VALUE" x="220.98" y="163.576" size="1.778" layer="96" font="vector" align="top-center"/>
+</instance>
+<instance part="C12" gate="G$1" x="10.16" y="73.66" smashed="yes">
+<attribute name="NAME" x="11.684" y="76.581" size="1.778" layer="95" font="vector"/>
+<attribute name="VALUE" x="11.684" y="71.501" size="1.778" layer="96" font="vector"/>
+</instance>
+<instance part="GND12" gate="1" x="10.16" y="31.75" smashed="yes">
+<attribute name="VALUE" x="7.62" y="29.21" size="1.778" layer="96"/>
 </instance>
 </instances>
 <busses>
@@ -13810,6 +13819,12 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <pinref part="U1" gate="G$1" pin="GNDA"/>
 <wire x1="30.48" y1="12.7" x2="20.32" y2="12.7" width="0.1524" layer="91"/>
 <junction x="20.32" y="12.7"/>
+</segment>
+<segment>
+<pinref part="C12" gate="G$1" pin="2"/>
+<wire x1="10.16" y1="71.12" x2="10.16" y2="38.1" width="0.1524" layer="91"/>
+<pinref part="GND12" gate="1" pin="GND"/>
+<wire x1="10.16" y1="38.1" x2="10.16" y2="34.29" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="SWCLK" class="0">
@@ -14832,6 +14847,13 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <label x="101.6" y="91.44" size="1.778" layer="95"/>
 <pinref part="U1" gate="G$1" pin="PA02/EINT2/AIN0/Y0/VOUT"/>
 <junction x="99.06" y="91.44"/>
+</segment>
+</net>
+<net name="N$3" class="0">
+<segment>
+<pinref part="U1" gate="G$1" pin="VDDCORE"/>
+<pinref part="C12" gate="G$1" pin="1"/>
+<wire x1="30.48" y1="78.74" x2="10.16" y2="78.74" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
