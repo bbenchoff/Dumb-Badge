@@ -15416,10 +15416,11 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <wire x1="231.14" y1="142.24" x2="236.22" y2="142.24" width="0.1524" layer="91"/>
 <wire x1="236.22" y1="142.24" x2="231.14" y2="142.24" width="0.1524" layer="91"/>
 <wire x1="231.14" y1="142.24" x2="231.14" y2="144.78" width="0.1524" layer="91"/>
-<pinref part="IC3" gate="A" pin="B6"/>
-<wire x1="231.14" y1="162.56" x2="213.36" y2="162.56" width="0.1524" layer="91"/>
-<label x="215.9" y="162.56" size="1.778" layer="95"/>
 <wire x1="231.14" y1="144.78" x2="231.14" y2="162.56" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="A" pin="B5"/>
+<wire x1="213.36" y1="165.1" x2="231.14" y2="165.1" width="0.1524" layer="91"/>
+<wire x1="231.14" y1="165.1" x2="231.14" y2="162.56" width="0.1524" layer="91"/>
+<label x="215.9" y="165.1" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="CS" class="0">
@@ -15430,10 +15431,10 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 <wire x1="233.68" y1="144.78" x2="236.22" y2="144.78" width="0.1524" layer="91"/>
 <wire x1="236.22" y1="144.78" x2="233.68" y2="144.78" width="0.1524" layer="91"/>
 <wire x1="233.68" y1="144.78" x2="233.68" y2="147.32" width="0.1524" layer="91"/>
-<pinref part="IC3" gate="A" pin="B5"/>
-<wire x1="233.68" y1="165.1" x2="213.36" y2="165.1" width="0.1524" layer="91"/>
-<label x="215.9" y="165.1" size="1.778" layer="95"/>
-<wire x1="233.68" y1="165.1" x2="233.68" y2="147.32" width="0.1524" layer="91"/>
+<pinref part="IC3" gate="A" pin="B6"/>
+<wire x1="233.68" y1="162.56" x2="233.68" y2="147.32" width="0.1524" layer="91"/>
+<wire x1="213.36" y1="162.56" x2="233.68" y2="162.56" width="0.1524" layer="91"/>
+<label x="215.9" y="162.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="XR/SCL" class="0">
@@ -15566,26 +15567,26 @@ Source: http://www.diodes.com/datasheets/ds23001.pdf</description>
 </net>
 <net name="LCD_D/C" class="0">
 <segment>
-<pinref part="IC3" gate="A" pin="A6"/>
-<wire x1="187.96" y1="162.56" x2="172.72" y2="162.56" width="0.1524" layer="91"/>
-<label x="172.72" y="162.56" size="1.778" layer="95"/>
-</segment>
-<segment>
 <wire x1="43.18" y1="25.4" x2="27.94" y2="25.4" width="0.1524" layer="91"/>
 <label x="27.94" y="25.4" size="1.778" layer="95"/>
 <pinref part="U1" gate="G$1" pin="PB23"/>
 </segment>
-</net>
-<net name="LCD_CS" class="0">
 <segment>
 <pinref part="IC3" gate="A" pin="A5"/>
 <wire x1="187.96" y1="165.1" x2="172.72" y2="165.1" width="0.1524" layer="91"/>
 <label x="172.72" y="165.1" size="1.778" layer="95"/>
 </segment>
+</net>
+<net name="LCD_CS" class="0">
 <segment>
 <wire x1="43.18" y1="27.94" x2="27.94" y2="27.94" width="0.1524" layer="91"/>
 <label x="27.94" y="27.94" size="1.778" layer="95"/>
 <pinref part="U1" gate="G$1" pin="PB22"/>
+</segment>
+<segment>
+<pinref part="IC3" gate="A" pin="A6"/>
+<wire x1="187.96" y1="162.56" x2="172.72" y2="162.56" width="0.1524" layer="91"/>
+<label x="172.72" y="162.56" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="LCD_RESET" class="0">
