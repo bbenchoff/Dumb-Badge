@@ -342,6 +342,15 @@
 <wire x1="-0.3" y1="-0.7" x2="-0.2" y2="-0.7" width="0.127" layer="21"/>
 <wire x1="0.2" y1="-0.7" x2="0.3" y2="-0.7" width="0.127" layer="21"/>
 </package>
+<package name="OS102011MA1QN1">
+<pad name="CASE1" x="0" y="0" drill="1.524" diameter="2" shape="long" rot="R90"/>
+<pad name="CASE2" x="8.2042" y="0" drill="1.524" diameter="2" shape="long" rot="R90"/>
+<pad name="P$1" x="2.1082" y="0" drill="0.85" diameter="1.27"/>
+<pad name="P$2" x="4.1148" y="0" drill="0.85" diameter="1.27"/>
+<pad name="P$3" x="6.1214" y="0" drill="0.85" diameter="1.27"/>
+<wire x1="0" y1="-2" x2="8.2" y2="-2" width="0.127" layer="21"/>
+<wire x1="0" y1="2" x2="8.2" y2="2" width="0.127" layer="21"/>
+</package>
 </packages>
 <symbols>
 <symbol name="50PINFPC">
@@ -473,6 +482,7 @@
 <text x="-1.524" y="2.032" size="1.27" layer="94" font="vector" ratio="17">1</text>
 <text x="-1.524" y="-3.048" size="1.27" layer="94" font="vector" ratio="17">3</text>
 <text x="0.508" y="-0.508" size="1.27" layer="94" font="vector" ratio="17">2</text>
+<pin name="CASE" x="2.54" y="-2.54" visible="off" length="point" direction="nc"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -661,6 +671,18 @@
 <connect gate="G$1" pin="IO3" pad="IO3"/>
 <connect gate="G$1" pin="VCC" pad="VCC"/>
 </connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="OS102011MA1QN1">
+<gates>
+<gate name="G$1" symbol="DPSTSWITCH" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="OS102011MA1QN1">
 <technologies>
 <technology name=""/>
 </technologies>
