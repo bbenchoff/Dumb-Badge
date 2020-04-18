@@ -51,8 +51,8 @@
 <layer number="41" name="tRestrict" color="4" fill="10" visible="no" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="no" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
-<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
-<layer number="45" name="Holes" color="7" fill="1" visible="no" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
 <layer number="48" name="Document" color="7" fill="1" visible="no" active="yes"/>
@@ -956,6 +956,7 @@ Face Down</text>
 <wire x1="153.67" y1="86.36" x2="151.13" y2="88.9" width="0.6096" layer="22" curve="90"/>
 <wire x1="151.13" y1="88.9" x2="149.86" y2="88.9" width="0.6096" layer="22"/>
 <wire x1="149.86" y1="88.9" x2="92.583" y2="88.9" width="0.6096" layer="22"/>
+<dimension x1="4" y1="109" x2="3.937" y2="94.361" x3="3.9685" y3="101.6805" textsize="1.778" layer="1"/>
 </plain>
 <libraries>
 <library name="SiliconeSwitches">
@@ -4699,18 +4700,6 @@ design rules under a new name.</description>
 <contactref element="U3" pad="P$1"/>
 <contactref element="U3" pad="P$20"/>
 <contactref element="TP2" pad="TP"/>
-<polygon width="0.1524" layer="16" thermals="no">
-<vertex x="11.176" y="96.52"/>
-<vertex x="12.573" y="96.52"/>
-<vertex x="13.843" y="97.79"/>
-<vertex x="13.843" y="104.013"/>
-<vertex x="13.716" y="104.14"/>
-<vertex x="11.176" y="104.14"/>
-<vertex x="10.922" y="103.886"/>
-<vertex x="10.922" y="98.425"/>
-<vertex x="11.049" y="98.298"/>
-<vertex x="11.049" y="96.647"/>
-</polygon>
 <wire x1="16.598" y1="97.139" x2="15.605" y2="98.298" width="0.3048" layer="16"/>
 <wire x1="15.605" y1="98.298" x2="13.335" y2="98.298" width="0.3048" layer="16"/>
 <wire x1="16.698" y1="91.211" x2="16.598" y2="93.082" width="0.3048" layer="16"/>
@@ -4718,19 +4707,6 @@ design rules under a new name.</description>
 <wire x1="17.653" y1="96.25" x2="16.598" y2="97.139" width="0.3048" layer="16"/>
 <wire x1="17.653" y1="94.037" x2="17.653" y2="96.25" width="0.3048" layer="16"/>
 <wire x1="13.446" y1="99.806" x2="12.7" y2="99.06" width="0.3048" layer="16"/>
-<polygon width="0.1524" layer="16" thermals="no">
-<vertex x="0.762" y="72.136"/>
-<vertex x="2.032" y="72.136"/>
-<vertex x="2.032" y="76.962"/>
-<vertex x="1.905" y="77.089"/>
-<vertex x="2.032" y="77.089"/>
-<vertex x="2.032" y="95.25"/>
-<vertex x="3.175" y="96.393"/>
-<vertex x="3.175" y="104.14"/>
-<vertex x="3.429" y="104.394"/>
-<vertex x="10.922" y="104.394"/>
-<vertex x="10.922" y="103.759"/>
-</polygon>
 <polygon width="0.1524" layer="16" thermals="no">
 <vertex x="10.922" y="70.104"/>
 <vertex x="10.922" y="70.612"/>
@@ -4765,7 +4741,10 @@ design rules under a new name.</description>
 <wire x1="14.09" y1="101.776" x2="17.002" y2="101.776" width="0.3048" layer="16"/>
 <wire x1="17.002" y1="101.776" x2="17.002" y2="103.122" width="0.3048" layer="16"/>
 <wire x1="17.002" y1="103.122" x2="17.082" y2="103.202" width="0.3048" layer="16"/>
-<wire x1="16.698" y1="91.211" x2="11.386" y2="71.121" width="0" layer="19" extent="16-16"/>
+<wire x1="13.335" y1="98.298" x2="12.7" y2="99.06" width="0" layer="19" extent="16-16"/>
+<wire x1="13.453" y1="101.139" x2="13.446" y2="99.806" width="0" layer="19" extent="16-16"/>
+<wire x1="11.302" y1="97.176" x2="13.335" y2="98.298" width="0" layer="19" extent="16-16"/>
+<wire x1="11.386" y1="71.121" x2="16.698" y2="91.211" width="0" layer="19" extent="16-16"/>
 </signal>
 <signal name="N$54">
 <contactref element="C26" pad="1"/>
@@ -5449,11 +5428,11 @@ design rules under a new name.</description>
 <contactref element="L1" pad="P$2"/>
 <polygon width="0.1524" layer="16" thermals="no">
 <vertex x="8.89" y="95.123"/>
-<vertex x="8.89" y="97.663"/>
-<vertex x="9.652" y="98.425"/>
-<vertex x="9.652" y="104.013"/>
-<vertex x="6.858" y="104.013"/>
-<vertex x="6.858" y="95.885"/>
+<vertex x="8.89" y="97.917"/>
+<vertex x="10.795" y="99.822"/>
+<vertex x="10.795" y="104.013"/>
+<vertex x="7.493" y="104.013"/>
+<vertex x="7.493" y="95.25"/>
 <vertex x="7.62" y="95.123"/>
 </polygon>
 </signal>

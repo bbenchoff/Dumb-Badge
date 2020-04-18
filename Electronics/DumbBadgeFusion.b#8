@@ -4018,7 +4018,7 @@ design rules under a new name.</description>
 <attribute name="OC_NEWARK" value="14P6981" x="-3.466" y="38.008" size="1.778" layer="28" rot="MR90" display="off"/>
 <attribute name="VALUE" x="8.726" y="78.013" size="0.6096" layer="22" font="vector" ratio="20" rot="MR90"/>
 </element>
-<element name="U$5" library="Serial" package="DE09S065TLF" value="EDGEMOUNTDE9" x="137" y="104.5" smashed="yes"/>
+<element name="DE9FEMALE" library="Serial" package="DE09S065TLF" value="EDGEMOUNTDE9" x="137" y="104.5" smashed="yes"/>
 <element name="S1" library="SamacSys_Parts" package="AYZ0102AGRLC" value="AYZ0102AGRLC" x="2" y="99.898" smashed="yes" rot="MR90">
 <attribute name="DESCRIPTION" value="Switch slide 100mA 12VDC SPDT PCB Slide Switch SPDT On-On 100 mA Slide" x="155" y="26.398" size="1.778" layer="28" rot="MR0" display="off"/>
 <attribute name="HEIGHT" value="1mm" x="155" y="26.398" size="1.778" layer="28" rot="MR0" display="off"/>
@@ -4686,18 +4686,23 @@ design rules under a new name.</description>
 <via x="77.47" y="58.42" extent="1-16" drill="0.2"/>
 <contactref element="C13" pad="2"/>
 <contactref element="C24" pad="2"/>
-<contactref element="U$5" pad="G7"/>
-<contactref element="U$5" pad="G10"/>
-<contactref element="U$5" pad="G2"/>
-<contactref element="U$5" pad="G9"/>
-<contactref element="U$5" pad="G6"/>
-<contactref element="U$5" pad="G1"/>
-<contactref element="U$5" pad="G11"/>
-<contactref element="U$5" pad="G4"/>
-<contactref element="U$5" pad="G5"/>
-<contactref element="U$5" pad="G8"/>
-<contactref element="U$5" pad="G3"/>
-<contactref element="U$5" pad="G12"/>
+<contactref element="DE9FEMALE" pad="G7"/>
+<contactref element="DE9FEMALE" pad="G10"/>
+<contactref element="DE9FEMALE" pad="G2"/>
+<contactref element="DE9FEMALE" pad="G9"/>
+<contactref element="DE9FEMALE" pad="G6"/>
+<contactref element="DE9FEMALE" pad="G1"/>
+<contactref element="DE9FEMALE" pad="G11"/>
+<contactref element="DE9FEMALE" pad="G4"/>
+<contactref element="DE9FEMALE" pad="G5"/>
+<contactref element="DE9FEMALE" pad="G8"/>
+<contactref element="DE9FEMALE" pad="G3"/>
+<contactref element="DE9FEMALE" pad="G12"/>
+<contactref element="DE9FEMALE" pad="P1"/>
+<wire x1="142.48" y1="103.13" x2="142.48" y2="100.598" width="0.4064" layer="1"/>
+<wire x1="142.48" y1="100.598" x2="142.494" y2="100.584" width="0.4064" layer="1"/>
+<via x="142.494" y="100.584" extent="1-16" drill="0.2"/>
+<wire x1="142.494" y1="100.584" x2="142.24" y2="100.33" width="0.4064" layer="16"/>
 <wire x1="150.5" y1="107.5" x2="149" y2="106" width="0" layer="19" extent="1-1"/>
 <wire x1="150.5" y1="107.5" x2="150.5" y2="107.5" width="0" layer="19" extent="1-16"/>
 <wire x1="123.5" y1="107.5" x2="123.5" y2="107.5" width="0" layer="19" extent="1-16"/>
@@ -7821,9 +7826,9 @@ design rules under a new name.</description>
 <wire x1="127.381" y1="94.107" x2="127.381" y2="93.483" width="0.254" layer="16"/>
 <wire x1="127.0508" y1="94.4372" x2="127.381" y2="94.107" width="0.254" layer="16"/>
 </signal>
-<signal name="N$22">
+<signal name="TXD">
 <contactref element="U6" pad="14"/>
-<contactref element="U$5" pad="P4"/>
+<contactref element="DE9FEMALE" pad="P4"/>
 <wire x1="119.2724" y1="98.2472" x2="121.7168" y2="98.2472" width="0.3048" layer="16"/>
 <wire x1="121.7168" y1="98.2472" x2="122.047" y2="97.917" width="0.3048" layer="16"/>
 <via x="122.047" y="97.917" extent="1-16" drill="0.2"/>
@@ -7834,8 +7839,8 @@ design rules under a new name.</description>
 <wire x1="134.112" y1="102.489" x2="134.112" y2="102.982" width="0.3048" layer="1"/>
 <wire x1="134.112" y1="102.982" x2="134.26" y2="103.13" width="0.3048" layer="1"/>
 </signal>
-<signal name="N$23">
-<contactref element="U$5" pad="P3"/>
+<signal name="RXD">
+<contactref element="DE9FEMALE" pad="P3"/>
 <contactref element="U6" pad="13"/>
 <wire x1="119.2724" y1="96.9772" x2="121.4628" y2="96.9772" width="0.3048" layer="16"/>
 <wire x1="121.4628" y1="96.9772" x2="122.047" y2="96.393" width="0.3048" layer="16"/>
@@ -7844,6 +7849,21 @@ design rules under a new name.</description>
 <wire x1="136.144" y1="96.393" x2="137.033" y2="97.282" width="0.3048" layer="1"/>
 <wire x1="137.033" y1="97.282" x2="137.033" y2="103.097" width="0.3048" layer="1"/>
 <wire x1="137.033" y1="103.097" x2="137" y2="103.13" width="0.3048" layer="1"/>
+</signal>
+<signal name="N$22">
+<contactref element="DE9FEMALE" pad="P2"/>
+<contactref element="DE9FEMALE" pad="P5"/>
+<contactref element="DE9FEMALE" pad="P9"/>
+<wire x1="132.89" y1="103.13" x2="132.89" y2="101.013" width="0.3048" layer="16"/>
+<wire x1="132.89" y1="101.013" x2="132.207" y2="100.33" width="0.3048" layer="16"/>
+<via x="132.207" y="100.33" extent="1-16" drill="0.2"/>
+<wire x1="132.207" y1="100.33" x2="131.52" y2="101.017" width="0.3048" layer="1"/>
+<wire x1="131.52" y1="101.017" x2="131.52" y2="103.13" width="0.3048" layer="1"/>
+<wire x1="139.74" y1="103.13" x2="139.74" y2="100.37" width="0.3048" layer="1"/>
+<wire x1="139.74" y1="100.37" x2="139.573" y2="100.203" width="0.3048" layer="1"/>
+<via x="139.573" y="100.203" extent="1-16" drill="0.2"/>
+<wire x1="139.573" y1="100.203" x2="132.334" y2="100.203" width="0.3048" layer="16"/>
+<wire x1="132.334" y1="100.203" x2="132.207" y2="100.33" width="0.3048" layer="16"/>
 </signal>
 </signals>
 <mfgpreviewcolors>
