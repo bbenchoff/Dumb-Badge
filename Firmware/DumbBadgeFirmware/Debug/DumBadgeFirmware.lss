@@ -4877,8 +4877,8 @@ void LCD_Fast_Fill(int ch, int cl, long pix)
     1878:	41004498 	.word	0x41004498
 
 0000187c <setColorRGB>:
-	setXY(0,0,display_X_size,display_Y_size);
-}
+
+
 
 void setColorRGB(unsigned char r, unsigned char g, 
 		unsigned char b)
@@ -5649,32 +5649,32 @@ void InitLCD(void)
     1cf2:	d016      	beq.n	1d22 <main+0xfa>
     1cf4:	2e00      	cmp	r6, #0
     1cf6:	d1e2      	bne.n	1cbe <main+0x96>
-			red--;
-    1cf8:	3c01      	subs	r4, #1
+			red = red - 5;
+    1cf8:	3c05      	subs	r4, #5
     1cfa:	b2e4      	uxtb	r4, r4
-			green++;
-    1cfc:	3501      	adds	r5, #1
+			green = green +5;
+    1cfc:	3505      	adds	r5, #5
     1cfe:	b2ed      	uxtb	r5, r5
 		if(green > 0 && red == 0)
     1d00:	2d00      	cmp	r5, #0
     1d02:	d1de      	bne.n	1cc2 <main+0x9a>
     1d04:	002e      	movs	r6, r5
     1d06:	e7e2      	b.n	1cce <main+0xa6>
-			green--;
-    1d08:	3d01      	subs	r5, #1
+			green = green -5;
+    1d08:	3d05      	subs	r5, #5
     1d0a:	b2ed      	uxtb	r5, r5
-			blue++;
-    1d0c:	3601      	adds	r6, #1
+			blue = blue +5;
+    1d0c:	3605      	adds	r6, #5
     1d0e:	b2f6      	uxtb	r6, r6
     1d10:	2400      	movs	r4, #0
     1d12:	e7d8      	b.n	1cc6 <main+0x9e>
 		if(blue > 0 && green == 0)
     1d14:	002c      	movs	r4, r5
-			red++;
-    1d16:	3401      	adds	r4, #1
+			red=red + 5;
+    1d16:	3405      	adds	r4, #5
     1d18:	b2e4      	uxtb	r4, r4
-			blue--;
-    1d1a:	3e01      	subs	r6, #1
+			blue=blue-5;
+    1d1a:	3e05      	subs	r6, #5
     1d1c:	b2f6      	uxtb	r6, r6
     1d1e:	2500      	movs	r5, #0
     1d20:	e7d5      	b.n	1cce <main+0xa6>

@@ -71,7 +71,6 @@ void setPixel(uint16_t color);
 void drawPixel(int x, int y);
 
 
-
 void fillRect(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, long pix);
 void drawKare(int emotion);
@@ -126,18 +125,18 @@ int main (void)
 		
 		if(red > 0 && blue == 0)
 		{
-			red--;
-			green++;
+			red = red - 5;
+			green = green +5;
 		}
 		if(green > 0 && red == 0)
 		{
-			green--;
-			blue++;
+			green = green -5;
+			blue = blue +5;
 		}
 		if(blue > 0 && green == 0)
 		{
-			red++;
-			blue--;
+			red=red + 5;
+			blue=blue-5;
 		}
 		setColorRGB(red, green, blue);
 		drawKare(0);
@@ -239,6 +238,8 @@ void clrXY(void)
 {
 	setXY(0,0,display_X_size,display_Y_size);
 }
+
+
 
 void setColorRGB(unsigned char r, unsigned char g, 
 		unsigned char b)
