@@ -44,12 +44,6 @@ uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
 
 
-/*
-/	Fix this serial number thing because it doesn't work.
-/	I think you need pointers.
-*/
-static uint16_t chip_Serial_Number = (0x0080A00C ^ 0x0080A040 ^ 
-									0x0080A044 ^ 0x0080A048);
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -83,7 +77,6 @@ void configure_usart_USB(void);
 struct usart_module usart_USB;
 
 
-
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
 {
@@ -113,14 +106,7 @@ int main (void)
 	printf("Hello World\n\r");
 	
 	InitLCD();
-	clrScr();
-	setColorRGB(0,0,0);
-	setBackColorRGB(0,0,0);
-	fillRect(0,0,display_X_size,display_Y_size);
-	delay_ms(0);
-	
-	setColorRGB(255,255,255);
-	setBackColorRGB(0,0,0);
+
 	drawKare(0);
 	delay_ms(1000);
 	
@@ -134,7 +120,7 @@ int main (void)
 	
 
 
-		//usart_write_buffer_wait(&usart_USB, red, 3);
+	//usart_write_buffer_wait(&usart_USB, red, 3);
 		
 }
 
@@ -172,7 +158,7 @@ void drawChar(uint8_t character)
 	int y = 0;
 	int count = 0;
 	REG_PORT_OUTCLR1 = LCD_CS;
-	for(int i=0; i < (sizeof(letter)/sizeof(letter[0])); i++)
+	for(uint8_t i=0; i < (sizeof(letter)/sizeof(letter[0])); i++)
 	{
 		for(int j=0;j<8;j++)
 		{
@@ -532,8 +518,12 @@ static const unsigned char beelzebub[48] ={0x00,0x2D,0x00,0x2E,0x00,
    	delay_ms(5);
 	REG_PORT_OUTSET1 = LCD_CS;
 	
+	clrScr();
 	setColorRGB(0,0,0);
 	setBackColorRGB(0, 0, 0);
 	fillRect(0,0,799,489);
+		
+	setColorRGB(255,255,255);
+	setBackColorRGB(0,0,0);
 }
 
