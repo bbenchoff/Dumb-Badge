@@ -43,6 +43,9 @@ uint16_t back_Color_High, back_Color_Low;
 uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
 
+uint8_t xCharPos = 0;
+uint8_t yCharPos = 0;
+
 
 
 /** LOCAL PROTOTYPES **********************************************************/
@@ -113,15 +116,24 @@ int main (void)
 	setColorRGB(0,0,0);
 	fillRect(0,0,display_Y_size,display_X_size);
 	
-	setColorRGB(128,128,0);
+	setColorRGB(0,128,0);
 	setBackColorRGB(0,0,0);
-		
-	drawChar(0x61);
-	
+	for(int j = 0; j<24; j++)
+	{
+		for(int i = 0; i<80; i++)
+		{
+			drawChar(0x61);
+			xCharPos++;
+			if(xCharPos>=80)
+			{
+				xCharPos = 0;
+			}
+		}
+		yCharPos++;
+	}
 
 
 	//usart_write_buffer_wait(&usart_USB, red, 3);
-		
 }
 
 
@@ -149,11 +161,11 @@ void configure_usart_USB(void)
 
 void drawChar(uint8_t character)
 {
-	uint8_t letter[25] = {0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
-						0x00,0x1F,0x87,0xE0,0x0C,0x03,0x1F,0xC7,0xF6,
-						0x05,0x81,0x0F,0xC7,0xF0,0x00,0x00};
+	uint8_t letter[25] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+		0x00, 0x3, 0xf0, 0xfc, 0x1, 0x80, 0x63, 0xf8, 
+		0xfe, 0xc0, 0xb0, 0x23, 0xf8, 0xfe, 0x0, 0x0, 
+		0x0, 0x0, 0x0};
 						
-	//setXY(10,20,20,30);
 	int x = 0;
 	int y = 0;
 	int count = 0;
@@ -167,13 +179,9 @@ void drawChar(uint8_t character)
 				setXY(x,y,x,y);
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
 			}
-			else
-			{
-				setPixel((back_Color_High<<8)|back_Color_Low);
-			}
 			count++;
-			y=count/10;
-			x=count%10;
+			y=(count/10)+(yCharPos*20)-1;
+			x=(count%10)+(xCharPos*10)-1;
 			//printf("%i, \t%i, \t%i, \t%i \r",count,letter[i],x,y);
 		}
 	}
