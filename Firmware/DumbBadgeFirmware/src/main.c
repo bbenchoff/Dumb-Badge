@@ -153,7 +153,7 @@ void drawChar(uint8_t character)
 						0x00,0x1F,0x87,0xE0,0x0C,0x03,0x1F,0xC7,0xF6,
 						0x05,0x81,0x0F,0xC7,0xF0,0x00,0x00};
 						
-	setXY(0,0,0,0);
+	//setXY(10,20,20,30);
 	int x = 0;
 	int y = 0;
 	int count = 0;
@@ -166,6 +166,10 @@ void drawChar(uint8_t character)
 			{
 				setXY(x,y,x,y);
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
+			}
+			else
+			{
+				setPixel((back_Color_High<<8)|back_Color_Low);
 			}
 			count++;
 			y=count/10;
