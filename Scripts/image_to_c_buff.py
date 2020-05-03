@@ -59,11 +59,21 @@ def split_source_image(infile, block_size=[20,10]):
 
 
 def int_series_to_c_string(int_series,variable_name):
-    return_value =  "uint8_t {0}[25] = {{ "
+    """
+    Make a series of ints into a C style hex array
+    """
+    return_value =  "const uint8_t {0}[25] = {{ \n\t"
     return_value = return_value.format(variable_name)
+    count = 0;
     for v in int_series[0:-1]:
         return_value += "0x{:02x}, ".format(v)
-    return_value += "0x{:02x} }};\n".format(int_series[-1])
+        count += 1
+        # Break into chunks
+        if (count % 5) == 0 :
+            return_value += "\n\t"
+
+
+    return_value += "0x{:02x}}};\n\n".format(int_series[-1])
     #print(return_value)
     return return_value
 
@@ -89,3 +99,4 @@ args = parser.parse_args()
 chip_map = split_source_image(args.input)
 # print the ints
 chip_map_to_c_file(chip_map,args.output)
+print("Wrote font file to {0}".format(args.output))
