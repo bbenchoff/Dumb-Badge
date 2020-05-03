@@ -8,10 +8,20 @@ def post_process_chip(chip, thresh=128):
     garbage,ret_val = cv2.threshold(chip,thresh,255,cv2.THRESH_BINARY_INV)
     return ret_val
 
-def chip_to_int_series(chip):
+def chip_to_int_series(chip,style="col_major"):
+    """
+    Take a character chip and pack it into a series
+    of ints. Default is col major, approach.
+    """
     bits = 8
     chip = chip / 255
-    flat = chip.flatten("C")
+    if style == "col_major":
+        # flatten the chip col major
+        flat = chip.flatten("F")
+    else:
+        # flatten the chip row major
+        flat = chip.flatten("C")
+
     sz = int(flat.size / bits)
     int_series = []
     for idx in range(0,sz):
@@ -49,7 +59,6 @@ def split_source_image(infile, block_size=[20,10]):
                 t = post_process_chip(temp)
                 print(t)
                 print(chip_to_int_series(t))
-
             idx += 1
 
     return retVal
@@ -76,7 +85,6 @@ def int_series_to_c_string(int_series,variable_name):
 
 def chip_map_to_c_file(chip_map,fname):
     f = open(fname, "w")
-
     for k,v in chip_map.items():
         name = "character_0x{:02x}".format(k)
         c_def = int_series_to_c_string(v,name)
