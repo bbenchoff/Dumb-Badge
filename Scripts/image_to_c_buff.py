@@ -55,7 +55,7 @@ def split_source_image(infile, block_size=[20,10]):
             temp = img[y_start:y_stop,x_start:x_stop,0]
             #cv2.imwrite("./temp/{0}.png".format(hex(idx)),temp)
             retVal[idx] = chip_to_int_series(post_process_chip(temp))
-            if idx == 127:
+            if idx == 255:
                 t = post_process_chip(temp)
                 print(t)
                 print(chip_to_int_series(t))
@@ -68,7 +68,7 @@ def int_series_to_c_string(int_series,variable_name):
     """
     Make a series of ints into a C style hex array
     """
-    return_value =  "const uint8_t {0}[25] = {{ \n\t"
+    return_value =  "{0}[25] = {{ \n\t"
     return_value = return_value.format(variable_name)
     count = 0;
     for v in int_series[0:-1]:
@@ -79,14 +79,14 @@ def int_series_to_c_string(int_series,variable_name):
             return_value += "\n\t"
 
 
-    return_value += "0x{:02x}}};\n\n".format(int_series[-1])
+    return_value += "0x{:02x}}},\n\n".format(int_series[-1])
     #print(return_value)
     return return_value
 
 def chip_map_to_c_file(chip_map,fname):
     f = open(fname, "w")
     for k,v in chip_map.items():
-        name = "character_0x{:02x}".format(k)
+        name = "[0x{:02x}]".format(k)
         c_def = int_series_to_c_string(v,name)
         f.write(c_def)
     return
