@@ -6,6 +6,7 @@
 */
 #include <asf.h>
 #include "config_usart.h"
+#include "conf_clocks.h"
 
 /** MACROS ********************************************************************/
 #define LCD_Reset	PORT_PB30
@@ -43,6 +44,7 @@ uint16_t back_Color_High, back_Color_Low;
 uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
 
+uint8_t xCharPos, yCharPos;
 
 
 /** LOCAL PROTOTYPES **********************************************************/
@@ -65,7 +67,7 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 void setPixel(uint16_t color);
 void drawPixel(int x, int y);
 
-void drawChar(uint8_t character, uint8_t xCharPos, uint8_t yCharPos);
+void drawChar(uint8_t character);
 
 
 void fillRect(int x1, int y1, int x2, int y2);
@@ -95,10 +97,9 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTCLR1 = LCD_DC;
 	REG_PORT_OUTCLR1 = LCD_RD;
-	
+		
 	system_init();
 	delay_init();
-	//srand(chip_Serial_Number);
 	configure_usart_USB();
 	
 	configure_console();
@@ -133,16 +134,12 @@ int main (void)
 	{
 		for(int i = 0; i<80; i++)
 		{
-			drawChar(ASCIIcharacter%255, i, j);
+			xCharPos = i;
+			yCharPos = j;
+			drawChar(ASCIIcharacter%255);
 			ASCIIcharacter++;
 		}
 	}
-
-	//drawChar('a', 1, 0);
-
-
-
-	//usart_write_buffer_wait(&usart_USB, red, 3);
 }
 
 
@@ -168,7 +165,11 @@ void configure_usart_USB(void)
 
 /**************************FONT STUFF*********************************/
 
-void drawChar(uint8_t character, uint8_t xCharPos, uint8_t yCharPos)
+/*
+	drawChar() draws a character at the current position oof the
+	cursor (referenced by xCharPos and yCharPos
+*/
+void drawChar(uint8_t character)
 {
 
 	const uint8_t TermFont[256][25] = {
@@ -2248,171 +2249,6 @@ void drawChar(uint8_t character, uint8_t xCharPos, uint8_t yCharPos)
 
 
 
-
-/**************************LCD STUFF**********************************/
-
-void setPixel(uint16_t color)
-{
-	//Sets color to rrrrrggggggbbbbb
-	LCD_Write_DATA16((color>>8),(color&0xFF)); 
-}
-
-void drawPixel(int x, int y)
-{
-	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY(x,y,x,y);
-	setPixel((fore_Color_High<<8)|fore_Color_Low);
-	REG_PORT_OUTSET1 = LCD_CS;
-}
-
-
-
-void fillRect(int x1, int y1, int x2, int y2)
-{
-	if (x1>x2)
-		SwapUint16(x1, x2);
-	if (y1>y2)
-		SwapUint16(y1, y2);
-	
-	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY(x1, y1, x2, y2);
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Fast_Fill(fore_Color_High, fore_Color_Low, 
-		(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
-	REG_PORT_OUTSET1 = LCD_CS;
-}
-
-void LCD_Fast_Fill(int ch, int cl, long pix)
-{
-	int blocks;
-
-	REG_PORT_OUTCLR1 = 0x0000ffff;
-	REG_PORT_OUTSET1 = (ch << 8) | cl;
-
-	blocks = pix/16;
-	for (int i=0; i<blocks; i++)
-	{
-		for (int j=0; j<16; j++)
-		{
-			REG_PORT_OUTCLR1 = LCD_WR;
-			REG_PORT_OUTSET1 = LCD_WR;
-		}
-	}
-	
-	if ((pix % 16) != 0)
-		for (int i=0; i<(pix % 16)+1; i++)
-		{
-			REG_PORT_OUTCLR1 = LCD_WR;
-			REG_PORT_OUTSET1 = LCD_WR;
-		}
-}
-	
-void clrScr(void)
-{
-	REG_PORT_OUTCLR1 = LCD_CS;
-	clrXY();
-}
-
-void clrXY(void)
-{
-	setXY(0,0,display_X_size,display_Y_size);
-}
-
-
-
-void setColorRGB(uint8_t r, uint8_t g, 
-		uint8_t b)
-{
-	fore_Color_High = ((r&248)|g>>5);
-	fore_Color_Low = ((g&28)<<3|b>>3);
-}
-
-void setColorHex(uint16_t color)
-{
-	fore_Color_High = (color >> 8);
-	fore_Color_Low = (color & 0xFF);
-}
-
-void setBackColorRGB(unsigned char r, 
-		unsigned char g, unsigned char b)
-{
-	back_Color_High = ((r&248)|g>>5);
-	back_Color_Low = ((g&28)<<3|b>>3);
-}
-
-void setBackColorHex(uint16_t color)
-{
-	back_Color_High = (color >> 8);
-	back_Color_Low = (color & 0xFF);
-}
-
-
-void setXY(uint16_t x1, uint16_t y1, 
-		uint16_t x2, uint16_t y2)
-{
-		
-	SwapUint16(x1, y1);
-	SwapUint16(x2, y2);
-	y1=display_Y_size-y1;
-	y2=display_Y_size-y2;
-	SwapUint16(y1, y2);
-	
-	
-	LCD_Write_COM16(0x2a,0x00);
-	LCD_Write_DATA8(x1>>8);
-	LCD_Write_COM16(0x2a,0x01);
-	LCD_Write_DATA8(x1);
-	LCD_Write_COM16(0x2a,0x02);
-	LCD_Write_DATA8(x2>>8);
-	LCD_Write_COM16(0x2a,0x03);
-	LCD_Write_DATA8(x2);
-
-	LCD_Write_COM16(0x2b,0x00);
-	LCD_Write_DATA8(y1>>8);
-	LCD_Write_COM16(0x2b,0x01);
-	LCD_Write_DATA8(y1);
-	LCD_Write_COM16(0x2b,0x02);
-	LCD_Write_DATA8(y2>>8);
-	LCD_Write_COM16(0x2b,0x03);
-	LCD_Write_DATA8(y2);
-
-	LCD_Write_COM16(0x2c,0x00);
-}
-
-
-void LCD_Write_Bus(char VH, char VL)
-{
-	REG_PORT_OUTCLR1 = 0x0000ffff;
-	REG_PORT_OUTSET1 = (VH << 8) | VL;
-	REG_PORT_OUTCLR1 = LCD_WR;
-	REG_PORT_OUTSET1 = LCD_WR;
-}
-
-void LCD_Write_COM16(char VH, char VL)
-{
-	REG_PORT_OUTCLR1 = LCD_DC;
-	LCD_Write_Bus(VH,VL);
-}
-
-void LCD_Write_COM8(char VL)
-{
-	REG_PORT_OUTCLR1 = LCD_DC;
-	LCD_Write_Bus(0x00, VL);
-}
-
-void LCD_Write_DATA16(char VH, char VL)
-{
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Write_Bus(VH,VL);
-}
-
-void LCD_Write_DATA8(char VL)
-{
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Write_Bus(0x00, VL);
-}
-
-
 /***********drawKare ** It's the boot graphic*************************/
 //	drawKare(int emotion) is the boot animation displayed on startup
 //	this displays an 'emotion':
@@ -2597,4 +2433,163 @@ static const unsigned char beelzebub[48] ={0x00,0x2D,0x00,0x2E,0x00,
 	setColorRGB(255,255,255);
 	setBackColorRGB(0,0,0);
 }
+
+void LCD_Write_Bus(char VH, char VL)
+{
+	REG_PORT_OUTCLR1 = 0x0000ffff;
+	REG_PORT_OUTSET1 = (VH << 8) | VL;
+	REG_PORT_OUTCLR1 = LCD_WR;
+	REG_PORT_OUTSET1 = LCD_WR;
+}
+
+void LCD_Write_COM16(char VH, char VL)
+{
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_Bus(VH,VL);
+}
+
+void LCD_Write_COM8(char VL)
+{
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_Bus(0x00, VL);
+}
+
+void LCD_Write_DATA16(char VH, char VL)
+{
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_Bus(VH,VL);
+}
+
+void LCD_Write_DATA8(char VL)
+{
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_Bus(0x00, VL);
+}
+
+void setPixel(uint16_t color)
+{
+	//Sets color to rrrrrggggggbbbbb
+	LCD_Write_DATA16((color>>8),(color&0xFF));
+}
+
+void drawPixel(int x, int y)
+{
+	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY(x,y,x,y);
+	setPixel((fore_Color_High<<8)|fore_Color_Low);
+	REG_PORT_OUTSET1 = LCD_CS;
+}
+
+
+void fillRect(int x1, int y1, int x2, int y2)
+{
+	if (x1>x2)
+	SwapUint16(x1, x2);
+	if (y1>y2)
+	SwapUint16(y1, y2);
+	
+	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY(x1, y1, x2, y2);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Fast_Fill(fore_Color_High, fore_Color_Low,
+	(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
+	REG_PORT_OUTSET1 = LCD_CS;
+}
+
+void LCD_Fast_Fill(int ch, int cl, long pix)
+{
+	int blocks;
+
+	REG_PORT_OUTCLR1 = 0x0000ffff;
+	REG_PORT_OUTSET1 = (ch << 8) | cl;
+
+	blocks = pix/16;
+	for (int i=0; i<blocks; i++)
+	{
+		for (int j=0; j<16; j++)
+		{
+			REG_PORT_OUTCLR1 = LCD_WR;
+			REG_PORT_OUTSET1 = LCD_WR;
+		}
+	}
+	
+	if ((pix % 16) != 0)
+	for (int i=0; i<(pix % 16)+1; i++)
+	{
+		REG_PORT_OUTCLR1 = LCD_WR;
+		REG_PORT_OUTSET1 = LCD_WR;
+	}
+}
+
+void clrScr(void)
+{
+	REG_PORT_OUTCLR1 = LCD_CS;
+	clrXY();
+}
+
+void clrXY(void)
+{
+	setXY(0,0,display_X_size,display_Y_size);
+}
+
+
+void setColorRGB(uint8_t r, uint8_t g,
+uint8_t b)
+{
+	fore_Color_High = ((r&248)|g>>5);
+	fore_Color_Low = ((g&28)<<3|b>>3);
+}
+
+void setColorHex(uint16_t color)
+{
+	fore_Color_High = (color >> 8);
+	fore_Color_Low = (color & 0xFF);
+}
+
+void setBackColorRGB(unsigned char r,
+unsigned char g, unsigned char b)
+{
+	back_Color_High = ((r&248)|g>>5);
+	back_Color_Low = ((g&28)<<3|b>>3);
+}
+
+void setBackColorHex(uint16_t color)
+{
+	back_Color_High = (color >> 8);
+	back_Color_Low = (color & 0xFF);
+}
+
+
+void setXY(uint16_t x1, uint16_t y1,
+uint16_t x2, uint16_t y2)
+{
+	
+	SwapUint16(x1, y1);
+	SwapUint16(x2, y2);
+	y1=display_Y_size-y1;
+	y2=display_Y_size-y2;
+	SwapUint16(y1, y2);
+	
+	
+	LCD_Write_COM16(0x2a,0x00);
+	LCD_Write_DATA8(x1>>8);
+	LCD_Write_COM16(0x2a,0x01);
+	LCD_Write_DATA8(x1);
+	LCD_Write_COM16(0x2a,0x02);
+	LCD_Write_DATA8(x2>>8);
+	LCD_Write_COM16(0x2a,0x03);
+	LCD_Write_DATA8(x2);
+
+	LCD_Write_COM16(0x2b,0x00);
+	LCD_Write_DATA8(y1>>8);
+	LCD_Write_COM16(0x2b,0x01);
+	LCD_Write_DATA8(y1);
+	LCD_Write_COM16(0x2b,0x02);
+	LCD_Write_DATA8(y2>>8);
+	LCD_Write_COM16(0x2b,0x03);
+	LCD_Write_DATA8(y2);
+
+	LCD_Write_COM16(0x2c,0x00);
+}
+
 
