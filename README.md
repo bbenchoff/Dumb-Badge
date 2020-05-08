@@ -10,9 +10,10 @@ Features include:
   * Full color. All 256 of them.
 * Silicone membrane keyboard
   * Custom-desinged keyboard
+  * Other keyboard layouts supported; DVORAK, QWERTZ, and AZERTY are simply a matter of keyboard legends.
 * Microcontroller
-  * Single board computer designed around ATSAMD21
-  * Purpose-built software libraries allow for fastest text rendering possible
+  * Designed around ATSAMD21 clocked at blistering 48MHz
+  * Custom software libraries allow for fastest text rendering possible
 * Connectivity
   * DE-9 RS-232 serial connector, provided with MAX3232
   * USB 2.0 over USB-C connector
