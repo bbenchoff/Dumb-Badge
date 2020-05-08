@@ -6,7 +6,7 @@ The VT-69 is a portable, battery-powered dumb terminal, along the lines of a VT-
 
 Features include:
 * **4" LCD with 800x480 resolution**
-  * Display allows for a full 80x24 character display. *This is not a graphical display*.
+  * Display allows for a full 80x24 character display. *This is not a graphical display*. It will only display text characters.
   * Full color. All 256 of them.
 * Silicone membrane keyboard
   * Custom-desinged keyboard
