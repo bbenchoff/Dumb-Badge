@@ -18,3 +18,5 @@ Features include:
   * DE-9 RS-232 serial connector, provided with MAX3232
   * USB 2.0 over USB-C connector
   * Internal UART connectors allow for internal connection to Raspberry Pi Zero (a la VT-180).
+
+![Front View Image](https://github.com/bbenchoff/Dumb-Badge/blob/master/Web-Assets/FullFrontal.png)
