@@ -4218,6 +4218,8 @@ Discarded input sections
  .text          0x00000000        0x0 src/main.o
  .data          0x00000000        0x0 src/main.o
  .bss           0x00000000        0x0 src/main.o
+ .text.LCD_Write_COM8
+                0x00000000       0x1c src/main.o
  .text.setColorRGB
                 0x00000000       0x28 src/main.o
  .text.setColorHex
@@ -4226,8 +4228,6 @@ Discarded input sections
                 0x00000000       0x28 src/main.o
  .text.setBackColorHex
                 0x00000000       0x18 src/main.o
- .text.LCD_Write_COM8
-                0x00000000       0x1c src/main.o
  .text.drawPixel
                 0x00000000       0x48 src/main.o
  .bss.cpu_irq_critical_section_counter
@@ -4780,24 +4780,24 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
  .text.configure_usart_USB
                 0x00001690       0xbc src/main.o
                 0x00001690                configure_usart_USB
- .text.LCD_Fast_Fill
-                0x0000174c       0x74 src/main.o
-                0x0000174c                LCD_Fast_Fill
  .text.LCD_Write_Bus
-                0x000017c0       0x28 src/main.o
-                0x000017c0                LCD_Write_Bus
+                0x0000174c       0x28 src/main.o
+                0x0000174c                LCD_Write_Bus
  .text.LCD_Write_COM16
-                0x000017e8       0x18 src/main.o
-                0x000017e8                LCD_Write_COM16
+                0x00001774       0x18 src/main.o
+                0x00001774                LCD_Write_COM16
  .text.LCD_Write_DATA16
-                0x00001800       0x18 src/main.o
-                0x00001800                LCD_Write_DATA16
- .text.setPixel
-                0x00001818       0x10 src/main.o
-                0x00001818                setPixel
+                0x0000178c       0x18 src/main.o
+                0x0000178c                LCD_Write_DATA16
  .text.LCD_Write_DATA8
-                0x00001828       0x1c src/main.o
-                0x00001828                LCD_Write_DATA8
+                0x000017a4       0x1c src/main.o
+                0x000017a4                LCD_Write_DATA8
+ .text.setPixel
+                0x000017c0       0x10 src/main.o
+                0x000017c0                setPixel
+ .text.LCD_Fast_Fill
+                0x000017d0       0x74 src/main.o
+                0x000017d0                LCD_Fast_Fill
  .text.setXY    0x00001844       0x88 src/main.o
                 0x00001844                setXY
  .text.drawChar
@@ -4954,18 +4954,18 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
  .rodata.system_clock_source_enable
                 0x000031ac       0x24 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
  .rodata        0x000031d0     0x1a00 src/main.o
- .rodata.beelzebub.12735
+ .rodata.beelzebub.12671
                 0x00004bd0       0x30 src/main.o
- .rodata.belial.12732
+ .rodata.belial.12668
                 0x00004c00       0x46 src/main.o
  *fill*         0x00004c46        0x2 
- .rodata.lucifer.12734
+ .rodata.lucifer.12670
                 0x00004c48       0x46 src/main.o
  *fill*         0x00004c8e        0x2 
  .rodata.main.str1.4
                 0x00004c90       0x10 src/main.o
                                   0xe (size before relaxing)
- .rodata.mulciber.12733
+ .rodata.mulciber.12669
                 0x00004ca0       0x46 src/main.o
  *fill*         0x00004ce6        0x2 
  .rodata._global_impure_ptr
@@ -5317,7 +5317,7 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .debug_abbrev  0x00002f4f      0x3de src/config/config_usart.o
  .debug_abbrev  0x0000332d      0x4ee src/main.o
 
-.debug_loc      0x00000000     0x4b7c
+.debug_loc      0x00000000     0x4b91
  .debug_loc     0x00000000       0xe4 src/ASF/common2/services/delay/sam0/systick_counter.o
  .debug_loc     0x000000e4       0x8b src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
  .debug_loc     0x0000016f      0x13d src/ASF/sam0/drivers/port/port.o
@@ -5334,7 +5334,7 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .debug_loc     0x00003b45      0x130 src/ASF/sam0/utils/stdio/write.o
  .debug_loc     0x00003c75       0xef src/ASF/sam0/utils/syscalls/gcc/syscalls.o
  .debug_loc     0x00003d64      0x270 src/config/config_usart.o
- .debug_loc     0x00003fd4      0xba8 src/main.o
+ .debug_loc     0x00003fd4      0xbbd src/main.o
 
 .debug_aranges  0x00000000      0x518
  .debug_aranges

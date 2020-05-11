@@ -97,6 +97,8 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTCLR1 = LCD_DC;
 	REG_PORT_OUTCLR1 = LCD_RD;
+	
+
 		
 	system_init();
 	delay_init();
@@ -123,10 +125,12 @@ int main (void)
 	LCD_Write_DATA8(0x80);
 	REG_PORT_OUTSET1 = LCD_CS;
 	
+
+	
 	setColorRGB(0,0,0);
 	fillRect(0,0,display_Y_size,display_X_size);
 	
-	setColorRGB(0,127,0);
+	setColorRGB(72,255,0);
 	setBackColorRGB(0,0,0);
 
 	int ASCIIcharacter = 0;
