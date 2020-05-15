@@ -68,11 +68,12 @@ void setPixel(uint16_t color);
 void drawPixel(int x, int y);
 
 void drawChar(uint8_t character);
-
+void newLine(void);
 
 void fillRect(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, long pix);
 void drawKare(int emotion);
+void splash(void);
 
 void configure_usart_USB(void);
 
@@ -97,17 +98,12 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTCLR1 = LCD_DC;
 	REG_PORT_OUTCLR1 = LCD_RD;
-	
-
-		
+			
 	system_init();
 	delay_init();
 	configure_usart_USB();
-	
 	configure_console();
-	
 	printf("Hello World\n\r");
-	
 	InitLCD();
 
 	drawKare(0);
@@ -125,12 +121,10 @@ int main (void)
 	LCD_Write_DATA8(0x80);
 	REG_PORT_OUTSET1 = LCD_CS;
 	
-
-	
 	setColorRGB(0,0,0);
 	fillRect(0,0,display_Y_size,display_X_size);
 	
-	setColorRGB(72,255,0);
+	setColorRGB(0,255,0);
 	setBackColorRGB(0,0,0);
 
 	int ASCIIcharacter = 0;
@@ -144,6 +138,9 @@ int main (void)
 			ASCIIcharacter++;
 		}
 	}
+	
+	newLine();
+	
 }
 
 
@@ -168,6 +165,12 @@ void configure_usart_USB(void)
 
 
 /**************************FONT STUFF*********************************/
+
+void newLine(void)
+{
+	
+}
+
 
 /*
 	drawChar() draws a character at the current position oof the
@@ -2287,7 +2290,6 @@ void drawKare(int emotion)
 	int offsetGraphicY = 150;	
 	int iSv = 2;				//an inverse scale factor
 
-	setBackColorRGB(0,0,0);
 		
 	for(int i = 0; i < 104; i = i+4)
 	{
@@ -2393,12 +2395,16 @@ static const char lucifer[70] = {0x55,0xAA,0x52,0x08,0x01,0x0D,0x0D,
 		0x00,0x89,0x55,0xAA,0x52,0x08,0x00,0xCC,0x00,0x05,0x70,0x70,
 		0x01,0x03,0x03,0x03,0x02,0x00,0x00,0xD0,0x02,0x50,0x50,0x50,
 		0x00,0x55}; 
+
 		
-static const unsigned char beelzebub[48] ={0x00,0x2D,0x00,0x2E,0x00,
-		0x32,0x00,0x44,0x00,0x53,0x00,0x88,0x00,0xB6,0x00,0xF3,0x01,
-		0x22,0x01,0x64,0x01,0x92,0x01,0xD4,0x02,0x07,0x02,0x08,0x02,
-		0x34,0x02,0x5F,0x02,0x78,0x02,0x94,0x02,0xA6,0x02,0xBB,0x02,
-		0xDB,0x02,0xF9,0x03,0x1F,0x03,0x7F};
+static const unsigned char beelzebub[52] = {
+		0x00, 0x2D, 0x00, 0x2E, 0x00, 0x32, 0x00, 0x44, 0x00, 0x53,
+		0x00, 0x88, 0x00, 0xB6, 0x00, 0xF3, 0x01, 0x22, 0x01, 0x64,
+		0x01, 0x92, 0x01, 0xD4, 0x02, 0x07, 0x02, 0x08, 0x02, 0x34,
+		0x02, 0x5F, 0x02, 0x78, 0x02, 0x94, 0x02, 0xA6, 0x02, 0xBB,
+		0x02, 0xCA, 0x02, 0xDB, 0x02, 0xE8, 0x02, 0xF9, 0x03, 0x1F,
+		0x03, 0x7F};
+		
 		
 	REG_PORT_DIRSET1 = 0x00010000;
 	REG_PORT_OUTSET1 = PORT_PB16;
@@ -2409,24 +2415,65 @@ static const unsigned char beelzebub[48] ={0x00,0x2D,0x00,0x2E,0x00,
 	delay_ms(5);
 	REG_PORT_OUTSET1 = LCD_Reset;
 	REG_PORT_OUTCLR1 = LCD_CS;
-
+/*
 	for(int i = 0; i < 70; i++)
 	{
+		REG_PORT_OUTCLR1 = LCD_DC;
 		LCD_Write_COM16(belial[i],mulciber[i]);
+		REG_PORT_OUTSET1 = LCD_DC;
 		LCD_Write_DATA8(lucifer[i]);
 	}
 	
+	*/	
 	for(char k = 0xD1; k < 0xD6; k++)
-		for(int l = 0; l < 48; l++)
+		for(int l = 0; l < 52; l++)
 		{
-			LCD_Write_COM16(k,l);
+			LCD_Write_COM16(k,0x00);
 			LCD_Write_DATA8(beelzebub[l]);
 		}
-		
+
+	LCD_Write_COM16(0xF0, 0x00);LCD_Write_DATA8(0x55);
+	LCD_Write_COM16(0xF0, 0x01);LCD_Write_DATA8(0xAA);	
+	LCD_Write_COM16(0xF0, 0x02);LCD_Write_DATA8(0x52);	
+	LCD_Write_COM16(0xF0, 0x03);LCD_Write_DATA8(0x08);	
+	LCD_Write_COM16(0xF0, 0x04);LCD_Write_DATA8(0x00);	
+	
+	LCD_Write_COM16(0xB1, 0x00);LCD_Write_DATA8(0xCC);
+	LCD_Write_COM16(0xB1, 0x01);LCD_Write_DATA8(0x00);	
+	
+	LCD_Write_COM16(0xB5, 0x00);LCD_Write_DATA8(0x50);	
+	
+	LCD_Write_COM16(0xB6, 0x00);LCD_Write_DATA8(0x05);
+	
+	LCD_Write_COM16(0xB7, 0x00);LCD_Write_DATA8(0x70);
+	LCD_Write_COM16(0xB7, 0x01);LCD_Write_DATA8(0x70);
+	
+	LCD_Write_COM16(0xB8, 0x00);LCD_Write_DATA8(0x01);
+	LCD_Write_COM16(0xB8, 0x01);LCD_Write_DATA8(0x03);
+	LCD_Write_COM16(0xB8, 0x02);LCD_Write_DATA8(0x03);
+	LCD_Write_COM16(0xB8, 0x03);LCD_Write_DATA8(0x03);	
+	
+	LCD_Write_COM16(0xBC, 0x00);LCD_Write_DATA8(0x02);
+	LCD_Write_COM16(0xBC, 0x01);LCD_Write_DATA8(0x00);
+	LCD_Write_COM16(0xBC, 0x02);LCD_Write_DATA8(0x00);
+	
+	LCD_Write_COM16(0xC9, 0x00);LCD_Write_DATA8(0xD0);
+	LCD_Write_COM16(0xC9, 0x01);LCD_Write_DATA8(0x02);
+	LCD_Write_COM16(0xC9, 0x02);LCD_Write_DATA8(0x50);
+	LCD_Write_COM16(0xC9, 0x03);LCD_Write_DATA8(0x50);
+	LCD_Write_COM16(0xC9, 0x04);LCD_Write_DATA8(0x50);
+	
+	LCD_Write_COM16(0x35, 0x00);LCD_Write_DATA8(0x00);
+	
+	LCD_Write_COM16(0x3A, 0x00);LCD_Write_DATA8(0x55);
+	LCD_Write_COM16(0x36, 0x00);LCD_Write_DATA8(0x00);
+	
   	LCD_Write_COM16(0x11,0x00);   //Start Up  
-  	delay_ms(5);
+  	delay_ms(100);
   	LCD_Write_COM16(0x29,0x00);   //Display On  
-   	delay_ms(5);
+   	delay_ms(100);
+	LCD_Write_COM16(0x51,0x00);LCD_Write_DATA8(0xFF);
+	   
 	REG_PORT_OUTSET1 = LCD_CS;
 	
 	clrScr();
@@ -2434,8 +2481,6 @@ static const unsigned char beelzebub[48] ={0x00,0x2D,0x00,0x2E,0x00,
 	setBackColorRGB(0, 0, 0);
 	fillRect(0,0,799,489);
 		
-	setColorRGB(255,255,255);
-	setBackColorRGB(0,0,0);
 }
 
 void LCD_Write_Bus(char VH, char VL)
@@ -2563,7 +2608,6 @@ void setBackColorHex(uint16_t color)
 	back_Color_Low = (color & 0xFF);
 }
 
-
 void setXY(uint16_t x1, uint16_t y1,
 uint16_t x2, uint16_t y2)
 {
@@ -2596,4 +2640,40 @@ uint16_t x2, uint16_t y2)
 	LCD_Write_COM16(0x2c,0x00);
 }
 
+void splash(void)
+{
+	const char *splashText[];
+		splashText[0] = "Unix epoch minus 0xFF days";
+		splashText[1] = "1782^12 + 1841^12 = 1922^12";
+		splashText[2] = "Reticulating Splines";
+		splashText[3] = "Violence works";
+		splashText[4] = "Delete Facebook";
+		splashText[5] = "Kill Billionaires (and Trillionaire)";
+		splashText[6] = "Interest in technology is not a personality";
+		splashText[7] = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";
+		splashText[8] = "No gods, no masters, no external libraries.";
+		splashText[9] = "Paul Graham sucks";
+		splashText[10] = "Tiananmen Square 1989";
+		splashText[11] = "America was founded on slavery";
+		splashText[12] = "There is only capital and labor";
+		splashText[13] = "Encourage class warfare";
+		splashText[14] = "$CURRENT_MEME";
+		splashText[15] = "A Nice TTY"
+		splashText[16] = "Read Pedagogy of the Oppressed";
+		splashText[17] = "John Carpenter's Escape From San Francisco";
+		splashText[18] = "Thinking: What you do when you can't just put it in an AWS bucket.";
+		splashText[19] = "Defcon's canceled.";
+		splashText[20] = "Ratsnest: Nothing To Do!";
+		splashText[21] = "Solidarity? Is that a new framework?";
+		splashText[22] = "Because VT-420 was already taken.";
+		splashText[23] = "Just invented 6G. Theoretical maximum of 125 Tbps."
+		splashText[24] = "US5143439A";
+		splashText[25] = "[C:\ZORTECH\TOOLS\SOURCE]rename thing.c thing.cpp";
+		splashText[26] = "Follow World Pog Federation @WorldPog";
+		splashText[27] = "A Nice TTY. An OK Computer.";
+		splashText[28] = "Thicc client";
+		splashText[29] = "They named it Trevor and not Gregor. Idiots.";
+		splashText[30] = "For ancient astronaut theorists...";
+		splashText[31] = "Breadboarding Is Not A Crime";	
+}
 
