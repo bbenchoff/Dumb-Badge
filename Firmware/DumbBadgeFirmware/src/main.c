@@ -5,8 +5,13 @@
  * Atmel Software Framework (ASF).
 */
 #include <asf.h>
+#include <string.h>
+
+
+
 #include "config_usart.h"
 #include "conf_clocks.h"
+
 
 /** MACROS ********************************************************************/
 #define LCD_Reset	PORT_PB30
@@ -36,6 +41,8 @@
 
 #define SwapUint16(x , y) { uint16_t temp = x; x = y; y = temp; }
 
+
+
 /** VARIABLES *****************************************************************/
 
 uint16_t fore_Color_High, fore_Color_Low;
@@ -45,6 +52,8 @@ uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
 
 uint8_t xCharPos, yCharPos;
+
+
 
 
 /** LOCAL PROTOTYPES **********************************************************/
@@ -66,6 +75,8 @@ void clrXY(void);
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 void setPixel(uint16_t color);
 void drawPixel(int x, int y);
+void setDrawDirection(void);
+
 
 void drawChar(uint8_t character);
 void newLine(void);
@@ -73,11 +84,16 @@ void newLine(void);
 void fillRect(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, long pix);
 void drawKare(int emotion);
+void splashScreen(void);
 void splash(void);
+const char* splashPhrase(void);
+void writeString(char str[]);
 
 void configure_usart_USB(void);
+void configure_adc(void);
 
 struct usart_module usart_USB;
+struct adc_module adc_instance;
 
 
 /** STUFF BEGINS HERE *********************************************************/
@@ -98,35 +114,27 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_WR;
 	REG_PORT_OUTCLR1 = LCD_DC;
 	REG_PORT_OUTCLR1 = LCD_RD;
-			
+	
+	configure_adc();
+	uint16_t result;
+	adc_start_conversion(&adc_instance);
+	do {
+		/* Wait for conversion to be done and read out result */
+	} while (adc_read(&adc_instance, &result) == STATUS_BUSY);
+
+
 	system_init();
 	delay_init();
 	configure_usart_USB();
 	configure_console();
 	printf("Hello World\n\r");
+	srand(result);
 	InitLCD();
-
-	drawKare(0);
-	delay_ms(1000);
 	
-	//Following sets the MADCTL register for correct interfacing
-	//of the GRAM re:fonts. Information found on page 146 and 
-	//page 76 of NT35510 datasheet.
-	//We will only be using characters from here on out, so
-	//leave this as is, do not reinitialize.
-	REG_PORT_OUTCLR1 = LCD_CS;
-	REG_PORT_OUTCLR1 = LCD_DC;
-	LCD_Write_COM16(0x36, 0x00);
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Write_DATA8(0x80);
-	REG_PORT_OUTSET1 = LCD_CS;
-	
-	setColorRGB(0,0,0);
-	fillRect(0,0,display_Y_size,display_X_size);
+	splashScreen();
 	
 	setColorRGB(0,255,0);
-	setBackColorRGB(0,0,0);
-
+	
 	int ASCIIcharacter = 0;
 	for(int j = 0; j<24; j++)
 	{
@@ -163,14 +171,85 @@ void configure_usart_USB(void)
 	usart_enable(&usart_USB);
 }
 
+const char* splashPhrase(void)
+{
+	
+	const char *splashText[31];
+		splashText[0] = "Unix epoch minus 0xFF days";
+		splashText[1] = "1782^12 + 1841^12 = 1922^12";
+		splashText[2] = "Reticulating Splines";
+		splashText[3] = "Violence works";
+		splashText[4] = "Delete Facebook";
+		splashText[5] = "Kill Billionaires (and Trillionaire)";
+		splashText[6] = "Interest in technology is not a personality";
+		splashText[7] = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";
+		splashText[8] = "No gods, no masters, no external libraries.";
+		splashText[9] = "Paul Graham sucks";
+		splashText[10] = "Tiananmen Square 1989";
+		splashText[11] = "America was founded on slavery";
+		splashText[12] = "There is only capital and labor";
+		splashText[13] = "Encourage class warfare";
+		splashText[14] = "$CURRENT_MEME";
+		splashText[15] = "A Nice TTY";
+		splashText[16] = "Read Pedagogy of the Oppressed";
+		splashText[17] = "John Carpenter's Escape From San Francisco";
+		splashText[18] = "Thinking: What you do when you can't just put it into an AWS bucket.";
+		splashText[19] = "Defcon's canceled.";
+		splashText[20] = "Ratsnest: Nothing To Do!";
+		splashText[21] = "Solidarity? Is that a new framework?";
+		splashText[22] = "Because VT-420 was already taken.";
+		splashText[23] = "Just invented 6G. Theoretical maximum of 125 Tbps.";
+		splashText[24] = "US5143439A";
+		splashText[25] = "[C:\\ZORTECH\\TOOLS\\SOURCE]rename thing.c thing.cpp";
+		splashText[26] = "Follow World Pog Federation @WorldPog";
+		splashText[27] = "A Nice TTY. An OK Computer.";
+		splashText[28] = "Thicc client";
+		splashText[29] = "They named it Trevor and not Gregor.";
+		splashText[30] = "For ancient astronaut theorists...";
+		splashText[31] = "Breadboarding Is Not A Crime";
+			
+	return splashText[(rand()%32)];
+
+}
+
+void splashScreen(void)
+{	
+	setColorRGB(0,0,0);
+	fillRect(0,0,display_Y_size,display_X_size);
+	setColorRGB(255,255,255);
+	drawKare(0);	
+	setDrawDirection();
+	
+
+	xCharPos = 40;
+	yCharPos = 16;
+	
+	writeString(splashPhrase());
+	delay_ms(1500);
+	
+	
+		
+	setColorRGB(0,0,0);
+	fillRect(0,0,display_Y_size,display_X_size);
+}
+
 
 /**************************FONT STUFF*********************************/
 
 void newLine(void)
 {
-	
+	/////TO DO WRITE THE FUCKING SCROLLING THINGY
 }
 
+void writeString(char str[])
+{
+	int length = strlen(str);
+	for(int i = 0; i < length; i++)
+	{
+		drawChar(str[i]);
+		xCharPos++;
+	}
+}
 
 /*
 	drawChar() draws a character at the current position oof the
@@ -2290,6 +2369,7 @@ void drawKare(int emotion)
 	int offsetGraphicY = 150;	
 	int iSv = 2;				//an inverse scale factor
 
+	
 		
 	for(int i = 0; i < 104; i = i+4)
 	{
@@ -2415,7 +2495,7 @@ static const unsigned char beelzebub[52] = {
 	delay_ms(5);
 	REG_PORT_OUTSET1 = LCD_Reset;
 	REG_PORT_OUTCLR1 = LCD_CS;
-/*
+
 	for(int i = 0; i < 70; i++)
 	{
 		REG_PORT_OUTCLR1 = LCD_DC;
@@ -2424,7 +2504,6 @@ static const unsigned char beelzebub[52] = {
 		LCD_Write_DATA8(lucifer[i]);
 	}
 	
-	*/	
 	for(char k = 0xD1; k < 0xD6; k++)
 		for(int l = 0; l < 52; l++)
 		{
@@ -2481,6 +2560,21 @@ static const unsigned char beelzebub[52] = {
 	setBackColorRGB(0, 0, 0);
 	fillRect(0,0,799,489);
 		
+}
+
+void setDrawDirection(void)
+{
+	//Following sets the MADCTL register for correct interfacing
+	//of the GRAM re:fonts. Information found on page 146 and
+	//page 76 of NT35510 datasheet.
+	//We will only be using characters from here on out, so
+	//leave this as is, do not reinitialize.
+	REG_PORT_OUTCLR1 = LCD_CS;
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_COM16(0x36, 0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_DATA8(0x80);
+	REG_PORT_OUTSET1 = LCD_CS;
 }
 
 void LCD_Write_Bus(char VH, char VL)
@@ -2640,40 +2734,13 @@ uint16_t x2, uint16_t y2)
 	LCD_Write_COM16(0x2c,0x00);
 }
 
-void splash(void)
+
+void configure_adc(void)
 {
-	const char *splashText[];
-		splashText[0] = "Unix epoch minus 0xFF days";
-		splashText[1] = "1782^12 + 1841^12 = 1922^12";
-		splashText[2] = "Reticulating Splines";
-		splashText[3] = "Violence works";
-		splashText[4] = "Delete Facebook";
-		splashText[5] = "Kill Billionaires (and Trillionaire)";
-		splashText[6] = "Interest in technology is not a personality";
-		splashText[7] = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";
-		splashText[8] = "No gods, no masters, no external libraries.";
-		splashText[9] = "Paul Graham sucks";
-		splashText[10] = "Tiananmen Square 1989";
-		splashText[11] = "America was founded on slavery";
-		splashText[12] = "There is only capital and labor";
-		splashText[13] = "Encourage class warfare";
-		splashText[14] = "$CURRENT_MEME";
-		splashText[15] = "A Nice TTY"
-		splashText[16] = "Read Pedagogy of the Oppressed";
-		splashText[17] = "John Carpenter's Escape From San Francisco";
-		splashText[18] = "Thinking: What you do when you can't just put it in an AWS bucket.";
-		splashText[19] = "Defcon's canceled.";
-		splashText[20] = "Ratsnest: Nothing To Do!";
-		splashText[21] = "Solidarity? Is that a new framework?";
-		splashText[22] = "Because VT-420 was already taken.";
-		splashText[23] = "Just invented 6G. Theoretical maximum of 125 Tbps."
-		splashText[24] = "US5143439A";
-		splashText[25] = "[C:\ZORTECH\TOOLS\SOURCE]rename thing.c thing.cpp";
-		splashText[26] = "Follow World Pog Federation @WorldPog";
-		splashText[27] = "A Nice TTY. An OK Computer.";
-		splashText[28] = "Thicc client";
-		splashText[29] = "They named it Trevor and not Gregor. Idiots.";
-		splashText[30] = "For ancient astronaut theorists...";
-		splashText[31] = "Breadboarding Is Not A Crime";	
+	struct adc_config config_adc;
+	adc_get_config_defaults(&config_adc);
+	adc_init(&adc_instance, ADC, &config_adc);
+	adc_enable(&adc_instance);
 }
+
 

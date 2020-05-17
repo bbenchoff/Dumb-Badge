@@ -8,6 +8,10 @@ src\ASF\common\utils\interrupt\interrupt_sam_nvic.c
 
 src\ASF\sam0\boards\samd21_xplained_pro\board_init.c
 
+src\ASF\sam0\drivers\adc\adc_sam_d_r_h\adc.c
+
+src\ASF\sam0\drivers\adc\adc_sam_d_r_h\adc_callback.c
+
 src\ASF\sam0\drivers\port\port.c
 
 src\ASF\sam0\drivers\sercom\sercom.c
