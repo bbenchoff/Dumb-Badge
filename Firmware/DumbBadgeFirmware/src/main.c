@@ -147,7 +147,7 @@ int main (void)
 				ASCIIcharacter++;
 			}
 		}
-		//newLine();
+		newLine();
 	}
 }
 
@@ -266,23 +266,32 @@ void newLine(void)
 	
 	uint8_t columnPixel[460];
 	
-	for(uint16_t column = 800 ; column >= 0 ; column--)
+	for(int i = 0; i < 460 ; i++)
+	{
+		if(i%2)
+		{
+			columnPixel[i] = 0xFF;
+		}
+	}
+	
+	for(uint16_t column = 0 ; column <= 800 ; column++)
 	{
 		REG_PORT_OUTCLR1 = LCD_CS;
 		setXY(column, 20, column+1, 480);
 		
+		REG_PORT_OUTCLR1 = LCD_DC;
 		//Write 'Memory read' command
 		LCD_Write_COM16(0x2E,0x00);
-		
 		REG_PORT_OUTSET1 = LCD_DC;
+		REG_PORT_OUTSET1 = LCD_WR;
 		
 		//needs dummy write, per datasheet, page 40
 		REG_PORT_OUTCLR1 = LCD_RD;
 		REG_PORT_OUTSET1 = LCD_RD;
-		
-		//set PB07 to input, pull-up
-		PORT->Group[1].PINCFG[7].bit.INEN = 1;
-		PORT->Group[1].PINCFG[7].bit.PULLEN = 0;
+
+		//set PB07 to input
+		PORT->Group[1].PINCFG[PORT_PB07].bit.INEN = 1;
+		PORT->Group[1].PINCFG[PORT_PB07].bit.PULLEN = 0;
 		
 		//Read pixel data into the display	
 		for(uint16_t getpixel = 0 ; getpixel < 460 ; getpixel++)
@@ -301,7 +310,10 @@ void newLine(void)
 			REG_PORT_OUTCLR1 = LCD_RD;
 			REG_PORT_OUTSET1 = LCD_RD;		
 		}
-		REG_PORT_OUTCLR1 = LCD_DC;
+		
+		REG_PORT_OUTSET1 = LCD_DC;
+		
+		REG_PORT_DIRSET1 = 0x0000FFFF;
 		
 		//now, read out that line of the display
 		setXY(column, 0, column+1, 460);
