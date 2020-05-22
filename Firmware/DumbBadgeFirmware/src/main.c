@@ -41,8 +41,6 @@
 
 #define SwapUint16(x , y) { uint16_t temp = x; x = y; y = temp; }
 
-
-
 /** VARIABLES *****************************************************************/
 
 uint16_t fore_Color_High, fore_Color_Low;
@@ -52,8 +50,6 @@ uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
 
 uint8_t xCharPos, yCharPos;
-
-
 
 
 /** LOCAL PROTOTYPES **********************************************************/
@@ -81,12 +77,12 @@ void setDrawDirection(void);
 void drawChar(uint8_t character);
 void newLine(void);
 
+void clearScreen(void);
 void fillRect(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, long pix);
 void drawKare(int emotion);
 void splashScreen(void);
 void splash(void);
-const char* splashPhrase(void);
 void writeString(char str[]);
 
 void configure_usart_USB(void);
@@ -115,40 +111,44 @@ int main (void)
 	REG_PORT_OUTCLR1 = LCD_DC;
 	REG_PORT_OUTCLR1 = LCD_RD;
 	
+	uint16_t adcResult;
+	
+	int ASCIIcharacter = 0;
+	
 	configure_adc();
-	uint16_t result;
 	adc_start_conversion(&adc_instance);
 	do {
 		/* Wait for conversion to be done and read out result */
-	} while (adc_read(&adc_instance, &result) == STATUS_BUSY);
-
-
+	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
+	
 	system_init();
 	delay_init();
+	srand(adcResult);
 	configure_usart_USB();
 	configure_console();
 	printf("Hello World\n\r");
-	srand(result);
+
 	InitLCD();
 	
 	splashScreen();
 	
 	setColorRGB(0,255,0);
 	
-	int ASCIIcharacter = 0;
-	for(int j = 0; j<24; j++)
+
+	while(1)
 	{
-		for(int i = 0; i<80; i++)
+		for(int j = 0; j<24; j++)
 		{
-			xCharPos = i;
-			yCharPos = j;
-			drawChar(ASCIIcharacter%255);
-			ASCIIcharacter++;
+			for(int i = 0; i<80; i++)
+			{
+				xCharPos = i;
+				yCharPos = j;
+				drawChar(ASCIIcharacter%255);
+				ASCIIcharacter++;
+			}
 		}
+		//newLine();
 	}
-	
-	newLine();
-	
 }
 
 
@@ -171,66 +171,66 @@ void configure_usart_USB(void)
 	usart_enable(&usart_USB);
 }
 
-const char* splashPhrase(void)
+void configure_adc(void)
 {
-	
+	struct adc_config config_adc;
+	adc_get_config_defaults(&config_adc);
+	adc_init(&adc_instance, ADC, &config_adc);
+	adc_enable(&adc_instance);
+}
+
+
+
+void splashScreen(void)
+{	
 	const char *splashText[31];
 		splashText[0] = "Unix epoch minus 0xFF days";
-		splashText[1] = "1782^12 + 1841^12 = 1922^12";
+		splashText[1] = "3987^12 + 4365^12 = 4472^12";
 		splashText[2] = "Reticulating Splines";
 		splashText[3] = "Violence works";
-		splashText[4] = "Delete Facebook";
+		splashText[4] = "Tabs!";
 		splashText[5] = "Kill Billionaires (and Trillionaire)";
 		splashText[6] = "Interest in technology is not a personality";
 		splashText[7] = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";
-		splashText[8] = "No gods, no masters, no external libraries.";
-		splashText[9] = "Paul Graham sucks";
+		splashText[8] = "No gods. No masters. No external libraries.";
+		splashText[9] = "Spaces!";
 		splashText[10] = "Tiananmen Square 1989";
 		splashText[11] = "America was founded on slavery";
 		splashText[12] = "There is only capital and labor";
-		splashText[13] = "Encourage class warfare";
+		splashText[13] = "Encourage symmetric class warfare";
 		splashText[14] = "$CURRENT_MEME";
 		splashText[15] = "A Nice TTY";
-		splashText[16] = "Read Pedagogy of the Oppressed";
+		splashText[16] = "Trans rights are human rights";
 		splashText[17] = "John Carpenter's Escape From San Francisco";
 		splashText[18] = "Thinking: What you do when you can't just put it into an AWS bucket.";
 		splashText[19] = "Defcon's canceled.";
 		splashText[20] = "Ratsnest: Nothing To Do!";
-		splashText[21] = "Solidarity? Is that a new framework?";
-		splashText[22] = "Because VT-420 was already taken.";
-		splashText[23] = "Just invented 6G. Theoretical maximum of 125 Tbps.";
-		splashText[24] = "US5143439A";
-		splashText[25] = "[C:\\ZORTECH\\TOOLS\\SOURCE]rename thing.c thing.cpp";
-		splashText[26] = "Follow World Pog Federation @WorldPog";
-		splashText[27] = "A Nice TTY. An OK Computer.";
-		splashText[28] = "Thicc client";
-		splashText[29] = "They named it Trevor and not Gregor.";
-		splashText[30] = "For ancient astronaut theorists...";
+		splashText[21] = "It has 69 keys.";
+		splashText[22] = "Because VT-420 was already taken";
+		splashText[23] = "Kids that knocked down stacks of blocks grew up to be security researchers.";
+		splashText[24] = "Kids that stacked the blocks grew up not hating themselves.";
+		splashText[25] = "Offensive hardware";
+		splashText[26] = "Follow World Pog Federation    @WorldPog";
+		splashText[27] = "Dummy thicc client";
+		splashText[28] = "A Nice TTY. An OK Computer.";
+		splashText[29] = "I cAn OpEn A LoCk WiTh A sOdA cAn";
+		splashText[30] = "Solidarity is not a new framework";
 		splashText[31] = "Breadboarding Is Not A Crime";
-			
-	return splashText[(rand()%32)];
-
-}
-
-void splashScreen(void)
-{	
-	setColorRGB(0,0,0);
-	fillRect(0,0,display_Y_size,display_X_size);
+		splashText[32] = "Off by one errors are common";
+	
+	char *textPhrase = splashText[(rand()%63)/2];
+	clearScreen();
 	setColorRGB(255,255,255);
 	drawKare(0);	
 	setDrawDirection();
 	
-
-	xCharPos = 40;
+	xCharPos = 40 - (strlen(textPhrase)/2);
 	yCharPos = 16;
 	
-	writeString(splashPhrase());
-	delay_ms(1500);
+	writeString(textPhrase);
+	delay_ms(2000);
 	
-	
-		
-	setColorRGB(0,0,0);
-	fillRect(0,0,display_Y_size,display_X_size);
+	clearScreen();
 }
 
 
@@ -238,7 +238,87 @@ void splashScreen(void)
 
 void newLine(void)
 {
-	/////TO DO WRITE THE FUCKING SCROLLING THINGY
+	/*The 'soft scroll' function moves all pixels on the display up
+	20 pixels, or the height of one char. Algorithm is as follows:
+	
+	0) Set the GRAM window to a column one pixel wide (setxy)
+	from (0,20,1,480). 
+	
+	1) Set PB07 as input. This is the data bit that will read
+	the actual pixel data from GRAM.
+	
+		1a) We use PB07 because it represents the MSB of the green
+		part of the pixel; this will always be 1 if the pixel
+		is active, because the only colors we use are green,
+		white, and amber.
+		
+		1b) Configuration of pin as input is on "SAMD21/SAMR21
+		GPIO" Tutorial (Phillip Vallone), page 38.
+		
+	2) Read the pixel data into a 1D array (first as char[460],
+	can be optimized with bitpacking. This information is on 
+	NT35510 datasheet, page 40.
+	
+	3) Set PB07 (and the rest of PB00..15) as output, set GRAM
+	to 0,0,1,480, and output contents of 1D array. Repeat this
+	800 times, for each column in the display.
+	*/
+	
+	uint8_t columnPixel[460];
+	
+	for(uint16_t column = 800 ; column >= 0 ; column--)
+	{
+		REG_PORT_OUTCLR1 = LCD_CS;
+		setXY(column, 20, column+1, 480);
+		
+		//Write 'Memory read' command
+		LCD_Write_COM16(0x2E,0x00);
+		
+		REG_PORT_OUTSET1 = LCD_DC;
+		
+		//needs dummy write, per datasheet, page 40
+		REG_PORT_OUTCLR1 = LCD_RD;
+		REG_PORT_OUTSET1 = LCD_RD;
+		
+		//set PB07 to input, pull-up
+		PORT->Group[1].PINCFG[7].bit.INEN = 1;
+		PORT->Group[1].PINCFG[7].bit.PULLEN = 0;
+		
+		//Read pixel data into the display	
+		for(uint16_t getpixel = 0 ; getpixel < 460 ; getpixel++)
+		{
+			REG_PORT_OUTCLR1 = LCD_RD;
+			REG_PORT_OUTSET1 = LCD_RD;
+
+			//get the pin state, stuff into array
+			if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
+				columnPixel[getpixel] = 0xFF;
+			else
+				columnPixel[getpixel] = 0x00;
+				
+			//dummy read, because pixel data broken up
+			//per datasheet page 40.
+			REG_PORT_OUTCLR1 = LCD_RD;
+			REG_PORT_OUTSET1 = LCD_RD;		
+		}
+		REG_PORT_OUTCLR1 = LCD_DC;
+		
+		//now, read out that line of the display
+		setXY(column, 0, column+1, 460);
+		
+		for(uint16_t writepixel = 0 ; writepixel < 460 ; writepixel++)
+		{
+			if((columnPixel[writepixel] == 0xFF))
+			{
+				setPixel((fore_Color_High<<8)|fore_Color_Low);
+			}
+			else
+			{
+				setPixel((back_Color_High<<8)|back_Color_Low);
+			}
+		}
+	}
+	REG_PORT_OUTSET1 = LCD_CS;
 }
 
 void writeString(char str[])
@@ -2333,13 +2413,17 @@ void drawChar(uint8_t character)
 
 }
 
-
+void clearScreen(void)
+{
+	setColorRGB(0,0,0);
+	fillRect(0,0,display_Y_size,display_X_size);
+}
 
 /***********drawKare ** It's the boot graphic*************************/
 //	drawKare(int emotion) is the boot animation displayed on startup
 //	this displays an 'emotion':
 //	emotion = 0:	a 'happy terminal'; normal mode
-//	emotion = 1:	a lowercase pi, for using a Raspberry Pi as the 
+//	emotion = 1:	a lowercase pi, for using an SBC as the 
 //					endpoint of the serial (non USB) serial port.
 //	emotion = 2:	the 'sad terminal'; idk, macs had a 'sad mac'.
 //
@@ -2389,7 +2473,7 @@ void drawKare(int emotion)
 					((happyTerm[i+3]/iSv)+(offsetGraphicY)));
 				}
 				break;
-			case 1: //? face
+			case 1: //pi face
 				for(int i = 0; i < 20; i = i+4)
 				{
 					fillRect((
@@ -2407,7 +2491,7 @@ void drawKare(int emotion)
 
 /**************************InitLCD()**********************************/
 void InitLCD(void)
-{
+ {
 	/*
 	InitLCD() sets the pinMode of all the LCD control pins (write,
 	read, D/C, Chip Select, Reset) as output. Then follows data 
@@ -2611,7 +2695,7 @@ void LCD_Write_DATA8(char VL)
 
 void setPixel(uint16_t color)
 {
-	//Sets color to rrrrrggggggbbbbb
+	//it sets it to a 16-bit color.
 	LCD_Write_DATA16((color>>8),(color&0xFF));
 }
 
@@ -2642,7 +2726,8 @@ void fillRect(int x1, int y1, int x2, int y2)
 void LCD_Fast_Fill(int ch, int cl, long pix)
 {
 	int blocks;
-
+	
+		
 	REG_PORT_OUTCLR1 = 0x0000ffff;
 	REG_PORT_OUTSET1 = (ch << 8) | cl;
 
@@ -2676,8 +2761,7 @@ void clrXY(void)
 }
 
 
-void setColorRGB(uint8_t r, uint8_t g,
-uint8_t b)
+void setColorRGB(uint8_t r, uint8_t g, uint8_t b)
 {
 	fore_Color_High = ((r&248)|g>>5);
 	fore_Color_Low = ((g&28)<<3|b>>3);
@@ -2702,8 +2786,7 @@ void setBackColorHex(uint16_t color)
 	back_Color_Low = (color & 0xFF);
 }
 
-void setXY(uint16_t x1, uint16_t y1,
-uint16_t x2, uint16_t y2)
+void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 {
 	
 	SwapUint16(x1, y1);
@@ -2735,12 +2818,5 @@ uint16_t x2, uint16_t y2)
 }
 
 
-void configure_adc(void)
-{
-	struct adc_config config_adc;
-	adc_get_config_defaults(&config_adc);
-	adc_init(&adc_instance, ADC, &config_adc);
-	adc_enable(&adc_instance);
-}
 
 
