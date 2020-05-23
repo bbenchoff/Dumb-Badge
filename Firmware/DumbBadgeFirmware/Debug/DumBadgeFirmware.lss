@@ -27,9 +27,9 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  11 .debug_macro  0001c33b  00000000  00000000  00058c3f  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   0000da6f  00000000  00000000  00074f7a  2**0
+ 12 .debug_line   0000da6e  00000000  00000000  00074f7a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    0008fddf  00000000  00000000  000829e9  2**0
+ 13 .debug_str    0008fddf  00000000  00000000  000829e8  2**0
                   CONTENTS, READONLY, DEBUGGING
  14 .debug_frame  00001650  00000000  00000000  001127c8  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -6042,10 +6042,10 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
     1ebc:	2300      	movs	r3, #0
     1ebe:	9302      	str	r3, [sp, #8]
 		REG_PORT_OUTCLR1 = LCD_CS;
-    1ec0:	4b46      	ldr	r3, [pc, #280]	; (1fdc <newLine+0x148>)
+    1ec0:	4b45      	ldr	r3, [pc, #276]	; (1fd8 <newLine+0x144>)
     1ec2:	4698      	mov	r8, r3
 		REG_PORT_OUTSET1 = LCD_DC;
-    1ec4:	4f46      	ldr	r7, [pc, #280]	; (1fe0 <newLine+0x14c>)
+    1ec4:	4f45      	ldr	r7, [pc, #276]	; (1fdc <newLine+0x148>)
 			REG_PORT_OUTCLR1 = LCD_RD;
     1ec6:	2680      	movs	r6, #128	; 0x80
     1ec8:	0276      	lsls	r6, r6, #9
@@ -6081,8 +6081,8 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
     1ef2:	041b      	lsls	r3, r3, #16
     1ef4:	603b      	str	r3, [r7, #0]
 		REG_PORT_DIRSET1 = 0x0000FFFF;
-    1ef6:	4a3b      	ldr	r2, [pc, #236]	; (1fe4 <newLine+0x150>)
-    1ef8:	4b3b      	ldr	r3, [pc, #236]	; (1fe8 <newLine+0x154>)
+    1ef6:	4a3a      	ldr	r2, [pc, #232]	; (1fe0 <newLine+0x14c>)
+    1ef8:	4b3a      	ldr	r3, [pc, #232]	; (1fe4 <newLine+0x150>)
     1efa:	601a      	str	r2, [r3, #0]
 		setXY(column, 0, column+1, 460);
     1efc:	23e6      	movs	r3, #230	; 0xe6
@@ -6090,26 +6090,26 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
     1f00:	9a03      	ldr	r2, [sp, #12]
     1f02:	2100      	movs	r1, #0
     1f04:	9802      	ldr	r0, [sp, #8]
-    1f06:	4c39      	ldr	r4, [pc, #228]	; (1fec <newLine+0x158>)
+    1f06:	4c38      	ldr	r4, [pc, #224]	; (1fe8 <newLine+0x154>)
     1f08:	47a0      	blx	r4
 				setPixel((back_Color_High<<8)|back_Color_Low);
-    1f0a:	4b39      	ldr	r3, [pc, #228]	; (1ff0 <newLine+0x15c>)
+    1f0a:	4b38      	ldr	r3, [pc, #224]	; (1fec <newLine+0x158>)
     1f0c:	469b      	mov	fp, r3
-    1f0e:	4b39      	ldr	r3, [pc, #228]	; (1ff4 <newLine+0x160>)
+    1f0e:	4b38      	ldr	r3, [pc, #224]	; (1ff0 <newLine+0x15c>)
     1f10:	469a      	mov	sl, r3
-    1f12:	4b39      	ldr	r3, [pc, #228]	; (1ff8 <newLine+0x164>)
+    1f12:	4b38      	ldr	r3, [pc, #224]	; (1ff4 <newLine+0x160>)
     1f14:	4699      	mov	r9, r3
     1f16:	9c01      	ldr	r4, [sp, #4]
     1f18:	e00b      	b.n	1f32 <newLine+0x9e>
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
-    1f1a:	4b38      	ldr	r3, [pc, #224]	; (1ffc <newLine+0x168>)
+    1f1a:	4b37      	ldr	r3, [pc, #220]	; (1ff8 <newLine+0x164>)
     1f1c:	8818      	ldrh	r0, [r3, #0]
     1f1e:	0200      	lsls	r0, r0, #8
-    1f20:	4b37      	ldr	r3, [pc, #220]	; (2000 <STACK_SIZE>)
+    1f20:	4b36      	ldr	r3, [pc, #216]	; (1ffc <newLine+0x168>)
     1f22:	881b      	ldrh	r3, [r3, #0]
     1f24:	4318      	orrs	r0, r3
     1f26:	b280      	uxth	r0, r0
-    1f28:	4b33      	ldr	r3, [pc, #204]	; (1ff8 <newLine+0x164>)
+    1f28:	4b32      	ldr	r3, [pc, #200]	; (1ff4 <newLine+0x160>)
     1f2a:	4798      	blx	r3
     1f2c:	3501      	adds	r5, #1
 		for(uint16_t writepixel = 0 ; writepixel < 460 ; writepixel++)
@@ -6133,9 +6133,9 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
     1f4a:	9b03      	ldr	r3, [sp, #12]
     1f4c:	001a      	movs	r2, r3
     1f4e:	9302      	str	r3, [sp, #8]
-    1f50:	4b2c      	ldr	r3, [pc, #176]	; (2004 <STACK_SIZE+0x4>)
+    1f50:	4b2b      	ldr	r3, [pc, #172]	; (2000 <STACK_SIZE>)
     1f52:	429a      	cmp	r2, r3
-    1f54:	d037      	beq.n	1fc6 <newLine+0x132>
+    1f54:	d034      	beq.n	1fc0 <newLine+0x12c>
 		REG_PORT_OUTCLR1 = LCD_CS;
     1f56:	4643      	mov	r3, r8
     1f58:	2280      	movs	r2, #128	; 0x80
@@ -6151,85 +6151,83 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
     1f6a:	23f0      	movs	r3, #240	; 0xf0
     1f6c:	005b      	lsls	r3, r3, #1
     1f6e:	2114      	movs	r1, #20
-    1f70:	4c1e      	ldr	r4, [pc, #120]	; (1fec <newLine+0x158>)
+    1f70:	4c1d      	ldr	r4, [pc, #116]	; (1fe8 <newLine+0x154>)
     1f72:	47a0      	blx	r4
-		REG_PORT_OUTCLR1 = LCD_DC;
-    1f74:	2480      	movs	r4, #128	; 0x80
-    1f76:	0424      	lsls	r4, r4, #16
-    1f78:	4643      	mov	r3, r8
-    1f7a:	601c      	str	r4, [r3, #0]
 		LCD_Write_COM16(0x2E,0x00);
-    1f7c:	2100      	movs	r1, #0
-    1f7e:	202e      	movs	r0, #46	; 0x2e
-    1f80:	4b21      	ldr	r3, [pc, #132]	; (2008 <STACK_SIZE+0x8>)
-    1f82:	4798      	blx	r3
+    1f74:	2100      	movs	r1, #0
+    1f76:	202e      	movs	r0, #46	; 0x2e
+    1f78:	4b22      	ldr	r3, [pc, #136]	; (2004 <STACK_SIZE+0x4>)
+    1f7a:	4798      	blx	r3
 		REG_PORT_OUTSET1 = LCD_DC;
-    1f84:	603c      	str	r4, [r7, #0]
-		REG_PORT_OUTSET1 = LCD_WR;
-    1f86:	2380      	movs	r3, #128	; 0x80
-    1f88:	029b      	lsls	r3, r3, #10
-    1f8a:	603b      	str	r3, [r7, #0]
+    1f7c:	2380      	movs	r3, #128	; 0x80
+    1f7e:	041b      	lsls	r3, r3, #16
+    1f80:	603b      	str	r3, [r7, #0]
 		REG_PORT_OUTCLR1 = LCD_RD;
-    1f8c:	4643      	mov	r3, r8
-    1f8e:	2280      	movs	r2, #128	; 0x80
-    1f90:	0252      	lsls	r2, r2, #9
-    1f92:	601a      	str	r2, [r3, #0]
+    1f82:	4643      	mov	r3, r8
+    1f84:	2280      	movs	r2, #128	; 0x80
+    1f86:	0252      	lsls	r2, r2, #9
+    1f88:	601a      	str	r2, [r3, #0]
 		REG_PORT_OUTSET1 = LCD_RD;
-    1f94:	603a      	str	r2, [r7, #0]
-		PORT->Group[1].PINCFG[PORT_PB07].bit.INEN = 1;
-    1f96:	4a1d      	ldr	r2, [pc, #116]	; (200c <STACK_SIZE+0xc>)
-    1f98:	23a0      	movs	r3, #160	; 0xa0
-    1f9a:	005b      	lsls	r3, r3, #1
-    1f9c:	5cd1      	ldrb	r1, [r2, r3]
-    1f9e:	2002      	movs	r0, #2
-    1fa0:	4301      	orrs	r1, r0
-    1fa2:	54d1      	strb	r1, [r2, r3]
-		PORT->Group[1].PINCFG[PORT_PB07].bit.PULLEN = 0;
-    1fa4:	5cd1      	ldrb	r1, [r2, r3]
-    1fa6:	2004      	movs	r0, #4
-    1fa8:	4381      	bics	r1, r0
-    1faa:	54d1      	strb	r1, [r2, r3]
-    1fac:	ad05      	add	r5, sp, #20
-    1fae:	ab78      	add	r3, sp, #480	; 0x1e0
-    1fb0:	469c      	mov	ip, r3
-    1fb2:	9501      	str	r5, [sp, #4]
+    1f8a:	603a      	str	r2, [r7, #0]
+		REG_PORT_DIRCLR1 = PORT_PB07;
+    1f8c:	2280      	movs	r2, #128	; 0x80
+    1f8e:	4b1e      	ldr	r3, [pc, #120]	; (2008 <STACK_SIZE+0x8>)
+    1f90:	601a      	str	r2, [r3, #0]
+		PORT->Group[1].PINCFG[7].bit.INEN = 1;
+    1f92:	4a1e      	ldr	r2, [pc, #120]	; (200c <STACK_SIZE+0xc>)
+    1f94:	23c7      	movs	r3, #199	; 0xc7
+    1f96:	5cd1      	ldrb	r1, [r2, r3]
+    1f98:	2002      	movs	r0, #2
+    1f9a:	4301      	orrs	r1, r0
+    1f9c:	54d1      	strb	r1, [r2, r3]
+		PORT->Group[1].PINCFG[7].bit.PULLEN = 0;
+    1f9e:	5cd1      	ldrb	r1, [r2, r3]
+    1fa0:	2004      	movs	r0, #4
+    1fa2:	4381      	bics	r1, r0
+    1fa4:	54d1      	strb	r1, [r2, r3]
+    1fa6:	ad05      	add	r5, sp, #20
+    1fa8:	ab78      	add	r3, sp, #480	; 0x1e0
+    1faa:	469c      	mov	ip, r3
+    1fac:	9501      	str	r5, [sp, #4]
 			if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
-    1fb4:	0010      	movs	r0, r2
-    1fb6:	21a0      	movs	r1, #160	; 0xa0
-    1fb8:	2280      	movs	r2, #128	; 0x80
+    1fae:	0010      	movs	r0, r2
+    1fb0:	21a0      	movs	r1, #160	; 0xa0
+    1fb2:	2280      	movs	r2, #128	; 0x80
 				columnPixel[getpixel] = 0x00;
-    1fba:	2300      	movs	r3, #0
-    1fbc:	469b      	mov	fp, r3
+    1fb4:	2300      	movs	r3, #0
+    1fb6:	469b      	mov	fp, r3
 				columnPixel[getpixel] = 0xFF;
-    1fbe:	33ff      	adds	r3, #255	; 0xff
-    1fc0:	469a      	mov	sl, r3
-    1fc2:	002c      	movs	r4, r5
-    1fc4:	e78a      	b.n	1edc <newLine+0x48>
+    1fb8:	33ff      	adds	r3, #255	; 0xff
+    1fba:	469a      	mov	sl, r3
+    1fbc:	002c      	movs	r4, r5
+    1fbe:	e78d      	b.n	1edc <newLine+0x48>
 	REG_PORT_OUTSET1 = LCD_CS;
-    1fc6:	2280      	movs	r2, #128	; 0x80
-    1fc8:	03d2      	lsls	r2, r2, #15
-    1fca:	4b05      	ldr	r3, [pc, #20]	; (1fe0 <newLine+0x14c>)
-    1fcc:	601a      	str	r2, [r3, #0]
+    1fc0:	2280      	movs	r2, #128	; 0x80
+    1fc2:	03d2      	lsls	r2, r2, #15
+    1fc4:	4b05      	ldr	r3, [pc, #20]	; (1fdc <newLine+0x148>)
+    1fc6:	601a      	str	r2, [r3, #0]
 }
-    1fce:	b079      	add	sp, #484	; 0x1e4
-    1fd0:	bc3c      	pop	{r2, r3, r4, r5}
-    1fd2:	4690      	mov	r8, r2
-    1fd4:	4699      	mov	r9, r3
-    1fd6:	46a2      	mov	sl, r4
-    1fd8:	46ab      	mov	fp, r5
-    1fda:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    1fdc:	41004494 	.word	0x41004494
-    1fe0:	41004498 	.word	0x41004498
-    1fe4:	0000ffff 	.word	0x0000ffff
-    1fe8:	41004488 	.word	0x41004488
-    1fec:	00001e0d 	.word	0x00001e0d
-    1ff0:	20000196 	.word	0x20000196
-    1ff4:	20000170 	.word	0x20000170
-    1ff8:	00001d89 	.word	0x00001d89
-    1ffc:	20000172 	.word	0x20000172
-    2000:	20000194 	.word	0x20000194
-    2004:	00000321 	.word	0x00000321
-    2008:	00001d05 	.word	0x00001d05
+    1fc8:	b079      	add	sp, #484	; 0x1e4
+    1fca:	bc3c      	pop	{r2, r3, r4, r5}
+    1fcc:	4690      	mov	r8, r2
+    1fce:	4699      	mov	r9, r3
+    1fd0:	46a2      	mov	sl, r4
+    1fd2:	46ab      	mov	fp, r5
+    1fd4:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    1fd6:	46c0      	nop			; (mov r8, r8)
+    1fd8:	41004494 	.word	0x41004494
+    1fdc:	41004498 	.word	0x41004498
+    1fe0:	0000ffff 	.word	0x0000ffff
+    1fe4:	41004488 	.word	0x41004488
+    1fe8:	00001e0d 	.word	0x00001e0d
+    1fec:	20000196 	.word	0x20000196
+    1ff0:	20000170 	.word	0x20000170
+    1ff4:	00001d89 	.word	0x00001d89
+    1ff8:	20000172 	.word	0x20000172
+    1ffc:	20000194 	.word	0x20000194
+    2000:	00000321 	.word	0x00000321
+    2004:	00001d05 	.word	0x00001d05
+    2008:	41004484 	.word	0x41004484
     200c:	41004400 	.word	0x41004400
 
 00002010 <drawChar>:
