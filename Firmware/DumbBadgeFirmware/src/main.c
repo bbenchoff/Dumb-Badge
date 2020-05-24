@@ -136,7 +136,7 @@ int main (void)
 	
 
 	while(1)
-	{
+	{	/*
 		for(int j = 0; j<23; j++)
 		{
 			for(int i = 0; i<80; i++)
@@ -150,8 +150,15 @@ int main (void)
 		for(int k = 0 ; k < 24 ; k++)
 		{
 			newLine();
-			delay_ms(1000);
+			delay_ms(1);
 		}
+		*/
+		xCharPos = 20;
+		yCharPos = 20;
+		writeString("This is a string");
+		newLine();
+		newLine();
+		newLine();
 
 	}
 }
@@ -269,23 +276,16 @@ void newLine(void)
 	800 times, for each column in the display.
 	*/
 	
-	uint8_t columnPixel[460];
+	uint8_t columnPixel[800];
 	
-	//this just test the initilization. delete later
-	for(int i = 0; i < 460 ; i++)
-	{
-		if(i%2)
-		{
-			columnPixel[i] = 0xFF;
-		}
-	}
+
 	
 	for(uint16_t column = 0 ; column <= 800 ; column++)
 	{
 		//Per page 40 of datasheet (5.1.2.7, 16-bit
 		//parallel interface for data ram read.
 		REG_PORT_OUTCLR1 = LCD_CS;
-		setXY(column, 20, column+1, 480);
+		setXY(column, 20, column, 480);
 		//Write 'Memory read' command
 		LCD_Write_COM16(0x2E,0x00);
 		REG_PORT_OUTSET1 = LCD_DC;
@@ -323,7 +323,7 @@ void newLine(void)
 		REG_PORT_DIRSET1 = 0x0000FFFF;
 		
 		//now, read out that line of the display
-		setXY(column, 0, column+1, 460);
+		setXY(column, 0, column, 460);
 		
 		for(uint16_t writepixel = 0 ; writepixel < 460 ; writepixel++)
 		{
