@@ -137,7 +137,7 @@ int main (void)
 
 	while(1)
 	{
-		for(int j = 0; j<24; j++)
+		for(int j = 0; j<23; j++)
 		{
 			for(int i = 0; i<80; i++)
 			{
@@ -147,7 +147,12 @@ int main (void)
 				ASCIIcharacter++;
 			}
 		}
-		newLine();
+		for(int k = 0 ; k < 24 ; k++)
+		{
+			newLine();
+			delay_ms(1000);
+		}
+
 	}
 }
 
@@ -2584,7 +2589,7 @@ static const unsigned char beelzebub[52] = {
 		0x03, 0x7F};
 		
 		
-	REG_PORT_DIRSET1 = 0x00010000;
+	REG_PORT_DIRSET1 = PORT_PB16;
 	REG_PORT_OUTSET1 = PORT_PB16;
 	
 	REG_PORT_OUTSET1 = LCD_Reset;
