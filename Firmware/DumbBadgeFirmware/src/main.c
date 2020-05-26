@@ -136,7 +136,7 @@ int main (void)
 	
 
 	while(1)
-	{	/*
+	{	
 		for(int j = 0; j<23; j++)
 		{
 			for(int i = 0; i<80; i++)
@@ -150,16 +150,17 @@ int main (void)
 		for(int k = 0 ; k < 24 ; k++)
 		{
 			newLine();
-			delay_ms(1);
 		}
-		*/
+		/*
 		xCharPos = 20;
 		yCharPos = 20;
+
 		writeString("This is a string");
 		newLine();
 		newLine();
 		newLine();
 
+		*/
 	}
 }
 
@@ -230,7 +231,7 @@ void splashScreen(void)
 		splashText[31] = "Breadboarding Is Not A Crime";
 		splashText[32] = "Off by one errors are common";
 	
-	char *textPhrase = splashText[(rand()%63)/2];
+	char *textPhrase = splashText[(rand()%128)/4];
 	clearScreen();
 	setColorRGB(255,255,255);
 	drawKare(0);	
@@ -276,16 +277,23 @@ void newLine(void)
 	800 times, for each column in the display.
 	*/
 	
-	uint8_t columnPixel[800];
+	uint8_t rowPixel[800];
 	
+	//First, set the MADCLR registers so 0,0 is in the top left
+	REG_PORT_OUTCLR1 = LCD_CS;
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_COM16(0x36, 0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_DATA8(0x00);
+	REG_PORT_OUTSET1 = LCD_CS;
 
 	
-	for(uint16_t column = 0 ; column <= 800 ; column++)
+	for(uint16_t row = 0 ; row < 460 ; row++)
 	{
 		//Per page 40 of datasheet (5.1.2.7, 16-bit
 		//parallel interface for data ram read.
 		REG_PORT_OUTCLR1 = LCD_CS;
-		setXY(column, 20, column, 480);
+		setXY(0, row+20, 800, row+20);
 		//Write 'Memory read' command
 		LCD_Write_COM16(0x2E,0x00);
 		REG_PORT_OUTSET1 = LCD_DC;
@@ -297,20 +305,20 @@ void newLine(void)
 		//set PB07 to input
 		REG_PORT_DIRCLR1 = PORT_PB07;
 		PORT->Group[1].PINCFG[7].bit.INEN = 1;
-		PORT->Group[1].PINCFG[7].bit.PULLEN = 0;
+		PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
 		
 		
 		//Read pixel data into the display	
-		for(uint16_t getpixel = 0 ; getpixel < 460 ; getpixel++)
+		for(uint16_t getpixel = 0 ; getpixel <= 800 ; getpixel++)
 		{
 			REG_PORT_OUTCLR1 = LCD_RD;
 			REG_PORT_OUTSET1 = LCD_RD;
 
 			//get the pin state, stuff into array
 			if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
-				columnPixel[getpixel] = 0xFF;
+				rowPixel[getpixel] = 0xFF;
 			else
-				columnPixel[getpixel] = 0x00;
+				rowPixel[getpixel] = 0x00;
 				
 			//dummy read, because pixel data broken up
 			//per datasheet page 40.
@@ -319,15 +327,14 @@ void newLine(void)
 		}
 		
 		REG_PORT_OUTSET1 = LCD_DC;
-		
 		REG_PORT_DIRSET1 = 0x0000FFFF;
 		
 		//now, read out that line of the display
-		setXY(column, 0, column, 460);
+		setXY(0, row, 800, row);
 		
-		for(uint16_t writepixel = 0 ; writepixel < 460 ; writepixel++)
+		for(uint16_t writepixel = 0 ; writepixel <= 800 ; writepixel++)
 		{
-			if((columnPixel[writepixel] == 0xFF))
+			if((rowPixel[writepixel] == 0xFF))
 			{
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
 			}
@@ -337,6 +344,11 @@ void newLine(void)
 			}
 		}
 	}
+
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_COM16(0x36, 0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_DATA8(0x80);
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
