@@ -6,6 +6,7 @@
 */
 #include <asf.h>
 #include <string.h>
+#include <ctype.h>
 
 
 
@@ -79,11 +80,14 @@ void newLine(void);
 
 void clearScreen(void);
 void fillRect(int x1, int y1, int x2, int y2);
+void fillRectBackColor(int x1, int y1, int x2, int y2);
 void LCD_Fast_Fill(int ch, int cl, long pix);
 void drawKare(int emotion);
 void splashScreen(void);
 void splash(void);
 void writeString(char str[]);
+
+int * getScanCode(void);
 
 void configure_usart_USB(void);
 void configure_adc(void);
@@ -127,14 +131,10 @@ int main (void)
 	configure_usart_USB();
 	configure_console();
 	printf("Hello World\n\r");
-
 	InitLCD();
-	
 	splashScreen();
-	
 	setColorRGB(0,255,0);
 	
-
 	while(1)
 	{	
 		for(int j = 0; j<23; j++)
@@ -151,16 +151,6 @@ int main (void)
 		{
 			newLine();
 		}
-		/*
-		xCharPos = 20;
-		yCharPos = 20;
-
-		writeString("This is a string");
-		newLine();
-		newLine();
-		newLine();
-
-		*/
 	}
 }
 
@@ -192,7 +182,27 @@ void configure_adc(void)
 	adc_enable(&adc_instance);
 }
 
-
+int * getScanCode(void)
+{
+	/*
+	The getScanCode returns an int array of scan codes representing
+	what keys are pressed on the keyboard. The keyboard is a 10x7 matrix,
+	and we need to collect *all* the keys currently pressed. For example,
+	to type 'A', this function will return [13, 32], because the left shift
+	is at column 1, row 3, and the 'a' key is at column 3, row 2. See
+	the schematic for details, and decodeScanCode() for some documentation.
+	
+	To get these scan codes, we first set all the rows as output, then read
+	through all the columns. If a column is high, we save that to the column
+	array. Next, we set all the columns as outputs, and read through all the
+	rows. We save the rows that are high to a second array.
+	
+	The column and row arrays are then intertwingled to produce the scan
+	code array. this is returned to whatever is calling this function.
+	*/
+	
+	
+}
 
 void splashScreen(void)
 {	
@@ -221,7 +231,7 @@ void splashScreen(void)
 		splashText[21] = "It has 69 keys.";
 		splashText[22] = "Because VT-420 was already taken";
 		splashText[23] = "Kids that knocked down stacks of blocks grew up to be security researchers.";
-		splashText[24] = "Kids that stacked the blocks grew up not hating themselves.";
+		splashText[24] = "Time travel in Star Trek is common yet always accidental";
 		splashText[25] = "Offensive hardware";
 		splashText[26] = "Follow World Pog Federation    @WorldPog";
 		splashText[27] = "Dummy thicc client";
@@ -231,7 +241,7 @@ void splashScreen(void)
 		splashText[31] = "Breadboarding Is Not A Crime";
 		splashText[32] = "Off by one errors are common";
 	
-	char *textPhrase = splashText[(rand()%128)/4];
+	const char *textPhrase = splashText[((rand()%128)/4)];
 	clearScreen();
 	setColorRGB(255,255,255);
 	drawKare(0);	
@@ -254,27 +264,27 @@ void newLine(void)
 	/*The 'soft scroll' function moves all pixels on the display up
 	20 pixels, or the height of one char. Algorithm is as follows:
 	
-	0) Set the GRAM window to a column one pixel wide (setxy)
-	from (0,20,1,480). 
+	0) Set the GRAM window to a row one pixel high (setxy).
+	example: (0,20,800,21). 
 	
 	1) Set PB07 as input. This is the data bit that will read
 	the actual pixel data from GRAM.
 	
-		1a) We use PB07 because it represents the MSB of the green
+	1a) We use PB07 because it represents the MSB of the green
 		part of the pixel; this will always be 1 if the pixel
 		is active, because the only colors we use are green,
 		white, and amber.
 		
-		1b) Configuration of pin as input is on "SAMD21/SAMR21
+	1b) Configuration of pin as input is on "SAMD21/SAMR21
 		GPIO" Tutorial (Phillip Vallone), page 38.
 		
-	2) Read the pixel data into a 1D array (first as char[460],
-	can be optimized with bitpacking. This information is on 
+	2) Read the pixel data into a 1D array (first as char[800],
+	can be optimized with bit packing. This information is on 
 	NT35510 datasheet, page 40.
 	
 	3) Set PB07 (and the rest of PB00..15) as output, set GRAM
-	to 0,0,1,480, and output contents of 1D array. Repeat this
-	800 times, for each column in the display.
+	window and output contents of 1D array. Repeat this
+	460 times, for each line in the display.
 	*/
 	
 	uint8_t rowPixel[800];
@@ -293,15 +303,15 @@ void newLine(void)
 		//Per page 40 of datasheet (5.1.2.7, 16-bit
 		//parallel interface for data ram read.
 		REG_PORT_OUTCLR1 = LCD_CS;
-		setXY(0, row+20, 800, row+20);
-		//Write 'Memory read' command
+		setXY(0, row+20, 799, row+20);
+		//Send'Memory read' command 0x2E00, no data bit
 		LCD_Write_COM16(0x2E,0x00);
 		REG_PORT_OUTSET1 = LCD_DC;
 		
-		//needs dummy write, per datasheet, page 40
+		//needs dummy write, per data sheet, page 40
 		REG_PORT_OUTCLR1 = LCD_RD;
 		REG_PORT_OUTSET1 = LCD_RD;
-
+		
 		//set PB07 to input
 		REG_PORT_DIRCLR1 = PORT_PB07;
 		PORT->Group[1].PINCFG[7].bit.INEN = 1;
@@ -309,7 +319,7 @@ void newLine(void)
 		
 		
 		//Read pixel data into the display	
-		for(uint16_t getpixel = 0 ; getpixel <= 800 ; getpixel++)
+		for(uint16_t getpixel = 0 ; getpixel < 800 ; getpixel++)
 		{
 			REG_PORT_OUTCLR1 = LCD_RD;
 			REG_PORT_OUTSET1 = LCD_RD;
@@ -323,33 +333,32 @@ void newLine(void)
 			//dummy read, because pixel data broken up
 			//per datasheet page 40.
 			REG_PORT_OUTCLR1 = LCD_RD;
-			REG_PORT_OUTSET1 = LCD_RD;		
+			REG_PORT_OUTSET1 = LCD_RD;
 		}
 		
 		REG_PORT_OUTSET1 = LCD_DC;
 		REG_PORT_DIRSET1 = 0x0000FFFF;
 		
 		//now, read out that line of the display
-		setXY(0, row, 800, row);
+		setXY(0, row, 799, row);	
 		
-		for(uint16_t writepixel = 0 ; writepixel <= 800 ; writepixel++)
+		for(uint16_t writepixel = 0 ; writepixel < 800 ; writepixel++)
 		{
 			if((rowPixel[writepixel] == 0xFF))
-			{
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
-			}
 			else
-			{
 				setPixel((back_Color_High<<8)|back_Color_Low);
-			}
 		}
 	}
-
+	//return MADCLR registers to their original state
 	REG_PORT_OUTCLR1 = LCD_DC;
 	LCD_Write_COM16(0x36, 0x00);
 	REG_PORT_OUTSET1 = LCD_DC;
 	LCD_Write_DATA8(0x80);
 	REG_PORT_OUTSET1 = LCD_CS;
+	
+	//finally, clear the last character line of the display
+	fillRectBackColor(0, 460, 799, 480);
 }
 
 void writeString(char str[])
@@ -2750,6 +2759,21 @@ void fillRect(int x1, int y1, int x2, int y2)
 	setXY(x1, y1, x2, y2);
 	REG_PORT_OUTSET1 = LCD_DC;
 	LCD_Fast_Fill(fore_Color_High, fore_Color_Low,
+	(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
+	REG_PORT_OUTSET1 = LCD_CS;
+}
+
+void fillRectBackColor(int x1, int y1, int x2, int y2)
+{
+	if (x1>x2)
+	SwapUint16(x1, x2);
+	if (y1>y2)
+	SwapUint16(y1, y2);
+	
+	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY(x1, y1, x2, y2);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Fast_Fill(back_Color_High, back_Color_Low,
 	(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
 	REG_PORT_OUTSET1 = LCD_CS;
 }
