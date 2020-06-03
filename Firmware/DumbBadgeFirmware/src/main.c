@@ -50,7 +50,8 @@ uint16_t back_Color_High, back_Color_Low;
 uint16_t display_X_size = 479;
 uint16_t display_Y_size = 799;
 
-uint8_t xCharPos, yCharPos;
+uint8_t xCharPos = 0;
+uint8_t yCharPos = 0;
 
 
 /** LOCAL PROTOTYPES **********************************************************/
@@ -105,7 +106,6 @@ typedef void (*callback)(node* data);
 
 node* create(int data,node* next);
 node* append(node* head, int data);
-node* search(node* head,int data);
 void dispose(node *head);
 int count(node *head);
 
@@ -149,8 +149,40 @@ int main (void)
 	splashScreen();
 	setColorRGB(0,255,0);
 	
+	xCharPos = 0;
+	yCharPos = 0;
+	
 	while(1)
 	{	
+		/*int scanCodes[sizeof(getScanCode())];
+		for(int i = 0; i <= sizeof(scanCodes); i++)
+		{
+			printf("%i \t",scanCodes[i]);
+		}
+		delay_ms(100);
+		*/
+		
+
+		
+		REG_PORT_DIRSET0 = 0x0000CFC3;
+		REG_PORT_OUTCLR0 = 0x0000CFC3;
+		REG_PORT_DIRCLR0 = PORT_PA20;
+		PORT->Group[0].PINCFG[20].bit.INEN = 1;
+		PORT->Group[0].PINCFG[20].bit.PULLEN = 1;
+		PORT->Group[0].WRCONFIG.bit.DRVSTR = 1;
+		REG_PORT_OUTSET0 = KB_ROW4;
+		if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
+		{
+			drawChar('a');
+			xCharPos++;
+			delay_ms(100);
+		}
+		
+	}
+}
+
+/* This is the random code that prints everything
+
 		for(int j = 0; j<23; j++)
 		{
 			for(int i = 0; i<80; i++)
@@ -165,8 +197,7 @@ int main (void)
 		{
 			newLine();
 		}
-	}
-}
+*/
 
 
 /**************************SERCOM STUFF*******************************/
@@ -207,11 +238,13 @@ node* create(int data,node* next)
 node* append(node* head, int data)
 {
 	if(head == NULL)
-	return NULL;
+		return NULL;
+		
 	/* go to the last node */
 	node *cursor = head;
+	
 	while(cursor->next != NULL)
-	cursor = cursor->next;
+		cursor = cursor->next;
 	
 	/* create a new node */
 	node* new_node =  create(data,NULL);
@@ -220,18 +253,6 @@ node* append(node* head, int data)
 	return head;
 }
 
-node* search(node* head,int data)
-{
-	
-	node *cursor = head;
-	while(cursor!=NULL)
-	{
-		if(cursor->data == data)
-		return cursor;
-		cursor = cursor->next;
-	}
-	return NULL;
-}
 
 void dispose(node *head)
 {
@@ -301,13 +322,19 @@ int * getScanCode(void)
 	*/
 	
 	node* head = NULL;
-	node* tmp = NULL;
 	
 	//Set all rows as output, low
-	REG_PORT_OUTSET0 = 0x00000000;
+	REG_PORT_DIRSET0 = 0x0000CFC3;
+	REG_PORT_OUTCLR0 = 0x0000CFC3;
 	
 	//set columns to input
-	REG_PORT_DIRCLR0 = 0xF3800000;
+	REG_PORT_DIRCLR0 = PORT_PA16;
+	REG_PORT_DIRCLR0 = PORT_PA17;
+	REG_PORT_DIRCLR0 = PORT_PA18;
+	REG_PORT_DIRCLR0 = PORT_PA19;
+	REG_PORT_DIRCLR0 = PORT_PA20;
+	REG_PORT_DIRCLR0 = PORT_PA21;
+	REG_PORT_DIRCLR0 = PORT_PA27;
 	PORT->Group[0].PINCFG[16].bit.INEN = 1;
 	PORT->Group[0].PINCFG[17].bit.INEN = 1;
 	PORT->Group[0].PINCFG[18].bit.INEN = 1;
@@ -645,7 +672,39 @@ int * getScanCode(void)
 	}
 	REG_PORT_OUTCLR0 = KB_ROW9;
 	
-
+	//The list is now populated with all of the pressed keys
+	//Now, we do some cleanup work and stuff all of the nodes
+	//into an integer array which is then returned.
+	
+	//Clean up the pins.
+	REG_PORT_OUTCLR0 = 0xF380CFC3;
+	
+	//Initialize the int array of scan codes
+	int scanCodes[(count(head))];
+	int i = 0;
+	
+	//Traverse the list, stuffing each item into the
+	//scan code array.
+	node* cursor = head;
+	while(cursor != NULL)
+	{
+		scanCodes[i] = cursor->data;
+		cursor = cursor->next;
+		i++;
+	}
+	
+	//Traverse and print the node for debugging
+	cursor = head;
+	while(cursor != NULL)
+	{
+		printf("%i", cursor->data);
+		cursor = cursor->next;
+	}
+	
+	//Finally, after all of that, we dispose of the list
+	//and return the scan codes
+	dispose(head);
+	return scanCodes;
 	
 	
 }
