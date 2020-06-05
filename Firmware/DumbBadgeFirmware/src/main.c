@@ -154,29 +154,17 @@ int main (void)
 	
 	while(1)
 	{	
-		/*int scanCodes[sizeof(getScanCode())];
+		int scanCodes[sizeof(getScanCode())];
+		memcpy(scanCodes, getScanCode(), sizeof(getScanCode()));
+		/*
 		for(int i = 0; i <= sizeof(scanCodes); i++)
 		{
 			printf("%i \t",scanCodes[i]);
+			
 		}
-		delay_ms(100);
-		*/
+		printf("\n\r");
+		*/delay_ms(1);
 		
-
-		
-		REG_PORT_DIRSET0 = 0x0000CFC3;
-		REG_PORT_OUTCLR0 = 0x0000CFC3;
-		REG_PORT_DIRCLR0 = PORT_PA20;
-		PORT->Group[0].PINCFG[20].bit.INEN = 1;
-		PORT->Group[0].PINCFG[20].bit.PULLEN = 1;
-		PORT->Group[0].WRCONFIG.bit.DRVSTR = 1;
-		REG_PORT_OUTSET0 = KB_ROW4;
-		if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
-		{
-			drawChar('a');
-			xCharPos++;
-			delay_ms(100);
-		}
 		
 	}
 }
@@ -237,19 +225,8 @@ node* create(int data,node* next)
 
 node* append(node* head, int data)
 {
-	if(head == NULL)
-		return NULL;
-		
-	/* go to the last node */
-	node *cursor = head;
-	
-	while(cursor->next != NULL)
-		cursor = cursor->next;
-	
-	/* create a new node */
-	node* new_node =  create(data,NULL);
-	cursor->next = new_node;
-	
+	node* new_node = create(data,head);
+	head = new_node;
 	return head;
 }
 
@@ -268,6 +245,7 @@ void dispose(node *head)
 			free(cursor);
 			cursor = tmp;
 		}
+		free(tmp);
 	}
 }
 
@@ -321,357 +299,362 @@ int * getScanCode(void)
 	
 	*/
 	
-	node* head = NULL;
+	//Oh fuckin awesome a list built out of pointers!
+	node* list = NULL;
 	
-	//Set all rows as output, low
-	REG_PORT_DIRSET0 = 0x0000CFC3;
-	REG_PORT_OUTCLR0 = 0x0000CFC3;
+	//Set strong drive on column
+	PORT->Group[0].WRCONFIG.bit.DRVSTR = 1;
+	
+	//Set all columns as output, low
+	REG_PORT_DIRSET0 = KB_COL0;
+	REG_PORT_DIRSET0 = KB_COL1;
+	REG_PORT_DIRSET0 = KB_COL2;
+	REG_PORT_DIRSET0 = KB_COL3;
+	REG_PORT_DIRSET0 = KB_COL4;
+	REG_PORT_DIRSET0 = KB_COL5;
+	REG_PORT_DIRSET0 = KB_COL6;
+
+	REG_PORT_OUTCLR0 = KB_COL0;
+	REG_PORT_OUTCLR0 = KB_COL1;
+	REG_PORT_OUTCLR0 = KB_COL2;
+	REG_PORT_OUTCLR0 = KB_COL3;
+	REG_PORT_OUTCLR0 = KB_COL4;
+	REG_PORT_OUTCLR0 = KB_COL5;
+	REG_PORT_OUTCLR0 = KB_COL6;
 	
 	//set columns to input
-	REG_PORT_DIRCLR0 = PORT_PA16;
-	REG_PORT_DIRCLR0 = PORT_PA17;
-	REG_PORT_DIRCLR0 = PORT_PA18;
-	REG_PORT_DIRCLR0 = PORT_PA19;
-	REG_PORT_DIRCLR0 = PORT_PA20;
-	REG_PORT_DIRCLR0 = PORT_PA21;
-	REG_PORT_DIRCLR0 = PORT_PA27;
-	PORT->Group[0].PINCFG[16].bit.INEN = 1;
-	PORT->Group[0].PINCFG[17].bit.INEN = 1;
-	PORT->Group[0].PINCFG[18].bit.INEN = 1;
-	PORT->Group[0].PINCFG[19].bit.INEN = 1;
-	PORT->Group[0].PINCFG[20].bit.INEN = 1;
-	PORT->Group[0].PINCFG[21].bit.INEN = 1;
-	PORT->Group[0].PINCFG[27].bit.INEN = 1;
+	PORT->Group[0].PINCFG[02].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[03].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[04].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[05].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[06].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[07].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[10].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[11].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[12].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[13].bit.PULLEN = 1;
 	
-	PORT->Group[0].PINCFG[16].bit.PULLEN = 1;
-	PORT->Group[0].PINCFG[17].bit.PULLEN = 1;
-	PORT->Group[0].PINCFG[18].bit.PULLEN = 1;
-	PORT->Group[0].PINCFG[19].bit.PULLEN = 1;
-	PORT->Group[0].PINCFG[20].bit.PULLEN = 1;
-	PORT->Group[0].PINCFG[21].bit.PULLEN = 1;
-	PORT->Group[0].PINCFG[27].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[02].bit.INEN = 1;
+	PORT->Group[0].PINCFG[03].bit.INEN = 1;
+	PORT->Group[0].PINCFG[04].bit.INEN = 1;
+	PORT->Group[0].PINCFG[05].bit.INEN = 1;
+	PORT->Group[0].PINCFG[06].bit.INEN = 1;
+	PORT->Group[0].PINCFG[07].bit.INEN = 1;
+	PORT->Group[0].PINCFG[10].bit.INEN = 1;
+	PORT->Group[0].PINCFG[11].bit.INEN = 1;
+	PORT->Group[0].PINCFG[12].bit.INEN = 1;
+	PORT->Group[0].PINCFG[13].bit.INEN = 1;
 	
-	//Step through columns, if high, save that column.
-	//This is KB_ROW0
-	REG_PORT_OUTSET0 = KB_ROW0;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
-	{
-		head = append(head,00);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
-	{
-		head = append(head,01);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
-	{
-		head = append(head,02);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
-	{
-		head = append(head,03);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
-	{
-		head = append(head,04);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
-	{
-		head = append(head,05);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
-	{
-		head = append(head,06);
-	}
-	REG_PORT_OUTCLR0 = KB_ROW0;
 		
-	//This is KB_ROW1
-	REG_PORT_OUTSET0 = KB_ROW1;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
+	//Step through columns, if high, save that column.
+	//This is column 0
+	REG_PORT_OUTSET0 = KB_COL0;
+	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		head = append(head,10);
+		list = append(list,0);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		head = append(head,11);
+		list = append(list,1);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		head = append(head,12);
+		list = append(list,2);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		head = append(head,13);
+		list = append(list,3);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		head = append(head,14);
+		list = append(list,4);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		head = append(head,15);
+		list = append(list,5);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		head = append(head,16);
+		list = append(list,6);
 	}
-	REG_PORT_OUTCLR0 = KB_ROW1;
+	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
+	{
+		list = append(list,7);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
+	{
+		list = append(list,8);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
+	{
+		list = append(list,9);
+	}
+	REG_PORT_OUTCLR0 = KB_COL0;
 	
-	//This is KB_ROW2
-	REG_PORT_OUTSET0 = KB_ROW2;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
+	//This is column 1
+	REG_PORT_OUTSET0 = KB_COL1;
+	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		head = append(head,20);
+		list = append(list,10);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		head = append(head,21);
+		list = append(list,11);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		head = append(head,22);
+		list = append(list,12);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		head = append(head,23);
+		list = append(list,13);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		head = append(head,24);
+		list = append(list,14);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		head = append(head,25);
+		list = append(list,15);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		head = append(head,26);
+		list = append(list,16);
 	}
-	REG_PORT_OUTCLR0 = KB_ROW2;
+	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
+	{
+		list = append(list,17);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
+	{
+		list = append(list,18);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
+	{
+		list = append(list,19);
+	}
+	REG_PORT_OUTCLR0 = KB_COL1;
 	
-	//This is KB_ROW3
-	REG_PORT_OUTSET0 = KB_ROW3;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
+	//This is column 2
+	REG_PORT_OUTSET0 = KB_COL2;
+	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		head = append(head,30);
+		list = append(list,20);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		head = append(head,31);
+		list = append(list,21);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		head = append(head,32);
+		list = append(list,22);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		head = append(head,33);
+		list = append(list,23);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		head = append(head,34);
+		list = append(list,24);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		head = append(head,35);
+		list = append(list,25);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		head = append(head,36);
+		list = append(list,26);
 	}
-	REG_PORT_OUTCLR0 = KB_ROW3;
+	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
+	{
+		list = append(list,27);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
+	{
+		list = append(list,28);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
+	{
+		list = append(list,29);
+	}			
+	REG_PORT_OUTCLR0 = KB_COL2;
 	
-	//This is KB_ROW4
-	REG_PORT_OUTSET0 = KB_ROW4;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
+	//This is column 3
+	REG_PORT_OUTSET0 = KB_COL3;
+	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		head = append(head,40);
+		list = append(list,30);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		head = append(head,41);
+		list = append(list,31);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		head = append(head,42);
+		list = append(list,32);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		head = append(head,43);
+		list = append(list,33);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		head = append(head,44);
+		list = append(list,34);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		head = append(head,45);
+		list = append(list,35);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		head = append(head,46);
+		list = append(list,36);
 	}
-	REG_PORT_OUTCLR0 = KB_ROW4;
+	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
+	{
+		list = append(list,37);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
+	{
+		list = append(list,38);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
+	{
+		list = append(list,39);
+	}
+	REG_PORT_OUTCLR0 = KB_COL3;
 	
-	//This is KB_ROW5
-	REG_PORT_OUTSET0 = KB_ROW5;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
+	//This is column 4
+	REG_PORT_OUTSET0 = KB_COL4;
+	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		head = append(head,50);
+		list = append(list,40);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		head = append(head,51);
+		list = append(list,41);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		head = append(head,52);
+		list = append(list,42);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		head = append(head,53);
+		list = append(list,43);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		head = append(head,54);
+		list = append(list,44);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		head = append(head,55);
+		list = append(list,45);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		head = append(head,56);
+		list = append(list,46);
 	}
-	REG_PORT_OUTCLR0 = KB_ROW5;
+	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
+	{
+		list = append(list,47);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
+	{
+		list = append(list,48);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
+	{
+		list = append(list,49);
+	}
+	REG_PORT_OUTCLR0 = KB_COL4;
 	
-	//This is KB_ROW6
-	REG_PORT_OUTSET0 = KB_ROW6;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
+	//This is column 5
+	REG_PORT_OUTSET0 = KB_COL5;
+	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		head = append(head,60);
+		list = append(list,50);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		head = append(head,61);
+		list = append(list,51);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		head = append(head,62);
+		list = append(list,52);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		head = append(head,63);
+		list = append(list,53);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		head = append(head,64);
+		list = append(list,54);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		head = append(head,65);
+		list = append(list,55);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		head = append(head,66);
+		list = append(list,56);
 	}
-	REG_PORT_OUTCLR0 = KB_ROW6;
+	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
+	{
+		list = append(list,57);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
+	{
+		list = append(list,58);
+	}
+	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
+	{
+		list = append(list,59);
+	}
+	REG_PORT_OUTCLR0 = KB_COL5;
 	
-	//This is KB_ROW7
-	REG_PORT_OUTSET0 = KB_ROW7;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
+	//This is column 6
+	REG_PORT_OUTSET0 = KB_COL6;
+	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		head = append(head,70);
+		list = append(list,60);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		head = append(head,71);
+		list = append(list,61);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		head = append(head,72);
+		list = append(list,62);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		head = append(head,73);
+		list = append(list,63);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		head = append(head,74);
+		list = append(list,64);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		head = append(head,75);
+		list = append(list,65);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		head = append(head,76);
+		list = append(list,66);
 	}
-	REG_PORT_OUTCLR0 = KB_ROW7;
-	
-	//This is KB_ROW8
-	REG_PORT_OUTSET0 = KB_ROW8;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
 	{
-		head = append(head,80);
+		list = append(list,67);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
 	{
-		head = append(head,81);
+		list = append(list,68);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
+	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
 	{
-		head = append(head,82);
+		list = append(list,69);
 	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
-	{
-		head = append(head,83);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
-	{
-		head = append(head,84);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
-	{
-		head = append(head,85);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
-	{
-		head = append(head,86);
-	}
-	REG_PORT_OUTCLR0 = KB_ROW8;
-	
-	//This is KB_ROW9
-	REG_PORT_OUTSET0 = KB_ROW9;
-	if((PORT->Group[0].IN.reg & PORT_PA16) != 0)
-	{
-		head = append(head,90);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA17) != 0)
-	{
-		head = append(head,91);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA18) != 0)
-	{
-		head = append(head,92);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA19) != 0)
-	{
-		head = append(head,93);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA20) != 0)
-	{
-		head = append(head,94);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA21) != 0)
-	{
-		head = append(head,95);
-	}
-	if((PORT->Group[0].IN.reg & PORT_PA27) != 0)
-	{
-		head = append(head,96);
-	}
-	REG_PORT_OUTCLR0 = KB_ROW9;
-	
+	REG_PORT_OUTCLR0 = KB_COL6;
+		
 	//The list is now populated with all of the pressed keys
 	//Now, we do some cleanup work and stuff all of the nodes
 	//into an integer array which is then returned.
@@ -680,12 +663,12 @@ int * getScanCode(void)
 	REG_PORT_OUTCLR0 = 0xF380CFC3;
 	
 	//Initialize the int array of scan codes
-	int scanCodes[(count(head))];
+	int scanCodes[(count(list))];
 	int i = 0;
 	
 	//Traverse the list, stuffing each item into the
 	//scan code array.
-	node* cursor = head;
+	node* cursor = list;
 	while(cursor != NULL)
 	{
 		scanCodes[i] = cursor->data;
@@ -694,18 +677,19 @@ int * getScanCode(void)
 	}
 	
 	//Traverse and print the node for debugging
-	cursor = head;
+	printf("Keys pressed: %i \t",count(list));
+	cursor = list;
 	while(cursor != NULL)
 	{
-		printf("%i", cursor->data);
+		printf("%i, ", cursor->data);
 		cursor = cursor->next;
 	}
-	
+	printf("\n\r");
 	//Finally, after all of that, we dispose of the list
 	//and return the scan codes
-	dispose(head);
+	dispose(list);
+	free(cursor);
 	return scanCodes;
-	
 	
 }
 
