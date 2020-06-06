@@ -194,7 +194,7 @@ void configure_adc(void)
 {
 	struct adc_config config_adc;
 	adc_get_config_defaults(&config_adc);
-	config_adc.positive_input = ADC_POSITIVE_INPUT_TEMP;
+	config_adc.positive_input = ADC_POSITIVE_INPUT_DAC;
 	adc_init(&adc_instance, ADC, &config_adc);
 	adc_enable(&adc_instance);
 }

@@ -5628,8 +5628,8 @@ void configure_adc(void)
     1c80:	4668      	mov	r0, sp
     1c82:	4b11      	ldr	r3, [pc, #68]	; (1cc8 <configure_adc+0x4c>)
     1c84:	4798      	blx	r3
-	config_adc.positive_input = ADC_POSITIVE_INPUT_TEMP;
-    1c86:	2318      	movs	r3, #24
+	config_adc.positive_input = ADC_POSITIVE_INPUT_DAC;
+    1c86:	231c      	movs	r3, #28
     1c88:	466a      	mov	r2, sp
     1c8a:	7313      	strb	r3, [r2, #12]
 	adc_init(&adc_instance, ADC, &config_adc);
