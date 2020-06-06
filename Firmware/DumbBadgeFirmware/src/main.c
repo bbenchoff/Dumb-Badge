@@ -6,9 +6,6 @@
 */
 #include <asf.h>
 #include <string.h>
-#include <ctype.h>
-
-
 
 #include "config_usart.h"
 #include "conf_clocks.h"
@@ -95,20 +92,6 @@ void configure_adc(void);
 
 struct usart_module usart_USB;
 struct adc_module adc_instance;
-
-
-typedef struct node{
-	int data;
-	struct node* next;
-} node;
-
-typedef void (*callback)(node* data);
-
-node* create(int data,node* next);
-node* append(node* head, int data);
-void dispose(node *head);
-int count(node *head);
-
 
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
@@ -211,55 +194,11 @@ void configure_adc(void)
 {
 	struct adc_config config_adc;
 	adc_get_config_defaults(&config_adc);
+	config_adc.positive_input = ADC_POSITIVE_INPUT_TEMP;
 	adc_init(&adc_instance, ADC, &config_adc);
 	adc_enable(&adc_instance);
 }
 
-node* create(int data,node* next)
-{
-	node* new_node = (node*)malloc(sizeof(node));
-	new_node->data = data;
-	new_node->next = next;
-	return new_node;
-}
-
-node* append(node* head, int data)
-{
-	node* new_node = create(data,head);
-	head = new_node;
-	return head;
-}
-
-
-void dispose(node *head)
-{
-	node *cursor, *tmp;
-	
-	if(head != NULL)
-	{
-		cursor = head->next;
-		head->next = NULL;
-		while(cursor != NULL)
-		{
-			tmp = cursor->next;
-			free(cursor);
-			cursor = tmp;
-		}
-		free(tmp);
-	}
-}
-
-int count(node *head)
-{
-	node *cursor = head;
-	int c = 0;
-	while(cursor != NULL)
-	{
-		c++;
-		cursor = cursor->next;
-	}
-	return c;
-}
 
 int * getScanCode(void)
 {
@@ -270,15 +209,6 @@ int * getScanCode(void)
 	to type 'A', this function will return [13, 32], because the left shift
 	is at column 1, row 3, and the 'a' key is at column 3, row 2. See
 	the schematic for details, and decodeScanCode() for some documentation.
-	
-	To get these scan codes, we first set KB_ROW0 as an output high,
-	with all other KB_ROWs low. Then, we step through the columns, seeing if
-	they're high. If they are high, we stuff that into a list, where the data
-	is an integer, the decade is the row, and the ones digit is the column.
-	This is done ten times, for each row in the keyboard array.
-	
-	Once that is done, we read out the linked list into an integer array,
-	where the length of the array is the number of keys currently being pressed.
 	
 	Relevant information:
 	------------------------------------------------------------------------
@@ -296,11 +226,10 @@ int * getScanCode(void)
 	Key Column Bitmask:		0xF3800000
 	Key Row Bitmask:		0x0000CFC3
 	Combined:				0xF380CFC3
-	
 	*/
-	
-	//Oh fuckin awesome a list built out of pointers!
-	node* list = NULL;
+		
+	int scanCodeIndex = 0;
+	int scanCodes[70];
 	
 	//Set strong drive on column
 	PORT->Group[0].WRCONFIG.bit.DRVSTR = 1;
@@ -322,7 +251,7 @@ int * getScanCode(void)
 	REG_PORT_OUTCLR0 = KB_COL5;
 	REG_PORT_OUTCLR0 = KB_COL6;
 	
-	//set columns to input
+	//set rows to input, pullup enabled
 	PORT->Group[0].PINCFG[02].bit.PULLEN = 1;
 	PORT->Group[0].PINCFG[03].bit.PULLEN = 1;
 	PORT->Group[0].PINCFG[04].bit.PULLEN = 1;
@@ -345,49 +274,50 @@ int * getScanCode(void)
 	PORT->Group[0].PINCFG[12].bit.INEN = 1;
 	PORT->Group[0].PINCFG[13].bit.INEN = 1;
 	
+	
 		
 	//Step through columns, if high, save that column.
 	//This is column 0
 	REG_PORT_OUTSET0 = KB_COL0;
 	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		list = append(list,0);
+		scanCodes[scanCodeIndex] = 0; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		list = append(list,1);
+		scanCodes[scanCodeIndex] = 1; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		list = append(list,2);
+		scanCodes[scanCodeIndex] = 2; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		list = append(list,3);
+		scanCodes[scanCodeIndex] = 3; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		list = append(list,4);
+		scanCodes[scanCodeIndex] = 4; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		list = append(list,5);
+		scanCodes[scanCodeIndex] = 5; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		list = append(list,6);
+		scanCodes[scanCodeIndex] = 6; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
 	{
-		list = append(list,7);
+		scanCodes[scanCodeIndex] = 7; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
 	{
-		list = append(list,8);
+		scanCodes[scanCodeIndex] = 8; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
 	{
-		list = append(list,9);
+		scanCodes[scanCodeIndex] = 9; scanCodeIndex++;
 	}
 	REG_PORT_OUTCLR0 = KB_COL0;
 	
@@ -395,131 +325,135 @@ int * getScanCode(void)
 	REG_PORT_OUTSET0 = KB_COL1;
 	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		list = append(list,10);
+		scanCodes[scanCodeIndex] = 10; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		list = append(list,11);
+		scanCodes[scanCodeIndex] = 11; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		list = append(list,12);
+		scanCodes[scanCodeIndex] = 12; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		list = append(list,13);
+		scanCodes[scanCodeIndex] = 13; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		list = append(list,14);
+		scanCodes[scanCodeIndex] = 14; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		list = append(list,15);
+		scanCodes[scanCodeIndex] = 15; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		list = append(list,16);
+		scanCodes[scanCodeIndex] = 16; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
 	{
-		list = append(list,17);
+		scanCodes[scanCodeIndex] = 17; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
 	{
-		list = append(list,18);
+		scanCodes[scanCodeIndex] = 18; scanCodeIndex++;
 	}
+	/*We don't use column 1, row 9 because it's not
+	used as a key in the kb matrix  --  possible fun
+	stuff here in the future!
 	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
 	{
-		list = append(list,19);
+		scanCodes[scanCodeIndex] = 19; scanCodeIndex++;
 	}
+	*/
 	REG_PORT_OUTCLR0 = KB_COL1;
 	
 	//This is column 2
 	REG_PORT_OUTSET0 = KB_COL2;
 	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		list = append(list,20);
+		scanCodes[scanCodeIndex] = 20; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		list = append(list,21);
+		scanCodes[scanCodeIndex] = 21; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		list = append(list,22);
+		scanCodes[scanCodeIndex] = 22; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		list = append(list,23);
+		scanCodes[scanCodeIndex] = 23; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		list = append(list,24);
+		scanCodes[scanCodeIndex] = 24; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		list = append(list,25);
+		scanCodes[scanCodeIndex] = 25; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		list = append(list,26);
+		scanCodes[scanCodeIndex] = 26; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
 	{
-		list = append(list,27);
+		scanCodes[scanCodeIndex] = 27; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
 	{
-		list = append(list,28);
+		scanCodes[scanCodeIndex] = 28; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
 	{
-		list = append(list,29);
-	}			
+		scanCodes[scanCodeIndex] = 29; scanCodeIndex++;
+	}
 	REG_PORT_OUTCLR0 = KB_COL2;
 	
 	//This is column 3
 	REG_PORT_OUTSET0 = KB_COL3;
 	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		list = append(list,30);
+		scanCodes[scanCodeIndex] = 30; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		list = append(list,31);
+		scanCodes[scanCodeIndex] = 31; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		list = append(list,32);
+		scanCodes[scanCodeIndex] = 32; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		list = append(list,33);
+		scanCodes[scanCodeIndex] = 33; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		list = append(list,34);
+		scanCodes[scanCodeIndex] = 34; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		list = append(list,35);
+		scanCodes[scanCodeIndex] = 35; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		list = append(list,36);
+		scanCodes[scanCodeIndex] = 36; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
 	{
-		list = append(list,37);
+		scanCodes[scanCodeIndex] = 37; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
 	{
-		list = append(list,38);
+		scanCodes[scanCodeIndex] = 38; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
 	{
-		list = append(list,39);
+		scanCodes[scanCodeIndex] = 39; scanCodeIndex++;
 	}
 	REG_PORT_OUTCLR0 = KB_COL3;
 	
@@ -527,43 +461,43 @@ int * getScanCode(void)
 	REG_PORT_OUTSET0 = KB_COL4;
 	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		list = append(list,40);
+		scanCodes[scanCodeIndex] = 40; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		list = append(list,41);
+		scanCodes[scanCodeIndex] = 41; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		list = append(list,42);
+		scanCodes[scanCodeIndex] = 42; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		list = append(list,43);
+		scanCodes[scanCodeIndex] = 43; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		list = append(list,44);
+		scanCodes[scanCodeIndex] = 44; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		list = append(list,45);
+		scanCodes[scanCodeIndex] = 45; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		list = append(list,46);
+		scanCodes[scanCodeIndex] = 46; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
 	{
-		list = append(list,47);
+		scanCodes[scanCodeIndex] = 47; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
 	{
-		list = append(list,48);
+		scanCodes[scanCodeIndex] = 48; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
 	{
-		list = append(list,49);
+		scanCodes[scanCodeIndex] = 49; scanCodeIndex++;
 	}
 	REG_PORT_OUTCLR0 = KB_COL4;
 	
@@ -571,43 +505,43 @@ int * getScanCode(void)
 	REG_PORT_OUTSET0 = KB_COL5;
 	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		list = append(list,50);
+		scanCodes[scanCodeIndex] = 50; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		list = append(list,51);
+		scanCodes[scanCodeIndex] = 51; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		list = append(list,52);
+		scanCodes[scanCodeIndex] = 52; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		list = append(list,53);
+		scanCodes[scanCodeIndex] = 53; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		list = append(list,54);
+		scanCodes[scanCodeIndex] = 54; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		list = append(list,55);
+		scanCodes[scanCodeIndex] = 55; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		list = append(list,56);
+		scanCodes[scanCodeIndex] = 56; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
 	{
-		list = append(list,57);
+		scanCodes[scanCodeIndex] = 57; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
 	{
-		list = append(list,58);
+		scanCodes[scanCodeIndex] = 58; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
 	{
-		list = append(list,59);
+		scanCodes[scanCodeIndex] = 59; scanCodeIndex++;
 	}
 	REG_PORT_OUTCLR0 = KB_COL5;
 	
@@ -615,81 +549,63 @@ int * getScanCode(void)
 	REG_PORT_OUTSET0 = KB_COL6;
 	if((PORT->Group[0].IN.reg & KB_ROW0) != 0)
 	{
-		list = append(list,60);
+		scanCodes[scanCodeIndex] = 60; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW1) != 0)
 	{
-		list = append(list,61);
+		scanCodes[scanCodeIndex] = 61; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW2) != 0)
 	{
-		list = append(list,62);
+		scanCodes[scanCodeIndex] = 62; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW3) != 0)
 	{
-		list = append(list,63);
+		scanCodes[scanCodeIndex] = 63; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW4) != 0)
 	{
-		list = append(list,64);
+		scanCodes[scanCodeIndex] = 64; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW5) != 0)
 	{
-		list = append(list,65);
+		scanCodes[scanCodeIndex] = 65; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW6) != 0)
 	{
-		list = append(list,66);
+		scanCodes[scanCodeIndex] = 66; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW7) != 0)
 	{
-		list = append(list,67);
+		scanCodes[scanCodeIndex] = 67; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW8) != 0)
 	{
-		list = append(list,68);
+		scanCodes[scanCodeIndex] = 68; scanCodeIndex++;
 	}
 	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
 	{
-		list = append(list,69);
+		scanCodes[scanCodeIndex] = 69; scanCodeIndex++; //nice.
 	}
 	REG_PORT_OUTCLR0 = KB_COL6;
 		
-	//The list is now populated with all of the pressed keys
-	//Now, we do some cleanup work and stuff all of the nodes
-	//into an integer array which is then returned.
-	
-	//Clean up the pins.
-	REG_PORT_OUTCLR0 = 0xF380CFC3;
 	
 	//Initialize the int array of scan codes
-	int scanCodes[(count(list))];
-	int i = 0;
-	
-	//Traverse the list, stuffing each item into the
-	//scan code array.
-	node* cursor = list;
-	while(cursor != NULL)
+	int sendScanCodes[scanCodeIndex];
+		
+	//Go through the array, print the result
+	//and stuff them into the scancode array
+	printf("Keys pressed: %i \t", scanCodeIndex);
+	for(int i = 0; i < scanCodeIndex; i++)
 	{
-		scanCodes[i] = cursor->data;
-		cursor = cursor->next;
-		i++;
-	}
-	
-	//Traverse and print the node for debugging
-	printf("Keys pressed: %i \t",count(list));
-	cursor = list;
-	while(cursor != NULL)
-	{
-		printf("%i, ", cursor->data);
-		cursor = cursor->next;
+		printf("%i, ", scanCodes[i]);
+		sendScanCodes[i] = scanCodes[i];
 	}
 	printf("\n\r");
+	
 	//Finally, after all of that, we dispose of the list
 	//and return the scan codes
-	dispose(list);
-	free(cursor);
-	return scanCodes;
+	return sendScanCodes;
 	
 }
 

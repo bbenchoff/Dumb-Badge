@@ -86,7 +86,7 @@ void adc_get_config_defaults(struct adc_config *const config)
 #if SAMR21
 	config->positive_input                = ADC_POSITIVE_INPUT_PIN6 ;
 #else
- 	config->positive_input                = ADC_POSITIVE_INPUT_PIN0 ;
+ 	//config->positive_input                = ADC_POSITIVE_INPUT_PIN0 ;
 #endif
 	config->negative_input                = ADC_NEGATIVE_INPUT_GND ;
 	config->accumulate_samples            = ADC_ACCUMULATE_DISABLE;
