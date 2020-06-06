@@ -612,44 +612,54 @@ int * getScanCode(void)
 void splashScreen(void)
 {	
 	const char *splashText[31];
-		splashText[0] = "Unix epoch minus 0xFF days";
-		splashText[1] = "3987^12 + 4365^12 = 4472^12";
-		splashText[2] = "Reticulating Splines";
-		splashText[3] = "Violence works";
+		splashText[0] = "Unix epoch minus 0xFF days";//
+		splashText[1] = "13^5 + 16^5 = 17^5";//
+		splashText[2] = "Reticulating Splines";//
+		splashText[3] = "Violence works";//
 		splashText[4] = "Tabs!";
-		splashText[5] = "Kill Billionaires (and Trillionaire)";
-		splashText[6] = "Interest in technology is not a personality";
+		splashText[5] = "Kill Billionaires (and Trillionaire)";//
+		splashText[6] = "Interest in technology is not a personality";//
 		splashText[7] = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";
-		splashText[8] = "No gods. No masters. No external libraries.";
-		splashText[9] = "Spaces!";
-		splashText[10] = "Tiananmen Square 1989";
+		splashText[8] = "No gods. No masters. No external libraries.";//
+		splashText[9] = "Spaces!";//
+		splashText[10] = "Tiananmen Square 1989";//
 		splashText[11] = "America was founded on slavery";
 		splashText[12] = "There is only capital and labor";
 		splashText[13] = "Encourage symmetric class warfare";
-		splashText[14] = "$CURRENT_MEME";
+		splashText[14] = "$CURRENT_MEME";//
 		splashText[15] = "A Nice TTY";
-		splashText[16] = "Trans rights are human rights";
-		splashText[17] = "John Carpenter's Escape From San Francisco";
-		splashText[18] = "Thinking: What you do when you can't just put it into an AWS bucket.";
-		splashText[19] = "Defcon's canceled.";
-		splashText[20] = "Ratsnest: Nothing To Do!";
-		splashText[21] = "It has 69 keys.";
-		splashText[22] = "Because VT-420 was already taken";
-		splashText[23] = "Kids that knocked down stacks of blocks grew up to be security researchers.";
-		splashText[24] = "Time travel in Star Trek is common yet always accidental";
-		splashText[25] = "Offensive hardware";
-		splashText[26] = "Follow World Pog Federation    @WorldPog";
-		splashText[27] = "Dummy thicc client";
-		splashText[28] = "A Nice TTY. An OK Computer.";
-		splashText[29] = "I cAn OpEn A LoCk WiTh A sOdA cAn";
-		splashText[30] = "Solidarity is not a new framework";
+		splashText[16] = "Trans rights are human rights";//
+		splashText[17] = "John Carpenter's Escape From San Francisco";//
+		splashText[18] = "ACAB";//
+		splashText[19] = "Defcon's canceled.";//
+		splashText[20] = "Ratsnest: Nothing To Do!";//
+		splashText[21] = "It has 69 keys.";//
+		splashText[22] = "Because VT-420 was already taken";//
+		splashText[23] = "Compression algorithm based on BBP (1997)";//
+		splashText[24] = "Time travel in Star Trek is common yet almost always accidental";
+		splashText[25] = "Offensive hardware";//
+		splashText[26] = "Follow World Pog Federation    @WorldPog";//
+		splashText[27] = "Dummy thicc client";//
+		splashText[28] = "A Nice TTY. An OK Computer.";//
+		splashText[29] = "I cAn OpEn A LoCk WiTh A sOdA cAn";//
+		splashText[30] = "Solidarity is not a new framework";//
 		splashText[31] = "Breadboarding Is Not A Crime";
 		splashText[32] = "Off by one errors are common";
 	
-	const char *textPhrase = splashText[((rand()%128)/4)];
+	const char *textPhrase = splashText[((rand()%32))];
+	
+		
 	clearScreen();
 	setColorRGB(255,255,255);
-	drawKare(0);	
+	
+	REG_PORT_DIRTGL1 = PORT_PB31;
+	PORT->Group[1].PINCFG[31].bit.PULLEN = 1;
+	PORT->Group[1].PINCFG[31].bit.INEN = 1;
+	if((PORT->Group[1].IN.reg & PORT_PB31) != 0)
+		drawKare(1);
+	else
+		drawKare(0);
+		
 	setDrawDirection();
 	
 	xCharPos = 40 - (strlen(textPhrase)/2);
