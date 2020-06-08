@@ -50,6 +50,9 @@ uint16_t display_Y_size = 799;
 uint8_t xCharPos = 0;
 uint8_t yCharPos = 0;
 
+char buffer[10] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+bool capsLock = false;
+bool scrollLock = false;
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -76,6 +79,8 @@ void setDrawDirection(void);
 void drawChar(uint8_t character);
 void newLine(void);
 
+void printBuffer(void);
+
 void clearScreen(void);
 void fillRect(int x1, int y1, int x2, int y2);
 void fillRectBackColor(int x1, int y1, int x2, int y2);
@@ -85,7 +90,8 @@ void splashScreen(void);
 void splash(void);
 void writeString(char str[]);
 
-int * getScanCode(void);
+
+void readKeyboard(void);
 
 void configure_usart_USB(void);
 void configure_adc(void);
@@ -137,18 +143,9 @@ int main (void)
 	
 	while(1)
 	{	
-		int scanCodes[sizeof(getScanCode())];
-		memcpy(scanCodes, getScanCode(), sizeof(getScanCode()));
-		/*
-		for(int i = 0; i <= sizeof(scanCodes); i++)
-		{
-			printf("%i \t",scanCodes[i]);
-			
-		}
-		printf("\n\r");
-		*/delay_ms(1);
-		
-		
+		readKeyboard();
+		printBuffer();
+		delay_ms(100);
 	}
 }
 
@@ -199,14 +196,77 @@ void configure_adc(void)
 	adc_enable(&adc_instance);
 }
 
+void printBuffer(void)
+{
+	
+	char unModded[] = {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
+					   0x37,0x75,0x67,0x6A,0x2C,	//Col0, Row5-9
+					   0x31,0x71,0xFF,0xFF,0xFF,	//Col1, Row0-4
+					   0x38,0x69,0x68,0x6B,0xFF,	//Col1, Row5-9
+					   0x32,0x77,0xFF,0x7A,0xFF,	//Col2, Row0-4
+					   0x39,0x30,0x6F,0x6C,0x2E,	//Col2, Row5-9
+					   0x33,0x65,0x61,0x78,0xFF,	//Col3, Row0-4
+					   0xFF,0x2D,0x70,0x3B,0x2F,	//Col3, Row5-9
+					   0x34,0x72,0x73,0x63,0x20,	//Col4, Row0-4
+					   0xFF,0x3D,0x5B,0x27,0xFF,	//Col4, Row5-9
+					   0x35,0x74,0x64,0x76,0x6E,	//Col5, Row0-4
+					   0xFF,0x27,0x5D,0xFF,0x5C,	//Col5, Row5-9
+					   0x36,0x79,0x66,0x62,0x6D,	//Col6, Row0-4
+					   0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row5-9	
+	
+	for(int i=0; i<10; i++)
+	{
+		if(buffer[i] == 0xFF)
+		{
+			//do nothing
+		}
+		else if(buffer[i] == 0x0D)
+		{
+			if(yCharPos == 24)
+			{
+				newLine();
+				xCharPos = 0;
+			}
+			else
+			{
+				yCharPos++;
+				xCharPos = 0;
+			}
+		}
+		else if(buffer[i] == 0x0A)
+		{
+			if(yCharPos == 24)
+			{
+				newLine();
+			}
+			else
+			{
+				yCharPos++;
+			}
+		}
+		else
+		{
+			drawChar(unModded[buffer[i]]);
+			xCharPos++;
+		}
+	}
+	
+	//Reset the buffer.
+	for(int i = 0 ; i < 10 ; i++)
+	{
+		buffer[i] = 0xFF;
+	}
 
-int * getScanCode(void)
+}
+
+
+void readKeyboard(void)
 {
 	/*
 	The getScanCode returns an int array of scan codes representing
 	what keys are pressed on the keyboard. The keyboard is a 10x7 matrix,
 	and we need to collect *all* the keys currently pressed. For example,
-	to type 'A', this function will return [13, 32], because the left shift
+	to type 'A', this function generates [12, 33], because the left shift
 	is at column 1, row 3, and the 'a' key is at column 3, row 2. See
 	the schematic for details, and decodeScanCode() for some documentation.
 	
@@ -227,9 +287,10 @@ int * getScanCode(void)
 	Key Row Bitmask:		0x0000CFC3
 	Combined:				0xF380CFC3
 	*/
+	
 		
 	int scanCodeIndex = 0;
-	int scanCodes[70];
+	int scanCodes[10];
 	
 	//Set strong drive on column
 	PORT->Group[0].WRCONFIG.bit.DRVSTR = 1;
@@ -273,9 +334,7 @@ int * getScanCode(void)
 	PORT->Group[0].PINCFG[11].bit.INEN = 1;
 	PORT->Group[0].PINCFG[12].bit.INEN = 1;
 	PORT->Group[0].PINCFG[13].bit.INEN = 1;
-	
-	
-		
+			
 	//Step through columns, if high, save that column.
 	//This is column 0
 	REG_PORT_OUTSET0 = KB_COL0;
@@ -599,37 +658,37 @@ int * getScanCode(void)
 	for(int i = 0; i < scanCodeIndex; i++)
 	{
 		printf("%i, ", scanCodes[i]);
-		sendScanCodes[i] = scanCodes[i];
+		buffer[i] = scanCodes[i];
 	}
 	printf("\n\r");
 	
-	//Finally, after all of that, we dispose of the list
-	//and return the scan codes
-	return sendScanCodes;
+	
+	
+	
 	
 }
 
 void splashScreen(void)
 {	
-	const char *splashText[31];
+	static const char *splashText[32];
 		splashText[0] = "Unix epoch minus 0xFF days";//
 		splashText[1] = "13^5 + 16^5 = 17^5";//
 		splashText[2] = "Reticulating Splines";//
 		splashText[3] = "Violence works";//
-		splashText[4] = "Tabs!";
+		splashText[4] = "Tabs!";//
 		splashText[5] = "Kill Billionaires (and Trillionaire)";//
 		splashText[6] = "Interest in technology is not a personality";//
-		splashText[7] = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";
+		splashText[7] = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";//
 		splashText[8] = "No gods. No masters. No external libraries.";//
 		splashText[9] = "Spaces!";//
 		splashText[10] = "Tiananmen Square 1989";//
 		splashText[11] = "America was founded on slavery";
-		splashText[12] = "There is only capital and labor";
+		splashText[12] = "There is only capital and labor";//
 		splashText[13] = "Encourage symmetric class warfare";
 		splashText[14] = "$CURRENT_MEME";//
-		splashText[15] = "A Nice TTY";
+		splashText[15] = "A Nice TTY";//
 		splashText[16] = "Trans rights are human rights";//
-		splashText[17] = "John Carpenter's Escape From San Francisco";//
+		splashText[17] = "i  = 0x5f3759df - ( i >> 1 );";//
 		splashText[18] = "ACAB";//
 		splashText[19] = "Defcon's canceled.";//
 		splashText[20] = "Ratsnest: Nothing To Do!";//
@@ -643,7 +702,7 @@ void splashScreen(void)
 		splashText[28] = "A Nice TTY. An OK Computer.";//
 		splashText[29] = "I cAn OpEn A LoCk WiTh A sOdA cAn";//
 		splashText[30] = "Solidarity is not a new framework";//
-		splashText[31] = "Breadboarding Is Not A Crime";
+		splashText[31] = "Breadboarding Is Not A Crime";//
 		splashText[32] = "Off by one errors are common";
 	
 	const char *textPhrase = splashText[((rand()%32))];
@@ -656,7 +715,11 @@ void splashScreen(void)
 	PORT->Group[1].PINCFG[31].bit.PULLEN = 1;
 	PORT->Group[1].PINCFG[31].bit.INEN = 1;
 	if((PORT->Group[1].IN.reg & PORT_PB31) != 0)
+	{
+		//This is the 'pi' graphic; put some codes
+		//here to handle setting up the uarts.
 		drawKare(1);
+	}
 	else
 		drawKare(0);
 		
@@ -3286,7 +3349,3 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 
 	LCD_Write_COM16(0x2c,0x00);
 }
-
-
-
-
