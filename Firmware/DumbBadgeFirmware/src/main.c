@@ -50,7 +50,8 @@ uint16_t display_Y_size = 799;
 uint8_t xCharPos = 0;
 uint8_t yCharPos = 0;
 
-char buffer[10] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+char scanCodeBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+							0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 bool capsLock = false;
 bool scrollLock = false;
 
@@ -90,6 +91,7 @@ void splashScreen(void);
 void splash(void);
 void writeString(char str[]);
 
+bool bufferContains(int scanCode);
 
 void readKeyboard(void);
 
@@ -138,6 +140,8 @@ int main (void)
 	splashScreen();
 	setColorRGB(0,255,0);
 	
+	//Setting the xChar and yChar position has to come
+	//after splashScreen() and InitLCD();
 	xCharPos = 0;
 	yCharPos = 0;
 	
@@ -196,10 +200,21 @@ void configure_adc(void)
 	adc_enable(&adc_instance);
 }
 
+bool bufferContains(int scanCode)
+{
+	for(int i = 0 ; i < 20 ; i++)
+	{
+		if(scanCodeBuffer[i] == scanCode)
+			return true;
+		else
+			return false;
+	}
+}
+
 void printBuffer(void)
 {
 	
-	char unModded[] = {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
+	char noCase[] =	  {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
 					   0x37,0x75,0x67,0x6A,0x2C,	//Col0, Row5-9
 					   0x31,0x71,0xFF,0xFF,0xFF,	//Col1, Row0-4
 					   0x38,0x69,0x68,0x6B,0xFF,	//Col1, Row5-9
@@ -212,17 +227,44 @@ void printBuffer(void)
 					   0x35,0x74,0x64,0x76,0x6E,	//Col5, Row0-4
 					   0xFF,0x27,0x5D,0xFF,0x5C,	//Col5, Row5-9
 					   0x36,0x79,0x66,0x62,0x6D,	//Col6, Row0-4
-					   0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row5-9	
+					   0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row5-9
+					   
+	char shiftCase[] = {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
+						0x26,0x55,0x47,0x4A,0x3C,	//Col0, Row5-9
+						0x21,0x51,0xFF,0xFF,0xFF,	//Col1, Row0-4
+						0x2A,0x49,0x48,0x4B,0xFF,	//Col1, Row5-9
+						0x40,0x57,0xFF,0x5A,0xFF,	//Col2, Row0-4
+						0x28,0x29,0x4F,0x4C,0x3E,	//Col2, Row5-9
+						0x23,0x45,0x41,0x58,0xFF,	//Col3, Row0-4
+						0xFF,0x5F,0x50,0x3A,0x3F,	//Col3, Row5-9
+						0x24,0x52,0x53,0x43,0x20,	//Col4, Row0-4
+						0xFF,0x2B,0x7B,0x22,0xFF,	//Col4, Row5-9
+						0x25,0x54,0x44,0x56,0x4E,	//Col5, Row0-4
+						0xFF,0x7E,0x7D,0xFF,0x7C,	//Col5, Row5-9
+						0x5E,0x59,0x46,0x42,0x4D,	//Col6, Row0-4
+						0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row0-4
+						
+	bool shifted = false;
 	
 	for(int i=0; i<10; i++)
 	{
-		if(buffer[i] == 0xFF)
+		if(bufferContains(49) | bufferContains(13))
+			shifted = true;
+	}
+	
+	for(int i=0; i<20; i++)
+	{
+		if(scanCodeBuffer[i] == 0xFF)
 		{
-			//do nothing
+			//do nothing, blank array
 		}
-		else if(buffer[i] == 0x0D)
+		else if(scanCodeBuffer[i] == 49 | scanCodeBuffer[i] == 13)
 		{
-			if(yCharPos == 24)
+			//SHIFT - do nothing
+		}
+		else if(scanCodeBuffer[i] == 58) //Return
+		{
+			if(yCharPos == 23)
 			{
 				newLine();
 				xCharPos = 0;
@@ -233,9 +275,9 @@ void printBuffer(void)
 				xCharPos = 0;
 			}
 		}
-		else if(buffer[i] == 0x0A)
+		else if(scanCodeBuffer[i] == 69) //Line
 		{
-			if(yCharPos == 24)
+			if(yCharPos == 23)
 			{
 				newLine();
 			}
@@ -246,16 +288,29 @@ void printBuffer(void)
 		}
 		else
 		{
-			drawChar(unModded[buffer[i]]);
-			xCharPos++;
+			if(shifted)
+			{
+				drawChar(shiftCase[scanCodeBuffer[i]]);
+				if(xCharPos < 79)
+					xCharPos++;
+			}
+			else
+			{
+				drawChar(noCase[scanCodeBuffer[i]]);
+				if(xCharPos < 79)
+					xCharPos++;
+			}
+
 		}
 	}
 	
 	//Reset the buffer.
 	for(int i = 0 ; i < 10 ; i++)
 	{
-		buffer[i] = 0xFF;
+		scanCodeBuffer[i] = 0xFF;
 	}
+	
+	//printf("x = %i, y = %i\r",xCharPos,yCharPos);
 
 }
 
@@ -263,12 +318,17 @@ void printBuffer(void)
 void readKeyboard(void)
 {
 	/*
-	The getScanCode returns an int array of scan codes representing
-	what keys are pressed on the keyboard. The keyboard is a 10x7 matrix,
-	and we need to collect *all* the keys currently pressed. For example,
-	to type 'A', this function generates [12, 33], because the left shift
-	is at column 1, row 3, and the 'a' key is at column 3, row 2. See
-	the schematic for details, and decodeScanCode() for some documentation.
+	The getScanCode writes ints to scanCodeBuffer. These are the scancode,
+	with the key column being the decade, and hte key row being the ones digit.
+	For example, the 'A' key is scan code 32, because it's on column 3, row 2.
+	
+	Keyboard read is done by first setting the columns as output, low. Then,
+	each column is set high, and each key row is read. If it's high, that goes
+	into the buffer, eventually. Next, rows and columns are swapped; all rows
+	are set as output, and the columns are read one at a time. If it's high,
+	that keycode goes into the buffer.
+	
+	No, you can't just do half of this; there is keyboard ghosting if you do.
 	
 	Relevant information:
 	------------------------------------------------------------------------
@@ -290,7 +350,7 @@ void readKeyboard(void)
 	
 		
 	int scanCodeIndex = 0;
-	int scanCodes[10];
+	int scanCodes[70];
 	
 	//Set strong drive on column
 	PORT->Group[0].WRCONFIG.bit.DRVSTR = 1;
@@ -313,6 +373,17 @@ void readKeyboard(void)
 	REG_PORT_OUTCLR0 = KB_COL6;
 	
 	//set rows to input, pullup enabled
+	REG_PORT_DIRCLR0 = KB_ROW0;
+	REG_PORT_DIRCLR0 = KB_ROW1;
+	REG_PORT_DIRCLR0 = KB_ROW2;
+	REG_PORT_DIRCLR0 = KB_ROW3;
+	REG_PORT_DIRCLR0 = KB_ROW4;
+	REG_PORT_DIRCLR0 = KB_ROW5;
+	REG_PORT_DIRCLR0 = KB_ROW6;
+	REG_PORT_DIRCLR0 = KB_ROW7;
+	REG_PORT_DIRCLR0 = KB_ROW8;
+	REG_PORT_DIRCLR0 = KB_ROW9;
+	
 	PORT->Group[0].PINCFG[02].bit.PULLEN = 1;
 	PORT->Group[0].PINCFG[03].bit.PULLEN = 1;
 	PORT->Group[0].PINCFG[04].bit.PULLEN = 1;
@@ -647,6 +718,380 @@ void readKeyboard(void)
 		scanCodes[scanCodeIndex] = 69; scanCodeIndex++; //nice.
 	}
 	REG_PORT_OUTCLR0 = KB_COL6;
+	
+	/*Now we set all of the *ROWS* as outputs, starting low, and read the
+	column pins. Stuff them into the array, just like before.
+	*/
+	
+	//Set all rows as output, low
+	REG_PORT_DIRSET0 = KB_ROW0;
+	REG_PORT_DIRSET0 = KB_ROW1;
+	REG_PORT_DIRSET0 = KB_ROW2;
+	REG_PORT_DIRSET0 = KB_ROW3;
+	REG_PORT_DIRSET0 = KB_ROW4;
+	REG_PORT_DIRSET0 = KB_ROW5;
+	REG_PORT_DIRSET0 = KB_ROW6;
+	REG_PORT_DIRSET0 = KB_ROW7;
+	REG_PORT_DIRSET0 = KB_ROW8;
+	REG_PORT_DIRSET0 = KB_ROW9;
+	
+	REG_PORT_OUTCLR0 = KB_ROW0;
+	REG_PORT_OUTCLR0 = KB_ROW1;
+	REG_PORT_OUTCLR0 = KB_ROW2;
+	REG_PORT_OUTCLR0 = KB_ROW3;
+	REG_PORT_OUTCLR0 = KB_ROW4;
+	REG_PORT_OUTCLR0 = KB_ROW5;
+	REG_PORT_OUTCLR0 = KB_ROW6;
+	REG_PORT_OUTCLR0 = KB_ROW7;
+	REG_PORT_OUTCLR0 = KB_ROW8;
+	REG_PORT_OUTCLR0 = KB_ROW9;
+		
+	//set columns to input, pullup enabled
+	REG_PORT_DIRCLR0 = KB_COL0;
+	REG_PORT_DIRCLR0 = KB_COL1;
+	REG_PORT_DIRCLR0 = KB_COL2;
+	REG_PORT_DIRCLR0 = KB_COL3;
+	REG_PORT_DIRCLR0 = KB_COL4;
+	REG_PORT_DIRCLR0 = KB_COL5;
+	REG_PORT_DIRCLR0 = KB_COL6;
+	
+	PORT->Group[0].PINCFG[16].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[17].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[18].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[19].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[20].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[21].bit.PULLEN = 1;
+	PORT->Group[0].PINCFG[27].bit.PULLEN = 1;
+	
+	PORT->Group[0].PINCFG[16].bit.INEN = 1;
+	PORT->Group[0].PINCFG[17].bit.INEN = 1;
+	PORT->Group[0].PINCFG[18].bit.INEN = 1;
+	PORT->Group[0].PINCFG[19].bit.INEN = 1;
+	PORT->Group[0].PINCFG[20].bit.INEN = 1;
+	PORT->Group[0].PINCFG[21].bit.INEN = 1;
+	PORT->Group[0].PINCFG[27].bit.INEN = 1;
+	
+	//This is row 0
+	REG_PORT_OUTSET0 = KB_ROW0;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 0; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 10; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 20; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 30; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 40; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 50; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 60; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW0;
+	
+	//This is row 1
+	REG_PORT_OUTSET0 = KB_ROW1;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 1; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 11; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 21; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 31; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 41; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 51; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 61; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW1;
+	
+	//This is row 2
+	REG_PORT_OUTSET0 = KB_ROW2;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 2; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 12; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 22; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 32; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 42; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 52; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 62; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW2;
+	
+	//This is row 3
+	REG_PORT_OUTSET0 = KB_ROW3;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 3; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 13; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 23; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 33; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 43; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 53; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 63; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW3;
+	
+	//This is row 4
+	REG_PORT_OUTSET0 = KB_ROW4;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 4; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 14; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 24; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 34; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 44; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 54; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 64; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW4;
+	
+	//This is row 5
+	REG_PORT_OUTSET0 = KB_ROW5;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 5; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 15; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 25; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 35; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 45; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 55; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 65; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW5;
+	
+	//This is row 6
+	REG_PORT_OUTSET0 = KB_ROW6;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 6; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 16; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 26; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 36; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 46; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 56; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 66; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW6;
+	
+	//This is row 7
+	REG_PORT_OUTSET0 = KB_ROW7;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 7; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 17; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 27; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 37; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 47; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 57; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 67; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW7;
+	
+	//This is row 8
+	REG_PORT_OUTSET0 = KB_ROW8;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 8; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 18; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 28; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 38; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 48; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 58; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 68; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW8;
+
+	//This is row 9
+	REG_PORT_OUTSET0 = KB_ROW9;
+	if((PORT->Group[0].IN.reg & KB_COL0) != 0)
+	{
+		scanCodes[scanCodeIndex] = 9; scanCodeIndex++;
+	}
+	/* There is no 19, so don't bother
+	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
+	{
+		scanCodes[scanCodeIndex] = 19; scanCodeIndex++;
+	}
+	*/
+	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
+	{
+		scanCodes[scanCodeIndex] = 29; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL3) != 0)
+	{
+		scanCodes[scanCodeIndex] = 39; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL4) != 0)
+	{
+		scanCodes[scanCodeIndex] = 49; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL5) != 0)
+	{
+		scanCodes[scanCodeIndex] = 59; scanCodeIndex++;
+	}
+	if((PORT->Group[0].IN.reg & KB_COL6) != 0)
+	{
+		scanCodes[scanCodeIndex] = 69; scanCodeIndex++;
+	}
+	REG_PORT_OUTCLR0 = KB_ROW9;
 		
 	
 	//Initialize the int array of scan codes
@@ -657,15 +1102,14 @@ void readKeyboard(void)
 	printf("Keys pressed: %i \t", scanCodeIndex);
 	for(int i = 0; i < scanCodeIndex; i++)
 	{
-		printf("%i, ", scanCodes[i]);
-		buffer[i] = scanCodes[i];
+		if(!bufferContains(scanCodes[i]))
+		{
+			scanCodeBuffer[i] = scanCodes[i];
+			printf("%i, ",scanCodeBuffer[i]);
+		}
+
 	}
-	printf("\n\r");
-	
-	
-	
-	
-	
+	printf("\r");
 }
 
 void splashScreen(void)
@@ -845,7 +1289,8 @@ void writeString(char str[])
 	for(int i = 0; i < length; i++)
 	{
 		drawChar(str[i]);
-		xCharPos++;
+		if(xCharPos <= 80)
+			xCharPos++;
 	}
 }
 
@@ -2909,7 +3354,7 @@ void drawChar(uint8_t character)
 
 						
 	int x = abs(xCharPos-79);
-	int y = yCharPos;
+	int y = (yCharPos);
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x*10,y*20,x*10+9,y*20+19);
 	for(uint8_t i=0; i <= 24; i++)
