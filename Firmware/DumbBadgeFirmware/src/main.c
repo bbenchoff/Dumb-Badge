@@ -52,8 +52,18 @@ uint8_t yCharPos = 0;
 
 char scanCodeBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 							0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+							
+char keyDownBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+							0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+					
 bool capsLock = false;
 bool scrollLock = false;
+
+bool cursorBlinkState = true;
+bool cursorBlinkCount = true;
+
+// Global error flag for TC3
+volatile uint8_t TC3_error = 0;
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -80,7 +90,7 @@ void setDrawDirection(void);
 void drawChar(uint8_t character);
 void newLine(void);
 
-void printBuffer(void);
+void printKeyboardBuffer(void);
 
 void clearScreen(void);
 void fillRect(int x1, int y1, int x2, int y2);
@@ -92,14 +102,20 @@ void splash(void);
 void writeString(char str[]);
 
 bool bufferContains(int scanCode);
+bool keyDown(int scancode);
+void removeFromKeyDown(int scancode);
 
 void readKeyboard(void);
 
 void configure_usart_USB(void);
 void configure_adc(void);
 
+void init_TC3();
+void enable_interrupts();
+
 struct usart_module usart_USB;
 struct adc_module adc_instance;
+
 
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
@@ -122,15 +138,13 @@ int main (void)
 	
 	uint16_t adcResult;
 	
-	int ASCIIcharacter = 0;
-	
 	configure_adc();
 	adc_start_conversion(&adc_instance);
 	do {
 		/* Wait for conversion to be done and read out result */
 	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
 	
-	system_init();
+	system_init();	
 	delay_init();
 	srand(adcResult);
 	configure_usart_USB();
@@ -140,6 +154,9 @@ int main (void)
 	splashScreen();
 	setColorRGB(0,255,0);
 	
+	enable_interrupts();
+	init_TC3();
+	
 	//Setting the xChar and yChar position has to come
 	//after splashScreen() and InitLCD();
 	xCharPos = 0;
@@ -148,28 +165,71 @@ int main (void)
 	while(1)
 	{	
 		readKeyboard();
-		printBuffer();
+		printKeyboardBuffer();
 		delay_ms(100);
 	}
 }
 
-/* This is the random code that prints everything
+/**************************INTERRUPT STUFF****************************/
+void init_TC3()
+{
+	/* Configure Timer/Counter 3*/
+	// Configure Clocks
+	REG_GCLK_CLKCTRL = GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK0 | GCLK_CLKCTRL_ID_TCC2_TC3;
+	REG_PM_APBCMASK |= PM_APBCMASK_TC3; // Enable TC3 bus clock
+	
+	// Configure TC3
+	REG_TC3_CTRLA |= TC_CTRLA_PRESCALER_DIV256;
+	
+	// Enable interrupts
+	REG_TC3_INTENSET = TC_INTENSET_OVF | TC_INTENSET_ERR;
+	
+	// Enable TC3
+	REG_TC3_CTRLA |= TC_CTRLA_ENABLE;
+	while ( TC3->COUNT16.STATUS.bit.SYNCBUSY == 1 ){} // wait for TC3 to be enabled
+}
 
-		for(int j = 0; j<23; j++)
+
+void TC3_Handler()
+{
+	// Overflow interrupt triggered
+	if ( TC3->COUNT32.INTFLAG.bit.OVF == 1 )
+	{
+		if(cursorBlinkCount)
 		{
-			for(int i = 0; i<80; i++)
+			if(cursorBlinkState)
 			{
-				xCharPos = i;
-				yCharPos = j;
-				drawChar(ASCIIcharacter%255);
-				ASCIIcharacter++;
+				drawChar(0xDB);
+				cursorBlinkState = false;
+				cursorBlinkCount = true;
+			}
+			else
+			{
+				drawChar(0x20);
+				cursorBlinkState = true;
+				cursorBlinkCount = false;
 			}
 		}
-		for(int k = 0 ; k < 24 ; k++)
+		else
 		{
-			newLine();
+			cursorBlinkCount = true;
 		}
-*/
+		REG_TC3_INTFLAG = TC_INTFLAG_OVF;
+	}
+	
+	// Error interrupt triggered
+	else if ( TC3->COUNT16.INTFLAG.bit.ERR == 1 )
+	{
+		TC3_error = 1;
+		REG_TC3_INTFLAG = TC_INTFLAG_ERR;
+	}
+}
+
+void enable_interrupts()
+{
+	NVIC_EnableIRQ( TC3_IRQn );
+}
+
 
 
 /**************************SERCOM STUFF*******************************/
@@ -209,10 +269,36 @@ bool bufferContains(int scanCode)
 		else
 			return false;
 	}
+	return false;
 }
 
-void printBuffer(void)
+bool keyDown(int scancode)
 {
+	for(int i = 0 ; i < 20 ; i++)
+	{
+		if(keyDownBuffer[i] == scancode)
+			return true;
+		else
+			return false;
+	}
+	return false;
+}
+
+void removeFromKeyDown(int scancode)
+{
+	for(int i = 0 ; i < 20 ; i++)
+	{
+		if(keyDownBuffer[i] == scancode)
+		{
+			keyDownBuffer[i] = 0xFF;
+		}
+	}
+}
+
+void printKeyboardBuffer(void)
+{
+	bool shifted = false;
+	char temp;
 	
 	char noCase[] =	  {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
 					   0x37,0x75,0x67,0x6A,0x2C,	//Col0, Row5-9
@@ -243,75 +329,86 @@ void printBuffer(void)
 						0xFF,0x7E,0x7D,0xFF,0x7C,	//Col5, Row5-9
 						0x5E,0x59,0x46,0x42,0x4D,	//Col6, Row0-4
 						0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row0-4
-						
-	bool shifted = false;
 	
-	for(int i=0; i<10; i++)
+
+		
+
+	//Check if Shift key is present
+	for(int i=0; i<20; i++)
 	{
-		if(bufferContains(49) | bufferContains(13))
+		if((scanCodeBuffer[i] == 13) | (scanCodeBuffer[i] == 49))
 			shifted = true;
 	}
 	
 	for(int i=0; i<20; i++)
 	{
-		if(scanCodeBuffer[i] == 0xFF)
-		{
-			//do nothing, blank array
-		}
-		else if(scanCodeBuffer[i] == 49 | scanCodeBuffer[i] == 13)
-		{
-			//SHIFT - do nothing
-		}
-		else if(scanCodeBuffer[i] == 58) //Return
-		{
-			if(yCharPos == 23)
-			{
-				newLine();
-				xCharPos = 0;
-			}
-			else
-			{
-				yCharPos++;
-				xCharPos = 0;
-			}
-		}
-		else if(scanCodeBuffer[i] == 69) //Line
-		{
-			if(yCharPos == 23)
-			{
-				newLine();
-			}
-			else
-			{
-				yCharPos++;
-			}
-		}
-		else
-		{
-			if(shifted)
-			{
-				drawChar(shiftCase[scanCodeBuffer[i]]);
-				if(xCharPos < 79)
-					xCharPos++;
-			}
-			else
-			{
-				drawChar(noCase[scanCodeBuffer[i]]);
-				if(xCharPos < 79)
-					xCharPos++;
-			}
 
+		//if a key is not in the keydown buffer, continue
+		if(!keyDown(scanCodeBuffer[i]))
+		{
+			
+			//add the scancode to the keycode buffer
+			keyDownBuffer[i] = scanCodeBuffer[i];
+			
+				//The actual scancode handling goes here
+				if(scanCodeBuffer[i] == 0xFF)
+				{
+					//do nothing, blank key
+				}
+				else if((scanCodeBuffer[i] == 49) | (scanCodeBuffer[i] == 13))
+				{
+					//SHIFT - do nothing
+				}
+				else if(scanCodeBuffer[i] == 58) //Return
+				{
+					if(yCharPos == 23)
+					{
+						newLine();
+						xCharPos = 0;
+					}
+					else
+					{
+						yCharPos++;
+						xCharPos = 0;
+					}
+				}
+				else if(scanCodeBuffer[i] == 69) //Line
+				{
+					if(yCharPos == 23)
+					{
+						newLine();
+					}
+					else
+					{
+						yCharPos++;
+					}
+				}
+				else
+				{
+					if(shifted)
+					{
+						drawChar(shiftCase[scanCodeBuffer[i]]);
+						if(xCharPos < 79)
+						xCharPos++;
+						cursorBlinkState = true;
+					}
+					else
+					{
+						drawChar(noCase[scanCodeBuffer[i]]);
+						if(xCharPos < 79)
+						xCharPos++;
+						cursorBlinkState = true;
+					}
+				}
 		}
+		
+
 	}
-	
 	//Reset the buffer.
-	for(int i = 0 ; i < 10 ; i++)
+	for(int i = 0 ; i < 20 ; i++)
 	{
 		scanCodeBuffer[i] = 0xFF;
 	}
-	
-	//printf("x = %i, y = %i\r",xCharPos,yCharPos);
-
 }
 
 
@@ -324,11 +421,14 @@ void readKeyboard(void)
 	
 	Keyboard read is done by first setting the columns as output, low. Then,
 	each column is set high, and each key row is read. If it's high, that goes
-	into the buffer, eventually. Next, rows and columns are swapped; all rows
+	into the buffer. Next, rows and columns are swapped; all rows
 	are set as output, and the columns are read one at a time. If it's high,
 	that keycode goes into the buffer.
 	
-	No, you can't just do half of this; there is keyboard ghosting if you do.
+	No, you can't just do the columns without doing the rows; there is
+	keyboard ghosting if you do.
+	
+	These keycodes are then de-duplicated and shoved into the scancode buffer.
 	
 	Relevant information:
 	------------------------------------------------------------------------
@@ -341,14 +441,8 @@ void readKeyboard(void)
 	KB_ROW6		PORT_PA10				KB_COL6		PORT_PA27
 	KB_ROW7		PORT_PA11
 	KB_ROW8		PORT_PA12
-	KB_ROW9		PORT_PA13
-
-	Key Column Bitmask:		0xF3800000
-	Key Row Bitmask:		0x0000CFC3
-	Combined:				0xF380CFC3
-	*/
+	KB_ROW9		PORT_PA13	*/
 	
-		
 	int scanCodeIndex = 0;
 	int scanCodes[70];
 	
@@ -1093,23 +1187,17 @@ void readKeyboard(void)
 	}
 	REG_PORT_OUTCLR0 = KB_ROW9;
 		
-	
-	//Initialize the int array of scan codes
-	int sendScanCodes[scanCodeIndex];
-		
-	//Go through the array, print the result
-	//and stuff them into the scancode array
-	printf("Keys pressed: %i \t", scanCodeIndex);
+			
 	for(int i = 0; i < scanCodeIndex; i++)
 	{
 		if(!bufferContains(scanCodes[i]))
 		{
+			
 			scanCodeBuffer[i] = scanCodes[i];
-			printf("%i, ",scanCodeBuffer[i]);
+			
 		}
 
 	}
-	printf("\r");
 }
 
 void splashScreen(void)
@@ -1128,7 +1216,7 @@ void splashScreen(void)
 		splashText[10] = "Tiananmen Square 1989";//
 		splashText[11] = "America was founded on slavery";
 		splashText[12] = "There is only capital and labor";//
-		splashText[13] = "Encourage symmetric class warfare";
+		splashText[13] = "Encourage symmetric class warfare";//
 		splashText[14] = "$CURRENT_MEME";//
 		splashText[15] = "A Nice TTY";//
 		splashText[16] = "Trans rights are human rights";//
@@ -1165,7 +1253,7 @@ void splashScreen(void)
 		drawKare(1);
 	}
 	else
-		drawKare(0);
+		drawKare(0); //The normal graphic
 		
 	setDrawDirection();
 	
@@ -1247,13 +1335,19 @@ void newLine(void)
 			REG_PORT_OUTSET1 = LCD_RD;
 
 			//get the pin state, stuff into array
+			
+			//This can be expanded with else if for the MSBs
+			//of all the colors; see datasheet page 40.
 			if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
 				rowPixel[getpixel] = 0xFF;
 			else
 				rowPixel[getpixel] = 0x00;
 				
 			//dummy read, because pixel data broken up
-			//per datasheet page 40.
+			//per datasheet page 40. Everything after
+			//the dummy write is BLUE pixels. Do we ever
+			//need blue? IDK.
+			
 			REG_PORT_OUTCLR1 = LCD_RD;
 			REG_PORT_OUTSET1 = LCD_RD;
 		}
