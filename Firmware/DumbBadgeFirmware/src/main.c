@@ -186,7 +186,7 @@ void init_TC3()
 	
 	// Enable TC3
 	REG_TC3_CTRLA |= TC_CTRLA_ENABLE;
-	while ( TC3->COUNT16.STATUS.bit.SYNCBUSY == 1 ){} // wait for TC3 to be enabled
+	while ( TC3->COUNT32.STATUS.bit.SYNCBUSY == 1 ){} // wait for TC3 to be enabled
 }
 
 
@@ -218,7 +218,7 @@ void TC3_Handler()
 	}
 	
 	// Error interrupt triggered
-	else if ( TC3->COUNT16.INTFLAG.bit.ERR == 1 )
+	else if ( TC3->COUNT32.INTFLAG.bit.ERR == 1 )
 	{
 		TC3_error = 1;
 		REG_TC3_INTFLAG = TC_INTFLAG_ERR;
@@ -1194,10 +1194,10 @@ void readKeyboard(void)
 		{
 			
 			scanCodeBuffer[i] = scanCodes[i];
-			
+			printf("%i \t", scanCodes[i]);
 		}
-
 	}
+	printf("\n\r");
 }
 
 void splashScreen(void)
