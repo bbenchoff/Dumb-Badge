@@ -60,10 +60,11 @@ bool capsLock = false;
 bool scrollLock = false;
 
 bool cursorBlinkState = true;
-bool cursorBlinkCount = true;
+uint8_t cursorBuffer[200];
 
-// Global error flag for TC3
-volatile uint8_t TC3_error = 0;
+static uint32_t ul_tickcount=0 ;
+
+
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -105,13 +106,15 @@ bool bufferContains(int scanCode);
 bool keyDown(int scancode);
 void removeFromKeyDown(int scancode);
 
+void drawCursorBuffer(void);
+
 void readKeyboard(void);
 
 void configure_usart_USB(void);
 void configure_adc(void);
 
-void init_TC3();
-void enable_interrupts();
+void interruptInit(void);
+
 
 struct usart_module usart_USB;
 struct adc_module adc_instance;
@@ -149,14 +152,16 @@ int main (void)
 	srand(adcResult);
 	configure_usart_USB();
 	configure_console();
+		
 	printf("Hello World\n\r");
+		
 	InitLCD();
 	splashScreen();
-	setColorRGB(0,255,0);
 	
-	enable_interrupts();
-	init_TC3();
+	interruptInit();
 	
+	setColorRGB(255,255,0);
+
 	//Setting the xChar and yChar position has to come
 	//after splashScreen() and InitLCD();
 	xCharPos = 0;
@@ -164,70 +169,107 @@ int main (void)
 	
 	while(1)
 	{	
-		readKeyboard();
-		printKeyboardBuffer();
-		delay_ms(100);
+		
 	}
 }
 
 /**************************INTERRUPT STUFF****************************/
-void init_TC3()
+void interruptInit()
 {
-	/* Configure Timer/Counter 3*/
-	// Configure Clocks
-	REG_GCLK_CLKCTRL = GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK0 | GCLK_CLKCTRL_ID_TCC2_TC3;
-	REG_PM_APBCMASK |= PM_APBCMASK_TC3; // Enable TC3 bus clock
+	// Configure SysTick to trigger every millisecond using the CPU Clock
 	
-	// Configure TC3
-	REG_TC3_CTRLA |= TC_CTRLA_PRESCALER_DIV256;
-	
-	// Enable interrupts
-	REG_TC3_INTENSET = TC_INTENSET_OVF | TC_INTENSET_ERR;
-	
-	// Enable TC3
-	REG_TC3_CTRLA |= TC_CTRLA_ENABLE;
-	while ( TC3->COUNT32.STATUS.bit.SYNCBUSY == 1 ){} // wait for TC3 to be enabled
+	SysTick->CTRL = 0;					// Disable SysTick
+	SysTick->LOAD = 999UL;				// Set reload register for 1mS interrupts
+	NVIC_SetPriority(SysTick_IRQn, 3);	// Set interrupt priority to least urgency
+	SysTick->VAL = 0;					// Reset the SysTick counter value
+	SysTick->CTRL = 0x00000007;			// Enable SysTick, Enable SysTick Exceptions, Use CPU Clock
+	NVIC_EnableIRQ(SysTick_IRQn);		// Enable SysTick Interrupt
 }
 
-
-void TC3_Handler()
+void SysTick_Handler(void)
 {
-	// Overflow interrupt triggered
-	if ( TC3->COUNT32.INTFLAG.bit.OVF == 1 )
+	
+	ul_tickcount++;
+		
+	if(ul_tickcount % 2000 == 0)
 	{
-		if(cursorBlinkCount)
+		if(cursorBlinkState)
 		{
-			if(cursorBlinkState)
+			//Draw the *inverse* of cursorBuffer
+			
+			//First, set the MADCLR registers so 0,0 is in the top left
+			REG_PORT_OUTCLR1 = LCD_CS;
+			REG_PORT_OUTCLR1 = LCD_DC;
+			LCD_Write_COM16(0x36, 0x00);
+			REG_PORT_OUTSET1 = LCD_DC;
+			LCD_Write_DATA8(0x00);
+			REG_PORT_OUTSET1 = LCD_CS;
+
+			//Per page 40 of datasheet (5.1.2.7, 16-bit
+			//parallel interface for data ram read.
+			REG_PORT_OUTCLR1 = LCD_CS;
+			setXY((xCharPos*10)-1, yCharPos*20, ((xCharPos+1)*10)-1, ((yCharPos+1)*20));
+			
+			for(uint16_t i = 0 ; i < 200 ; i++)
 			{
-				drawChar(0xDB);
-				cursorBlinkState = false;
-				cursorBlinkCount = true;
+				if((cursorBuffer[i] != 0xFF))
+				setPixel((fore_Color_High<<8)|fore_Color_Low);
+				else
+				setPixel((back_Color_High<<8)|back_Color_Low);
 			}
-			else
-			{
-				drawChar(0x20);
-				cursorBlinkState = true;
-				cursorBlinkCount = false;
-			}
+			
+			//return MADCLR registers to their original state
+			REG_PORT_OUTCLR1 = LCD_DC;
+			LCD_Write_COM16(0x36, 0x00);
+			REG_PORT_OUTSET1 = LCD_DC;
+			LCD_Write_DATA8(0x80);
+			REG_PORT_OUTSET1 = LCD_CS;
+			
+			//finally set cursorBlinkState to false
+			cursorBlinkState = false;
 		}
 		else
 		{
-			cursorBlinkCount = true;
-		}
-		REG_TC3_INTFLAG = TC_INTFLAG_OVF;
-	}
-	
-	// Error interrupt triggered
-	else if ( TC3->COUNT32.INTFLAG.bit.ERR == 1 )
-	{
-		TC3_error = 1;
-		REG_TC3_INTFLAG = TC_INTFLAG_ERR;
-	}
-}
+			//First, set the MADCLR registers so 0,0 is in the top left
+			REG_PORT_OUTCLR1 = LCD_CS;
+			REG_PORT_OUTCLR1 = LCD_DC;
+			LCD_Write_COM16(0x36, 0x00);
+			REG_PORT_OUTSET1 = LCD_DC;
+			LCD_Write_DATA8(0x00);
+			REG_PORT_OUTSET1 = LCD_CS;
 
-void enable_interrupts()
-{
-	NVIC_EnableIRQ( TC3_IRQn );
+			//Per page 40 of datasheet (5.1.2.7, 16-bit
+			//parallel interface for data ram read.
+			REG_PORT_OUTCLR1 = LCD_CS;
+			setXY((xCharPos*10)-1, yCharPos*20, ((xCharPos+1)*10)-1, ((yCharPos+1)*20));
+			
+			for(uint16_t i = 0 ; i < 200 ; i++)
+			{
+				if((cursorBuffer[i] == 0xFF))
+				setPixel((fore_Color_High<<8)|fore_Color_Low);
+				else
+				setPixel((back_Color_High<<8)|back_Color_Low);
+			}
+			
+			//return MADCLR registers to their original state
+			REG_PORT_OUTCLR1 = LCD_DC;
+			LCD_Write_COM16(0x36, 0x00);
+			REG_PORT_OUTSET1 = LCD_DC;
+			LCD_Write_DATA8(0x80);
+			REG_PORT_OUTSET1 = LCD_CS;
+			
+			cursorBlinkState = true;
+		}
+	}
+
+
+	if(ul_tickcount % 20 == 0)
+	{
+		readKeyboard();
+		printKeyboardBuffer();
+	}
+
+	
 }
 
 
@@ -258,6 +300,225 @@ void configure_adc(void)
 	config_adc.positive_input = ADC_POSITIVE_INPUT_DAC;
 	adc_init(&adc_instance, ADC, &config_adc);
 	adc_enable(&adc_instance);
+}
+
+void drawCursorBuffer(void)
+{
+	//First, set the MADCLR registers so 0,0 is in the top left
+	REG_PORT_OUTCLR1 = LCD_CS;
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_COM16(0x36, 0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_DATA8(0x00);
+	REG_PORT_OUTSET1 = LCD_CS;
+
+	//Per page 40 of datasheet (5.1.2.7, 16-bit
+	//parallel interface for data ram read.
+	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY((xCharPos*10), yCharPos*20, ((xCharPos+1)*10), (yCharPos+1)*20);
+	
+	for(uint16_t i = 0 ; i < 200 ; i++)
+	{
+		if((cursorBuffer[i] == 0xFF))
+		setPixel((fore_Color_High<<8)|fore_Color_Low);
+		else
+		setPixel((back_Color_High<<8)|back_Color_Low);
+	}
+	
+	//return MADCLR registers to their original state
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_COM16(0x36, 0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_DATA8(0x80);
+	REG_PORT_OUTSET1 = LCD_CS;
+}
+
+void moveCursor(uint8_t x, uint8_t y)
+{
+	//First, this reads the GRAM memory at the cursor location
+	//x,y. This is saved in a buffer. When the cursor blinks,
+	//it alternates either that buffer, or the *inverse* of that
+	//buffer.
+	
+	//All this function does is read the GRAM and move the cursor.
+		
+	//First, set the MADCLR registers so 0,0 is in the top left
+	REG_PORT_OUTCLR1 = LCD_CS;
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_COM16(0x36, 0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_DATA8(0x00);
+	REG_PORT_OUTSET1 = LCD_CS;
+	
+	//Per page 40 of datasheet (5.1.2.7, 16-bit
+	//parallel interface for data ram read.
+	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY(x*10, y*20, ((x+1)*10), (y+1)*20);
+	
+	//Send'Memory read' command 0x2E00, no data bit
+	LCD_Write_COM16(0x2E,0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+
+	//needs dummy write, per data sheet, page 40
+	REG_PORT_OUTCLR1 = LCD_RD;
+	REG_PORT_OUTSET1 = LCD_RD;
+	
+	//set PB07 to input
+	REG_PORT_DIRCLR1 = PORT_PB07;
+	PORT->Group[1].PINCFG[7].bit.INEN = 1;
+	PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
+	
+	
+	for(uint8_t pixel = 0; pixel <= 200 ; pixel++)
+	{
+		REG_PORT_OUTCLR1 = LCD_RD;
+		REG_PORT_OUTSET1 = LCD_RD;
+
+		//get the pin state, stuff into array
+		
+		//This can be expanded with else if for the MSBs
+		//of all the colors; see datasheet page 40.
+		if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
+			cursorBuffer[pixel] = 0xFF;
+		else
+			cursorBuffer[pixel] = 0x00;
+				
+		//dummy read, because pixel data broken up
+		//per datasheet page 40. Everything after
+		//the dummy write is BLUE pixels. Do we ever
+		//need blue? IDK.
+				
+		REG_PORT_OUTCLR1 = LCD_RD;
+		REG_PORT_OUTSET1 = LCD_RD;		
+	}
+	
+	REG_PORT_OUTSET1 = LCD_DC;
+	REG_PORT_DIRSET1 = 0x0000FFFF;
+	
+	//return MADCLR registers to their original state
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_COM16(0x36, 0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_DATA8(0x80);
+	REG_PORT_OUTSET1 = LCD_CS;
+	
+	//The cursor data is in the cursorBuffer, so now we move
+	//xCharPos and yCharPos
+	
+	xCharPos = x;
+	yCharPos = y;
+}
+
+
+
+/**************************FONT STUFF*********************************/
+
+void newLine(void)
+{
+	/*The 'soft scroll' function moves all pixels on the display up
+	20 pixels, or the height of one char. Algorithm is as follows:
+	
+	0) Set the GRAM window to a row one pixel high (setxy).
+	example: (0,20,800,21). 
+	
+	1) Set PB07 as input. This is the data bit that will read
+	the actual pixel data from GRAM.
+	
+	1a) We use PB07 because it represents the MSB of the green
+		part of the pixel; this will always be 1 if the pixel
+		is active, because the only colors we use are green,
+		white, and amber.
+		
+	1b) Configuration of pin as input is on "SAMD21/SAMR21
+		GPIO" Tutorial (Phillip Vallone), page 38.
+		
+	2) Read the pixel data into a 1D array (first as char[800],
+	can be optimized with bit packing. This information is on 
+	NT35510 datasheet, page 40.
+	
+	3) Set PB07 (and the rest of PB00..15) as output, set GRAM
+	window and output contents of 1D array. Repeat this
+	460 times, for each line in the display.
+	*/
+	
+	uint8_t rowPixel[800];
+	
+	//First, set the MADCLR registers so 0,0 is in the top left
+	REG_PORT_OUTCLR1 = LCD_CS;
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_COM16(0x36, 0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_DATA8(0x00);
+	REG_PORT_OUTSET1 = LCD_CS;
+
+	
+	for(uint16_t row = 0 ; row < 460 ; row++)
+	{
+		//Per page 40 of datasheet (5.1.2.7, 16-bit
+		//parallel interface for data ram read.
+		REG_PORT_OUTCLR1 = LCD_CS;
+		setXY(0, row+20, 799, row+20);
+		//Send'Memory read' command 0x2E00, no data bit
+		LCD_Write_COM16(0x2E,0x00);
+		REG_PORT_OUTSET1 = LCD_DC;
+		
+		//needs dummy write, per data sheet, page 40
+		REG_PORT_OUTCLR1 = LCD_RD;
+		REG_PORT_OUTSET1 = LCD_RD;
+		
+		//set PB07 to input
+		REG_PORT_DIRCLR1 = PORT_PB07;
+		PORT->Group[1].PINCFG[7].bit.INEN = 1;
+		PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
+		
+		
+		//Read pixel data into the display	
+		for(uint16_t getpixel = 0 ; getpixel < 800 ; getpixel++)
+		{
+			REG_PORT_OUTCLR1 = LCD_RD;
+			REG_PORT_OUTSET1 = LCD_RD;
+
+			//get the pin state, stuff into array
+			
+			//This can be expanded with else if for the MSBs
+			//of all the colors; see datasheet page 40.
+			if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
+				rowPixel[getpixel] = 0xFF;
+			else
+				rowPixel[getpixel] = 0x00;
+				
+			//dummy read, because pixel data broken up
+			//per datasheet page 40. Everything after
+			//the dummy write is BLUE pixels. Do we ever
+			//need blue? IDK.
+			
+			REG_PORT_OUTCLR1 = LCD_RD;
+			REG_PORT_OUTSET1 = LCD_RD;
+		}
+		
+		REG_PORT_OUTSET1 = LCD_DC;
+		REG_PORT_DIRSET1 = 0x0000FFFF;
+		
+		//now, read out that line of the display
+		setXY(0, row, 799, row);	
+		
+		for(uint16_t writepixel = 0 ; writepixel < 800 ; writepixel++)
+		{
+			if((rowPixel[writepixel] == 0xFF))
+				setPixel((fore_Color_High<<8)|fore_Color_Low);
+			else
+				setPixel((back_Color_High<<8)|back_Color_Low);
+		}
+	}
+	//return MADCLR registers to their original state
+	REG_PORT_OUTCLR1 = LCD_DC;
+	LCD_Write_COM16(0x36, 0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+	LCD_Write_DATA8(0x80);
+	REG_PORT_OUTSET1 = LCD_CS;
+	
+	//finally, clear the last character line of the display
+	fillRectBackColor(0, 460, 799, 480);
 }
 
 bool bufferContains(int scanCode)
@@ -355,6 +616,41 @@ void printKeyboardBuffer(void)
 				{
 					//do nothing, blank key
 				}
+				
+				//Arrow key handling
+				else if(scanCodeBuffer[i] == 35) //left
+				{
+					if(xCharPos > 0)
+					{
+						drawCursorBuffer();
+						moveCursor((xCharPos-1),(yCharPos));
+					}
+				}
+				else if(scanCodeBuffer[i] == 45)	//down
+				{
+					if(yCharPos < 24)
+					{
+						drawCursorBuffer();
+						moveCursor((xCharPos),(yCharPos+1));
+					}
+				}
+				else if(scanCodeBuffer[i] == 55)	//up
+				{
+					if(yCharPos > 0)
+					{
+						drawCursorBuffer();
+						moveCursor((xCharPos),(yCharPos-1));
+					}
+				}
+				else if(scanCodeBuffer[i] == 65)	//right
+				{
+					if(xCharPos < 79)
+					{
+						drawCursorBuffer();
+						moveCursor((xCharPos+1),(yCharPos));
+					}
+				}
+				
 				else if((scanCodeBuffer[i] == 49) | (scanCodeBuffer[i] == 13))
 				{
 					//SHIFT - do nothing
@@ -1266,116 +1562,6 @@ void splashScreen(void)
 	clearScreen();
 }
 
-
-/**************************FONT STUFF*********************************/
-
-void newLine(void)
-{
-	/*The 'soft scroll' function moves all pixels on the display up
-	20 pixels, or the height of one char. Algorithm is as follows:
-	
-	0) Set the GRAM window to a row one pixel high (setxy).
-	example: (0,20,800,21). 
-	
-	1) Set PB07 as input. This is the data bit that will read
-	the actual pixel data from GRAM.
-	
-	1a) We use PB07 because it represents the MSB of the green
-		part of the pixel; this will always be 1 if the pixel
-		is active, because the only colors we use are green,
-		white, and amber.
-		
-	1b) Configuration of pin as input is on "SAMD21/SAMR21
-		GPIO" Tutorial (Phillip Vallone), page 38.
-		
-	2) Read the pixel data into a 1D array (first as char[800],
-	can be optimized with bit packing. This information is on 
-	NT35510 datasheet, page 40.
-	
-	3) Set PB07 (and the rest of PB00..15) as output, set GRAM
-	window and output contents of 1D array. Repeat this
-	460 times, for each line in the display.
-	*/
-	
-	uint8_t rowPixel[800];
-	
-	//First, set the MADCLR registers so 0,0 is in the top left
-	REG_PORT_OUTCLR1 = LCD_CS;
-	REG_PORT_OUTCLR1 = LCD_DC;
-	LCD_Write_COM16(0x36, 0x00);
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Write_DATA8(0x00);
-	REG_PORT_OUTSET1 = LCD_CS;
-
-	
-	for(uint16_t row = 0 ; row < 460 ; row++)
-	{
-		//Per page 40 of datasheet (5.1.2.7, 16-bit
-		//parallel interface for data ram read.
-		REG_PORT_OUTCLR1 = LCD_CS;
-		setXY(0, row+20, 799, row+20);
-		//Send'Memory read' command 0x2E00, no data bit
-		LCD_Write_COM16(0x2E,0x00);
-		REG_PORT_OUTSET1 = LCD_DC;
-		
-		//needs dummy write, per data sheet, page 40
-		REG_PORT_OUTCLR1 = LCD_RD;
-		REG_PORT_OUTSET1 = LCD_RD;
-		
-		//set PB07 to input
-		REG_PORT_DIRCLR1 = PORT_PB07;
-		PORT->Group[1].PINCFG[7].bit.INEN = 1;
-		PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
-		
-		
-		//Read pixel data into the display	
-		for(uint16_t getpixel = 0 ; getpixel < 800 ; getpixel++)
-		{
-			REG_PORT_OUTCLR1 = LCD_RD;
-			REG_PORT_OUTSET1 = LCD_RD;
-
-			//get the pin state, stuff into array
-			
-			//This can be expanded with else if for the MSBs
-			//of all the colors; see datasheet page 40.
-			if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
-				rowPixel[getpixel] = 0xFF;
-			else
-				rowPixel[getpixel] = 0x00;
-				
-			//dummy read, because pixel data broken up
-			//per datasheet page 40. Everything after
-			//the dummy write is BLUE pixels. Do we ever
-			//need blue? IDK.
-			
-			REG_PORT_OUTCLR1 = LCD_RD;
-			REG_PORT_OUTSET1 = LCD_RD;
-		}
-		
-		REG_PORT_OUTSET1 = LCD_DC;
-		REG_PORT_DIRSET1 = 0x0000FFFF;
-		
-		//now, read out that line of the display
-		setXY(0, row, 799, row);	
-		
-		for(uint16_t writepixel = 0 ; writepixel < 800 ; writepixel++)
-		{
-			if((rowPixel[writepixel] == 0xFF))
-				setPixel((fore_Color_High<<8)|fore_Color_Low);
-			else
-				setPixel((back_Color_High<<8)|back_Color_Low);
-		}
-	}
-	//return MADCLR registers to their original state
-	REG_PORT_OUTCLR1 = LCD_DC;
-	LCD_Write_COM16(0x36, 0x00);
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Write_DATA8(0x80);
-	REG_PORT_OUTSET1 = LCD_CS;
-	
-	//finally, clear the last character line of the display
-	fillRectBackColor(0, 460, 799, 480);
-}
 
 void writeString(char str[])
 {
