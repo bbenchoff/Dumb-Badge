@@ -166,6 +166,7 @@ int main (void)
 	//after splashScreen() and InitLCD();
 	xCharPos = 0;
 	yCharPos = 0;
+
 	
 	while(1)
 	{	
@@ -197,19 +198,8 @@ void SysTick_Handler(void)
 		{
 			//Draw the *inverse* of cursorBuffer
 			
-			//First, set the MADCLR registers so 0,0 is in the top left
-			REG_PORT_OUTCLR1 = LCD_CS;
-			REG_PORT_OUTCLR1 = LCD_DC;
-			LCD_Write_COM16(0x36, 0x00);
-			REG_PORT_OUTSET1 = LCD_DC;
-			LCD_Write_DATA8(0x00);
-			REG_PORT_OUTSET1 = LCD_CS;
-
-			//Per page 40 of datasheet (5.1.2.7, 16-bit
-			//parallel interface for data ram read.
-			REG_PORT_OUTCLR1 = LCD_CS;
-			setXY((xCharPos*10)-1, yCharPos*20, ((xCharPos+1)*10)-1, ((yCharPos+1)*20));
-			
+			setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
+	
 			for(uint16_t i = 0 ; i < 200 ; i++)
 			{
 				if((cursorBuffer[i] != 0xFF))
@@ -218,30 +208,12 @@ void SysTick_Handler(void)
 				setPixel((back_Color_High<<8)|back_Color_Low);
 			}
 			
-			//return MADCLR registers to their original state
-			REG_PORT_OUTCLR1 = LCD_DC;
-			LCD_Write_COM16(0x36, 0x00);
-			REG_PORT_OUTSET1 = LCD_DC;
-			LCD_Write_DATA8(0x80);
-			REG_PORT_OUTSET1 = LCD_CS;
-			
 			//finally set cursorBlinkState to false
 			cursorBlinkState = false;
 		}
 		else
 		{
-			//First, set the MADCLR registers so 0,0 is in the top left
-			REG_PORT_OUTCLR1 = LCD_CS;
-			REG_PORT_OUTCLR1 = LCD_DC;
-			LCD_Write_COM16(0x36, 0x00);
-			REG_PORT_OUTSET1 = LCD_DC;
-			LCD_Write_DATA8(0x00);
-			REG_PORT_OUTSET1 = LCD_CS;
-
-			//Per page 40 of datasheet (5.1.2.7, 16-bit
-			//parallel interface for data ram read.
-			REG_PORT_OUTCLR1 = LCD_CS;
-			setXY((xCharPos*10)-1, yCharPos*20, ((xCharPos+1)*10)-1, ((yCharPos+1)*20));
+			setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
 			
 			for(uint16_t i = 0 ; i < 200 ; i++)
 			{
@@ -250,14 +222,7 @@ void SysTick_Handler(void)
 				else
 				setPixel((back_Color_High<<8)|back_Color_Low);
 			}
-			
-			//return MADCLR registers to their original state
-			REG_PORT_OUTCLR1 = LCD_DC;
-			LCD_Write_COM16(0x36, 0x00);
-			REG_PORT_OUTSET1 = LCD_DC;
-			LCD_Write_DATA8(0x80);
-			REG_PORT_OUTSET1 = LCD_CS;
-			
+			//set cursorBlinkState to true
 			cursorBlinkState = true;
 		}
 	}
@@ -304,18 +269,8 @@ void configure_adc(void)
 
 void drawCursorBuffer(void)
 {
-	//First, set the MADCLR registers so 0,0 is in the top left
-	REG_PORT_OUTCLR1 = LCD_CS;
-	REG_PORT_OUTCLR1 = LCD_DC;
-	LCD_Write_COM16(0x36, 0x00);
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Write_DATA8(0x00);
-	REG_PORT_OUTSET1 = LCD_CS;
 
-	//Per page 40 of datasheet (5.1.2.7, 16-bit
-	//parallel interface for data ram read.
-	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY((xCharPos*10), yCharPos*20, ((xCharPos+1)*10), (yCharPos+1)*20);
+	setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
 	
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
@@ -325,12 +280,7 @@ void drawCursorBuffer(void)
 		setPixel((back_Color_High<<8)|back_Color_Low);
 	}
 	
-	//return MADCLR registers to their original state
-	REG_PORT_OUTCLR1 = LCD_DC;
-	LCD_Write_COM16(0x36, 0x00);
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Write_DATA8(0x80);
-	REG_PORT_OUTSET1 = LCD_CS;
+
 }
 
 void moveCursor(uint8_t x, uint8_t y)
@@ -341,19 +291,17 @@ void moveCursor(uint8_t x, uint8_t y)
 	//buffer.
 	
 	//All this function does is read the GRAM and move the cursor.
-		
-	//First, set the MADCLR registers so 0,0 is in the top left
-	REG_PORT_OUTCLR1 = LCD_CS;
-	REG_PORT_OUTCLR1 = LCD_DC;
-	LCD_Write_COM16(0x36, 0x00);
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Write_DATA8(0x00);
-	REG_PORT_OUTSET1 = LCD_CS;
+	
+	//set PB07 to input
+	REG_PORT_DIRCLR1 = PORT_PB07;
+	PORT->Group[1].PINCFG[7].bit.INEN = 1;
+	PORT->Group[1].PINCFG[7].bit.PULLEN = 1;	
+	
 	
 	//Per page 40 of datasheet (5.1.2.7, 16-bit
 	//parallel interface for data ram read.
 	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY(x*10, y*20, ((x+1)*10), (y+1)*20);
+	setXY(abs(x-79)*10,y*20,abs(x-79)*10+9,y*20+19);
 	
 	//Send'Memory read' command 0x2E00, no data bit
 	LCD_Write_COM16(0x2E,0x00);
@@ -362,13 +310,7 @@ void moveCursor(uint8_t x, uint8_t y)
 	//needs dummy write, per data sheet, page 40
 	REG_PORT_OUTCLR1 = LCD_RD;
 	REG_PORT_OUTSET1 = LCD_RD;
-	
-	//set PB07 to input
-	REG_PORT_DIRCLR1 = PORT_PB07;
-	PORT->Group[1].PINCFG[7].bit.INEN = 1;
-	PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
-	
-	
+		
 	for(uint8_t pixel = 0; pixel <= 200 ; pixel++)
 	{
 		REG_PORT_OUTCLR1 = LCD_RD;
@@ -394,19 +336,14 @@ void moveCursor(uint8_t x, uint8_t y)
 	
 	REG_PORT_OUTSET1 = LCD_DC;
 	REG_PORT_DIRSET1 = 0x0000FFFF;
-	
-	//return MADCLR registers to their original state
-	REG_PORT_OUTCLR1 = LCD_DC;
-	LCD_Write_COM16(0x36, 0x00);
-	REG_PORT_OUTSET1 = LCD_DC;
-	LCD_Write_DATA8(0x80);
-	REG_PORT_OUTSET1 = LCD_CS;
-	
+		
 	//The cursor data is in the cursorBuffer, so now we move
 	//xCharPos and yCharPos
 	
 	xCharPos = x;
 	yCharPos = y;
+	
+	cursorBlinkState = true;
 }
 
 
@@ -686,14 +623,12 @@ void printKeyboardBuffer(void)
 						drawChar(shiftCase[scanCodeBuffer[i]]);
 						if(xCharPos < 79)
 						xCharPos++;
-						cursorBlinkState = true;
 					}
 					else
 					{
 						drawChar(noCase[scanCodeBuffer[i]]);
 						if(xCharPos < 79)
 						xCharPos++;
-						cursorBlinkState = true;
 					}
 				}
 		}
@@ -705,6 +640,7 @@ void printKeyboardBuffer(void)
 	{
 		scanCodeBuffer[i] = 0xFF;
 	}
+	
 }
 
 
