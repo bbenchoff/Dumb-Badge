@@ -107,6 +107,8 @@ bool keyDown(int scancode);
 void removeFromKeyDown(int scancode);
 
 void drawCursorBuffer(void);
+void moveCursor(uint8_t x, uint8_t y);
+void clearCursorBuffer(void);
 
 void readKeyboard(void);
 
@@ -160,13 +162,14 @@ int main (void)
 	
 	interruptInit();
 	
-	setColorRGB(255,255,0);
+	setColorRGB(0,255,0);
 
 	//Setting the xChar and yChar position has to come
 	//after splashScreen() and InitLCD();
 	xCharPos = 0;
 	yCharPos = 0;
 
+	moveCursor(0,0);
 	
 	while(1)
 	{	
@@ -197,12 +200,11 @@ void SysTick_Handler(void)
 		if(cursorBlinkState)
 		{
 			//Draw the *inverse* of cursorBuffer
-			
 			setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
 	
 			for(uint16_t i = 0 ; i < 200 ; i++)
 			{
-				if((cursorBuffer[i] != 0xFF))
+				if((cursorBuffer[i] == 0xFF))
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
 				else
 				setPixel((back_Color_High<<8)|back_Color_Low);
@@ -217,7 +219,7 @@ void SysTick_Handler(void)
 			
 			for(uint16_t i = 0 ; i < 200 ; i++)
 			{
-				if((cursorBuffer[i] == 0xFF))
+				if((cursorBuffer[i] != 0xFF))
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
 				else
 				setPixel((back_Color_High<<8)|back_Color_Low);
@@ -265,6 +267,14 @@ void configure_adc(void)
 	config_adc.positive_input = ADC_POSITIVE_INPUT_DAC;
 	adc_init(&adc_instance, ADC, &config_adc);
 	adc_enable(&adc_instance);
+}
+
+void clearCursorBuffer(void)
+{
+	for(uint16_t i = 0 ; i < 200 ; i++)
+	{
+		cursorBuffer[i] = 0xFF;
+	}
 }
 
 void drawCursorBuffer(void)
@@ -343,7 +353,6 @@ void moveCursor(uint8_t x, uint8_t y)
 	xCharPos = x;
 	yCharPos = y;
 	
-	cursorBlinkState = true;
 }
 
 
@@ -559,32 +568,32 @@ void printKeyboardBuffer(void)
 				{
 					if(xCharPos > 0)
 					{
-						drawCursorBuffer();
-						moveCursor((xCharPos-1),(yCharPos));
+						clearCursorBuffer();
+						xCharPos = xCharPos-1;
 					}
 				}
 				else if(scanCodeBuffer[i] == 45)	//down
 				{
 					if(yCharPos < 24)
 					{
-						drawCursorBuffer();
-						moveCursor((xCharPos),(yCharPos+1));
+						clearCursorBuffer();
+						yCharPos = yCharPos+1;
 					}
 				}
 				else if(scanCodeBuffer[i] == 55)	//up
 				{
 					if(yCharPos > 0)
 					{
-						drawCursorBuffer();
-						moveCursor((xCharPos),(yCharPos-1));
+						clearCursorBuffer();
+						yCharPos= yCharPos-1;
 					}
 				}
 				else if(scanCodeBuffer[i] == 65)	//right
 				{
 					if(xCharPos < 79)
 					{
-						drawCursorBuffer();
-						moveCursor((xCharPos+1),(yCharPos));
+						clearCursorBuffer();
+						xCharPos = xCharPos+1;
 					}
 				}
 				
@@ -622,19 +631,23 @@ void printKeyboardBuffer(void)
 					{
 						drawChar(shiftCase[scanCodeBuffer[i]]);
 						if(xCharPos < 79)
-						xCharPos++;
+							xCharPos++;
 					}
 					else
 					{
 						drawChar(noCase[scanCodeBuffer[i]]);
+						clearCursorBuffer();
 						if(xCharPos < 79)
-						xCharPos++;
+							xCharPos++;
+						
 					}
 				}
 		}
 		
 
 	}
+	
+	
 	//Reset the buffer.
 	for(int i = 0 ; i < 20 ; i++)
 	{
