@@ -46,7 +46,7 @@ int main (void)
 	configure_usart_USB();
 	configure_console();
 		
-	printf("Hello World\n\r");
+	printf("Serial OK 9600 8N1\n\r");
 		
 	InitLCD();
 	splashScreen();
