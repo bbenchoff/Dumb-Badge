@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\splash.c
+
 src\ASF\common2\services\delay\sam0\systick_counter.c
 
 src\ASF\common\utils\interrupt\interrupt_sam_nvic.c
@@ -43,6 +45,14 @@ src\ASF\sam0\utils\stdio\write.c
 src\ASF\sam0\utils\syscalls\gcc\syscalls.c
 
 src\config\config_usart.c
+
+src\console.c
+
+src\keyboard.c
+
+src\LCD.c
+
+src\LCDBus.c
 
 src\main.c
 

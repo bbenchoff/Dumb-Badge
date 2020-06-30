@@ -1,4 +1,4 @@
-src/main.d src/main.o: ../src/main.c ../src/asf.h \
+src/splash.d src/splash.o: ../src/splash.c ../src/asf.h \
  ../src/ASF/sam0/drivers/adc/adc.h ../src/ASF/sam0/utils/compiler.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stddef.h \
  ../src/ASF/common/utils/parts.h ../src/ASF/sam0/utils/status_codes.h \
@@ -139,9 +139,7 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
- ../src/globals.h ../src/LCDBus.h ../src/LCD.h ../src/keyboard.h \
- ../src/console.h ../src/splash.h ../src/config/config_usart.h \
- ../src/config/conf_clocks.h
+ ../src/globals.h ../src/splash.h ../src/LCD.h ../src/console.h
 
 ../src/asf.h:
 
@@ -433,16 +431,8 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 
 ../src/globals.h:
 
-../src/LCDBus.h:
+../src/splash.h:
 
 ../src/LCD.h:
 
-../src/keyboard.h:
-
 ../src/console.h:
-
-../src/splash.h:
-
-../src/config/config_usart.h:
-
-../src/config/conf_clocks.h:
