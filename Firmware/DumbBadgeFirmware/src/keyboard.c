@@ -348,14 +348,11 @@ void readKeyboard(void)
 	{
 		scanCodes[scanCodeIndex] = 18; scanCodeIndex++;
 	}
-	/*We don't use column 1, row 9 because it's not
-	used as a key in the kb matrix  --  possible fun
-	stuff here in the future!
 	if((PORT->Group[0].IN.reg & KB_ROW9) != 0)
 	{
 		scanCodes[scanCodeIndex] = 19; scanCodeIndex++;
 	}
-	*/
+	
 	REG_PORT_OUTCLR0 = KB_COL1;
 	
 	//This is column 2
@@ -924,12 +921,12 @@ void readKeyboard(void)
 	{
 		scanCodes[scanCodeIndex] = 9; scanCodeIndex++;
 	}
-	/* There is no 19, so don't bother
+
 	if((PORT->Group[0].IN.reg & KB_COL1) != 0)
 	{
 		scanCodes[scanCodeIndex] = 19; scanCodeIndex++;
 	}
-	*/
+
 	if((PORT->Group[0].IN.reg & KB_COL2) != 0)
 	{
 		scanCodes[scanCodeIndex] = 29; scanCodeIndex++;
@@ -959,9 +956,12 @@ void readKeyboard(void)
 		{
 			
 			scanCodeBuffer[i] = scanCodes[i];
+			printf("%i \t", scanCodes[i]);
+
 		
 		}
 	}
+	printf("\n\r");
 
 }
 

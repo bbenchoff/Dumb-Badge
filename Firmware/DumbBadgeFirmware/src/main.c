@@ -15,10 +15,11 @@
 
 /** VARIABLES *****************************************************************/
 
-uint32_t ul_tickcount=0 ;
-
+uint32_t ul_tickcount=0;
 
 /** LOCAL PROTOTYPES **********************************************************/
+
+void setupBoard(void);
 
 void configure_usart_USB(void);
 void configure_adc(void);
@@ -32,30 +33,11 @@ struct adc_module adc_instance;
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
 {
-	uint16_t adcResult;
-	
-	configure_adc();
-	adc_start_conversion(&adc_instance);
-	do {
-		/* Wait for conversion to be done and read out result */
-	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
-	
-	system_init();	
-	delay_init();
-	srand(adcResult);
-	configure_usart_USB();
-	configure_console();
-		
-	printf("Serial OK 9600 8N1\n\r");
-		
-	InitLCD();
-	splashScreen();
-	
-	interruptInit();
-	moveCursor(0,0);
+	setupBoard();
 	
 	while(1)
 	{	
+		__WFI();
 		
 	}
 }
@@ -71,6 +53,7 @@ void interruptInit()
 	SysTick->VAL = 0;					// Reset the SysTick counter value
 	SysTick->CTRL = 0x00000007;			// Enable SysTick, Enable SysTick Exceptions, Use CPU Clock
 	NVIC_EnableIRQ(SysTick_IRQn);		// Enable SysTick Interrupt
+		
 }
 
 void SysTick_Handler(void)
@@ -89,7 +72,7 @@ void SysTick_Handler(void)
 		readKeyboard();
 		printKeyboardBuffer();
 	}
-
+	
 	
 }
 
@@ -119,4 +102,31 @@ void configure_adc(void)
 	config_adc.positive_input = ADC_POSITIVE_INPUT_DAC;
 	adc_init(&adc_instance, ADC, &config_adc);
 	adc_enable(&adc_instance);
+}
+
+
+
+void setupBoard(void)
+{
+	uint16_t adcResult;
+	
+	configure_adc();
+	adc_start_conversion(&adc_instance);
+	do {
+		/* Wait for conversion to be done and read out result */
+	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
+	
+	system_init();
+	delay_init();
+	srand(adcResult);
+	configure_usart_USB();
+	configure_console();
+	
+	printf("Serial OK 9600 8N1\n\r");
+	
+	InitLCD();
+	splashScreen();
+	
+	interruptInit();
+	moveCursor(0,0);
 }
