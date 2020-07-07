@@ -15,7 +15,7 @@
 
 /** VARIABLES *****************************************************************/
 
-uint32_t ul_tickcount=0;
+uint16_t ul_tickcount=0;
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -24,7 +24,8 @@ void setupBoard(void);
 void configure_usart_USB(void);
 void configure_adc(void);
 
-void interruptInit(void);
+
+void conf_systick(void);
 
 struct usart_module usart_USB;
 struct adc_module adc_instance;
@@ -37,43 +38,47 @@ int main (void)
 	
 	while(1)
 	{	
+		
 		__WFI();
 		
+		if(ul_tickcount % 12000 == 0)
+		{
+			blinkCursor();
+			//invertCursorBuffer();
+			//drawCursorBuffer();
+		}
+		
+		if(ul_tickcount % 20 == 0)
+		{
+			readKeyboard();
+			printKeyboardBuffer();
+		}
+		
+
 	}
 }
 
 /**************************INTERRUPT STUFF****************************/
-void interruptInit()
-{
-	// Configure SysTick to trigger every millisecond using the CPU Clock
-	
-	SysTick->CTRL = 0;					// Disable SysTick
-	SysTick->LOAD = 999UL;				// Set reload register for 1mS interrupts
-	NVIC_SetPriority(SysTick_IRQn, 3);	// Set interrupt priority to least urgency
-	SysTick->VAL = 0;					// Reset the SysTick counter value
-	SysTick->CTRL = 0x00000007;			// Enable SysTick, Enable SysTick Exceptions, Use CPU Clock
-	NVIC_EnableIRQ(SysTick_IRQn);		// Enable SysTick Interrupt
-		
-}
 
 void SysTick_Handler(void)
 {
+
 	
 	ul_tickcount++;
-		
-	if(ul_tickcount % 2000 == 0)
+			
+	if(ul_tickcount == (12000-1))
 	{
-		blinkCursor();
+		ul_tickcount = 0;
 	}
+			
 
+}
 
-	if(ul_tickcount % 20 == 0)
-	{
-		readKeyboard();
-		printKeyboardBuffer();
-	}
-	
-	
+void conf_systick(void)
+{
+	//system_core_clk=48Mhz / 1000=48kHz systic clk if 48Mhz  is used
+	SysTick_Config(SystemCoreClock/1000);
+	system_interrupt_enable(SYSTEM_INTERRUPT_SYSTICK);
 }
 
 /**************************SERCOM STUFF*******************************/
@@ -105,7 +110,6 @@ void configure_adc(void)
 }
 
 
-
 void setupBoard(void)
 {
 	uint16_t adcResult;
@@ -115,6 +119,8 @@ void setupBoard(void)
 	do {
 		/* Wait for conversion to be done and read out result */
 	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
+	
+	//interruptInit();
 	
 	system_init();
 	delay_init();
@@ -127,6 +133,8 @@ void setupBoard(void)
 	InitLCD();
 	splashScreen();
 	
-	interruptInit();
+	conf_systick();
+	clearCursorBuffer();
+
 	moveCursor(0,0);
 }

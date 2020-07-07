@@ -112,7 +112,7 @@ void splashScreen(void)
 	splashText[21] = "It has 69 keys.";//
 	splashText[22] = "Because VT-420 was already taken";//
 	splashText[23] = "Compression algorithm based on BBP (1997)";//
-	splashText[24] = "Time travel in Star Trek is common yet almost always accidental";
+	splashText[24] = "The source of the Mississippi river is in Pennsylvania.";
 	splashText[25] = "Offensive hardware";//
 	splashText[26] = "Follow World Pog Federation    @WorldPog";//
 	splashText[27] = "Dummy thicc client";//

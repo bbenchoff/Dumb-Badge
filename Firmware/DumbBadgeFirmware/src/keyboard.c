@@ -157,7 +157,7 @@ void printKeyboardBuffer(void)
 				else
 				{
 					drawChar(noCase[scanCodeBuffer[i]]);
-					clearCursorBuffer();
+					//clearCursorBuffer();
 					if(xCharPos < 79)
 					xCharPos++;
 					
@@ -956,12 +956,12 @@ void readKeyboard(void)
 		{
 			
 			scanCodeBuffer[i] = scanCodes[i];
-			printf("%i \t", scanCodes[i]);
+			//printf("%i \t", scanCodes[i]);
 
 		
 		}
 	}
-	printf("\n\r");
+	//printf("\n\r");
 
 }
 
@@ -1024,6 +1024,21 @@ void drawCursorBuffer(void)
 
 }
 
+void invertCursorBuffer(void)
+{
+	for(uint16_t i = 0 ; i < 200 ; i++)
+	{
+		if((cursorBuffer[i] == 0xFF))
+		{
+			cursorBuffer[i] = 0x00;
+		}
+		else
+		{
+			cursorBuffer[i] = 0xFF;
+		}
+	}	
+}
+
 void moveCursor(uint8_t x, uint8_t y)
 {
 	//First, this reads the GRAM memory at the cursor location
@@ -1062,10 +1077,14 @@ void moveCursor(uint8_t x, uint8_t y)
 		//This can be expanded with else if for the MSBs
 		//of all the colors; see datasheet page 40.
 		if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
-		cursorBuffer[pixel] = 0xFF;
+		{
+			cursorBuffer[pixel] = 0xFF;
+		}
 		else
-		cursorBuffer[pixel] = 0x00;
-		
+		{
+			cursorBuffer[pixel] = 0x00;
+		}
+
 		//dummy read, because pixel data broken up
 		//per datasheet page 40. Everything after
 		//the dummy write is BLUE pixels. Do we ever
@@ -1088,24 +1107,13 @@ void moveCursor(uint8_t x, uint8_t y)
 
 void blinkCursor(void)
 {
+	
+	printf("Blink Enter\t");
+	printf("XY: %i, %i\r",xCharPos,yCharPos);
 	if(cursorBlinkState)
 	{
+		printf("Blink On\n\r");
 		//Draw the *inverse* of cursorBuffer
-		setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
-		
-		for(uint16_t i = 0 ; i < 200 ; i++)
-		{
-			if((cursorBuffer[i] == 0xFF))
-			setPixel((fore_Color_High<<8)|fore_Color_Low);
-			else
-			setPixel((back_Color_High<<8)|back_Color_Low);
-		}
-		
-		//finally set cursorBlinkState to false
-		cursorBlinkState = false;
-	}
-	else
-	{
 		setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
 		
 		for(uint16_t i = 0 ; i < 200 ; i++)
@@ -1115,7 +1123,24 @@ void blinkCursor(void)
 			else
 			setPixel((back_Color_High<<8)|back_Color_Low);
 		}
+		
+		//finally set cursorBlinkState to false
+		cursorBlinkState = !cursorBlinkState;
+	}
+	else
+	{
+		printf("Blink Off\n\r");
+		setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
+		
+		for(uint16_t i = 0 ; i < 200 ; i++)
+		{
+			if((cursorBuffer[i] == 0xFF))
+			setPixel((fore_Color_High<<8)|fore_Color_Low);
+			else
+			setPixel((back_Color_High<<8)|back_Color_Low);
+		}
 		//set cursorBlinkState to true
-		cursorBlinkState = true;
+		cursorBlinkState = !cursorBlinkState;
 	}
 }
+
