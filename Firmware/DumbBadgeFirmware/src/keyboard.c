@@ -17,12 +17,18 @@ bool scrollLock = false;
 bool cursorBlinkState = true;
 
 char scanCodeBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+						0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
 char keyDownBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+						0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
 uint8_t cursorBuffer[200];
+
+void drawBlank(void)
+{
+	if(cursorBlinkState == true)
+		drawChar(0x20);
+}
 
 void printKeyboardBuffer(void)
 {
@@ -41,7 +47,7 @@ void printKeyboardBuffer(void)
 		0x35,0x74,0x64,0x76,0x6E,	//Col5, Row0-4
 		0xFF,0x27,0x5D,0xFF,0x5C,	//Col5, Row5-9
 		0x36,0x79,0x66,0x62,0x6D,	//Col6, Row0-4
-	0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row5-9
+		0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row5-9
 	
 	char shiftCase[] = {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
 		0x26,0x55,0x47,0x4A,0x3C,	//Col0, Row5-9
@@ -56,16 +62,14 @@ void printKeyboardBuffer(void)
 		0x25,0x54,0x44,0x56,0x4E,	//Col5, Row0-4
 		0xFF,0x7E,0x7D,0xFF,0x7C,	//Col5, Row5-9
 		0x5E,0x59,0x46,0x42,0x4D,	//Col6, Row0-4
-	0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row0-4
-	
+		0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row0-4
 
-	
 
 	//Check if Shift key is present
 	for(int i=0; i<20; i++)
 	{
 		if((scanCodeBuffer[i] == 13) | (scanCodeBuffer[i] == 49))
-		shifted = true;
+			shifted = true;
 	}
 	
 	for(int i=0; i<20; i++)
@@ -87,34 +91,47 @@ void printKeyboardBuffer(void)
 			//Arrow key handling
 			else if(scanCodeBuffer[i] == 35) //left
 			{
-				if(xCharPos > 0)
+				if(xCharPos > 0)  ///I think I need to decouple the reading the next cursor
+				//and actually moving the thing.
 				{
-					clearCursorBuffer();
-					xCharPos = xCharPos-1;
+					
+					drawCursorBuffer();
+					moveCursor(xCharPos-1,yCharPos);
+					
+					//clearCursorBuffer();
 				}
 			}
 			else if(scanCodeBuffer[i] == 45)	//down
 			{
 				if(yCharPos < 24)
 				{
-					clearCursorBuffer();
-					yCharPos = yCharPos+1;
+					
+					drawCursorBuffer();
+					moveCursor(xCharPos,yCharPos+1);
+					
+					//clearCursorBuffer();
 				}
 			}
 			else if(scanCodeBuffer[i] == 55)	//up
 			{
 				if(yCharPos > 0)
 				{
-					clearCursorBuffer();
-					yCharPos= yCharPos-1;
+					
+					drawCursorBuffer();
+					moveCursor(xCharPos,yCharPos-1);
+					
+					//clearCursorBuffer();
 				}
 			}
 			else if(scanCodeBuffer[i] == 65)	//right
 			{
 				if(xCharPos < 79)
 				{
-					clearCursorBuffer();
-					xCharPos = xCharPos+1;
+					
+					drawCursorBuffer();
+					moveCursor(xCharPos+1,yCharPos);
+					
+					//clearCursorBuffer();
 				}
 			}
 			
@@ -126,11 +143,13 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos == 23)
 				{
+					drawCursorBuffer();
 					newLine();
 					xCharPos = 0;
 				}
 				else
 				{
+					drawCursorBuffer();
 					yCharPos++;
 					xCharPos = 0;
 				}
@@ -146,27 +165,44 @@ void printKeyboardBuffer(void)
 					yCharPos++;
 				}
 			}
+			else if(scanCodeBuffer[i] == 66) //Backspace
+			{
+				drawCursorBuffer();
+				xCharPos--;
+				drawChar(0x20);
+				//drawCursorBuffer();
+				clearCursorBuffer();
+				moveCursor(xCharPos,yCharPos);
+				
+			}
 			else
 			{
 				if(shifted)
 				{
 					drawChar(shiftCase[scanCodeBuffer[i]]);
 					if(xCharPos < 79)
-					xCharPos++;
+					{
+						moveCursor(xCharPos++,yCharPos);
+						xCharPos++;
+						clearCursorBuffer();
+					}
 				}
 				else
 				{
 					drawChar(noCase[scanCodeBuffer[i]]);
 					//clearCursorBuffer();
 					if(xCharPos < 79)
-					xCharPos++;
-					
+					{
+						moveCursor(xCharPos++,yCharPos);
+						xCharPos++;
+						clearCursorBuffer();
+					}
 				}
 			}
 		}
-		
-
 	}
+	
+	
 	
 	
 	//Reset the buffer.
@@ -181,7 +217,7 @@ void readKeyboard(void)
 {
 	/*
 	The getScanCode writes ints to scanCodeBuffer. These are the scancode,
-	with the key column being the decade, and hte key row being the ones digit.
+	with the key column being the decade, and the key row being the ones digit.
 	For example, the 'A' key is scan code 32, because it's on column 3, row 2.
 	
 	Keyboard read is done by first setting the columns as output, low. Then,
@@ -193,7 +229,10 @@ void readKeyboard(void)
 	No, you can't just do the columns without doing the rows; there is
 	keyboard ghosting if you do.
 	
-	These keycodes are then de-duplicated and shoved into the scancode buffer.
+	For each keypress, scanCodeIndex is incremented. this is used as a counter
+	to keep track of how many keys are pressed.
+	
+	all keys are added to the keyDownBuffer. This is to 
 	
 	Relevant information:
 	------------------------------------------------------------------------
@@ -948,20 +987,46 @@ void readKeyboard(void)
 		scanCodes[scanCodeIndex] = 69; scanCodeIndex++;
 	}
 	REG_PORT_OUTCLR0 = KB_ROW9;
+	
+	//If a key is in the keyDownBuffer, but not in ScanCodebuffer,
+	//We remove it from the keyDownBuffer
+	/*
+	for(int i = 0 ; i < scanCodeIndex ; i++)
+	{
+		if(keyDown(scanCodes[i]))  //The key is in keyDownBuffer
+		{
+			for(int j = 0 ; j < 20 ; j++)
+			{
+				if(keyDownBuffer[j] = scanCodes[i])
+				{
+					keyDownBuffer[j] = 0xFF;
+				}
+			}
+		}
+	}
+	
+	/*
 		
-			
+	//Now, we add all the keys pressed into the keyDownBuffer
+	for(int i = 0 ; i < scanCodeIndex ; i++)
+	{
+		keyDownBuffer[i] = scanCodes[i];
+	}
+	*/
+	
+
+	
+
+	
 	for(int i = 0; i < scanCodeIndex; i++)
 	{
 		if(!bufferContains(scanCodes[i]))
 		{
 			
 			scanCodeBuffer[i] = scanCodes[i];
-			//printf("%i \t", scanCodes[i]);
 
-		
 		}
 	}
-	//printf("\n\r");
 
 }
 
@@ -970,9 +1035,13 @@ bool bufferContains(int scanCode)
 	for(int i = 0 ; i < 20 ; i++)
 	{
 		if(scanCodeBuffer[i] == scanCode)
-		return true;
+		{
+			return true;
+		}
 		else
-		return false;
+		{
+			return false;
+		}
 	}
 	return false;
 }
@@ -982,9 +1051,14 @@ bool keyDown(int scancode)
 	for(int i = 0 ; i < 20 ; i++)
 	{
 		if(keyDownBuffer[i] == scancode)
-		return true;
+		{
+			return true;
+		}
 		else
-		return false;
+		{
+			return false;
+		}
+		
 	}
 	return false;
 }
@@ -1004,7 +1078,7 @@ void clearCursorBuffer(void)
 {
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
-		cursorBuffer[i] = 0xFF;
+		cursorBuffer[i] = 0x00;
 	}
 }
 
@@ -1099,7 +1173,6 @@ void moveCursor(uint8_t x, uint8_t y)
 	
 	//The cursor data is in the cursorBuffer, so now we move
 	//xCharPos and yCharPos
-	
 	xCharPos = x;
 	yCharPos = y;
 	
@@ -1107,12 +1180,9 @@ void moveCursor(uint8_t x, uint8_t y)
 
 void blinkCursor(void)
 {
-	
-	printf("Blink Enter\t");
-	printf("XY: %i, %i\r",xCharPos,yCharPos);
 	if(cursorBlinkState)
 	{
-		printf("Blink On\n\r");
+
 		//Draw the *inverse* of cursorBuffer
 		setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
 		
@@ -1129,7 +1199,7 @@ void blinkCursor(void)
 	}
 	else
 	{
-		printf("Blink Off\n\r");
+
 		setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
 		
 		for(uint16_t i = 0 ; i < 200 ; i++)
