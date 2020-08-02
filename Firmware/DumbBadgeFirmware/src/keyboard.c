@@ -21,8 +21,12 @@ char scanCodeBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 
 char keyDownBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 						0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
-
+						
 uint8_t cursorBuffer[200];
+
+int kb_col[] = {KB_COL0, KB_COL1, KB_COL2, KB_COL3, KB_COL4, KB_COL5, KB_COL6};
+
+int kb_row[] = {KB_ROW0, KB_ROW1, KB_ROW2, KB_ROW3, KB_ROW4, KB_ROW5, KB_ROW6, KB_ROW7, KB_ROW8, KB_ROW9};
 
 void drawBlank(void)
 {
@@ -303,7 +307,23 @@ void readKeyboard(void)
 	PORT->Group[0].PINCFG[11].bit.INEN = 1;
 	PORT->Group[0].PINCFG[12].bit.INEN = 1;
 	PORT->Group[0].PINCFG[13].bit.INEN = 1;
-			
+	
+	/*
+	//We're going to loop through the columns, and inside the rows
+	//if a key is high, set the scancode index to that thing.
+	for(int i = 0 ; i <= 6 ; i++)
+	{
+		REG_PORT_OUTSET0 = kb_col[i];
+		for(int j = 0 ; j <= 9 ; j++)
+		{
+			if((PORT->Group[0].IN.reg & kb_row[j]) != 0)
+			scanCodes[scanCodeIndex] = ((i*10) + j);
+			scanCodeIndex++;
+		}	
+		REG_PORT_OUTCLR0 = kb_col[i];
+	}
+	*/
+	
 	//Step through columns, if high, save that column.
 	//This is column 0
 	REG_PORT_OUTSET0 = KB_COL0;
@@ -391,7 +411,6 @@ void readKeyboard(void)
 	{
 		scanCodes[scanCodeIndex] = 19; scanCodeIndex++;
 	}
-	
 	REG_PORT_OUTCLR0 = KB_COL1;
 	
 	//This is column 2
@@ -665,6 +684,8 @@ void readKeyboard(void)
 	PORT->Group[0].PINCFG[20].bit.INEN = 1;
 	PORT->Group[0].PINCFG[21].bit.INEN = 1;
 	PORT->Group[0].PINCFG[27].bit.INEN = 1;
+	
+	/*
 	
 	//This is row 0
 	REG_PORT_OUTSET0 = KB_ROW0;
@@ -988,34 +1009,10 @@ void readKeyboard(void)
 	}
 	REG_PORT_OUTCLR0 = KB_ROW9;
 	
-	//If a key is in the keyDownBuffer, but not in ScanCodebuffer,
-	//We remove it from the keyDownBuffer
-	/*
-	for(int i = 0 ; i < scanCodeIndex ; i++)
-	{
-		if(keyDown(scanCodes[i]))  //The key is in keyDownBuffer
-		{
-			for(int j = 0 ; j < 20 ; j++)
-			{
-				if(keyDownBuffer[j] = scanCodes[i])
-				{
-					keyDownBuffer[j] = 0xFF;
-				}
-			}
-		}
-	}
-	
-	/*
-		
-	//Now, we add all the keys pressed into the keyDownBuffer
-	for(int i = 0 ; i < scanCodeIndex ; i++)
-	{
-		keyDownBuffer[i] = scanCodes[i];
-	}
-	*/
-	
 
 	
+
+	*/
 
 	
 	for(int i = 0; i < scanCodeIndex; i++)

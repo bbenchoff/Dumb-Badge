@@ -34,6 +34,8 @@
 #define LCD_DC		PORT_PB23
 #define LCD_RD		PORT_PB16
 
+
+
 #define SwapUint16(x , y) { uint16_t temp = x; x = y; y = temp; }
 
 extern uint16_t fore_Color_High, fore_Color_Low;
