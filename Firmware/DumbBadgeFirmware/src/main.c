@@ -39,14 +39,14 @@ int main (void)
 	while(1)
 	{	
 		
-		//__WFI();
+		__WFI();
 		
 		if(ul_tickcount % 12000 == 0)
 		{
 			blinkCursor();
 			//invertCursorBuffer();
 			//drawCursorBuffer();
-			printf("Blink/n/r");
+			//printf("Blink %i\n\r",rand());
 		}
 		
 		if(ul_tickcount % 20 == 0)

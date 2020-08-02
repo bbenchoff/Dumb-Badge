@@ -78,6 +78,8 @@ void printKeyboardBuffer(void)
 	{
 		if((scanCodeBuffer[i] == 13) | (scanCodeBuffer[i] == 49))
 			shifted = true;
+		
+	
 	}
 	
 	for(int i=0; i<20; i++)
@@ -212,7 +214,6 @@ void printKeyboardBuffer(void)
 	
 	
 	
-	
 	//Reset the buffer.
 	for(int i = 0 ; i < 20 ; i++)
 	{
@@ -311,35 +312,11 @@ void readKeyboard(void)
 		}
 		REG_PORT_OUTCLR0 = kb_row[i];
 	}
-		
-	//If a key is in the keyDownBuffer, but not in ScanCodebuffer,
-	//We remove it from the keyDownBuffer
-	/*
-	for(int i = 0 ; i < scanCodeIndex ; i++)
-	{
-		if(keyDown(scanCodes[i]))  //The key is in keyDownBuffer
-		{
-			for(int j = 0 ; j < 20 ; j++)
-			{
-				if(keyDownBuffer[j] = scanCodes[i])
-				{
-					keyDownBuffer[j] = 0xFF;
-				}
-			}
-		}
-	}
-		
-	//Now, we add all the keys pressed into the keyDownBuffer
-	for(int i = 0 ; i < scanCodeIndex ; i++)
-	{
-		keyDownBuffer[i] = scanCodes[i];
-	}
-	*/
 	
 	for(i = 0; i < scanCodeIndex; i++)
 	{
-		if(!bufferContains(scanCodes[i]))
-		{	
+		if(!bufferContains(scanCodes[i]))		//if it isn't already in the scancode buffer
+		{
 			scanCodeBuffer[i] = scanCodes[i];
 		}
 	}

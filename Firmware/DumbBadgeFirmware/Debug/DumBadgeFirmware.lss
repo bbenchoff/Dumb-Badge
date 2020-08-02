@@ -3,35 +3,35 @@ DumBadgeFirmware.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         000065ac  00000000  00000000  00010000  2**2
+  0 .text         000065a0  00000000  00000000  00010000  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .relocate     000000a4  20000000  000065ac  00020000  2**2
+  1 .relocate     000000a4  20000000  000065a0  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000270  200000a4  00006650  000200a4  2**2
+  2 .bss          00000270  200000a4  00006644  000200a4  2**2
                   ALLOC
-  3 .stack        00002004  20000314  000068c0  000200a4  2**0
+  3 .stack        00002004  20000314  000068b4  000200a4  2**0
                   ALLOC
   4 .ARM.attributes 00000028  00000000  00000000  000200a4  2**0
                   CONTENTS, READONLY
   5 .comment      00000059  00000000  00000000  000200cc  2**0
                   CONTENTS, READONLY
-  6 .debug_info   00037508  00000000  00000000  00020125  2**0
+  6 .debug_info   0003751e  00000000  00000000  00020125  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 0000504b  00000000  00000000  0005762d  2**0
+  7 .debug_abbrev 0000505c  00000000  00000000  00057643  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    00006282  00000000  00000000  0005c678  2**0
+  8 .debug_loc    00006296  00000000  00000000  0005c69f  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_aranges 000006e0  00000000  00000000  000628fa  2**0
+  9 .debug_aranges 000006e0  00000000  00000000  00062935  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 000007d0  00000000  00000000  00062fda  2**0
+ 10 .debug_ranges 000007d0  00000000  00000000  00063015  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  0001e764  00000000  00000000  000637aa  2**0
+ 11 .debug_macro  0001e764  00000000  00000000  000637e5  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00012793  00000000  00000000  00081f0e  2**0
+ 12 .debug_line   00012799  00000000  00000000  00081f49  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    000900a0  00000000  00000000  000946a1  2**0
+ 13 .debug_str    000900a0  00000000  00000000  000946e2  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  00001858  00000000  00000000  00124744  2**2
+ 14 .debug_frame  00001858  00000000  00000000  00124784  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -46,7 +46,7 @@ void SystemInit(void)
        0:	18 23 00 20 75 1b 00 00 71 1b 00 00 71 1b 00 00     .#. u...q...q...
 	...
       2c:	71 1b 00 00 00 00 00 00 00 00 00 00 71 1b 00 00     q...........q...
-      3c:	01 2e 00 00 71 1b 00 00 71 1b 00 00 71 1b 00 00     ....q...q...q...
+      3c:	0d 2e 00 00 71 1b 00 00 71 1b 00 00 71 1b 00 00     ....q...q...q...
       4c:	71 1b 00 00 71 1b 00 00 71 1b 00 00 71 1b 00 00     q...q...q...q...
       5c:	71 1b 00 00 71 1b 00 00 15 0e 00 00 25 0e 00 00     q...q.......%...
       6c:	35 0e 00 00 45 0e 00 00 55 0e 00 00 65 0e 00 00     5...E...U...e...
@@ -72,7 +72,7 @@ void SystemInit(void)
       ce:	bd10      	pop	{r4, pc}
       d0:	200000a4 	.word	0x200000a4
       d4:	00000000 	.word	0x00000000
-      d8:	000065ac 	.word	0x000065ac
+      d8:	000065a0 	.word	0x000065a0
 
 000000dc <frame_dummy>:
       dc:	4b08      	ldr	r3, [pc, #32]	; (100 <frame_dummy+0x24>)
@@ -95,8 +95,8 @@ void SystemInit(void)
       fe:	e7f9      	b.n	f4 <frame_dummy+0x18>
      100:	00000000 	.word	0x00000000
      104:	200000a8 	.word	0x200000a8
-     108:	000065ac 	.word	0x000065ac
-     10c:	000065ac 	.word	0x000065ac
+     108:	000065a0 	.word	0x000065a0
+     10c:	000065a0 	.word	0x000065a0
      110:	00000000 	.word	0x00000000
 
 00000114 <drawKare>:
@@ -257,7 +257,7 @@ void drawKare(int emotion)
      1d4:	00004378 	.word	0x00004378
      1d8:	0000328d 	.word	0x0000328d
      1dc:	000043f8 	.word	0x000043f8
-     1e0:	0000296d 	.word	0x0000296d
+     1e0:	00002979 	.word	0x00002979
 
 000001e4 <splashScreen>:
 
@@ -517,18 +517,18 @@ void splashScreen(void)
      38c:	000047e8 	.word	0x000047e8
      390:	00004808 	.word	0x00004808
      394:	00003341 	.word	0x00003341
-     398:	00002b0d 	.word	0x00002b0d
-     39c:	00002821 	.word	0x00002821
+     398:	00002b19 	.word	0x00002b19
+     39c:	0000282d 	.word	0x0000282d
      3a0:	4100448c 	.word	0x4100448c
      3a4:	41004400 	.word	0x41004400
      3a8:	00000115 	.word	0x00000115
-     3ac:	00002ad5 	.word	0x00002ad5
+     3ac:	00002ae1 	.word	0x00002ae1
      3b0:	00003525 	.word	0x00003525
      3b4:	20000180 	.word	0x20000180
      3b8:	20000181 	.word	0x20000181
      3bc:	0000212d 	.word	0x0000212d
      3c0:	00000409 	.word	0x00000409
-     3c4:	00002849 	.word	0x00002849
+     3c4:	00002855 	.word	0x00002855
 
 000003c8 <delay_init>:
  *
@@ -5424,7 +5424,7 @@ void Dummy_Handler(void)
     1c1a:	4b0e      	ldr	r3, [pc, #56]	; (1c54 <Reset_Handler+0xe0>)
     1c1c:	4798      	blx	r3
     1c1e:	e7fe      	b.n	1c1e <Reset_Handler+0xaa>
-    1c20:	000065ac 	.word	0x000065ac
+    1c20:	000065a0 	.word	0x000065a0
     1c24:	20000000 	.word	0x20000000
     1c28:	200000a4 	.word	0x200000a4
     1c2c:	20000004 	.word	0x20000004
@@ -5437,7 +5437,7 @@ void Dummy_Handler(void)
     1c48:	41004800 	.word	0x41004800
     1c4c:	41004000 	.word	0x41004000
     1c50:	00003245 	.word	0x00003245
-    1c54:	00003075 	.word	0x00003075
+    1c54:	00003081 	.word	0x00003081
 
 00001c58 <_read>:
 int __attribute__((weak))
@@ -6061,10 +6061,10 @@ void drawChar(uint8_t character)
     1f48:	20000180 	.word	0x20000180
     1f4c:	20000181 	.word	0x20000181
     1f50:	41004494 	.word	0x41004494
-    1f54:	000028e5 	.word	0x000028e5
+    1f54:	000028f1 	.word	0x000028f1
     1f58:	200002ba 	.word	0x200002ba
     1f5c:	200002b4 	.word	0x200002b4
-    1f60:	00002ac5 	.word	0x00002ac5
+    1f60:	00002ad1 	.word	0x00002ad1
     1f64:	200002b6 	.word	0x200002b6
     1f68:	200002b8 	.word	0x200002b8
     1f6c:	41004498 	.word	0x41004498
@@ -6351,21 +6351,21 @@ void newLine(void)
     20e6:	46c0      	nop			; (mov r8, r8)
     20e8:	fffffcd4 	.word	0xfffffcd4
     20ec:	41004494 	.word	0x41004494
-    20f0:	00002b69 	.word	0x00002b69
+    20f0:	00002b75 	.word	0x00002b75
     20f4:	41004498 	.word	0x41004498
-    20f8:	00002b99 	.word	0x00002b99
+    20f8:	00002ba5 	.word	0x00002ba5
     20fc:	0000ffff 	.word	0x0000ffff
     2100:	41004488 	.word	0x41004488
     2104:	0000031f 	.word	0x0000031f
-    2108:	000028e5 	.word	0x000028e5
+    2108:	000028f1 	.word	0x000028f1
     210c:	200002ba 	.word	0x200002ba
     2110:	200002b4 	.word	0x200002b4
-    2114:	00002ac5 	.word	0x00002ac5
+    2114:	00002ad1 	.word	0x00002ad1
     2118:	200002b6 	.word	0x200002b6
     211c:	200002b8 	.word	0x200002b8
     2120:	41004484 	.word	0x41004484
     2124:	41004400 	.word	0x41004400
-    2128:	000029fd 	.word	0x000029fd
+    2128:	00002a09 	.word	0x00002a09
 
 0000212c <writeString>:
 
@@ -6436,22 +6436,22 @@ void readKeyboard(void)
 	
 	//Set strong drive on column
 	PORT->Group[0].WRCONFIG.bit.DRVSTR = 1;
-    2182:	4a5a      	ldr	r2, [pc, #360]	; (22ec <readKeyboard+0x178>)
+    2182:	4a5c      	ldr	r2, [pc, #368]	; (22f4 <readKeyboard+0x180>)
     2184:	6a91      	ldr	r1, [r2, #40]	; 0x28
     2186:	2380      	movs	r3, #128	; 0x80
     2188:	03db      	lsls	r3, r3, #15
     218a:	430b      	orrs	r3, r1
     218c:	6293      	str	r3, [r2, #40]	; 0x28
-    218e:	4d58      	ldr	r5, [pc, #352]	; (22f0 <readKeyboard+0x17c>)
+    218e:	4d5a      	ldr	r5, [pc, #360]	; (22f8 <readKeyboard+0x184>)
     2190:	351c      	adds	r5, #28
-    2192:	4b57      	ldr	r3, [pc, #348]	; (22f0 <readKeyboard+0x17c>)
+    2192:	4b59      	ldr	r3, [pc, #356]	; (22f8 <readKeyboard+0x184>)
 	
 	//Set all columns as output, low
 	for (i = 0; i < NUM_COL; i++) {
 		REG_PORT_DIRSET0 = kb_col[i];
-    2194:	4857      	ldr	r0, [pc, #348]	; (22f4 <readKeyboard+0x180>)
+    2194:	4859      	ldr	r0, [pc, #356]	; (22fc <readKeyboard+0x188>)
 		REG_PORT_OUTCLR0 = kb_col[i];
-    2196:	4958      	ldr	r1, [pc, #352]	; (22f8 <readKeyboard+0x184>)
+    2196:	495a      	ldr	r1, [pc, #360]	; (2300 <readKeyboard+0x18c>)
 		REG_PORT_DIRSET0 = kb_col[i];
     2198:	681a      	ldr	r2, [r3, #0]
     219a:	6002      	str	r2, [r0, #0]
@@ -6467,10 +6467,10 @@ void readKeyboard(void)
 	//set rows to input, pullup enabled
 	for (i = 0; i < NUM_ROW; i++) {
 		REG_PORT_DIRCLR0 = kb_row[i];
-    21a6:	4c55      	ldr	r4, [pc, #340]	; (22fc <readKeyboard+0x188>)
-    21a8:	4f55      	ldr	r7, [pc, #340]	; (2300 <readKeyboard+0x18c>)
+    21a6:	4c57      	ldr	r4, [pc, #348]	; (2304 <readKeyboard+0x190>)
+    21a8:	4f57      	ldr	r7, [pc, #348]	; (2308 <readKeyboard+0x194>)
 		PORT->Group[0].PINCFG[kb_row_index[i]].bit.PULLEN = 1;
-    21aa:	4e56      	ldr	r6, [pc, #344]	; (2304 <readKeyboard+0x190>)
+    21aa:	4e58      	ldr	r6, [pc, #352]	; (230c <readKeyboard+0x198>)
     21ac:	2504      	movs	r5, #4
 		PORT->Group[0].PINCFG[kb_row_index[i]].bit.INEN = 1;
     21ae:	2002      	movs	r0, #2
@@ -6479,7 +6479,7 @@ void readKeyboard(void)
     21b2:	603b      	str	r3, [r7, #0]
 		PORT->Group[0].PINCFG[kb_row_index[i]].bit.PULLEN = 1;
     21b4:	5993      	ldr	r3, [r2, r6]
-    21b6:	4954      	ldr	r1, [pc, #336]	; (2308 <readKeyboard+0x194>)
+    21b6:	4956      	ldr	r1, [pc, #344]	; (2310 <readKeyboard+0x19c>)
     21b8:	468c      	mov	ip, r1
     21ba:	4463      	add	r3, ip
     21bc:	7819      	ldrb	r1, [r3, #0]
@@ -6493,7 +6493,7 @@ void readKeyboard(void)
 	for (i = 0; i < NUM_ROW; i++) {
     21ca:	2a28      	cmp	r2, #40	; 0x28
     21cc:	d1f0      	bne.n	21b0 <readKeyboard+0x3c>
-    21ce:	4c48      	ldr	r4, [pc, #288]	; (22f0 <readKeyboard+0x17c>)
+    21ce:	4c4a      	ldr	r4, [pc, #296]	; (22f8 <readKeyboard+0x184>)
     21d0:	2300      	movs	r3, #0
     21d2:	469c      	mov	ip, r3
     21d4:	2200      	movs	r2, #0
@@ -6502,17 +6502,17 @@ void readKeyboard(void)
 	//Step through columns, if high, save that column.
 	for (i = 0; i < NUM_COL; i++) {
 		REG_PORT_OUTSET0 = kb_col[i];
-    21d6:	4b4d      	ldr	r3, [pc, #308]	; (230c <readKeyboard+0x198>)
+    21d6:	4b4f      	ldr	r3, [pc, #316]	; (2314 <readKeyboard+0x1a0>)
     21d8:	469b      	mov	fp, r3
 		for (j = 0; j < NUM_ROW; j++) {	
 			if((PORT->Group[0].IN.reg & kb_row[j]) != 0) {
-    21da:	4e44      	ldr	r6, [pc, #272]	; (22ec <readKeyboard+0x178>)
+    21da:	4e46      	ldr	r6, [pc, #280]	; (22f4 <readKeyboard+0x180>)
 				scanCodes[scanCodeIndex] = (i * NUM_ROW) + j;
 				scanCodeIndex++;
 			}
 		}
 		REG_PORT_OUTCLR0 = kb_col[i];
-    21dc:	4b46      	ldr	r3, [pc, #280]	; (22f8 <readKeyboard+0x184>)
+    21dc:	4b48      	ldr	r3, [pc, #288]	; (2300 <readKeyboard+0x18c>)
     21de:	4698      	mov	r8, r3
     21e0:	e017      	b.n	2212 <readKeyboard+0x9e>
     21e2:	3304      	adds	r3, #4
@@ -6550,7 +6550,7 @@ void readKeyboard(void)
     2214:	465b      	mov	r3, fp
     2216:	6821      	ldr	r1, [r4, #0]
     2218:	6019      	str	r1, [r3, #0]
-    221a:	4b38      	ldr	r3, [pc, #224]	; (22fc <readKeyboard+0x188>)
+    221a:	4b3a      	ldr	r3, [pc, #232]	; (2304 <readKeyboard+0x190>)
     221c:	9301      	str	r3, [sp, #4]
     221e:	001d      	movs	r5, r3
     2220:	3528      	adds	r5, #40	; 0x28
@@ -6562,9 +6562,9 @@ void readKeyboard(void)
 	//Set all rows as output, low
 	for (i = 0; i < NUM_ROW; i++) {
 		REG_PORT_DIRSET0 = kb_row[i];
-    2228:	4e32      	ldr	r6, [pc, #200]	; (22f4 <readKeyboard+0x180>)
+    2228:	4e34      	ldr	r6, [pc, #208]	; (22fc <readKeyboard+0x188>)
 		REG_PORT_OUTCLR0 = kb_row[i];
-    222a:	4d33      	ldr	r5, [pc, #204]	; (22f8 <readKeyboard+0x184>)
+    222a:	4d35      	ldr	r5, [pc, #212]	; (2300 <readKeyboard+0x18c>)
 		REG_PORT_DIRSET0 = kb_row[i];
     222c:	6808      	ldr	r0, [r1, #0]
     222e:	6030      	str	r0, [r6, #0]
@@ -6580,12 +6580,12 @@ void readKeyboard(void)
 	//set columns to input, pullup enabled
 	for (i = 0; i < NUM_COL; i++) {
 		REG_PORT_DIRCLR0 = kb_col[i];
-    223a:	4b2d      	ldr	r3, [pc, #180]	; (22f0 <readKeyboard+0x17c>)
+    223a:	4b2f      	ldr	r3, [pc, #188]	; (22f8 <readKeyboard+0x184>)
     223c:	4699      	mov	r9, r3
-    223e:	4b30      	ldr	r3, [pc, #192]	; (2300 <readKeyboard+0x18c>)
+    223e:	4b32      	ldr	r3, [pc, #200]	; (2308 <readKeyboard+0x194>)
     2240:	4698      	mov	r8, r3
 		PORT->Group[0].PINCFG[kb_col_index[i]].bit.PULLEN = 1;
-    2242:	4c33      	ldr	r4, [pc, #204]	; (2310 <readKeyboard+0x19c>)
+    2242:	4c35      	ldr	r4, [pc, #212]	; (2318 <readKeyboard+0x1a4>)
     2244:	2604      	movs	r6, #4
 		PORT->Group[0].PINCFG[kb_col_index[i]].bit.INEN = 1;
     2246:	2502      	movs	r5, #2
@@ -6596,7 +6596,7 @@ void readKeyboard(void)
     224e:	6018      	str	r0, [r3, #0]
 		PORT->Group[0].PINCFG[kb_col_index[i]].bit.PULLEN = 1;
     2250:	590b      	ldr	r3, [r1, r4]
-    2252:	482d      	ldr	r0, [pc, #180]	; (2308 <readKeyboard+0x194>)
+    2252:	482f      	ldr	r0, [pc, #188]	; (2310 <readKeyboard+0x19c>)
     2254:	4684      	mov	ip, r0
     2256:	4463      	add	r3, ip
     2258:	7818      	ldrb	r0, [r3, #0]
@@ -6615,18 +6615,18 @@ void readKeyboard(void)
 
 	for (i = 0; i < NUM_ROW; i++) {
 		REG_PORT_OUTSET0 = kb_row[i];
-    226c:	4b27      	ldr	r3, [pc, #156]	; (230c <readKeyboard+0x198>)
+    226c:	4b29      	ldr	r3, [pc, #164]	; (2314 <readKeyboard+0x1a0>)
     226e:	4699      	mov	r9, r3
 		for (j = 0; j < NUM_COL; j++) {
 			if((PORT->Group[0].IN.reg & kb_col[j]) != 0)
-    2270:	4e1e      	ldr	r6, [pc, #120]	; (22ec <readKeyboard+0x178>)
+    2270:	4e20      	ldr	r6, [pc, #128]	; (22f4 <readKeyboard+0x180>)
 			{
 				scanCodes[scanCodeIndex] = (j * NUM_ROW) + i;
 				scanCodeIndex++;
 			}
 		}
 		REG_PORT_OUTCLR0 = kb_row[i];
-    2272:	4b21      	ldr	r3, [pc, #132]	; (22f8 <readKeyboard+0x184>)
+    2272:	4b23      	ldr	r3, [pc, #140]	; (2300 <readKeyboard+0x18c>)
     2274:	469c      	mov	ip, r3
     2276:	e016      	b.n	22a6 <readKeyboard+0x132>
     2278:	3104      	adds	r1, #4
@@ -6667,2349 +6667,2349 @@ void readKeyboard(void)
     22b0:	0023      	movs	r3, r4
     22b2:	0025      	movs	r5, r4
     22b4:	3546      	adds	r5, #70	; 0x46
-    22b6:	490e      	ldr	r1, [pc, #56]	; (22f0 <readKeyboard+0x17c>)
+    22b6:	4910      	ldr	r1, [pc, #64]	; (22f8 <readKeyboard+0x184>)
     22b8:	e7e2      	b.n	2280 <readKeyboard+0x10c>
-	{
-		keyDownBuffer[i] = scanCodes[i];
 	}
-	*/
 	
 	for(i = 0; i < scanCodeIndex; i++)
     22ba:	2a00      	cmp	r2, #0
-    22bc:	dd0f      	ble.n	22de <readKeyboard+0x16a>
-    22be:	ab02      	add	r3, sp, #8
-    22c0:	4914      	ldr	r1, [pc, #80]	; (2314 <readKeyboard+0x1a0>)
-    22c2:	0092      	lsls	r2, r2, #2
-    22c4:	189a      	adds	r2, r3, r2
+    22bc:	dd13      	ble.n	22e6 <readKeyboard+0x172>
 
-bool bufferContains(int scanCode)
+bool keyDown(int scancode)
 {
 	for(int i = 0 ; i < 20 ; i++)
 	{
+		if(keyDownBuffer[i] == scancode)
+    22be:	4b17      	ldr	r3, [pc, #92]	; (231c <readKeyboard+0x1a8>)
+    22c0:	781e      	ldrb	r6, [r3, #0]
+    22c2:	ab02      	add	r3, sp, #8
+    22c4:	4816      	ldr	r0, [pc, #88]	; (2320 <readKeyboard+0x1ac>)
+    22c6:	0092      	lsls	r2, r2, #2
+    22c8:	189a      	adds	r2, r3, r2
 		if(scanCodeBuffer[i] == scanCode)
-    22c6:	000d      	movs	r5, r1
-    22c8:	e003      	b.n	22d2 <readKeyboard+0x15e>
-    22ca:	3304      	adds	r3, #4
-    22cc:	3101      	adds	r1, #1
+    22ca:	0005      	movs	r5, r0
+    22cc:	e003      	b.n	22d6 <readKeyboard+0x162>
+    22ce:	3304      	adds	r3, #4
+    22d0:	3001      	adds	r0, #1
 	for(i = 0; i < scanCodeIndex; i++)
-    22ce:	429a      	cmp	r2, r3
-    22d0:	d005      	beq.n	22de <readKeyboard+0x16a>
-		if(!bufferContains(scanCodes[i]))
-    22d2:	6818      	ldr	r0, [r3, #0]
+    22d2:	429a      	cmp	r2, r3
+    22d4:	d007      	beq.n	22e6 <readKeyboard+0x172>
+		if(!bufferContains(scanCodes[i]))		//if it isn't already in the scancode buffer
+    22d6:	6819      	ldr	r1, [r3, #0]
 		if(scanCodeBuffer[i] == scanCode)
-    22d4:	782c      	ldrb	r4, [r5, #0]
-		if(!bufferContains(scanCodes[i]))
-    22d6:	42a0      	cmp	r0, r4
-    22d8:	d0f7      	beq.n	22ca <readKeyboard+0x156>
-			scanCodeBuffer[i] = scanCodes[i];
-    22da:	7008      	strb	r0, [r1, #0]
-    22dc:	e7f5      	b.n	22ca <readKeyboard+0x156>
+    22d8:	782c      	ldrb	r4, [r5, #0]
+		if(!bufferContains(scanCodes[i]))		//if it isn't already in the scancode buffer
+    22da:	42a1      	cmp	r1, r4
+    22dc:	d0f7      	beq.n	22ce <readKeyboard+0x15a>
+			if(keyDown(scanCodes[i]))			//if it isn't in the keydown buffer
+    22de:	42b1      	cmp	r1, r6
+    22e0:	d1f5      	bne.n	22ce <readKeyboard+0x15a>
+				scanCodeBuffer[i] = scanCodes[i];
+    22e2:	7001      	strb	r1, [r0, #0]
+    22e4:	e7f3      	b.n	22ce <readKeyboard+0x15a>
 }
-    22de:	b049      	add	sp, #292	; 0x124
-    22e0:	bc3c      	pop	{r2, r3, r4, r5}
-    22e2:	4690      	mov	r8, r2
-    22e4:	4699      	mov	r9, r3
-    22e6:	46a2      	mov	sl, r4
-    22e8:	46ab      	mov	fp, r5
-    22ea:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    22ec:	41004400 	.word	0x41004400
-    22f0:	0000633c 	.word	0x0000633c
-    22f4:	41004408 	.word	0x41004408
-    22f8:	41004414 	.word	0x41004414
-    22fc:	00006374 	.word	0x00006374
-    2300:	41004404 	.word	0x41004404
-    2304:	0000639c 	.word	0x0000639c
-    2308:	41004440 	.word	0x41004440
-    230c:	41004418 	.word	0x41004418
-    2310:	00006358 	.word	0x00006358
-    2314:	20000028 	.word	0x20000028
+    22e6:	b049      	add	sp, #292	; 0x124
+    22e8:	bc3c      	pop	{r2, r3, r4, r5}
+    22ea:	4690      	mov	r8, r2
+    22ec:	4699      	mov	r9, r3
+    22ee:	46a2      	mov	sl, r4
+    22f0:	46ab      	mov	fp, r5
+    22f2:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    22f4:	41004400 	.word	0x41004400
+    22f8:	0000633c 	.word	0x0000633c
+    22fc:	41004408 	.word	0x41004408
+    2300:	41004414 	.word	0x41004414
+    2304:	00006374 	.word	0x00006374
+    2308:	41004404 	.word	0x41004404
+    230c:	0000639c 	.word	0x0000639c
+    2310:	41004440 	.word	0x41004440
+    2314:	41004418 	.word	0x41004418
+    2318:	00006358 	.word	0x00006358
+    231c:	20000014 	.word	0x20000014
+    2320:	20000028 	.word	0x20000028
 
-00002318 <clearCursorBuffer>:
+00002324 <clearCursorBuffer>:
 		}
 	}
 }
 
 void clearCursorBuffer(void)
 {
-    2318:	4b04      	ldr	r3, [pc, #16]	; (232c <clearCursorBuffer+0x14>)
-    231a:	0019      	movs	r1, r3
-    231c:	31c8      	adds	r1, #200	; 0xc8
+    2324:	4b04      	ldr	r3, [pc, #16]	; (2338 <clearCursorBuffer+0x14>)
+    2326:	0019      	movs	r1, r3
+    2328:	31c8      	adds	r1, #200	; 0xc8
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
 		cursorBuffer[i] = 0x00;
-    231e:	2200      	movs	r2, #0
-    2320:	701a      	strb	r2, [r3, #0]
-    2322:	3301      	adds	r3, #1
+    232a:	2200      	movs	r2, #0
+    232c:	701a      	strb	r2, [r3, #0]
+    232e:	3301      	adds	r3, #1
 	for(uint16_t i = 0 ; i < 200 ; i++)
-    2324:	428b      	cmp	r3, r1
-    2326:	d1fb      	bne.n	2320 <clearCursorBuffer+0x8>
+    2330:	428b      	cmp	r3, r1
+    2332:	d1fb      	bne.n	232c <clearCursorBuffer+0x8>
 	}
 }
-    2328:	4770      	bx	lr
-    232a:	46c0      	nop			; (mov r8, r8)
-    232c:	200001ec 	.word	0x200001ec
+    2334:	4770      	bx	lr
+    2336:	46c0      	nop			; (mov r8, r8)
+    2338:	200001ec 	.word	0x200001ec
 
-00002330 <drawCursorBuffer>:
+0000233c <drawCursorBuffer>:
 
 void drawCursorBuffer(void)
 {
-    2330:	b5f0      	push	{r4, r5, r6, r7, lr}
-    2332:	46c6      	mov	lr, r8
-    2334:	b500      	push	{lr}
+    233c:	b5f0      	push	{r4, r5, r6, r7, lr}
+    233e:	46c6      	mov	lr, r8
+    2340:	b500      	push	{lr}
 
 	setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
-    2336:	4b1c      	ldr	r3, [pc, #112]	; (23a8 <drawCursorBuffer+0x78>)
-    2338:	7818      	ldrb	r0, [r3, #0]
-    233a:	384f      	subs	r0, #79	; 0x4f
-    233c:	17c3      	asrs	r3, r0, #31
-    233e:	18c0      	adds	r0, r0, r3
-    2340:	4058      	eors	r0, r3
-    2342:	0083      	lsls	r3, r0, #2
-    2344:	18c0      	adds	r0, r0, r3
-    2346:	0040      	lsls	r0, r0, #1
-    2348:	b280      	uxth	r0, r0
-    234a:	4b18      	ldr	r3, [pc, #96]	; (23ac <drawCursorBuffer+0x7c>)
-    234c:	7819      	ldrb	r1, [r3, #0]
-    234e:	2314      	movs	r3, #20
-    2350:	4359      	muls	r1, r3
-    2352:	000b      	movs	r3, r1
-    2354:	3313      	adds	r3, #19
-    2356:	b29b      	uxth	r3, r3
-    2358:	0002      	movs	r2, r0
-    235a:	3209      	adds	r2, #9
-    235c:	b292      	uxth	r2, r2
-    235e:	4c14      	ldr	r4, [pc, #80]	; (23b0 <drawCursorBuffer+0x80>)
-    2360:	47a0      	blx	r4
-    2362:	4c14      	ldr	r4, [pc, #80]	; (23b4 <drawCursorBuffer+0x84>)
-    2364:	0025      	movs	r5, r4
-    2366:	35c8      	adds	r5, #200	; 0xc8
+    2342:	4b1c      	ldr	r3, [pc, #112]	; (23b4 <drawCursorBuffer+0x78>)
+    2344:	7818      	ldrb	r0, [r3, #0]
+    2346:	384f      	subs	r0, #79	; 0x4f
+    2348:	17c3      	asrs	r3, r0, #31
+    234a:	18c0      	adds	r0, r0, r3
+    234c:	4058      	eors	r0, r3
+    234e:	0083      	lsls	r3, r0, #2
+    2350:	18c0      	adds	r0, r0, r3
+    2352:	0040      	lsls	r0, r0, #1
+    2354:	b280      	uxth	r0, r0
+    2356:	4b18      	ldr	r3, [pc, #96]	; (23b8 <drawCursorBuffer+0x7c>)
+    2358:	7819      	ldrb	r1, [r3, #0]
+    235a:	2314      	movs	r3, #20
+    235c:	4359      	muls	r1, r3
+    235e:	000b      	movs	r3, r1
+    2360:	3313      	adds	r3, #19
+    2362:	b29b      	uxth	r3, r3
+    2364:	0002      	movs	r2, r0
+    2366:	3209      	adds	r2, #9
+    2368:	b292      	uxth	r2, r2
+    236a:	4c14      	ldr	r4, [pc, #80]	; (23bc <drawCursorBuffer+0x80>)
+    236c:	47a0      	blx	r4
+    236e:	4c14      	ldr	r4, [pc, #80]	; (23c0 <drawCursorBuffer+0x84>)
+    2370:	0025      	movs	r5, r4
+    2372:	35c8      	adds	r5, #200	; 0xc8
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
 		if((cursorBuffer[i] == 0xFF))
 		setPixel((fore_Color_High<<8)|fore_Color_Low);
 		else
 		setPixel((back_Color_High<<8)|back_Color_Low);
-    2368:	4b13      	ldr	r3, [pc, #76]	; (23b8 <drawCursorBuffer+0x88>)
-    236a:	4698      	mov	r8, r3
-    236c:	4f13      	ldr	r7, [pc, #76]	; (23bc <drawCursorBuffer+0x8c>)
-    236e:	4e14      	ldr	r6, [pc, #80]	; (23c0 <drawCursorBuffer+0x90>)
-    2370:	e00b      	b.n	238a <drawCursorBuffer+0x5a>
+    2374:	4b13      	ldr	r3, [pc, #76]	; (23c4 <drawCursorBuffer+0x88>)
+    2376:	4698      	mov	r8, r3
+    2378:	4f13      	ldr	r7, [pc, #76]	; (23c8 <drawCursorBuffer+0x8c>)
+    237a:	4e14      	ldr	r6, [pc, #80]	; (23cc <drawCursorBuffer+0x90>)
+    237c:	e00b      	b.n	2396 <drawCursorBuffer+0x5a>
 		setPixel((fore_Color_High<<8)|fore_Color_Low);
-    2372:	4b14      	ldr	r3, [pc, #80]	; (23c4 <drawCursorBuffer+0x94>)
-    2374:	8818      	ldrh	r0, [r3, #0]
-    2376:	0200      	lsls	r0, r0, #8
-    2378:	4b13      	ldr	r3, [pc, #76]	; (23c8 <drawCursorBuffer+0x98>)
-    237a:	881b      	ldrh	r3, [r3, #0]
-    237c:	4318      	orrs	r0, r3
-    237e:	b280      	uxth	r0, r0
-    2380:	4b0f      	ldr	r3, [pc, #60]	; (23c0 <drawCursorBuffer+0x90>)
-    2382:	4798      	blx	r3
-    2384:	3401      	adds	r4, #1
+    237e:	4b14      	ldr	r3, [pc, #80]	; (23d0 <drawCursorBuffer+0x94>)
+    2380:	8818      	ldrh	r0, [r3, #0]
+    2382:	0200      	lsls	r0, r0, #8
+    2384:	4b13      	ldr	r3, [pc, #76]	; (23d4 <drawCursorBuffer+0x98>)
+    2386:	881b      	ldrh	r3, [r3, #0]
+    2388:	4318      	orrs	r0, r3
+    238a:	b280      	uxth	r0, r0
+    238c:	4b0f      	ldr	r3, [pc, #60]	; (23cc <drawCursorBuffer+0x90>)
+    238e:	4798      	blx	r3
+    2390:	3401      	adds	r4, #1
 	for(uint16_t i = 0 ; i < 200 ; i++)
-    2386:	42ac      	cmp	r4, r5
-    2388:	d00a      	beq.n	23a0 <drawCursorBuffer+0x70>
+    2392:	42ac      	cmp	r4, r5
+    2394:	d00a      	beq.n	23ac <drawCursorBuffer+0x70>
 		if((cursorBuffer[i] == 0xFF))
-    238a:	7823      	ldrb	r3, [r4, #0]
-    238c:	2bff      	cmp	r3, #255	; 0xff
-    238e:	d0f0      	beq.n	2372 <drawCursorBuffer+0x42>
+    2396:	7823      	ldrb	r3, [r4, #0]
+    2398:	2bff      	cmp	r3, #255	; 0xff
+    239a:	d0f0      	beq.n	237e <drawCursorBuffer+0x42>
 		setPixel((back_Color_High<<8)|back_Color_Low);
-    2390:	4643      	mov	r3, r8
-    2392:	8818      	ldrh	r0, [r3, #0]
-    2394:	0200      	lsls	r0, r0, #8
-    2396:	883b      	ldrh	r3, [r7, #0]
-    2398:	4318      	orrs	r0, r3
-    239a:	b280      	uxth	r0, r0
-    239c:	47b0      	blx	r6
-    239e:	e7f1      	b.n	2384 <drawCursorBuffer+0x54>
+    239c:	4643      	mov	r3, r8
+    239e:	8818      	ldrh	r0, [r3, #0]
+    23a0:	0200      	lsls	r0, r0, #8
+    23a2:	883b      	ldrh	r3, [r7, #0]
+    23a4:	4318      	orrs	r0, r3
+    23a6:	b280      	uxth	r0, r0
+    23a8:	47b0      	blx	r6
+    23aa:	e7f1      	b.n	2390 <drawCursorBuffer+0x54>
 	}
 	
 
 }
-    23a0:	bc04      	pop	{r2}
-    23a2:	4690      	mov	r8, r2
-    23a4:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    23a6:	46c0      	nop			; (mov r8, r8)
-    23a8:	20000180 	.word	0x20000180
-    23ac:	20000181 	.word	0x20000181
-    23b0:	000028e5 	.word	0x000028e5
-    23b4:	200001ec 	.word	0x200001ec
-    23b8:	200002ba 	.word	0x200002ba
-    23bc:	200002b4 	.word	0x200002b4
-    23c0:	00002ac5 	.word	0x00002ac5
-    23c4:	200002b6 	.word	0x200002b6
-    23c8:	200002b8 	.word	0x200002b8
+    23ac:	bc04      	pop	{r2}
+    23ae:	4690      	mov	r8, r2
+    23b0:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    23b2:	46c0      	nop			; (mov r8, r8)
+    23b4:	20000180 	.word	0x20000180
+    23b8:	20000181 	.word	0x20000181
+    23bc:	000028f1 	.word	0x000028f1
+    23c0:	200001ec 	.word	0x200001ec
+    23c4:	200002ba 	.word	0x200002ba
+    23c8:	200002b4 	.word	0x200002b4
+    23cc:	00002ad1 	.word	0x00002ad1
+    23d0:	200002b6 	.word	0x200002b6
+    23d4:	200002b8 	.word	0x200002b8
 
-000023cc <moveCursor>:
+000023d8 <moveCursor>:
 		}
 	}	
 }
 
 void moveCursor(uint8_t x, uint8_t y)
 {
-    23cc:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
-    23ce:	46de      	mov	lr, fp
-    23d0:	4657      	mov	r7, sl
-    23d2:	464e      	mov	r6, r9
-    23d4:	4645      	mov	r5, r8
-    23d6:	b5e0      	push	{r5, r6, r7, lr}
-    23d8:	4683      	mov	fp, r0
-    23da:	468a      	mov	sl, r1
+    23d8:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    23da:	46de      	mov	lr, fp
+    23dc:	4657      	mov	r7, sl
+    23de:	464e      	mov	r6, r9
+    23e0:	4645      	mov	r5, r8
+    23e2:	b5e0      	push	{r5, r6, r7, lr}
+    23e4:	4683      	mov	fp, r0
+    23e6:	468a      	mov	sl, r1
 	//buffer.
 	
 	//All this function does is read the GRAM and move the cursor.
 	
 	//set PB07 to input
 	REG_PORT_DIRCLR1 = PORT_PB07;
-    23dc:	2280      	movs	r2, #128	; 0x80
-    23de:	4b31      	ldr	r3, [pc, #196]	; (24a4 <moveCursor+0xd8>)
-    23e0:	601a      	str	r2, [r3, #0]
+    23e8:	2280      	movs	r2, #128	; 0x80
+    23ea:	4b31      	ldr	r3, [pc, #196]	; (24b0 <moveCursor+0xd8>)
+    23ec:	601a      	str	r2, [r3, #0]
 	PORT->Group[1].PINCFG[7].bit.INEN = 1;
-    23e2:	4a31      	ldr	r2, [pc, #196]	; (24a8 <moveCursor+0xdc>)
-    23e4:	23c7      	movs	r3, #199	; 0xc7
-    23e6:	5cd1      	ldrb	r1, [r2, r3]
-    23e8:	2002      	movs	r0, #2
-    23ea:	4301      	orrs	r1, r0
-    23ec:	54d1      	strb	r1, [r2, r3]
+    23ee:	4a31      	ldr	r2, [pc, #196]	; (24b4 <moveCursor+0xdc>)
+    23f0:	23c7      	movs	r3, #199	; 0xc7
+    23f2:	5cd1      	ldrb	r1, [r2, r3]
+    23f4:	2002      	movs	r0, #2
+    23f6:	4301      	orrs	r1, r0
+    23f8:	54d1      	strb	r1, [r2, r3]
 	PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
-    23ee:	5cd1      	ldrb	r1, [r2, r3]
-    23f0:	2004      	movs	r0, #4
-    23f2:	4301      	orrs	r1, r0
-    23f4:	54d1      	strb	r1, [r2, r3]
+    23fa:	5cd1      	ldrb	r1, [r2, r3]
+    23fc:	2004      	movs	r0, #4
+    23fe:	4301      	orrs	r1, r0
+    2400:	54d1      	strb	r1, [r2, r3]
 	
 	
 	//Per page 40 of datasheet (5.1.2.7, 16-bit
 	//parallel interface for data ram read.
 	REG_PORT_OUTCLR1 = LCD_CS;
-    23f6:	4c2d      	ldr	r4, [pc, #180]	; (24ac <moveCursor+0xe0>)
-    23f8:	2380      	movs	r3, #128	; 0x80
-    23fa:	03db      	lsls	r3, r3, #15
-    23fc:	6023      	str	r3, [r4, #0]
+    2402:	4c2d      	ldr	r4, [pc, #180]	; (24b8 <moveCursor+0xe0>)
+    2404:	2380      	movs	r3, #128	; 0x80
+    2406:	03db      	lsls	r3, r3, #15
+    2408:	6023      	str	r3, [r4, #0]
 	setXY(abs(x-79)*10,y*20,abs(x-79)*10+9,y*20+19);
-    23fe:	4658      	mov	r0, fp
-    2400:	384f      	subs	r0, #79	; 0x4f
-    2402:	17c3      	asrs	r3, r0, #31
-    2404:	18c0      	adds	r0, r0, r3
-    2406:	4058      	eors	r0, r3
-    2408:	0083      	lsls	r3, r0, #2
-    240a:	18c0      	adds	r0, r0, r3
-    240c:	0040      	lsls	r0, r0, #1
-    240e:	b280      	uxth	r0, r0
-    2410:	2114      	movs	r1, #20
-    2412:	4653      	mov	r3, sl
-    2414:	4359      	muls	r1, r3
-    2416:	000b      	movs	r3, r1
-    2418:	3313      	adds	r3, #19
-    241a:	b29b      	uxth	r3, r3
-    241c:	0002      	movs	r2, r0
-    241e:	3209      	adds	r2, #9
-    2420:	b292      	uxth	r2, r2
-    2422:	4d23      	ldr	r5, [pc, #140]	; (24b0 <moveCursor+0xe4>)
-    2424:	47a8      	blx	r5
+    240a:	4658      	mov	r0, fp
+    240c:	384f      	subs	r0, #79	; 0x4f
+    240e:	17c3      	asrs	r3, r0, #31
+    2410:	18c0      	adds	r0, r0, r3
+    2412:	4058      	eors	r0, r3
+    2414:	0083      	lsls	r3, r0, #2
+    2416:	18c0      	adds	r0, r0, r3
+    2418:	0040      	lsls	r0, r0, #1
+    241a:	b280      	uxth	r0, r0
+    241c:	2114      	movs	r1, #20
+    241e:	4653      	mov	r3, sl
+    2420:	4359      	muls	r1, r3
+    2422:	000b      	movs	r3, r1
+    2424:	3313      	adds	r3, #19
+    2426:	b29b      	uxth	r3, r3
+    2428:	0002      	movs	r2, r0
+    242a:	3209      	adds	r2, #9
+    242c:	b292      	uxth	r2, r2
+    242e:	4d23      	ldr	r5, [pc, #140]	; (24bc <moveCursor+0xe4>)
+    2430:	47a8      	blx	r5
 	
 	//Send'Memory read' command 0x2E00, no data bit
 	LCD_Write_COM16(0x2E,0x00);
-    2426:	2100      	movs	r1, #0
-    2428:	202e      	movs	r0, #46	; 0x2e
-    242a:	4b22      	ldr	r3, [pc, #136]	; (24b4 <moveCursor+0xe8>)
-    242c:	4798      	blx	r3
+    2432:	2100      	movs	r1, #0
+    2434:	202e      	movs	r0, #46	; 0x2e
+    2436:	4b22      	ldr	r3, [pc, #136]	; (24c0 <moveCursor+0xe8>)
+    2438:	4798      	blx	r3
 	REG_PORT_OUTSET1 = LCD_DC;
-    242e:	4b22      	ldr	r3, [pc, #136]	; (24b8 <moveCursor+0xec>)
-    2430:	2280      	movs	r2, #128	; 0x80
-    2432:	0412      	lsls	r2, r2, #16
-    2434:	601a      	str	r2, [r3, #0]
+    243a:	4b22      	ldr	r3, [pc, #136]	; (24c4 <moveCursor+0xec>)
+    243c:	2280      	movs	r2, #128	; 0x80
+    243e:	0412      	lsls	r2, r2, #16
+    2440:	601a      	str	r2, [r3, #0]
 
 	//needs dummy write, per data sheet, page 40
 	REG_PORT_OUTCLR1 = LCD_RD;
-    2436:	2280      	movs	r2, #128	; 0x80
-    2438:	0252      	lsls	r2, r2, #9
-    243a:	6022      	str	r2, [r4, #0]
+    2442:	2280      	movs	r2, #128	; 0x80
+    2444:	0252      	lsls	r2, r2, #9
+    2446:	6022      	str	r2, [r4, #0]
 	REG_PORT_OUTSET1 = LCD_RD;
-    243c:	601a      	str	r2, [r3, #0]
-    243e:	4b1f      	ldr	r3, [pc, #124]	; (24bc <moveCursor+0xf0>)
-    2440:	22c9      	movs	r2, #201	; 0xc9
-    2442:	4691      	mov	r9, r2
-    2444:	4499      	add	r9, r3
+    2448:	601a      	str	r2, [r3, #0]
+    244a:	4b1f      	ldr	r3, [pc, #124]	; (24c8 <moveCursor+0xf0>)
+    244c:	22c9      	movs	r2, #201	; 0xc9
+    244e:	4691      	mov	r9, r2
+    2450:	4499      	add	r9, r3
 	
 	for(uint8_t pixel = 0; pixel <= 200 ; pixel++)
 	{
 		REG_PORT_OUTCLR1 = LCD_RD;
-    2446:	0020      	movs	r0, r4
-    2448:	2280      	movs	r2, #128	; 0x80
-    244a:	0252      	lsls	r2, r2, #9
+    2452:	0020      	movs	r0, r4
+    2454:	2280      	movs	r2, #128	; 0x80
+    2456:	0252      	lsls	r2, r2, #9
 		REG_PORT_OUTSET1 = LCD_RD;
-    244c:	491a      	ldr	r1, [pc, #104]	; (24b8 <moveCursor+0xec>)
+    2458:	491a      	ldr	r1, [pc, #104]	; (24c4 <moveCursor+0xec>)
 
 		//get the pin state, stuff into array
 		
 		//This can be expanded with else if for the MSBs
 		//of all the colors; see datasheet page 40.
 		if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
-    244e:	4c16      	ldr	r4, [pc, #88]	; (24a8 <moveCursor+0xdc>)
-    2450:	46a0      	mov	r8, r4
-    2452:	24a0      	movs	r4, #160	; 0xa0
-    2454:	46a4      	mov	ip, r4
-    2456:	2580      	movs	r5, #128	; 0x80
+    245a:	4c16      	ldr	r4, [pc, #88]	; (24b4 <moveCursor+0xdc>)
+    245c:	46a0      	mov	r8, r4
+    245e:	24a0      	movs	r4, #160	; 0xa0
+    2460:	46a4      	mov	ip, r4
+    2462:	2580      	movs	r5, #128	; 0x80
 		{
 			cursorBuffer[pixel] = 0xFF;
 		}
 		else
 		{
 			cursorBuffer[pixel] = 0x00;
-    2458:	2700      	movs	r7, #0
-    245a:	e005      	b.n	2468 <moveCursor+0x9c>
-    245c:	701f      	strb	r7, [r3, #0]
+    2464:	2700      	movs	r7, #0
+    2466:	e005      	b.n	2474 <moveCursor+0x9c>
+    2468:	701f      	strb	r7, [r3, #0]
 		//dummy read, because pixel data broken up
 		//per datasheet page 40. Everything after
 		//the dummy write is BLUE pixels. Do we ever
 		//need blue? IDK.
 		
 		REG_PORT_OUTCLR1 = LCD_RD;
-    245e:	6002      	str	r2, [r0, #0]
+    246a:	6002      	str	r2, [r0, #0]
 		REG_PORT_OUTSET1 = LCD_RD;
-    2460:	600a      	str	r2, [r1, #0]
-    2462:	3301      	adds	r3, #1
+    246c:	600a      	str	r2, [r1, #0]
+    246e:	3301      	adds	r3, #1
 	for(uint8_t pixel = 0; pixel <= 200 ; pixel++)
-    2464:	454b      	cmp	r3, r9
-    2466:	d009      	beq.n	247c <moveCursor+0xb0>
+    2470:	454b      	cmp	r3, r9
+    2472:	d009      	beq.n	2488 <moveCursor+0xb0>
 		REG_PORT_OUTCLR1 = LCD_RD;
-    2468:	6002      	str	r2, [r0, #0]
+    2474:	6002      	str	r2, [r0, #0]
 		REG_PORT_OUTSET1 = LCD_RD;
-    246a:	600a      	str	r2, [r1, #0]
+    2476:	600a      	str	r2, [r1, #0]
 		if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
-    246c:	4644      	mov	r4, r8
-    246e:	4666      	mov	r6, ip
-    2470:	59a4      	ldr	r4, [r4, r6]
-    2472:	4225      	tst	r5, r4
-    2474:	d0f2      	beq.n	245c <moveCursor+0x90>
+    2478:	4644      	mov	r4, r8
+    247a:	4666      	mov	r6, ip
+    247c:	59a4      	ldr	r4, [r4, r6]
+    247e:	4225      	tst	r5, r4
+    2480:	d0f2      	beq.n	2468 <moveCursor+0x90>
 			cursorBuffer[pixel] = 0xFF;
-    2476:	24ff      	movs	r4, #255	; 0xff
-    2478:	701c      	strb	r4, [r3, #0]
-    247a:	e7f0      	b.n	245e <moveCursor+0x92>
+    2482:	24ff      	movs	r4, #255	; 0xff
+    2484:	701c      	strb	r4, [r3, #0]
+    2486:	e7f0      	b.n	246a <moveCursor+0x92>
 	}
 	
 	REG_PORT_OUTSET1 = LCD_DC;
-    247c:	2280      	movs	r2, #128	; 0x80
-    247e:	0412      	lsls	r2, r2, #16
-    2480:	4b0d      	ldr	r3, [pc, #52]	; (24b8 <moveCursor+0xec>)
-    2482:	601a      	str	r2, [r3, #0]
+    2488:	2280      	movs	r2, #128	; 0x80
+    248a:	0412      	lsls	r2, r2, #16
+    248c:	4b0d      	ldr	r3, [pc, #52]	; (24c4 <moveCursor+0xec>)
+    248e:	601a      	str	r2, [r3, #0]
 	REG_PORT_DIRSET1 = 0x0000FFFF;
-    2484:	4a0e      	ldr	r2, [pc, #56]	; (24c0 <moveCursor+0xf4>)
-    2486:	4b0f      	ldr	r3, [pc, #60]	; (24c4 <moveCursor+0xf8>)
-    2488:	601a      	str	r2, [r3, #0]
+    2490:	4a0e      	ldr	r2, [pc, #56]	; (24cc <moveCursor+0xf4>)
+    2492:	4b0f      	ldr	r3, [pc, #60]	; (24d0 <moveCursor+0xf8>)
+    2494:	601a      	str	r2, [r3, #0]
 	
 	//The cursor data is in the cursorBuffer, so now we move
 	//xCharPos and yCharPos
 	xCharPos = x;
-    248a:	4b0f      	ldr	r3, [pc, #60]	; (24c8 <moveCursor+0xfc>)
-    248c:	465a      	mov	r2, fp
-    248e:	701a      	strb	r2, [r3, #0]
+    2496:	4b0f      	ldr	r3, [pc, #60]	; (24d4 <moveCursor+0xfc>)
+    2498:	465a      	mov	r2, fp
+    249a:	701a      	strb	r2, [r3, #0]
 	yCharPos = y;
-    2490:	4b0e      	ldr	r3, [pc, #56]	; (24cc <moveCursor+0x100>)
-    2492:	4652      	mov	r2, sl
-    2494:	701a      	strb	r2, [r3, #0]
+    249c:	4b0e      	ldr	r3, [pc, #56]	; (24d8 <moveCursor+0x100>)
+    249e:	4652      	mov	r2, sl
+    24a0:	701a      	strb	r2, [r3, #0]
 	
 }
-    2496:	bc3c      	pop	{r2, r3, r4, r5}
-    2498:	4690      	mov	r8, r2
-    249a:	4699      	mov	r9, r3
-    249c:	46a2      	mov	sl, r4
-    249e:	46ab      	mov	fp, r5
-    24a0:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
-    24a2:	46c0      	nop			; (mov r8, r8)
-    24a4:	41004484 	.word	0x41004484
-    24a8:	41004400 	.word	0x41004400
-    24ac:	41004494 	.word	0x41004494
-    24b0:	000028e5 	.word	0x000028e5
-    24b4:	00002b69 	.word	0x00002b69
-    24b8:	41004498 	.word	0x41004498
-    24bc:	200001ec 	.word	0x200001ec
-    24c0:	0000ffff 	.word	0x0000ffff
-    24c4:	41004488 	.word	0x41004488
-    24c8:	20000180 	.word	0x20000180
-    24cc:	20000181 	.word	0x20000181
+    24a2:	bc3c      	pop	{r2, r3, r4, r5}
+    24a4:	4690      	mov	r8, r2
+    24a6:	4699      	mov	r9, r3
+    24a8:	46a2      	mov	sl, r4
+    24aa:	46ab      	mov	fp, r5
+    24ac:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+    24ae:	46c0      	nop			; (mov r8, r8)
+    24b0:	41004484 	.word	0x41004484
+    24b4:	41004400 	.word	0x41004400
+    24b8:	41004494 	.word	0x41004494
+    24bc:	000028f1 	.word	0x000028f1
+    24c0:	00002b75 	.word	0x00002b75
+    24c4:	41004498 	.word	0x41004498
+    24c8:	200001ec 	.word	0x200001ec
+    24cc:	0000ffff 	.word	0x0000ffff
+    24d0:	41004488 	.word	0x41004488
+    24d4:	20000180 	.word	0x20000180
+    24d8:	20000181 	.word	0x20000181
 
-000024d0 <printKeyboardBuffer>:
+000024dc <printKeyboardBuffer>:
 {
-    24d0:	b5f0      	push	{r4, r5, r6, r7, lr}
-    24d2:	46de      	mov	lr, fp
-    24d4:	464f      	mov	r7, r9
-    24d6:	4646      	mov	r6, r8
-    24d8:	b5c0      	push	{r6, r7, lr}
-    24da:	b0a6      	sub	sp, #152	; 0x98
+    24dc:	b5f0      	push	{r4, r5, r6, r7, lr}
+    24de:	46de      	mov	lr, fp
+    24e0:	464f      	mov	r7, r9
+    24e2:	4646      	mov	r6, r8
+    24e4:	b5c0      	push	{r6, r7, lr}
+    24e6:	b0a6      	sub	sp, #152	; 0x98
 	char noCase[] =	  {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
-    24dc:	4c7b      	ldr	r4, [pc, #492]	; (26cc <printKeyboardBuffer+0x1fc>)
-    24de:	2246      	movs	r2, #70	; 0x46
-    24e0:	0021      	movs	r1, r4
-    24e2:	a814      	add	r0, sp, #80	; 0x50
-    24e4:	4d7a      	ldr	r5, [pc, #488]	; (26d0 <printKeyboardBuffer+0x200>)
-    24e6:	47a8      	blx	r5
+    24e8:	4c7b      	ldr	r4, [pc, #492]	; (26d8 <printKeyboardBuffer+0x1fc>)
+    24ea:	2246      	movs	r2, #70	; 0x46
+    24ec:	0021      	movs	r1, r4
+    24ee:	a814      	add	r0, sp, #80	; 0x50
+    24f0:	4d7a      	ldr	r5, [pc, #488]	; (26dc <printKeyboardBuffer+0x200>)
+    24f2:	47a8      	blx	r5
 	char shiftCase[] = {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
-    24e8:	0021      	movs	r1, r4
-    24ea:	3148      	adds	r1, #72	; 0x48
-    24ec:	2246      	movs	r2, #70	; 0x46
-    24ee:	a802      	add	r0, sp, #8
-    24f0:	47a8      	blx	r5
-    24f2:	4e78      	ldr	r6, [pc, #480]	; (26d4 <printKeyboardBuffer+0x204>)
-    24f4:	0031      	movs	r1, r6
-    24f6:	3114      	adds	r1, #20
-    24f8:	0035      	movs	r5, r6
+    24f4:	0021      	movs	r1, r4
+    24f6:	3148      	adds	r1, #72	; 0x48
+    24f8:	2246      	movs	r2, #70	; 0x46
+    24fa:	a802      	add	r0, sp, #8
+    24fc:	47a8      	blx	r5
+    24fe:	4e78      	ldr	r6, [pc, #480]	; (26e0 <printKeyboardBuffer+0x204>)
+    2500:	0031      	movs	r1, r6
+    2502:	3114      	adds	r1, #20
+    2504:	0035      	movs	r5, r6
 	bool shifted = false;
-    24fa:	2300      	movs	r3, #0
-    24fc:	9301      	str	r3, [sp, #4]
-    24fe:	e002      	b.n	2506 <printKeyboardBuffer+0x36>
-    2500:	3501      	adds	r5, #1
+    2506:	2300      	movs	r3, #0
+    2508:	9301      	str	r3, [sp, #4]
+    250a:	e002      	b.n	2512 <printKeyboardBuffer+0x36>
+    250c:	3501      	adds	r5, #1
 	for(int i=0; i<20; i++)
-    2502:	428d      	cmp	r5, r1
-    2504:	d00b      	beq.n	251e <printKeyboardBuffer+0x4e>
+    250e:	428d      	cmp	r5, r1
+    2510:	d00b      	beq.n	252a <printKeyboardBuffer+0x4e>
 		if((scanCodeBuffer[i] == 13) | (scanCodeBuffer[i] == 49))
-    2506:	782b      	ldrb	r3, [r5, #0]
-    2508:	001a      	movs	r2, r3
-    250a:	3a0d      	subs	r2, #13
-    250c:	4250      	negs	r0, r2
-    250e:	4142      	adcs	r2, r0
-    2510:	3b31      	subs	r3, #49	; 0x31
-    2512:	4258      	negs	r0, r3
-    2514:	4143      	adcs	r3, r0
-    2516:	4313      	orrs	r3, r2
-    2518:	d0f2      	beq.n	2500 <printKeyboardBuffer+0x30>
+    2512:	782b      	ldrb	r3, [r5, #0]
+    2514:	001a      	movs	r2, r3
+    2516:	3a0d      	subs	r2, #13
+    2518:	4250      	negs	r0, r2
+    251a:	4142      	adcs	r2, r0
+    251c:	3b31      	subs	r3, #49	; 0x31
+    251e:	4258      	negs	r0, r3
+    2520:	4143      	adcs	r3, r0
+    2522:	4313      	orrs	r3, r2
+    2524:	d0f2      	beq.n	250c <printKeyboardBuffer+0x30>
 			shifted = true;
-    251a:	9301      	str	r3, [sp, #4]
-    251c:	e7f0      	b.n	2500 <printKeyboardBuffer+0x30>
-    251e:	2700      	movs	r7, #0
+    2526:	9301      	str	r3, [sp, #4]
+    2528:	e7f0      	b.n	250c <printKeyboardBuffer+0x30>
+    252a:	2700      	movs	r7, #0
 		if(!keyDown(scanCodeBuffer[i]))
-    2520:	4b6c      	ldr	r3, [pc, #432]	; (26d4 <printKeyboardBuffer+0x204>)
-    2522:	4699      	mov	r9, r3
+    252c:	4b6c      	ldr	r3, [pc, #432]	; (26e0 <printKeyboardBuffer+0x204>)
+    252e:	4699      	mov	r9, r3
 		if(keyDownBuffer[i] == scancode)
-    2524:	4c6c      	ldr	r4, [pc, #432]	; (26d8 <printKeyboardBuffer+0x208>)
+    2530:	4c6c      	ldr	r4, [pc, #432]	; (26e4 <printKeyboardBuffer+0x208>)
 			keyDownBuffer[i] = scanCodeBuffer[i];
-    2526:	46a0      	mov	r8, r4
-    2528:	e007      	b.n	253a <printKeyboardBuffer+0x6a>
+    2532:	46a0      	mov	r8, r4
+    2534:	e007      	b.n	2546 <printKeyboardBuffer+0x6a>
 				if(xCharPos > 0)  ///I think I need to decouple the reading the next cursor
-    252a:	4b6c      	ldr	r3, [pc, #432]	; (26dc <printKeyboardBuffer+0x20c>)
-    252c:	781b      	ldrb	r3, [r3, #0]
-    252e:	2b00      	cmp	r3, #0
-    2530:	d13a      	bne.n	25a8 <printKeyboardBuffer+0xd8>
+    2536:	4b6c      	ldr	r3, [pc, #432]	; (26e8 <printKeyboardBuffer+0x20c>)
+    2538:	781b      	ldrb	r3, [r3, #0]
+    253a:	2b00      	cmp	r3, #0
+    253c:	d13a      	bne.n	25b4 <printKeyboardBuffer+0xd8>
 	for(int i=0; i<20; i++)
-    2532:	3701      	adds	r7, #1
-    2534:	2f14      	cmp	r7, #20
-    2536:	d100      	bne.n	253a <printKeyboardBuffer+0x6a>
-    2538:	e0bc      	b.n	26b4 <printKeyboardBuffer+0x1e4>
+    253e:	3701      	adds	r7, #1
+    2540:	2f14      	cmp	r7, #20
+    2542:	d100      	bne.n	2546 <printKeyboardBuffer+0x6a>
+    2544:	e0bc      	b.n	26c0 <printKeyboardBuffer+0x1e4>
 		if(!keyDown(scanCodeBuffer[i]))
-    253a:	464b      	mov	r3, r9
-    253c:	5cfb      	ldrb	r3, [r7, r3]
+    2546:	464b      	mov	r3, r9
+    2548:	5cfb      	ldrb	r3, [r7, r3]
 		if(keyDownBuffer[i] == scancode)
-    253e:	7822      	ldrb	r2, [r4, #0]
+    254a:	7822      	ldrb	r2, [r4, #0]
 		if(!keyDown(scanCodeBuffer[i]))
-    2540:	4293      	cmp	r3, r2
-    2542:	d0f6      	beq.n	2532 <printKeyboardBuffer+0x62>
+    254c:	4293      	cmp	r3, r2
+    254e:	d0f6      	beq.n	253e <printKeyboardBuffer+0x62>
 			keyDownBuffer[i] = scanCodeBuffer[i];
-    2544:	4642      	mov	r2, r8
-    2546:	55d3      	strb	r3, [r2, r7]
+    2550:	4642      	mov	r2, r8
+    2552:	55d3      	strb	r3, [r2, r7]
 			if(scanCodeBuffer[i] == 0xFF)
-    2548:	2bff      	cmp	r3, #255	; 0xff
-    254a:	d0f2      	beq.n	2532 <printKeyboardBuffer+0x62>
+    2554:	2bff      	cmp	r3, #255	; 0xff
+    2556:	d0f2      	beq.n	253e <printKeyboardBuffer+0x62>
 			else if(scanCodeBuffer[i] == 35) //left
-    254c:	2b23      	cmp	r3, #35	; 0x23
-    254e:	d0ec      	beq.n	252a <printKeyboardBuffer+0x5a>
+    2558:	2b23      	cmp	r3, #35	; 0x23
+    255a:	d0ec      	beq.n	2536 <printKeyboardBuffer+0x5a>
 			else if(scanCodeBuffer[i] == 45)	//down
-    2550:	2b2d      	cmp	r3, #45	; 0x2d
-    2552:	d034      	beq.n	25be <printKeyboardBuffer+0xee>
+    255c:	2b2d      	cmp	r3, #45	; 0x2d
+    255e:	d034      	beq.n	25ca <printKeyboardBuffer+0xee>
 			else if(scanCodeBuffer[i] == 55)	//up
-    2554:	2b37      	cmp	r3, #55	; 0x37
-    2556:	d041      	beq.n	25dc <printKeyboardBuffer+0x10c>
+    2560:	2b37      	cmp	r3, #55	; 0x37
+    2562:	d041      	beq.n	25e8 <printKeyboardBuffer+0x10c>
 			else if(scanCodeBuffer[i] == 65)	//right
-    2558:	2b41      	cmp	r3, #65	; 0x41
-    255a:	d04e      	beq.n	25fa <printKeyboardBuffer+0x12a>
+    2564:	2b41      	cmp	r3, #65	; 0x41
+    2566:	d04e      	beq.n	2606 <printKeyboardBuffer+0x12a>
 			else if((scanCodeBuffer[i] == 49) | (scanCodeBuffer[i] == 13))
-    255c:	2b31      	cmp	r3, #49	; 0x31
-    255e:	d0e8      	beq.n	2532 <printKeyboardBuffer+0x62>
-    2560:	2b0d      	cmp	r3, #13
-    2562:	d0e6      	beq.n	2532 <printKeyboardBuffer+0x62>
+    2568:	2b31      	cmp	r3, #49	; 0x31
+    256a:	d0e8      	beq.n	253e <printKeyboardBuffer+0x62>
+    256c:	2b0d      	cmp	r3, #13
+    256e:	d0e6      	beq.n	253e <printKeyboardBuffer+0x62>
 			else if(scanCodeBuffer[i] == 58) //Return
-    2564:	2b3a      	cmp	r3, #58	; 0x3a
-    2566:	d057      	beq.n	2618 <printKeyboardBuffer+0x148>
+    2570:	2b3a      	cmp	r3, #58	; 0x3a
+    2572:	d057      	beq.n	2624 <printKeyboardBuffer+0x148>
 			else if(scanCodeBuffer[i] == 69) //Line
-    2568:	2b45      	cmp	r3, #69	; 0x45
-    256a:	d06b      	beq.n	2644 <printKeyboardBuffer+0x174>
+    2574:	2b45      	cmp	r3, #69	; 0x45
+    2576:	d06b      	beq.n	2650 <printKeyboardBuffer+0x174>
 			else if(scanCodeBuffer[i] == 66) //Backspace
-    256c:	2b42      	cmp	r3, #66	; 0x42
-    256e:	d074      	beq.n	265a <printKeyboardBuffer+0x18a>
+    2578:	2b42      	cmp	r3, #66	; 0x42
+    257a:	d074      	beq.n	2666 <printKeyboardBuffer+0x18a>
 				if(shifted)
-    2570:	9a01      	ldr	r2, [sp, #4]
-    2572:	2a00      	cmp	r2, #0
-    2574:	d100      	bne.n	2578 <printKeyboardBuffer+0xa8>
-    2576:	e084      	b.n	2682 <printKeyboardBuffer+0x1b2>
+    257c:	9a01      	ldr	r2, [sp, #4]
+    257e:	2a00      	cmp	r2, #0
+    2580:	d100      	bne.n	2584 <printKeyboardBuffer+0xa8>
+    2582:	e084      	b.n	268e <printKeyboardBuffer+0x1b2>
 					drawChar(shiftCase[scanCodeBuffer[i]]);
-    2578:	aa02      	add	r2, sp, #8
-    257a:	5cd0      	ldrb	r0, [r2, r3]
-    257c:	4b58      	ldr	r3, [pc, #352]	; (26e0 <printKeyboardBuffer+0x210>)
-    257e:	4798      	blx	r3
+    2584:	aa02      	add	r2, sp, #8
+    2586:	5cd0      	ldrb	r0, [r2, r3]
+    2588:	4b58      	ldr	r3, [pc, #352]	; (26ec <printKeyboardBuffer+0x210>)
+    258a:	4798      	blx	r3
 					if(xCharPos < 79)
-    2580:	4b56      	ldr	r3, [pc, #344]	; (26dc <printKeyboardBuffer+0x20c>)
-    2582:	7818      	ldrb	r0, [r3, #0]
-    2584:	284e      	cmp	r0, #78	; 0x4e
-    2586:	d8d4      	bhi.n	2532 <printKeyboardBuffer+0x62>
+    258c:	4b56      	ldr	r3, [pc, #344]	; (26e8 <printKeyboardBuffer+0x20c>)
+    258e:	7818      	ldrb	r0, [r3, #0]
+    2590:	284e      	cmp	r0, #78	; 0x4e
+    2592:	d8d4      	bhi.n	253e <printKeyboardBuffer+0x62>
 						moveCursor(xCharPos++,yCharPos);
-    2588:	469b      	mov	fp, r3
-    258a:	1c43      	adds	r3, r0, #1
-    258c:	465a      	mov	r2, fp
-    258e:	7013      	strb	r3, [r2, #0]
-    2590:	4b54      	ldr	r3, [pc, #336]	; (26e4 <printKeyboardBuffer+0x214>)
-    2592:	7819      	ldrb	r1, [r3, #0]
-    2594:	4b54      	ldr	r3, [pc, #336]	; (26e8 <printKeyboardBuffer+0x218>)
-    2596:	4798      	blx	r3
+    2594:	469b      	mov	fp, r3
+    2596:	1c43      	adds	r3, r0, #1
+    2598:	465a      	mov	r2, fp
+    259a:	7013      	strb	r3, [r2, #0]
+    259c:	4b54      	ldr	r3, [pc, #336]	; (26f0 <printKeyboardBuffer+0x214>)
+    259e:	7819      	ldrb	r1, [r3, #0]
+    25a0:	4b54      	ldr	r3, [pc, #336]	; (26f4 <printKeyboardBuffer+0x218>)
+    25a2:	4798      	blx	r3
 						xCharPos++;
-    2598:	465b      	mov	r3, fp
-    259a:	781b      	ldrb	r3, [r3, #0]
-    259c:	3301      	adds	r3, #1
-    259e:	465a      	mov	r2, fp
-    25a0:	7013      	strb	r3, [r2, #0]
+    25a4:	465b      	mov	r3, fp
+    25a6:	781b      	ldrb	r3, [r3, #0]
+    25a8:	3301      	adds	r3, #1
+    25aa:	465a      	mov	r2, fp
+    25ac:	7013      	strb	r3, [r2, #0]
 						clearCursorBuffer();
-    25a2:	4b52      	ldr	r3, [pc, #328]	; (26ec <printKeyboardBuffer+0x21c>)
-    25a4:	4798      	blx	r3
-    25a6:	e7c4      	b.n	2532 <printKeyboardBuffer+0x62>
+    25ae:	4b52      	ldr	r3, [pc, #328]	; (26f8 <printKeyboardBuffer+0x21c>)
+    25b0:	4798      	blx	r3
+    25b2:	e7c4      	b.n	253e <printKeyboardBuffer+0x62>
 					drawCursorBuffer();
-    25a8:	4b51      	ldr	r3, [pc, #324]	; (26f0 <printKeyboardBuffer+0x220>)
-    25aa:	4798      	blx	r3
+    25b4:	4b51      	ldr	r3, [pc, #324]	; (26fc <printKeyboardBuffer+0x220>)
+    25b6:	4798      	blx	r3
 					moveCursor(xCharPos-1,yCharPos);
-    25ac:	4b4d      	ldr	r3, [pc, #308]	; (26e4 <printKeyboardBuffer+0x214>)
-    25ae:	7819      	ldrb	r1, [r3, #0]
-    25b0:	4b4a      	ldr	r3, [pc, #296]	; (26dc <printKeyboardBuffer+0x20c>)
-    25b2:	7818      	ldrb	r0, [r3, #0]
-    25b4:	3801      	subs	r0, #1
-    25b6:	b2c0      	uxtb	r0, r0
-    25b8:	4b4b      	ldr	r3, [pc, #300]	; (26e8 <printKeyboardBuffer+0x218>)
-    25ba:	4798      	blx	r3
-    25bc:	e7b9      	b.n	2532 <printKeyboardBuffer+0x62>
+    25b8:	4b4d      	ldr	r3, [pc, #308]	; (26f0 <printKeyboardBuffer+0x214>)
+    25ba:	7819      	ldrb	r1, [r3, #0]
+    25bc:	4b4a      	ldr	r3, [pc, #296]	; (26e8 <printKeyboardBuffer+0x20c>)
+    25be:	7818      	ldrb	r0, [r3, #0]
+    25c0:	3801      	subs	r0, #1
+    25c2:	b2c0      	uxtb	r0, r0
+    25c4:	4b4b      	ldr	r3, [pc, #300]	; (26f4 <printKeyboardBuffer+0x218>)
+    25c6:	4798      	blx	r3
+    25c8:	e7b9      	b.n	253e <printKeyboardBuffer+0x62>
 				if(yCharPos < 24)
-    25be:	4b49      	ldr	r3, [pc, #292]	; (26e4 <printKeyboardBuffer+0x214>)
-    25c0:	781b      	ldrb	r3, [r3, #0]
-    25c2:	2b17      	cmp	r3, #23
-    25c4:	d8b5      	bhi.n	2532 <printKeyboardBuffer+0x62>
+    25ca:	4b49      	ldr	r3, [pc, #292]	; (26f0 <printKeyboardBuffer+0x214>)
+    25cc:	781b      	ldrb	r3, [r3, #0]
+    25ce:	2b17      	cmp	r3, #23
+    25d0:	d8b5      	bhi.n	253e <printKeyboardBuffer+0x62>
 					drawCursorBuffer();
-    25c6:	4b4a      	ldr	r3, [pc, #296]	; (26f0 <printKeyboardBuffer+0x220>)
-    25c8:	4798      	blx	r3
+    25d2:	4b4a      	ldr	r3, [pc, #296]	; (26fc <printKeyboardBuffer+0x220>)
+    25d4:	4798      	blx	r3
 					moveCursor(xCharPos,yCharPos+1);
-    25ca:	4b46      	ldr	r3, [pc, #280]	; (26e4 <printKeyboardBuffer+0x214>)
-    25cc:	7819      	ldrb	r1, [r3, #0]
-    25ce:	3101      	adds	r1, #1
-    25d0:	b2c9      	uxtb	r1, r1
-    25d2:	4b42      	ldr	r3, [pc, #264]	; (26dc <printKeyboardBuffer+0x20c>)
-    25d4:	7818      	ldrb	r0, [r3, #0]
-    25d6:	4b44      	ldr	r3, [pc, #272]	; (26e8 <printKeyboardBuffer+0x218>)
-    25d8:	4798      	blx	r3
-    25da:	e7aa      	b.n	2532 <printKeyboardBuffer+0x62>
+    25d6:	4b46      	ldr	r3, [pc, #280]	; (26f0 <printKeyboardBuffer+0x214>)
+    25d8:	7819      	ldrb	r1, [r3, #0]
+    25da:	3101      	adds	r1, #1
+    25dc:	b2c9      	uxtb	r1, r1
+    25de:	4b42      	ldr	r3, [pc, #264]	; (26e8 <printKeyboardBuffer+0x20c>)
+    25e0:	7818      	ldrb	r0, [r3, #0]
+    25e2:	4b44      	ldr	r3, [pc, #272]	; (26f4 <printKeyboardBuffer+0x218>)
+    25e4:	4798      	blx	r3
+    25e6:	e7aa      	b.n	253e <printKeyboardBuffer+0x62>
 				if(yCharPos > 0)
-    25dc:	4b41      	ldr	r3, [pc, #260]	; (26e4 <printKeyboardBuffer+0x214>)
-    25de:	781b      	ldrb	r3, [r3, #0]
-    25e0:	2b00      	cmp	r3, #0
-    25e2:	d0a6      	beq.n	2532 <printKeyboardBuffer+0x62>
+    25e8:	4b41      	ldr	r3, [pc, #260]	; (26f0 <printKeyboardBuffer+0x214>)
+    25ea:	781b      	ldrb	r3, [r3, #0]
+    25ec:	2b00      	cmp	r3, #0
+    25ee:	d0a6      	beq.n	253e <printKeyboardBuffer+0x62>
 					drawCursorBuffer();
-    25e4:	4b42      	ldr	r3, [pc, #264]	; (26f0 <printKeyboardBuffer+0x220>)
-    25e6:	4798      	blx	r3
+    25f0:	4b42      	ldr	r3, [pc, #264]	; (26fc <printKeyboardBuffer+0x220>)
+    25f2:	4798      	blx	r3
 					moveCursor(xCharPos,yCharPos-1);
-    25e8:	4b3e      	ldr	r3, [pc, #248]	; (26e4 <printKeyboardBuffer+0x214>)
-    25ea:	7819      	ldrb	r1, [r3, #0]
-    25ec:	3901      	subs	r1, #1
-    25ee:	b2c9      	uxtb	r1, r1
-    25f0:	4b3a      	ldr	r3, [pc, #232]	; (26dc <printKeyboardBuffer+0x20c>)
-    25f2:	7818      	ldrb	r0, [r3, #0]
-    25f4:	4b3c      	ldr	r3, [pc, #240]	; (26e8 <printKeyboardBuffer+0x218>)
-    25f6:	4798      	blx	r3
-    25f8:	e79b      	b.n	2532 <printKeyboardBuffer+0x62>
+    25f4:	4b3e      	ldr	r3, [pc, #248]	; (26f0 <printKeyboardBuffer+0x214>)
+    25f6:	7819      	ldrb	r1, [r3, #0]
+    25f8:	3901      	subs	r1, #1
+    25fa:	b2c9      	uxtb	r1, r1
+    25fc:	4b3a      	ldr	r3, [pc, #232]	; (26e8 <printKeyboardBuffer+0x20c>)
+    25fe:	7818      	ldrb	r0, [r3, #0]
+    2600:	4b3c      	ldr	r3, [pc, #240]	; (26f4 <printKeyboardBuffer+0x218>)
+    2602:	4798      	blx	r3
+    2604:	e79b      	b.n	253e <printKeyboardBuffer+0x62>
 				if(xCharPos < 79)
-    25fa:	4b38      	ldr	r3, [pc, #224]	; (26dc <printKeyboardBuffer+0x20c>)
-    25fc:	781b      	ldrb	r3, [r3, #0]
-    25fe:	2b4e      	cmp	r3, #78	; 0x4e
-    2600:	d897      	bhi.n	2532 <printKeyboardBuffer+0x62>
+    2606:	4b38      	ldr	r3, [pc, #224]	; (26e8 <printKeyboardBuffer+0x20c>)
+    2608:	781b      	ldrb	r3, [r3, #0]
+    260a:	2b4e      	cmp	r3, #78	; 0x4e
+    260c:	d897      	bhi.n	253e <printKeyboardBuffer+0x62>
 					drawCursorBuffer();
-    2602:	4b3b      	ldr	r3, [pc, #236]	; (26f0 <printKeyboardBuffer+0x220>)
-    2604:	4798      	blx	r3
+    260e:	4b3b      	ldr	r3, [pc, #236]	; (26fc <printKeyboardBuffer+0x220>)
+    2610:	4798      	blx	r3
 					moveCursor(xCharPos+1,yCharPos);
-    2606:	4b37      	ldr	r3, [pc, #220]	; (26e4 <printKeyboardBuffer+0x214>)
-    2608:	7819      	ldrb	r1, [r3, #0]
-    260a:	4b34      	ldr	r3, [pc, #208]	; (26dc <printKeyboardBuffer+0x20c>)
-    260c:	7818      	ldrb	r0, [r3, #0]
-    260e:	3001      	adds	r0, #1
-    2610:	b2c0      	uxtb	r0, r0
-    2612:	4b35      	ldr	r3, [pc, #212]	; (26e8 <printKeyboardBuffer+0x218>)
-    2614:	4798      	blx	r3
-    2616:	e78c      	b.n	2532 <printKeyboardBuffer+0x62>
+    2612:	4b37      	ldr	r3, [pc, #220]	; (26f0 <printKeyboardBuffer+0x214>)
+    2614:	7819      	ldrb	r1, [r3, #0]
+    2616:	4b34      	ldr	r3, [pc, #208]	; (26e8 <printKeyboardBuffer+0x20c>)
+    2618:	7818      	ldrb	r0, [r3, #0]
+    261a:	3001      	adds	r0, #1
+    261c:	b2c0      	uxtb	r0, r0
+    261e:	4b35      	ldr	r3, [pc, #212]	; (26f4 <printKeyboardBuffer+0x218>)
+    2620:	4798      	blx	r3
+    2622:	e78c      	b.n	253e <printKeyboardBuffer+0x62>
 				if(yCharPos == 23)
-    2618:	4b32      	ldr	r3, [pc, #200]	; (26e4 <printKeyboardBuffer+0x214>)
-    261a:	781b      	ldrb	r3, [r3, #0]
-    261c:	2b17      	cmp	r3, #23
-    261e:	d009      	beq.n	2634 <printKeyboardBuffer+0x164>
+    2624:	4b32      	ldr	r3, [pc, #200]	; (26f0 <printKeyboardBuffer+0x214>)
+    2626:	781b      	ldrb	r3, [r3, #0]
+    2628:	2b17      	cmp	r3, #23
+    262a:	d009      	beq.n	2640 <printKeyboardBuffer+0x164>
 					drawCursorBuffer();
-    2620:	4b33      	ldr	r3, [pc, #204]	; (26f0 <printKeyboardBuffer+0x220>)
-    2622:	4798      	blx	r3
+    262c:	4b33      	ldr	r3, [pc, #204]	; (26fc <printKeyboardBuffer+0x220>)
+    262e:	4798      	blx	r3
 					yCharPos++;
-    2624:	4a2f      	ldr	r2, [pc, #188]	; (26e4 <printKeyboardBuffer+0x214>)
-    2626:	7813      	ldrb	r3, [r2, #0]
-    2628:	3301      	adds	r3, #1
-    262a:	7013      	strb	r3, [r2, #0]
+    2630:	4a2f      	ldr	r2, [pc, #188]	; (26f0 <printKeyboardBuffer+0x214>)
+    2632:	7813      	ldrb	r3, [r2, #0]
+    2634:	3301      	adds	r3, #1
+    2636:	7013      	strb	r3, [r2, #0]
 					xCharPos = 0;
-    262c:	2200      	movs	r2, #0
-    262e:	4b2b      	ldr	r3, [pc, #172]	; (26dc <printKeyboardBuffer+0x20c>)
-    2630:	701a      	strb	r2, [r3, #0]
-    2632:	e77e      	b.n	2532 <printKeyboardBuffer+0x62>
+    2638:	2200      	movs	r2, #0
+    263a:	4b2b      	ldr	r3, [pc, #172]	; (26e8 <printKeyboardBuffer+0x20c>)
+    263c:	701a      	strb	r2, [r3, #0]
+    263e:	e77e      	b.n	253e <printKeyboardBuffer+0x62>
 					drawCursorBuffer();
-    2634:	4b2e      	ldr	r3, [pc, #184]	; (26f0 <printKeyboardBuffer+0x220>)
-    2636:	4798      	blx	r3
+    2640:	4b2e      	ldr	r3, [pc, #184]	; (26fc <printKeyboardBuffer+0x220>)
+    2642:	4798      	blx	r3
 					newLine();
-    2638:	4b2e      	ldr	r3, [pc, #184]	; (26f4 <printKeyboardBuffer+0x224>)
-    263a:	4798      	blx	r3
+    2644:	4b2e      	ldr	r3, [pc, #184]	; (2700 <printKeyboardBuffer+0x224>)
+    2646:	4798      	blx	r3
 					xCharPos = 0;
-    263c:	2200      	movs	r2, #0
-    263e:	4b27      	ldr	r3, [pc, #156]	; (26dc <printKeyboardBuffer+0x20c>)
-    2640:	701a      	strb	r2, [r3, #0]
-    2642:	e776      	b.n	2532 <printKeyboardBuffer+0x62>
+    2648:	2200      	movs	r2, #0
+    264a:	4b27      	ldr	r3, [pc, #156]	; (26e8 <printKeyboardBuffer+0x20c>)
+    264c:	701a      	strb	r2, [r3, #0]
+    264e:	e776      	b.n	253e <printKeyboardBuffer+0x62>
 				if(yCharPos == 23)
-    2644:	4b27      	ldr	r3, [pc, #156]	; (26e4 <printKeyboardBuffer+0x214>)
-    2646:	781b      	ldrb	r3, [r3, #0]
-    2648:	2b17      	cmp	r3, #23
-    264a:	d003      	beq.n	2654 <printKeyboardBuffer+0x184>
+    2650:	4b27      	ldr	r3, [pc, #156]	; (26f0 <printKeyboardBuffer+0x214>)
+    2652:	781b      	ldrb	r3, [r3, #0]
+    2654:	2b17      	cmp	r3, #23
+    2656:	d003      	beq.n	2660 <printKeyboardBuffer+0x184>
 					yCharPos++;
-    264c:	3301      	adds	r3, #1
-    264e:	4a25      	ldr	r2, [pc, #148]	; (26e4 <printKeyboardBuffer+0x214>)
-    2650:	7013      	strb	r3, [r2, #0]
-    2652:	e76e      	b.n	2532 <printKeyboardBuffer+0x62>
+    2658:	3301      	adds	r3, #1
+    265a:	4a25      	ldr	r2, [pc, #148]	; (26f0 <printKeyboardBuffer+0x214>)
+    265c:	7013      	strb	r3, [r2, #0]
+    265e:	e76e      	b.n	253e <printKeyboardBuffer+0x62>
 					newLine();
-    2654:	4b27      	ldr	r3, [pc, #156]	; (26f4 <printKeyboardBuffer+0x224>)
-    2656:	4798      	blx	r3
-    2658:	e76b      	b.n	2532 <printKeyboardBuffer+0x62>
+    2660:	4b27      	ldr	r3, [pc, #156]	; (2700 <printKeyboardBuffer+0x224>)
+    2662:	4798      	blx	r3
+    2664:	e76b      	b.n	253e <printKeyboardBuffer+0x62>
 				drawCursorBuffer();
-    265a:	4b25      	ldr	r3, [pc, #148]	; (26f0 <printKeyboardBuffer+0x220>)
-    265c:	4798      	blx	r3
+    2666:	4b25      	ldr	r3, [pc, #148]	; (26fc <printKeyboardBuffer+0x220>)
+    2668:	4798      	blx	r3
 				xCharPos--;
-    265e:	4b1f      	ldr	r3, [pc, #124]	; (26dc <printKeyboardBuffer+0x20c>)
-    2660:	469b      	mov	fp, r3
-    2662:	781b      	ldrb	r3, [r3, #0]
-    2664:	3b01      	subs	r3, #1
-    2666:	465a      	mov	r2, fp
-    2668:	7013      	strb	r3, [r2, #0]
+    266a:	4b1f      	ldr	r3, [pc, #124]	; (26e8 <printKeyboardBuffer+0x20c>)
+    266c:	469b      	mov	fp, r3
+    266e:	781b      	ldrb	r3, [r3, #0]
+    2670:	3b01      	subs	r3, #1
+    2672:	465a      	mov	r2, fp
+    2674:	7013      	strb	r3, [r2, #0]
 				drawChar(0x20);
-    266a:	2020      	movs	r0, #32
-    266c:	4b1c      	ldr	r3, [pc, #112]	; (26e0 <printKeyboardBuffer+0x210>)
-    266e:	4798      	blx	r3
+    2676:	2020      	movs	r0, #32
+    2678:	4b1c      	ldr	r3, [pc, #112]	; (26ec <printKeyboardBuffer+0x210>)
+    267a:	4798      	blx	r3
 				clearCursorBuffer();
-    2670:	4b1e      	ldr	r3, [pc, #120]	; (26ec <printKeyboardBuffer+0x21c>)
-    2672:	4798      	blx	r3
-				moveCursor(xCharPos,yCharPos);
-    2674:	4b1b      	ldr	r3, [pc, #108]	; (26e4 <printKeyboardBuffer+0x214>)
-    2676:	7819      	ldrb	r1, [r3, #0]
-    2678:	465b      	mov	r3, fp
-    267a:	7818      	ldrb	r0, [r3, #0]
-    267c:	4b1a      	ldr	r3, [pc, #104]	; (26e8 <printKeyboardBuffer+0x218>)
+    267c:	4b1e      	ldr	r3, [pc, #120]	; (26f8 <printKeyboardBuffer+0x21c>)
     267e:	4798      	blx	r3
-    2680:	e757      	b.n	2532 <printKeyboardBuffer+0x62>
+				moveCursor(xCharPos,yCharPos);
+    2680:	4b1b      	ldr	r3, [pc, #108]	; (26f0 <printKeyboardBuffer+0x214>)
+    2682:	7819      	ldrb	r1, [r3, #0]
+    2684:	465b      	mov	r3, fp
+    2686:	7818      	ldrb	r0, [r3, #0]
+    2688:	4b1a      	ldr	r3, [pc, #104]	; (26f4 <printKeyboardBuffer+0x218>)
+    268a:	4798      	blx	r3
+    268c:	e757      	b.n	253e <printKeyboardBuffer+0x62>
 					drawChar(noCase[scanCodeBuffer[i]]);
-    2682:	aa14      	add	r2, sp, #80	; 0x50
-    2684:	5cd0      	ldrb	r0, [r2, r3]
-    2686:	4b16      	ldr	r3, [pc, #88]	; (26e0 <printKeyboardBuffer+0x210>)
-    2688:	4798      	blx	r3
+    268e:	aa14      	add	r2, sp, #80	; 0x50
+    2690:	5cd0      	ldrb	r0, [r2, r3]
+    2692:	4b16      	ldr	r3, [pc, #88]	; (26ec <printKeyboardBuffer+0x210>)
+    2694:	4798      	blx	r3
 					if(xCharPos < 79)
-    268a:	4b14      	ldr	r3, [pc, #80]	; (26dc <printKeyboardBuffer+0x20c>)
-    268c:	7818      	ldrb	r0, [r3, #0]
-    268e:	284e      	cmp	r0, #78	; 0x4e
-    2690:	d900      	bls.n	2694 <printKeyboardBuffer+0x1c4>
-    2692:	e74e      	b.n	2532 <printKeyboardBuffer+0x62>
+    2696:	4b14      	ldr	r3, [pc, #80]	; (26e8 <printKeyboardBuffer+0x20c>)
+    2698:	7818      	ldrb	r0, [r3, #0]
+    269a:	284e      	cmp	r0, #78	; 0x4e
+    269c:	d900      	bls.n	26a0 <printKeyboardBuffer+0x1c4>
+    269e:	e74e      	b.n	253e <printKeyboardBuffer+0x62>
 						moveCursor(xCharPos++,yCharPos);
-    2694:	469b      	mov	fp, r3
-    2696:	1c43      	adds	r3, r0, #1
-    2698:	465a      	mov	r2, fp
-    269a:	7013      	strb	r3, [r2, #0]
-    269c:	4b11      	ldr	r3, [pc, #68]	; (26e4 <printKeyboardBuffer+0x214>)
-    269e:	7819      	ldrb	r1, [r3, #0]
-    26a0:	4b11      	ldr	r3, [pc, #68]	; (26e8 <printKeyboardBuffer+0x218>)
-    26a2:	4798      	blx	r3
+    26a0:	469b      	mov	fp, r3
+    26a2:	1c43      	adds	r3, r0, #1
+    26a4:	465a      	mov	r2, fp
+    26a6:	7013      	strb	r3, [r2, #0]
+    26a8:	4b11      	ldr	r3, [pc, #68]	; (26f0 <printKeyboardBuffer+0x214>)
+    26aa:	7819      	ldrb	r1, [r3, #0]
+    26ac:	4b11      	ldr	r3, [pc, #68]	; (26f4 <printKeyboardBuffer+0x218>)
+    26ae:	4798      	blx	r3
 						xCharPos++;
-    26a4:	465b      	mov	r3, fp
-    26a6:	781b      	ldrb	r3, [r3, #0]
-    26a8:	3301      	adds	r3, #1
-    26aa:	465a      	mov	r2, fp
-    26ac:	7013      	strb	r3, [r2, #0]
+    26b0:	465b      	mov	r3, fp
+    26b2:	781b      	ldrb	r3, [r3, #0]
+    26b4:	3301      	adds	r3, #1
+    26b6:	465a      	mov	r2, fp
+    26b8:	7013      	strb	r3, [r2, #0]
 						clearCursorBuffer();
-    26ae:	4b0f      	ldr	r3, [pc, #60]	; (26ec <printKeyboardBuffer+0x21c>)
-    26b0:	4798      	blx	r3
-    26b2:	e73e      	b.n	2532 <printKeyboardBuffer+0x62>
+    26ba:	4b0f      	ldr	r3, [pc, #60]	; (26f8 <printKeyboardBuffer+0x21c>)
+    26bc:	4798      	blx	r3
+    26be:	e73e      	b.n	253e <printKeyboardBuffer+0x62>
 		scanCodeBuffer[i] = 0xFF;
-    26b4:	23ff      	movs	r3, #255	; 0xff
-    26b6:	7033      	strb	r3, [r6, #0]
-    26b8:	3601      	adds	r6, #1
+    26c0:	23ff      	movs	r3, #255	; 0xff
+    26c2:	7033      	strb	r3, [r6, #0]
+    26c4:	3601      	adds	r6, #1
 	for(int i = 0 ; i < 20 ; i++)
-    26ba:	42b5      	cmp	r5, r6
-    26bc:	d1fb      	bne.n	26b6 <printKeyboardBuffer+0x1e6>
+    26c6:	42b5      	cmp	r5, r6
+    26c8:	d1fb      	bne.n	26c2 <printKeyboardBuffer+0x1e6>
 }
-    26be:	b026      	add	sp, #152	; 0x98
-    26c0:	bc1c      	pop	{r2, r3, r4}
-    26c2:	4690      	mov	r8, r2
-    26c4:	4699      	mov	r9, r3
-    26c6:	46a3      	mov	fp, r4
-    26c8:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    26ca:	46c0      	nop			; (mov r8, r8)
-    26cc:	000062ac 	.word	0x000062ac
-    26d0:	0000328d 	.word	0x0000328d
-    26d4:	20000028 	.word	0x20000028
-    26d8:	20000014 	.word	0x20000014
-    26dc:	20000180 	.word	0x20000180
-    26e0:	00001e75 	.word	0x00001e75
-    26e4:	20000181 	.word	0x20000181
-    26e8:	000023cd 	.word	0x000023cd
-    26ec:	00002319 	.word	0x00002319
-    26f0:	00002331 	.word	0x00002331
-    26f4:	00001f71 	.word	0x00001f71
+    26ca:	b026      	add	sp, #152	; 0x98
+    26cc:	bc1c      	pop	{r2, r3, r4}
+    26ce:	4690      	mov	r8, r2
+    26d0:	4699      	mov	r9, r3
+    26d2:	46a3      	mov	fp, r4
+    26d4:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    26d6:	46c0      	nop			; (mov r8, r8)
+    26d8:	000062ac 	.word	0x000062ac
+    26dc:	0000328d 	.word	0x0000328d
+    26e0:	20000028 	.word	0x20000028
+    26e4:	20000014 	.word	0x20000014
+    26e8:	20000180 	.word	0x20000180
+    26ec:	00001e75 	.word	0x00001e75
+    26f0:	20000181 	.word	0x20000181
+    26f4:	000023d9 	.word	0x000023d9
+    26f8:	00002325 	.word	0x00002325
+    26fc:	0000233d 	.word	0x0000233d
+    2700:	00001f71 	.word	0x00001f71
 
-000026f8 <blinkCursor>:
+00002704 <blinkCursor>:
 
 void blinkCursor(void)
 {
-    26f8:	b5f0      	push	{r4, r5, r6, r7, lr}
-    26fa:	46c6      	mov	lr, r8
-    26fc:	b500      	push	{lr}
+    2704:	b5f0      	push	{r4, r5, r6, r7, lr}
+    2706:	46c6      	mov	lr, r8
+    2708:	b500      	push	{lr}
 	if(cursorBlinkState)
-    26fe:	4b3e      	ldr	r3, [pc, #248]	; (27f8 <blinkCursor+0x100>)
-    2700:	781b      	ldrb	r3, [r3, #0]
-    2702:	2b00      	cmp	r3, #0
-    2704:	d03c      	beq.n	2780 <blinkCursor+0x88>
+    270a:	4b3e      	ldr	r3, [pc, #248]	; (2804 <blinkCursor+0x100>)
+    270c:	781b      	ldrb	r3, [r3, #0]
+    270e:	2b00      	cmp	r3, #0
+    2710:	d03c      	beq.n	278c <blinkCursor+0x88>
 	{
 
 		//Draw the *inverse* of cursorBuffer
 		setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
-    2706:	4b3d      	ldr	r3, [pc, #244]	; (27fc <blinkCursor+0x104>)
-    2708:	7818      	ldrb	r0, [r3, #0]
-    270a:	384f      	subs	r0, #79	; 0x4f
-    270c:	17c3      	asrs	r3, r0, #31
-    270e:	18c0      	adds	r0, r0, r3
-    2710:	4058      	eors	r0, r3
-    2712:	0083      	lsls	r3, r0, #2
-    2714:	18c0      	adds	r0, r0, r3
-    2716:	0040      	lsls	r0, r0, #1
-    2718:	b280      	uxth	r0, r0
-    271a:	4b39      	ldr	r3, [pc, #228]	; (2800 <blinkCursor+0x108>)
-    271c:	7819      	ldrb	r1, [r3, #0]
-    271e:	2314      	movs	r3, #20
-    2720:	4359      	muls	r1, r3
-    2722:	000b      	movs	r3, r1
-    2724:	3313      	adds	r3, #19
-    2726:	b29b      	uxth	r3, r3
-    2728:	0002      	movs	r2, r0
-    272a:	3209      	adds	r2, #9
-    272c:	b292      	uxth	r2, r2
-    272e:	4c35      	ldr	r4, [pc, #212]	; (2804 <blinkCursor+0x10c>)
-    2730:	47a0      	blx	r4
-    2732:	4c35      	ldr	r4, [pc, #212]	; (2808 <blinkCursor+0x110>)
-    2734:	0025      	movs	r5, r4
-    2736:	35c8      	adds	r5, #200	; 0xc8
+    2712:	4b3d      	ldr	r3, [pc, #244]	; (2808 <blinkCursor+0x104>)
+    2714:	7818      	ldrb	r0, [r3, #0]
+    2716:	384f      	subs	r0, #79	; 0x4f
+    2718:	17c3      	asrs	r3, r0, #31
+    271a:	18c0      	adds	r0, r0, r3
+    271c:	4058      	eors	r0, r3
+    271e:	0083      	lsls	r3, r0, #2
+    2720:	18c0      	adds	r0, r0, r3
+    2722:	0040      	lsls	r0, r0, #1
+    2724:	b280      	uxth	r0, r0
+    2726:	4b39      	ldr	r3, [pc, #228]	; (280c <blinkCursor+0x108>)
+    2728:	7819      	ldrb	r1, [r3, #0]
+    272a:	2314      	movs	r3, #20
+    272c:	4359      	muls	r1, r3
+    272e:	000b      	movs	r3, r1
+    2730:	3313      	adds	r3, #19
+    2732:	b29b      	uxth	r3, r3
+    2734:	0002      	movs	r2, r0
+    2736:	3209      	adds	r2, #9
+    2738:	b292      	uxth	r2, r2
+    273a:	4c35      	ldr	r4, [pc, #212]	; (2810 <blinkCursor+0x10c>)
+    273c:	47a0      	blx	r4
+    273e:	4c35      	ldr	r4, [pc, #212]	; (2814 <blinkCursor+0x110>)
+    2740:	0025      	movs	r5, r4
+    2742:	35c8      	adds	r5, #200	; 0xc8
 		for(uint16_t i = 0 ; i < 200 ; i++)
 		{
 			if((cursorBuffer[i] != 0xFF))
 			setPixel((fore_Color_High<<8)|fore_Color_Low);
 			else
 			setPixel((back_Color_High<<8)|back_Color_Low);
-    2738:	4b34      	ldr	r3, [pc, #208]	; (280c <blinkCursor+0x114>)
-    273a:	4698      	mov	r8, r3
-    273c:	4f34      	ldr	r7, [pc, #208]	; (2810 <blinkCursor+0x118>)
-    273e:	4e35      	ldr	r6, [pc, #212]	; (2814 <blinkCursor+0x11c>)
-    2740:	e009      	b.n	2756 <blinkCursor+0x5e>
-    2742:	4643      	mov	r3, r8
-    2744:	8818      	ldrh	r0, [r3, #0]
-    2746:	0200      	lsls	r0, r0, #8
-    2748:	883b      	ldrh	r3, [r7, #0]
-    274a:	4318      	orrs	r0, r3
-    274c:	b280      	uxth	r0, r0
-    274e:	47b0      	blx	r6
-    2750:	3401      	adds	r4, #1
+    2744:	4b34      	ldr	r3, [pc, #208]	; (2818 <blinkCursor+0x114>)
+    2746:	4698      	mov	r8, r3
+    2748:	4f34      	ldr	r7, [pc, #208]	; (281c <blinkCursor+0x118>)
+    274a:	4e35      	ldr	r6, [pc, #212]	; (2820 <blinkCursor+0x11c>)
+    274c:	e009      	b.n	2762 <blinkCursor+0x5e>
+    274e:	4643      	mov	r3, r8
+    2750:	8818      	ldrh	r0, [r3, #0]
+    2752:	0200      	lsls	r0, r0, #8
+    2754:	883b      	ldrh	r3, [r7, #0]
+    2756:	4318      	orrs	r0, r3
+    2758:	b280      	uxth	r0, r0
+    275a:	47b0      	blx	r6
+    275c:	3401      	adds	r4, #1
 		for(uint16_t i = 0 ; i < 200 ; i++)
-    2752:	42a5      	cmp	r5, r4
-    2754:	d00c      	beq.n	2770 <blinkCursor+0x78>
+    275e:	42a5      	cmp	r5, r4
+    2760:	d00c      	beq.n	277c <blinkCursor+0x78>
 			if((cursorBuffer[i] != 0xFF))
-    2756:	7823      	ldrb	r3, [r4, #0]
-    2758:	2bff      	cmp	r3, #255	; 0xff
-    275a:	d0f2      	beq.n	2742 <blinkCursor+0x4a>
+    2762:	7823      	ldrb	r3, [r4, #0]
+    2764:	2bff      	cmp	r3, #255	; 0xff
+    2766:	d0f2      	beq.n	274e <blinkCursor+0x4a>
 			setPixel((fore_Color_High<<8)|fore_Color_Low);
-    275c:	4b2e      	ldr	r3, [pc, #184]	; (2818 <blinkCursor+0x120>)
-    275e:	8818      	ldrh	r0, [r3, #0]
-    2760:	0200      	lsls	r0, r0, #8
-    2762:	4b2e      	ldr	r3, [pc, #184]	; (281c <blinkCursor+0x124>)
-    2764:	881b      	ldrh	r3, [r3, #0]
-    2766:	4318      	orrs	r0, r3
-    2768:	b280      	uxth	r0, r0
-    276a:	4b2a      	ldr	r3, [pc, #168]	; (2814 <blinkCursor+0x11c>)
-    276c:	4798      	blx	r3
-    276e:	e7ef      	b.n	2750 <blinkCursor+0x58>
+    2768:	4b2e      	ldr	r3, [pc, #184]	; (2824 <blinkCursor+0x120>)
+    276a:	8818      	ldrh	r0, [r3, #0]
+    276c:	0200      	lsls	r0, r0, #8
+    276e:	4b2e      	ldr	r3, [pc, #184]	; (2828 <blinkCursor+0x124>)
+    2770:	881b      	ldrh	r3, [r3, #0]
+    2772:	4318      	orrs	r0, r3
+    2774:	b280      	uxth	r0, r0
+    2776:	4b2a      	ldr	r3, [pc, #168]	; (2820 <blinkCursor+0x11c>)
+    2778:	4798      	blx	r3
+    277a:	e7ef      	b.n	275c <blinkCursor+0x58>
 		}
 		
 		//finally set cursorBlinkState to false
 		cursorBlinkState = !cursorBlinkState;
-    2770:	4a21      	ldr	r2, [pc, #132]	; (27f8 <blinkCursor+0x100>)
-    2772:	7813      	ldrb	r3, [r2, #0]
-    2774:	2101      	movs	r1, #1
-    2776:	404b      	eors	r3, r1
-    2778:	7013      	strb	r3, [r2, #0]
+    277c:	4a21      	ldr	r2, [pc, #132]	; (2804 <blinkCursor+0x100>)
+    277e:	7813      	ldrb	r3, [r2, #0]
+    2780:	2101      	movs	r1, #1
+    2782:	404b      	eors	r3, r1
+    2784:	7013      	strb	r3, [r2, #0]
 			setPixel((back_Color_High<<8)|back_Color_Low);
 		}
 		//set cursorBlinkState to true
 		cursorBlinkState = !cursorBlinkState;
 	}
 }
-    277a:	bc04      	pop	{r2}
-    277c:	4690      	mov	r8, r2
-    277e:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2786:	bc04      	pop	{r2}
+    2788:	4690      	mov	r8, r2
+    278a:	bdf0      	pop	{r4, r5, r6, r7, pc}
 		setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
-    2780:	4b1e      	ldr	r3, [pc, #120]	; (27fc <blinkCursor+0x104>)
-    2782:	7818      	ldrb	r0, [r3, #0]
-    2784:	384f      	subs	r0, #79	; 0x4f
-    2786:	17c3      	asrs	r3, r0, #31
-    2788:	18c0      	adds	r0, r0, r3
-    278a:	4058      	eors	r0, r3
-    278c:	0083      	lsls	r3, r0, #2
-    278e:	18c0      	adds	r0, r0, r3
-    2790:	0040      	lsls	r0, r0, #1
-    2792:	b280      	uxth	r0, r0
-    2794:	4b1a      	ldr	r3, [pc, #104]	; (2800 <blinkCursor+0x108>)
-    2796:	7819      	ldrb	r1, [r3, #0]
-    2798:	2314      	movs	r3, #20
-    279a:	4359      	muls	r1, r3
-    279c:	000b      	movs	r3, r1
-    279e:	3313      	adds	r3, #19
-    27a0:	b29b      	uxth	r3, r3
-    27a2:	0002      	movs	r2, r0
-    27a4:	3209      	adds	r2, #9
-    27a6:	b292      	uxth	r2, r2
-    27a8:	4c16      	ldr	r4, [pc, #88]	; (2804 <blinkCursor+0x10c>)
-    27aa:	47a0      	blx	r4
-    27ac:	4c16      	ldr	r4, [pc, #88]	; (2808 <blinkCursor+0x110>)
-    27ae:	0025      	movs	r5, r4
-    27b0:	35c8      	adds	r5, #200	; 0xc8
+    278c:	4b1e      	ldr	r3, [pc, #120]	; (2808 <blinkCursor+0x104>)
+    278e:	7818      	ldrb	r0, [r3, #0]
+    2790:	384f      	subs	r0, #79	; 0x4f
+    2792:	17c3      	asrs	r3, r0, #31
+    2794:	18c0      	adds	r0, r0, r3
+    2796:	4058      	eors	r0, r3
+    2798:	0083      	lsls	r3, r0, #2
+    279a:	18c0      	adds	r0, r0, r3
+    279c:	0040      	lsls	r0, r0, #1
+    279e:	b280      	uxth	r0, r0
+    27a0:	4b1a      	ldr	r3, [pc, #104]	; (280c <blinkCursor+0x108>)
+    27a2:	7819      	ldrb	r1, [r3, #0]
+    27a4:	2314      	movs	r3, #20
+    27a6:	4359      	muls	r1, r3
+    27a8:	000b      	movs	r3, r1
+    27aa:	3313      	adds	r3, #19
+    27ac:	b29b      	uxth	r3, r3
+    27ae:	0002      	movs	r2, r0
+    27b0:	3209      	adds	r2, #9
+    27b2:	b292      	uxth	r2, r2
+    27b4:	4c16      	ldr	r4, [pc, #88]	; (2810 <blinkCursor+0x10c>)
+    27b6:	47a0      	blx	r4
+    27b8:	4c16      	ldr	r4, [pc, #88]	; (2814 <blinkCursor+0x110>)
+    27ba:	0025      	movs	r5, r4
+    27bc:	35c8      	adds	r5, #200	; 0xc8
 			setPixel((back_Color_High<<8)|back_Color_Low);
-    27b2:	4b16      	ldr	r3, [pc, #88]	; (280c <blinkCursor+0x114>)
-    27b4:	4698      	mov	r8, r3
-    27b6:	4f16      	ldr	r7, [pc, #88]	; (2810 <blinkCursor+0x118>)
-    27b8:	4e16      	ldr	r6, [pc, #88]	; (2814 <blinkCursor+0x11c>)
-    27ba:	e00b      	b.n	27d4 <blinkCursor+0xdc>
+    27be:	4b16      	ldr	r3, [pc, #88]	; (2818 <blinkCursor+0x114>)
+    27c0:	4698      	mov	r8, r3
+    27c2:	4f16      	ldr	r7, [pc, #88]	; (281c <blinkCursor+0x118>)
+    27c4:	4e16      	ldr	r6, [pc, #88]	; (2820 <blinkCursor+0x11c>)
+    27c6:	e00b      	b.n	27e0 <blinkCursor+0xdc>
 			setPixel((fore_Color_High<<8)|fore_Color_Low);
-    27bc:	4b16      	ldr	r3, [pc, #88]	; (2818 <blinkCursor+0x120>)
-    27be:	8818      	ldrh	r0, [r3, #0]
-    27c0:	0200      	lsls	r0, r0, #8
-    27c2:	4b16      	ldr	r3, [pc, #88]	; (281c <blinkCursor+0x124>)
-    27c4:	881b      	ldrh	r3, [r3, #0]
-    27c6:	4318      	orrs	r0, r3
-    27c8:	b280      	uxth	r0, r0
-    27ca:	4b12      	ldr	r3, [pc, #72]	; (2814 <blinkCursor+0x11c>)
-    27cc:	4798      	blx	r3
-    27ce:	3401      	adds	r4, #1
+    27c8:	4b16      	ldr	r3, [pc, #88]	; (2824 <blinkCursor+0x120>)
+    27ca:	8818      	ldrh	r0, [r3, #0]
+    27cc:	0200      	lsls	r0, r0, #8
+    27ce:	4b16      	ldr	r3, [pc, #88]	; (2828 <blinkCursor+0x124>)
+    27d0:	881b      	ldrh	r3, [r3, #0]
+    27d2:	4318      	orrs	r0, r3
+    27d4:	b280      	uxth	r0, r0
+    27d6:	4b12      	ldr	r3, [pc, #72]	; (2820 <blinkCursor+0x11c>)
+    27d8:	4798      	blx	r3
+    27da:	3401      	adds	r4, #1
 		for(uint16_t i = 0 ; i < 200 ; i++)
-    27d0:	42ac      	cmp	r4, r5
-    27d2:	d00a      	beq.n	27ea <blinkCursor+0xf2>
+    27dc:	42ac      	cmp	r4, r5
+    27de:	d00a      	beq.n	27f6 <blinkCursor+0xf2>
 			if((cursorBuffer[i] == 0xFF))
-    27d4:	7823      	ldrb	r3, [r4, #0]
-    27d6:	2bff      	cmp	r3, #255	; 0xff
-    27d8:	d0f0      	beq.n	27bc <blinkCursor+0xc4>
+    27e0:	7823      	ldrb	r3, [r4, #0]
+    27e2:	2bff      	cmp	r3, #255	; 0xff
+    27e4:	d0f0      	beq.n	27c8 <blinkCursor+0xc4>
 			setPixel((back_Color_High<<8)|back_Color_Low);
-    27da:	4643      	mov	r3, r8
-    27dc:	8818      	ldrh	r0, [r3, #0]
-    27de:	0200      	lsls	r0, r0, #8
-    27e0:	883b      	ldrh	r3, [r7, #0]
-    27e2:	4318      	orrs	r0, r3
-    27e4:	b280      	uxth	r0, r0
-    27e6:	47b0      	blx	r6
-    27e8:	e7f1      	b.n	27ce <blinkCursor+0xd6>
+    27e6:	4643      	mov	r3, r8
+    27e8:	8818      	ldrh	r0, [r3, #0]
+    27ea:	0200      	lsls	r0, r0, #8
+    27ec:	883b      	ldrh	r3, [r7, #0]
+    27ee:	4318      	orrs	r0, r3
+    27f0:	b280      	uxth	r0, r0
+    27f2:	47b0      	blx	r6
+    27f4:	e7f1      	b.n	27da <blinkCursor+0xd6>
 		cursorBlinkState = !cursorBlinkState;
-    27ea:	4a03      	ldr	r2, [pc, #12]	; (27f8 <blinkCursor+0x100>)
-    27ec:	7813      	ldrb	r3, [r2, #0]
-    27ee:	2101      	movs	r1, #1
-    27f0:	404b      	eors	r3, r1
-    27f2:	7013      	strb	r3, [r2, #0]
+    27f6:	4a03      	ldr	r2, [pc, #12]	; (2804 <blinkCursor+0x100>)
+    27f8:	7813      	ldrb	r3, [r2, #0]
+    27fa:	2101      	movs	r1, #1
+    27fc:	404b      	eors	r3, r1
+    27fe:	7013      	strb	r3, [r2, #0]
 }
-    27f4:	e7c1      	b.n	277a <blinkCursor+0x82>
-    27f6:	46c0      	nop			; (mov r8, r8)
-    27f8:	20000010 	.word	0x20000010
-    27fc:	20000180 	.word	0x20000180
-    2800:	20000181 	.word	0x20000181
-    2804:	000028e5 	.word	0x000028e5
-    2808:	200001ec 	.word	0x200001ec
-    280c:	200002ba 	.word	0x200002ba
-    2810:	200002b4 	.word	0x200002b4
-    2814:	00002ac5 	.word	0x00002ac5
-    2818:	200002b6 	.word	0x200002b6
-    281c:	200002b8 	.word	0x200002b8
+    2800:	e7c1      	b.n	2786 <blinkCursor+0x82>
+    2802:	46c0      	nop			; (mov r8, r8)
+    2804:	20000010 	.word	0x20000010
+    2808:	20000180 	.word	0x20000180
+    280c:	20000181 	.word	0x20000181
+    2810:	000028f1 	.word	0x000028f1
+    2814:	200001ec 	.word	0x200001ec
+    2818:	200002ba 	.word	0x200002ba
+    281c:	200002b4 	.word	0x200002b4
+    2820:	00002ad1 	.word	0x00002ad1
+    2824:	200002b6 	.word	0x200002b6
+    2828:	200002b8 	.word	0x200002b8
 
-00002820 <setColorRGB>:
+0000282c <setColorRGB>:
 
 uint16_t fore_Color_High, fore_Color_Low;
 uint16_t back_Color_High, back_Color_Low;
 
 void setColorRGB(uint8_t r, uint8_t g, uint8_t b)
 {
-    2820:	b510      	push	{r4, lr}
+    282c:	b510      	push	{r4, lr}
 	fore_Color_High = ((r&248)|g>>5);
-    2822:	094b      	lsrs	r3, r1, #5
-    2824:	2407      	movs	r4, #7
-    2826:	43a0      	bics	r0, r4
-    2828:	4318      	orrs	r0, r3
-    282a:	4b05      	ldr	r3, [pc, #20]	; (2840 <setColorRGB+0x20>)
-    282c:	8018      	strh	r0, [r3, #0]
+    282e:	094b      	lsrs	r3, r1, #5
+    2830:	2407      	movs	r4, #7
+    2832:	43a0      	bics	r0, r4
+    2834:	4318      	orrs	r0, r3
+    2836:	4b05      	ldr	r3, [pc, #20]	; (284c <setColorRGB+0x20>)
+    2838:	8018      	strh	r0, [r3, #0]
 	fore_Color_Low = ((g&28)<<3|b>>3);
-    282e:	00c9      	lsls	r1, r1, #3
-    2830:	23e0      	movs	r3, #224	; 0xe0
-    2832:	4019      	ands	r1, r3
-    2834:	08d2      	lsrs	r2, r2, #3
-    2836:	430a      	orrs	r2, r1
-    2838:	4b02      	ldr	r3, [pc, #8]	; (2844 <setColorRGB+0x24>)
-    283a:	801a      	strh	r2, [r3, #0]
+    283a:	00c9      	lsls	r1, r1, #3
+    283c:	23e0      	movs	r3, #224	; 0xe0
+    283e:	4019      	ands	r1, r3
+    2840:	08d2      	lsrs	r2, r2, #3
+    2842:	430a      	orrs	r2, r1
+    2844:	4b02      	ldr	r3, [pc, #8]	; (2850 <setColorRGB+0x24>)
+    2846:	801a      	strh	r2, [r3, #0]
 }
-    283c:	bd10      	pop	{r4, pc}
-    283e:	46c0      	nop			; (mov r8, r8)
-    2840:	200002b6 	.word	0x200002b6
-    2844:	200002b8 	.word	0x200002b8
+    2848:	bd10      	pop	{r4, pc}
+    284a:	46c0      	nop			; (mov r8, r8)
+    284c:	200002b6 	.word	0x200002b6
+    2850:	200002b8 	.word	0x200002b8
 
-00002848 <setBackColorRGB>:
+00002854 <setBackColorRGB>:
 	fore_Color_Low = (color & 0xFF);
 }
 
 void setBackColorRGB(unsigned char r,
 unsigned char g, unsigned char b)
 {
-    2848:	b510      	push	{r4, lr}
+    2854:	b510      	push	{r4, lr}
 	back_Color_High = ((r&248)|g>>5);
-    284a:	094b      	lsrs	r3, r1, #5
-    284c:	2407      	movs	r4, #7
-    284e:	43a0      	bics	r0, r4
-    2850:	4318      	orrs	r0, r3
-    2852:	4b05      	ldr	r3, [pc, #20]	; (2868 <setBackColorRGB+0x20>)
-    2854:	8018      	strh	r0, [r3, #0]
+    2856:	094b      	lsrs	r3, r1, #5
+    2858:	2407      	movs	r4, #7
+    285a:	43a0      	bics	r0, r4
+    285c:	4318      	orrs	r0, r3
+    285e:	4b05      	ldr	r3, [pc, #20]	; (2874 <setBackColorRGB+0x20>)
+    2860:	8018      	strh	r0, [r3, #0]
 	back_Color_Low = ((g&28)<<3|b>>3);
-    2856:	00c9      	lsls	r1, r1, #3
-    2858:	23e0      	movs	r3, #224	; 0xe0
-    285a:	4019      	ands	r1, r3
-    285c:	08d2      	lsrs	r2, r2, #3
-    285e:	430a      	orrs	r2, r1
-    2860:	4b02      	ldr	r3, [pc, #8]	; (286c <setBackColorRGB+0x24>)
-    2862:	801a      	strh	r2, [r3, #0]
+    2862:	00c9      	lsls	r1, r1, #3
+    2864:	23e0      	movs	r3, #224	; 0xe0
+    2866:	4019      	ands	r1, r3
+    2868:	08d2      	lsrs	r2, r2, #3
+    286a:	430a      	orrs	r2, r1
+    286c:	4b02      	ldr	r3, [pc, #8]	; (2878 <setBackColorRGB+0x24>)
+    286e:	801a      	strh	r2, [r3, #0]
 }
-    2864:	bd10      	pop	{r4, pc}
-    2866:	46c0      	nop			; (mov r8, r8)
-    2868:	200002ba 	.word	0x200002ba
-    286c:	200002b4 	.word	0x200002b4
+    2870:	bd10      	pop	{r4, pc}
+    2872:	46c0      	nop			; (mov r8, r8)
+    2874:	200002ba 	.word	0x200002ba
+    2878:	200002b4 	.word	0x200002b4
 
-00002870 <LCD_Fast_Fill>:
+0000287c <LCD_Fast_Fill>:
 	(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
 void LCD_Fast_Fill(int ch, int cl, long pix)
 {
-    2870:	b570      	push	{r4, r5, r6, lr}
+    287c:	b570      	push	{r4, r5, r6, lr}
 	int blocks;
 	
 	
 	REG_PORT_OUTCLR1 = 0x0000ffff;
-    2872:	4c19      	ldr	r4, [pc, #100]	; (28d8 <LCD_Fast_Fill+0x68>)
-    2874:	4b19      	ldr	r3, [pc, #100]	; (28dc <LCD_Fast_Fill+0x6c>)
-    2876:	601c      	str	r4, [r3, #0]
+    287e:	4c19      	ldr	r4, [pc, #100]	; (28e4 <LCD_Fast_Fill+0x68>)
+    2880:	4b19      	ldr	r3, [pc, #100]	; (28e8 <LCD_Fast_Fill+0x6c>)
+    2882:	601c      	str	r4, [r3, #0]
 	REG_PORT_OUTSET1 = (ch << 8) | cl;
-    2878:	0200      	lsls	r0, r0, #8
-    287a:	4301      	orrs	r1, r0
-    287c:	4b18      	ldr	r3, [pc, #96]	; (28e0 <LCD_Fast_Fill+0x70>)
-    287e:	6019      	str	r1, [r3, #0]
+    2884:	0200      	lsls	r0, r0, #8
+    2886:	4301      	orrs	r1, r0
+    2888:	4b18      	ldr	r3, [pc, #96]	; (28ec <LCD_Fast_Fill+0x70>)
+    288a:	6019      	str	r1, [r3, #0]
 
 	blocks = pix/16;
-    2880:	17d3      	asrs	r3, r2, #31
-    2882:	260f      	movs	r6, #15
-    2884:	401e      	ands	r6, r3
-    2886:	18b6      	adds	r6, r6, r2
-    2888:	1136      	asrs	r6, r6, #4
+    288c:	17d3      	asrs	r3, r2, #31
+    288e:	260f      	movs	r6, #15
+    2890:	401e      	ands	r6, r3
+    2892:	18b6      	adds	r6, r6, r2
+    2894:	1136      	asrs	r6, r6, #4
 	for (int i=0; i<blocks; i++)
-    288a:	2500      	movs	r5, #0
-    288c:	2e00      	cmp	r6, #0
-    288e:	dd0c      	ble.n	28aa <LCD_Fast_Fill+0x3a>
+    2896:	2500      	movs	r5, #0
+    2898:	2e00      	cmp	r6, #0
+    289a:	dd0c      	ble.n	28b6 <LCD_Fast_Fill+0x3a>
 	{
 		for (int j=0; j<16; j++)
 		{
 			REG_PORT_OUTCLR1 = LCD_WR;
-    2890:	4c12      	ldr	r4, [pc, #72]	; (28dc <LCD_Fast_Fill+0x6c>)
-    2892:	2180      	movs	r1, #128	; 0x80
-    2894:	0289      	lsls	r1, r1, #10
+    289c:	4c12      	ldr	r4, [pc, #72]	; (28e8 <LCD_Fast_Fill+0x6c>)
+    289e:	2180      	movs	r1, #128	; 0x80
+    28a0:	0289      	lsls	r1, r1, #10
 			REG_PORT_OUTSET1 = LCD_WR;
-    2896:	4812      	ldr	r0, [pc, #72]	; (28e0 <LCD_Fast_Fill+0x70>)
+    28a2:	4812      	ldr	r0, [pc, #72]	; (28ec <LCD_Fast_Fill+0x70>)
 {
-    2898:	2310      	movs	r3, #16
+    28a4:	2310      	movs	r3, #16
 			REG_PORT_OUTCLR1 = LCD_WR;
-    289a:	6021      	str	r1, [r4, #0]
+    28a6:	6021      	str	r1, [r4, #0]
 			REG_PORT_OUTSET1 = LCD_WR;
-    289c:	6001      	str	r1, [r0, #0]
-    289e:	3b01      	subs	r3, #1
+    28a8:	6001      	str	r1, [r0, #0]
+    28aa:	3b01      	subs	r3, #1
 		for (int j=0; j<16; j++)
-    28a0:	2b00      	cmp	r3, #0
-    28a2:	d1fa      	bne.n	289a <LCD_Fast_Fill+0x2a>
+    28ac:	2b00      	cmp	r3, #0
+    28ae:	d1fa      	bne.n	28a6 <LCD_Fast_Fill+0x2a>
 	for (int i=0; i<blocks; i++)
-    28a4:	3501      	adds	r5, #1
-    28a6:	42ae      	cmp	r6, r5
-    28a8:	d1f6      	bne.n	2898 <LCD_Fast_Fill+0x28>
+    28b0:	3501      	adds	r5, #1
+    28b2:	42ae      	cmp	r6, r5
+    28b4:	d1f6      	bne.n	28a4 <LCD_Fast_Fill+0x28>
 		}
 	}
 	
 	if ((pix % 16) != 0)
-    28aa:	0713      	lsls	r3, r2, #28
-    28ac:	d013      	beq.n	28d6 <LCD_Fast_Fill+0x66>
+    28b6:	0713      	lsls	r3, r2, #28
+    28b8:	d013      	beq.n	28e2 <LCD_Fast_Fill+0x66>
 	for (int i=0; i<(pix % 16)+1; i++)
-    28ae:	17d3      	asrs	r3, r2, #31
-    28b0:	0f1b      	lsrs	r3, r3, #28
-    28b2:	18d2      	adds	r2, r2, r3
-    28b4:	210f      	movs	r1, #15
-    28b6:	4011      	ands	r1, r2
-    28b8:	1ac9      	subs	r1, r1, r3
-    28ba:	1c4b      	adds	r3, r1, #1
-    28bc:	2b00      	cmp	r3, #0
-    28be:	dd0a      	ble.n	28d6 <LCD_Fast_Fill+0x66>
-    28c0:	0019      	movs	r1, r3
-    28c2:	2300      	movs	r3, #0
+    28ba:	17d3      	asrs	r3, r2, #31
+    28bc:	0f1b      	lsrs	r3, r3, #28
+    28be:	18d2      	adds	r2, r2, r3
+    28c0:	210f      	movs	r1, #15
+    28c2:	4011      	ands	r1, r2
+    28c4:	1ac9      	subs	r1, r1, r3
+    28c6:	1c4b      	adds	r3, r1, #1
+    28c8:	2b00      	cmp	r3, #0
+    28ca:	dd0a      	ble.n	28e2 <LCD_Fast_Fill+0x66>
+    28cc:	0019      	movs	r1, r3
+    28ce:	2300      	movs	r3, #0
 	{
 		REG_PORT_OUTCLR1 = LCD_WR;
-    28c4:	4c05      	ldr	r4, [pc, #20]	; (28dc <LCD_Fast_Fill+0x6c>)
-    28c6:	2280      	movs	r2, #128	; 0x80
-    28c8:	0292      	lsls	r2, r2, #10
+    28d0:	4c05      	ldr	r4, [pc, #20]	; (28e8 <LCD_Fast_Fill+0x6c>)
+    28d2:	2280      	movs	r2, #128	; 0x80
+    28d4:	0292      	lsls	r2, r2, #10
 		REG_PORT_OUTSET1 = LCD_WR;
-    28ca:	4805      	ldr	r0, [pc, #20]	; (28e0 <LCD_Fast_Fill+0x70>)
+    28d6:	4805      	ldr	r0, [pc, #20]	; (28ec <LCD_Fast_Fill+0x70>)
 		REG_PORT_OUTCLR1 = LCD_WR;
-    28cc:	6022      	str	r2, [r4, #0]
+    28d8:	6022      	str	r2, [r4, #0]
 		REG_PORT_OUTSET1 = LCD_WR;
-    28ce:	6002      	str	r2, [r0, #0]
+    28da:	6002      	str	r2, [r0, #0]
 	for (int i=0; i<(pix % 16)+1; i++)
-    28d0:	3301      	adds	r3, #1
-    28d2:	4299      	cmp	r1, r3
-    28d4:	d1fa      	bne.n	28cc <LCD_Fast_Fill+0x5c>
+    28dc:	3301      	adds	r3, #1
+    28de:	4299      	cmp	r1, r3
+    28e0:	d1fa      	bne.n	28d8 <LCD_Fast_Fill+0x5c>
 	}
 }
-    28d6:	bd70      	pop	{r4, r5, r6, pc}
-    28d8:	0000ffff 	.word	0x0000ffff
-    28dc:	41004494 	.word	0x41004494
-    28e0:	41004498 	.word	0x41004498
+    28e2:	bd70      	pop	{r4, r5, r6, pc}
+    28e4:	0000ffff 	.word	0x0000ffff
+    28e8:	41004494 	.word	0x41004494
+    28ec:	41004498 	.word	0x41004498
 
-000028e4 <setXY>:
+000028f0 <setXY>:
 {
 	setXY(0,0,display_X_size,display_Y_size);
 }
 
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 {
-    28e4:	b5f0      	push	{r4, r5, r6, r7, lr}
-    28e6:	b083      	sub	sp, #12
-    28e8:	000e      	movs	r6, r1
-    28ea:	9300      	str	r3, [sp, #0]
+    28f0:	b5f0      	push	{r4, r5, r6, r7, lr}
+    28f2:	b083      	sub	sp, #12
+    28f4:	000e      	movs	r6, r1
+    28f6:	9300      	str	r3, [sp, #0]
 	
 	SwapUint16(x1, y1);
 	SwapUint16(x2, y2);
 	y1=display_Y_size-y1;
-    28ec:	4b1c      	ldr	r3, [pc, #112]	; (2960 <setXY+0x7c>)
-    28ee:	881d      	ldrh	r5, [r3, #0]
-    28f0:	1a28      	subs	r0, r5, r0
-    28f2:	b287      	uxth	r7, r0
+    28f8:	4b1c      	ldr	r3, [pc, #112]	; (296c <setXY+0x7c>)
+    28fa:	881d      	ldrh	r5, [r3, #0]
+    28fc:	1a28      	subs	r0, r5, r0
+    28fe:	b287      	uxth	r7, r0
 	y2=display_Y_size-y2;
-    28f4:	1aad      	subs	r5, r5, r2
-    28f6:	b2ad      	uxth	r5, r5
+    2900:	1aad      	subs	r5, r5, r2
+    2902:	b2ad      	uxth	r5, r5
 	SwapUint16(y1, y2);
 	
 	
 	LCD_Write_COM16(0x2a,0x00);
-    28f8:	2100      	movs	r1, #0
-    28fa:	202a      	movs	r0, #42	; 0x2a
-    28fc:	4c19      	ldr	r4, [pc, #100]	; (2964 <setXY+0x80>)
-    28fe:	47a0      	blx	r4
+    2904:	2100      	movs	r1, #0
+    2906:	202a      	movs	r0, #42	; 0x2a
+    2908:	4c19      	ldr	r4, [pc, #100]	; (2970 <setXY+0x80>)
+    290a:	47a0      	blx	r4
 	LCD_Write_DATA8(x1>>8);
-    2900:	9601      	str	r6, [sp, #4]
-    2902:	0a30      	lsrs	r0, r6, #8
-    2904:	4e18      	ldr	r6, [pc, #96]	; (2968 <setXY+0x84>)
-    2906:	47b0      	blx	r6
-	LCD_Write_COM16(0x2a,0x01);
-    2908:	2101      	movs	r1, #1
-    290a:	202a      	movs	r0, #42	; 0x2a
-    290c:	47a0      	blx	r4
-	LCD_Write_DATA8(x1);
-    290e:	466b      	mov	r3, sp
-    2910:	7918      	ldrb	r0, [r3, #4]
+    290c:	9601      	str	r6, [sp, #4]
+    290e:	0a30      	lsrs	r0, r6, #8
+    2910:	4e18      	ldr	r6, [pc, #96]	; (2974 <setXY+0x84>)
     2912:	47b0      	blx	r6
-	LCD_Write_COM16(0x2a,0x02);
-    2914:	2102      	movs	r1, #2
+	LCD_Write_COM16(0x2a,0x01);
+    2914:	2101      	movs	r1, #1
     2916:	202a      	movs	r0, #42	; 0x2a
     2918:	47a0      	blx	r4
-	LCD_Write_DATA8(x2>>8);
-    291a:	9b00      	ldr	r3, [sp, #0]
-    291c:	0a18      	lsrs	r0, r3, #8
+	LCD_Write_DATA8(x1);
+    291a:	466b      	mov	r3, sp
+    291c:	7918      	ldrb	r0, [r3, #4]
     291e:	47b0      	blx	r6
-	LCD_Write_COM16(0x2a,0x03);
-    2920:	2103      	movs	r1, #3
+	LCD_Write_COM16(0x2a,0x02);
+    2920:	2102      	movs	r1, #2
     2922:	202a      	movs	r0, #42	; 0x2a
     2924:	47a0      	blx	r4
-	LCD_Write_DATA8(x2);
-    2926:	466b      	mov	r3, sp
-    2928:	7818      	ldrb	r0, [r3, #0]
+	LCD_Write_DATA8(x2>>8);
+    2926:	9b00      	ldr	r3, [sp, #0]
+    2928:	0a18      	lsrs	r0, r3, #8
     292a:	47b0      	blx	r6
+	LCD_Write_COM16(0x2a,0x03);
+    292c:	2103      	movs	r1, #3
+    292e:	202a      	movs	r0, #42	; 0x2a
+    2930:	47a0      	blx	r4
+	LCD_Write_DATA8(x2);
+    2932:	466b      	mov	r3, sp
+    2934:	7818      	ldrb	r0, [r3, #0]
+    2936:	47b0      	blx	r6
 
 	LCD_Write_COM16(0x2b,0x00);
-    292c:	2100      	movs	r1, #0
-    292e:	202b      	movs	r0, #43	; 0x2b
-    2930:	47a0      	blx	r4
+    2938:	2100      	movs	r1, #0
+    293a:	202b      	movs	r0, #43	; 0x2b
+    293c:	47a0      	blx	r4
 	LCD_Write_DATA8(y1>>8);
-    2932:	0a28      	lsrs	r0, r5, #8
-    2934:	47b0      	blx	r6
+    293e:	0a28      	lsrs	r0, r5, #8
+    2940:	47b0      	blx	r6
 	LCD_Write_COM16(0x2b,0x01);
-    2936:	2101      	movs	r1, #1
-    2938:	202b      	movs	r0, #43	; 0x2b
-    293a:	47a0      	blx	r4
+    2942:	2101      	movs	r1, #1
+    2944:	202b      	movs	r0, #43	; 0x2b
+    2946:	47a0      	blx	r4
 	LCD_Write_DATA8(y1);
-    293c:	b2e8      	uxtb	r0, r5
-    293e:	47b0      	blx	r6
+    2948:	b2e8      	uxtb	r0, r5
+    294a:	47b0      	blx	r6
 	LCD_Write_COM16(0x2b,0x02);
-    2940:	2102      	movs	r1, #2
-    2942:	202b      	movs	r0, #43	; 0x2b
-    2944:	47a0      	blx	r4
+    294c:	2102      	movs	r1, #2
+    294e:	202b      	movs	r0, #43	; 0x2b
+    2950:	47a0      	blx	r4
 	LCD_Write_DATA8(y2>>8);
-    2946:	0a38      	lsrs	r0, r7, #8
-    2948:	47b0      	blx	r6
+    2952:	0a38      	lsrs	r0, r7, #8
+    2954:	47b0      	blx	r6
 	LCD_Write_COM16(0x2b,0x03);
-    294a:	2103      	movs	r1, #3
-    294c:	202b      	movs	r0, #43	; 0x2b
-    294e:	47a0      	blx	r4
+    2956:	2103      	movs	r1, #3
+    2958:	202b      	movs	r0, #43	; 0x2b
+    295a:	47a0      	blx	r4
 	LCD_Write_DATA8(y2);
-    2950:	b2f8      	uxtb	r0, r7
-    2952:	47b0      	blx	r6
+    295c:	b2f8      	uxtb	r0, r7
+    295e:	47b0      	blx	r6
 
 	LCD_Write_COM16(0x2c,0x00);
-    2954:	2100      	movs	r1, #0
-    2956:	202c      	movs	r0, #44	; 0x2c
-    2958:	47a0      	blx	r4
+    2960:	2100      	movs	r1, #0
+    2962:	202c      	movs	r0, #44	; 0x2c
+    2964:	47a0      	blx	r4
 }
-    295a:	b003      	add	sp, #12
-    295c:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    295e:	46c0      	nop			; (mov r8, r8)
-    2960:	2000003e 	.word	0x2000003e
-    2964:	00002b69 	.word	0x00002b69
-    2968:	00002b99 	.word	0x00002b99
+    2966:	b003      	add	sp, #12
+    2968:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    296a:	46c0      	nop			; (mov r8, r8)
+    296c:	2000003e 	.word	0x2000003e
+    2970:	00002b75 	.word	0x00002b75
+    2974:	00002ba5 	.word	0x00002ba5
 
-0000296c <fillRect>:
+00002978 <fillRect>:
 {
-    296c:	b5f0      	push	{r4, r5, r6, r7, lr}
-    296e:	46ce      	mov	lr, r9
-    2970:	4647      	mov	r7, r8
-    2972:	b580      	push	{r7, lr}
-    2974:	b083      	sub	sp, #12
-    2976:	4681      	mov	r9, r0
-    2978:	4688      	mov	r8, r1
-    297a:	0015      	movs	r5, r2
-    297c:	001c      	movs	r4, r3
+    2978:	b5f0      	push	{r4, r5, r6, r7, lr}
+    297a:	46ce      	mov	lr, r9
+    297c:	4647      	mov	r7, r8
+    297e:	b580      	push	{r7, lr}
+    2980:	b083      	sub	sp, #12
+    2982:	4681      	mov	r9, r0
+    2984:	4688      	mov	r8, r1
+    2986:	0015      	movs	r5, r2
+    2988:	001c      	movs	r4, r3
 	if (x1>x2)
-    297e:	4290      	cmp	r0, r2
-    2980:	dd02      	ble.n	2988 <fillRect+0x1c>
-    2982:	0403      	lsls	r3, r0, #16
+    298a:	4290      	cmp	r0, r2
+    298c:	dd02      	ble.n	2994 <fillRect+0x1c>
+    298e:	0403      	lsls	r3, r0, #16
 	SwapUint16(x1, x2);
-    2984:	4691      	mov	r9, r2
-    2986:	0c1d      	lsrs	r5, r3, #16
+    2990:	4691      	mov	r9, r2
+    2992:	0c1d      	lsrs	r5, r3, #16
 	if (y1>y2)
-    2988:	45a0      	cmp	r8, r4
-    298a:	dd03      	ble.n	2994 <fillRect+0x28>
-    298c:	4643      	mov	r3, r8
-    298e:	041b      	lsls	r3, r3, #16
+    2994:	45a0      	cmp	r8, r4
+    2996:	dd03      	ble.n	29a0 <fillRect+0x28>
+    2998:	4643      	mov	r3, r8
+    299a:	041b      	lsls	r3, r3, #16
 	SwapUint16(y1, y2);
-    2990:	46a0      	mov	r8, r4
-    2992:	0c1c      	lsrs	r4, r3, #16
+    299c:	46a0      	mov	r8, r4
+    299e:	0c1c      	lsrs	r4, r3, #16
 	REG_PORT_OUTCLR1 = LCD_CS;
-    2994:	2780      	movs	r7, #128	; 0x80
-    2996:	03ff      	lsls	r7, r7, #15
-    2998:	4b12      	ldr	r3, [pc, #72]	; (29e4 <fillRect+0x78>)
-    299a:	601f      	str	r7, [r3, #0]
+    29a0:	2780      	movs	r7, #128	; 0x80
+    29a2:	03ff      	lsls	r7, r7, #15
+    29a4:	4b12      	ldr	r3, [pc, #72]	; (29f0 <fillRect+0x78>)
+    29a6:	601f      	str	r7, [r3, #0]
 	setXY(x1, y1, x2, y2);
-    299c:	b2a3      	uxth	r3, r4
-    299e:	b2aa      	uxth	r2, r5
-    29a0:	4641      	mov	r1, r8
-    29a2:	4668      	mov	r0, sp
-    29a4:	80c1      	strh	r1, [r0, #6]
-    29a6:	88c1      	ldrh	r1, [r0, #6]
-    29a8:	4648      	mov	r0, r9
-    29aa:	466e      	mov	r6, sp
-    29ac:	80f0      	strh	r0, [r6, #6]
-    29ae:	88f0      	ldrh	r0, [r6, #6]
-    29b0:	4e0d      	ldr	r6, [pc, #52]	; (29e8 <fillRect+0x7c>)
-    29b2:	47b0      	blx	r6
+    29a8:	b2a3      	uxth	r3, r4
+    29aa:	b2aa      	uxth	r2, r5
+    29ac:	4641      	mov	r1, r8
+    29ae:	4668      	mov	r0, sp
+    29b0:	80c1      	strh	r1, [r0, #6]
+    29b2:	88c1      	ldrh	r1, [r0, #6]
+    29b4:	4648      	mov	r0, r9
+    29b6:	466e      	mov	r6, sp
+    29b8:	80f0      	strh	r0, [r6, #6]
+    29ba:	88f0      	ldrh	r0, [r6, #6]
+    29bc:	4e0d      	ldr	r6, [pc, #52]	; (29f4 <fillRect+0x7c>)
+    29be:	47b0      	blx	r6
 	REG_PORT_OUTSET1 = LCD_DC;
-    29b4:	4e0d      	ldr	r6, [pc, #52]	; (29ec <fillRect+0x80>)
-    29b6:	2380      	movs	r3, #128	; 0x80
-    29b8:	041b      	lsls	r3, r3, #16
-    29ba:	6033      	str	r3, [r6, #0]
+    29c0:	4e0d      	ldr	r6, [pc, #52]	; (29f8 <fillRect+0x80>)
+    29c2:	2380      	movs	r3, #128	; 0x80
+    29c4:	041b      	lsls	r3, r3, #16
+    29c6:	6033      	str	r3, [r6, #0]
 	(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
-    29bc:	464b      	mov	r3, r9
-    29be:	1aed      	subs	r5, r5, r3
-    29c0:	3501      	adds	r5, #1
-    29c2:	4643      	mov	r3, r8
-    29c4:	1ae2      	subs	r2, r4, r3
-    29c6:	3201      	adds	r2, #1
+    29c8:	464b      	mov	r3, r9
+    29ca:	1aed      	subs	r5, r5, r3
+    29cc:	3501      	adds	r5, #1
+    29ce:	4643      	mov	r3, r8
+    29d0:	1ae2      	subs	r2, r4, r3
+    29d2:	3201      	adds	r2, #1
 	LCD_Fast_Fill(fore_Color_High, fore_Color_Low,
-    29c8:	436a      	muls	r2, r5
-    29ca:	4b09      	ldr	r3, [pc, #36]	; (29f0 <fillRect+0x84>)
-    29cc:	8819      	ldrh	r1, [r3, #0]
-    29ce:	4b09      	ldr	r3, [pc, #36]	; (29f4 <fillRect+0x88>)
-    29d0:	8818      	ldrh	r0, [r3, #0]
-    29d2:	4b09      	ldr	r3, [pc, #36]	; (29f8 <fillRect+0x8c>)
-    29d4:	4798      	blx	r3
+    29d4:	436a      	muls	r2, r5
+    29d6:	4b09      	ldr	r3, [pc, #36]	; (29fc <fillRect+0x84>)
+    29d8:	8819      	ldrh	r1, [r3, #0]
+    29da:	4b09      	ldr	r3, [pc, #36]	; (2a00 <fillRect+0x88>)
+    29dc:	8818      	ldrh	r0, [r3, #0]
+    29de:	4b09      	ldr	r3, [pc, #36]	; (2a04 <fillRect+0x8c>)
+    29e0:	4798      	blx	r3
 	REG_PORT_OUTSET1 = LCD_CS;
-    29d6:	6037      	str	r7, [r6, #0]
+    29e2:	6037      	str	r7, [r6, #0]
 }
-    29d8:	b003      	add	sp, #12
-    29da:	bc0c      	pop	{r2, r3}
-    29dc:	4690      	mov	r8, r2
-    29de:	4699      	mov	r9, r3
-    29e0:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    29e2:	46c0      	nop			; (mov r8, r8)
-    29e4:	41004494 	.word	0x41004494
-    29e8:	000028e5 	.word	0x000028e5
-    29ec:	41004498 	.word	0x41004498
-    29f0:	200002b8 	.word	0x200002b8
-    29f4:	200002b6 	.word	0x200002b6
-    29f8:	00002871 	.word	0x00002871
+    29e4:	b003      	add	sp, #12
+    29e6:	bc0c      	pop	{r2, r3}
+    29e8:	4690      	mov	r8, r2
+    29ea:	4699      	mov	r9, r3
+    29ec:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    29ee:	46c0      	nop			; (mov r8, r8)
+    29f0:	41004494 	.word	0x41004494
+    29f4:	000028f1 	.word	0x000028f1
+    29f8:	41004498 	.word	0x41004498
+    29fc:	200002b8 	.word	0x200002b8
+    2a00:	200002b6 	.word	0x200002b6
+    2a04:	0000287d 	.word	0x0000287d
 
-000029fc <fillRectBackColor>:
+00002a08 <fillRectBackColor>:
 {
-    29fc:	b5f0      	push	{r4, r5, r6, r7, lr}
-    29fe:	46ce      	mov	lr, r9
-    2a00:	4647      	mov	r7, r8
-    2a02:	b580      	push	{r7, lr}
-    2a04:	b083      	sub	sp, #12
-    2a06:	4681      	mov	r9, r0
-    2a08:	4688      	mov	r8, r1
-    2a0a:	0015      	movs	r5, r2
-    2a0c:	001c      	movs	r4, r3
+    2a08:	b5f0      	push	{r4, r5, r6, r7, lr}
+    2a0a:	46ce      	mov	lr, r9
+    2a0c:	4647      	mov	r7, r8
+    2a0e:	b580      	push	{r7, lr}
+    2a10:	b083      	sub	sp, #12
+    2a12:	4681      	mov	r9, r0
+    2a14:	4688      	mov	r8, r1
+    2a16:	0015      	movs	r5, r2
+    2a18:	001c      	movs	r4, r3
 	if (x1>x2)
-    2a0e:	4290      	cmp	r0, r2
-    2a10:	dd02      	ble.n	2a18 <fillRectBackColor+0x1c>
-    2a12:	0403      	lsls	r3, r0, #16
+    2a1a:	4290      	cmp	r0, r2
+    2a1c:	dd02      	ble.n	2a24 <fillRectBackColor+0x1c>
+    2a1e:	0403      	lsls	r3, r0, #16
 	SwapUint16(x1, x2);
-    2a14:	4691      	mov	r9, r2
-    2a16:	0c1d      	lsrs	r5, r3, #16
+    2a20:	4691      	mov	r9, r2
+    2a22:	0c1d      	lsrs	r5, r3, #16
 	if (y1>y2)
-    2a18:	45a0      	cmp	r8, r4
-    2a1a:	dd03      	ble.n	2a24 <fillRectBackColor+0x28>
-    2a1c:	4643      	mov	r3, r8
-    2a1e:	041b      	lsls	r3, r3, #16
+    2a24:	45a0      	cmp	r8, r4
+    2a26:	dd03      	ble.n	2a30 <fillRectBackColor+0x28>
+    2a28:	4643      	mov	r3, r8
+    2a2a:	041b      	lsls	r3, r3, #16
 	SwapUint16(y1, y2);
-    2a20:	46a0      	mov	r8, r4
-    2a22:	0c1c      	lsrs	r4, r3, #16
+    2a2c:	46a0      	mov	r8, r4
+    2a2e:	0c1c      	lsrs	r4, r3, #16
 	REG_PORT_OUTCLR1 = LCD_CS;
-    2a24:	2780      	movs	r7, #128	; 0x80
-    2a26:	03ff      	lsls	r7, r7, #15
-    2a28:	4b12      	ldr	r3, [pc, #72]	; (2a74 <fillRectBackColor+0x78>)
-    2a2a:	601f      	str	r7, [r3, #0]
+    2a30:	2780      	movs	r7, #128	; 0x80
+    2a32:	03ff      	lsls	r7, r7, #15
+    2a34:	4b12      	ldr	r3, [pc, #72]	; (2a80 <fillRectBackColor+0x78>)
+    2a36:	601f      	str	r7, [r3, #0]
 	setXY(x1, y1, x2, y2);
-    2a2c:	b2a3      	uxth	r3, r4
-    2a2e:	b2aa      	uxth	r2, r5
-    2a30:	4641      	mov	r1, r8
-    2a32:	4668      	mov	r0, sp
-    2a34:	80c1      	strh	r1, [r0, #6]
-    2a36:	88c1      	ldrh	r1, [r0, #6]
-    2a38:	4648      	mov	r0, r9
-    2a3a:	466e      	mov	r6, sp
-    2a3c:	80f0      	strh	r0, [r6, #6]
-    2a3e:	88f0      	ldrh	r0, [r6, #6]
-    2a40:	4e0d      	ldr	r6, [pc, #52]	; (2a78 <fillRectBackColor+0x7c>)
-    2a42:	47b0      	blx	r6
+    2a38:	b2a3      	uxth	r3, r4
+    2a3a:	b2aa      	uxth	r2, r5
+    2a3c:	4641      	mov	r1, r8
+    2a3e:	4668      	mov	r0, sp
+    2a40:	80c1      	strh	r1, [r0, #6]
+    2a42:	88c1      	ldrh	r1, [r0, #6]
+    2a44:	4648      	mov	r0, r9
+    2a46:	466e      	mov	r6, sp
+    2a48:	80f0      	strh	r0, [r6, #6]
+    2a4a:	88f0      	ldrh	r0, [r6, #6]
+    2a4c:	4e0d      	ldr	r6, [pc, #52]	; (2a84 <fillRectBackColor+0x7c>)
+    2a4e:	47b0      	blx	r6
 	REG_PORT_OUTSET1 = LCD_DC;
-    2a44:	4e0d      	ldr	r6, [pc, #52]	; (2a7c <fillRectBackColor+0x80>)
-    2a46:	2380      	movs	r3, #128	; 0x80
-    2a48:	041b      	lsls	r3, r3, #16
-    2a4a:	6033      	str	r3, [r6, #0]
+    2a50:	4e0d      	ldr	r6, [pc, #52]	; (2a88 <fillRectBackColor+0x80>)
+    2a52:	2380      	movs	r3, #128	; 0x80
+    2a54:	041b      	lsls	r3, r3, #16
+    2a56:	6033      	str	r3, [r6, #0]
 	(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
-    2a4c:	464b      	mov	r3, r9
-    2a4e:	1aed      	subs	r5, r5, r3
-    2a50:	3501      	adds	r5, #1
-    2a52:	4643      	mov	r3, r8
-    2a54:	1ae2      	subs	r2, r4, r3
-    2a56:	3201      	adds	r2, #1
+    2a58:	464b      	mov	r3, r9
+    2a5a:	1aed      	subs	r5, r5, r3
+    2a5c:	3501      	adds	r5, #1
+    2a5e:	4643      	mov	r3, r8
+    2a60:	1ae2      	subs	r2, r4, r3
+    2a62:	3201      	adds	r2, #1
 	LCD_Fast_Fill(back_Color_High, back_Color_Low,
-    2a58:	436a      	muls	r2, r5
-    2a5a:	4b09      	ldr	r3, [pc, #36]	; (2a80 <fillRectBackColor+0x84>)
-    2a5c:	8819      	ldrh	r1, [r3, #0]
-    2a5e:	4b09      	ldr	r3, [pc, #36]	; (2a84 <fillRectBackColor+0x88>)
-    2a60:	8818      	ldrh	r0, [r3, #0]
-    2a62:	4b09      	ldr	r3, [pc, #36]	; (2a88 <fillRectBackColor+0x8c>)
-    2a64:	4798      	blx	r3
+    2a64:	436a      	muls	r2, r5
+    2a66:	4b09      	ldr	r3, [pc, #36]	; (2a8c <fillRectBackColor+0x84>)
+    2a68:	8819      	ldrh	r1, [r3, #0]
+    2a6a:	4b09      	ldr	r3, [pc, #36]	; (2a90 <fillRectBackColor+0x88>)
+    2a6c:	8818      	ldrh	r0, [r3, #0]
+    2a6e:	4b09      	ldr	r3, [pc, #36]	; (2a94 <fillRectBackColor+0x8c>)
+    2a70:	4798      	blx	r3
 	REG_PORT_OUTSET1 = LCD_CS;
-    2a66:	6037      	str	r7, [r6, #0]
+    2a72:	6037      	str	r7, [r6, #0]
 }
-    2a68:	b003      	add	sp, #12
-    2a6a:	bc0c      	pop	{r2, r3}
-    2a6c:	4690      	mov	r8, r2
-    2a6e:	4699      	mov	r9, r3
-    2a70:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    2a72:	46c0      	nop			; (mov r8, r8)
-    2a74:	41004494 	.word	0x41004494
-    2a78:	000028e5 	.word	0x000028e5
-    2a7c:	41004498 	.word	0x41004498
-    2a80:	200002b4 	.word	0x200002b4
-    2a84:	200002ba 	.word	0x200002ba
-    2a88:	00002871 	.word	0x00002871
+    2a74:	b003      	add	sp, #12
+    2a76:	bc0c      	pop	{r2, r3}
+    2a78:	4690      	mov	r8, r2
+    2a7a:	4699      	mov	r9, r3
+    2a7c:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2a7e:	46c0      	nop			; (mov r8, r8)
+    2a80:	41004494 	.word	0x41004494
+    2a84:	000028f1 	.word	0x000028f1
+    2a88:	41004498 	.word	0x41004498
+    2a8c:	200002b4 	.word	0x200002b4
+    2a90:	200002ba 	.word	0x200002ba
+    2a94:	0000287d 	.word	0x0000287d
 
-00002a8c <clrXY>:
+00002a98 <clrXY>:
 {
-    2a8c:	b510      	push	{r4, lr}
+    2a98:	b510      	push	{r4, lr}
 	setXY(0,0,display_X_size,display_Y_size);
-    2a8e:	4b04      	ldr	r3, [pc, #16]	; (2aa0 <clrXY+0x14>)
-    2a90:	881b      	ldrh	r3, [r3, #0]
-    2a92:	4a04      	ldr	r2, [pc, #16]	; (2aa4 <clrXY+0x18>)
-    2a94:	8812      	ldrh	r2, [r2, #0]
-    2a96:	2100      	movs	r1, #0
-    2a98:	2000      	movs	r0, #0
-    2a9a:	4c03      	ldr	r4, [pc, #12]	; (2aa8 <clrXY+0x1c>)
-    2a9c:	47a0      	blx	r4
+    2a9a:	4b04      	ldr	r3, [pc, #16]	; (2aac <clrXY+0x14>)
+    2a9c:	881b      	ldrh	r3, [r3, #0]
+    2a9e:	4a04      	ldr	r2, [pc, #16]	; (2ab0 <clrXY+0x18>)
+    2aa0:	8812      	ldrh	r2, [r2, #0]
+    2aa2:	2100      	movs	r1, #0
+    2aa4:	2000      	movs	r0, #0
+    2aa6:	4c03      	ldr	r4, [pc, #12]	; (2ab4 <clrXY+0x1c>)
+    2aa8:	47a0      	blx	r4
 }
-    2a9e:	bd10      	pop	{r4, pc}
-    2aa0:	2000003e 	.word	0x2000003e
-    2aa4:	2000003c 	.word	0x2000003c
-    2aa8:	000028e5 	.word	0x000028e5
+    2aaa:	bd10      	pop	{r4, pc}
+    2aac:	2000003e 	.word	0x2000003e
+    2ab0:	2000003c 	.word	0x2000003c
+    2ab4:	000028f1 	.word	0x000028f1
 
-00002aac <clrScr>:
+00002ab8 <clrScr>:
 {
-    2aac:	b510      	push	{r4, lr}
+    2ab8:	b510      	push	{r4, lr}
 	REG_PORT_OUTCLR1 = LCD_CS;
-    2aae:	2280      	movs	r2, #128	; 0x80
-    2ab0:	03d2      	lsls	r2, r2, #15
-    2ab2:	4b02      	ldr	r3, [pc, #8]	; (2abc <clrScr+0x10>)
-    2ab4:	601a      	str	r2, [r3, #0]
+    2aba:	2280      	movs	r2, #128	; 0x80
+    2abc:	03d2      	lsls	r2, r2, #15
+    2abe:	4b02      	ldr	r3, [pc, #8]	; (2ac8 <clrScr+0x10>)
+    2ac0:	601a      	str	r2, [r3, #0]
 	clrXY();
-    2ab6:	4b02      	ldr	r3, [pc, #8]	; (2ac0 <clrScr+0x14>)
-    2ab8:	4798      	blx	r3
+    2ac2:	4b02      	ldr	r3, [pc, #8]	; (2acc <clrScr+0x14>)
+    2ac4:	4798      	blx	r3
 }
-    2aba:	bd10      	pop	{r4, pc}
-    2abc:	41004494 	.word	0x41004494
-    2ac0:	00002a8d 	.word	0x00002a8d
+    2ac6:	bd10      	pop	{r4, pc}
+    2ac8:	41004494 	.word	0x41004494
+    2acc:	00002a99 	.word	0x00002a99
 
-00002ac4 <setPixel>:
+00002ad0 <setPixel>:
 
 void setPixel(uint16_t color)
 {
-    2ac4:	b510      	push	{r4, lr}
+    2ad0:	b510      	push	{r4, lr}
 	//it sets it to a 16-bit color.
 	LCD_Write_DATA16((color>>8),(color&0xFF));
-    2ac6:	b2c1      	uxtb	r1, r0
-    2ac8:	0a00      	lsrs	r0, r0, #8
-    2aca:	4b01      	ldr	r3, [pc, #4]	; (2ad0 <setPixel+0xc>)
-    2acc:	4798      	blx	r3
+    2ad2:	b2c1      	uxtb	r1, r0
+    2ad4:	0a00      	lsrs	r0, r0, #8
+    2ad6:	4b01      	ldr	r3, [pc, #4]	; (2adc <setPixel+0xc>)
+    2ad8:	4798      	blx	r3
 }
-    2ace:	bd10      	pop	{r4, pc}
-    2ad0:	00002b81 	.word	0x00002b81
+    2ada:	bd10      	pop	{r4, pc}
+    2adc:	00002b8d 	.word	0x00002b8d
 
-00002ad4 <setDrawDirection>:
+00002ae0 <setDrawDirection>:
 	setPixel((fore_Color_High<<8)|fore_Color_Low);
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
 void setDrawDirection(void)
 {
-    2ad4:	b570      	push	{r4, r5, r6, lr}
+    2ae0:	b570      	push	{r4, r5, r6, lr}
 	//Following sets the MADCTL register for correct interfacing
 	//of the GRAM re:fonts. Information found on page 146 and
 	//page 76 of NT35510 datasheet.
 	//We will only be using characters from here on out, so
 	//leave this as is, do not reinitialize.
 	REG_PORT_OUTCLR1 = LCD_CS;
-    2ad6:	4b09      	ldr	r3, [pc, #36]	; (2afc <setDrawDirection+0x28>)
-    2ad8:	2580      	movs	r5, #128	; 0x80
-    2ada:	03ed      	lsls	r5, r5, #15
-    2adc:	601d      	str	r5, [r3, #0]
+    2ae2:	4b09      	ldr	r3, [pc, #36]	; (2b08 <setDrawDirection+0x28>)
+    2ae4:	2580      	movs	r5, #128	; 0x80
+    2ae6:	03ed      	lsls	r5, r5, #15
+    2ae8:	601d      	str	r5, [r3, #0]
 	REG_PORT_OUTCLR1 = LCD_DC;
-    2ade:	2680      	movs	r6, #128	; 0x80
-    2ae0:	0436      	lsls	r6, r6, #16
-    2ae2:	601e      	str	r6, [r3, #0]
+    2aea:	2680      	movs	r6, #128	; 0x80
+    2aec:	0436      	lsls	r6, r6, #16
+    2aee:	601e      	str	r6, [r3, #0]
 	LCD_Write_COM16(0x36, 0x00);
-    2ae4:	2100      	movs	r1, #0
-    2ae6:	2036      	movs	r0, #54	; 0x36
-    2ae8:	4b05      	ldr	r3, [pc, #20]	; (2b00 <setDrawDirection+0x2c>)
-    2aea:	4798      	blx	r3
+    2af0:	2100      	movs	r1, #0
+    2af2:	2036      	movs	r0, #54	; 0x36
+    2af4:	4b05      	ldr	r3, [pc, #20]	; (2b0c <setDrawDirection+0x2c>)
+    2af6:	4798      	blx	r3
 	REG_PORT_OUTSET1 = LCD_DC;
-    2aec:	4c05      	ldr	r4, [pc, #20]	; (2b04 <setDrawDirection+0x30>)
-    2aee:	6026      	str	r6, [r4, #0]
+    2af8:	4c05      	ldr	r4, [pc, #20]	; (2b10 <setDrawDirection+0x30>)
+    2afa:	6026      	str	r6, [r4, #0]
 	LCD_Write_DATA8(0x80);
-    2af0:	2080      	movs	r0, #128	; 0x80
-    2af2:	4b05      	ldr	r3, [pc, #20]	; (2b08 <setDrawDirection+0x34>)
-    2af4:	4798      	blx	r3
+    2afc:	2080      	movs	r0, #128	; 0x80
+    2afe:	4b05      	ldr	r3, [pc, #20]	; (2b14 <setDrawDirection+0x34>)
+    2b00:	4798      	blx	r3
 	REG_PORT_OUTSET1 = LCD_CS;
-    2af6:	6025      	str	r5, [r4, #0]
+    2b02:	6025      	str	r5, [r4, #0]
 }
-    2af8:	bd70      	pop	{r4, r5, r6, pc}
-    2afa:	46c0      	nop			; (mov r8, r8)
-    2afc:	41004494 	.word	0x41004494
-    2b00:	00002b69 	.word	0x00002b69
-    2b04:	41004498 	.word	0x41004498
-    2b08:	00002b99 	.word	0x00002b99
+    2b04:	bd70      	pop	{r4, r5, r6, pc}
+    2b06:	46c0      	nop			; (mov r8, r8)
+    2b08:	41004494 	.word	0x41004494
+    2b0c:	00002b75 	.word	0x00002b75
+    2b10:	41004498 	.word	0x41004498
+    2b14:	00002ba5 	.word	0x00002ba5
 
-00002b0c <clearScreen>:
+00002b18 <clearScreen>:
 
 void clearScreen(void)
 {
-    2b0c:	b510      	push	{r4, lr}
+    2b18:	b510      	push	{r4, lr}
 	fore_Color_High = ((r&248)|g>>5);
-    2b0e:	2300      	movs	r3, #0
-    2b10:	4a06      	ldr	r2, [pc, #24]	; (2b2c <clearScreen+0x20>)
-    2b12:	8013      	strh	r3, [r2, #0]
+    2b1a:	2300      	movs	r3, #0
+    2b1c:	4a06      	ldr	r2, [pc, #24]	; (2b38 <clearScreen+0x20>)
+    2b1e:	8013      	strh	r3, [r2, #0]
 	fore_Color_Low = ((g&28)<<3|b>>3);
-    2b14:	4a06      	ldr	r2, [pc, #24]	; (2b30 <clearScreen+0x24>)
-    2b16:	8013      	strh	r3, [r2, #0]
+    2b20:	4a06      	ldr	r2, [pc, #24]	; (2b3c <clearScreen+0x24>)
+    2b22:	8013      	strh	r3, [r2, #0]
 	setColorRGB(0,0,0);
 	fillRect(0,0,display_Y_size,display_X_size);
-    2b18:	4b06      	ldr	r3, [pc, #24]	; (2b34 <clearScreen+0x28>)
-    2b1a:	881b      	ldrh	r3, [r3, #0]
-    2b1c:	4a06      	ldr	r2, [pc, #24]	; (2b38 <clearScreen+0x2c>)
-    2b1e:	8812      	ldrh	r2, [r2, #0]
-    2b20:	2100      	movs	r1, #0
-    2b22:	2000      	movs	r0, #0
-    2b24:	4c05      	ldr	r4, [pc, #20]	; (2b3c <clearScreen+0x30>)
-    2b26:	47a0      	blx	r4
+    2b24:	4b06      	ldr	r3, [pc, #24]	; (2b40 <clearScreen+0x28>)
+    2b26:	881b      	ldrh	r3, [r3, #0]
+    2b28:	4a06      	ldr	r2, [pc, #24]	; (2b44 <clearScreen+0x2c>)
+    2b2a:	8812      	ldrh	r2, [r2, #0]
+    2b2c:	2100      	movs	r1, #0
+    2b2e:	2000      	movs	r0, #0
+    2b30:	4c05      	ldr	r4, [pc, #20]	; (2b48 <clearScreen+0x30>)
+    2b32:	47a0      	blx	r4
 }
-    2b28:	bd10      	pop	{r4, pc}
-    2b2a:	46c0      	nop			; (mov r8, r8)
-    2b2c:	200002b6 	.word	0x200002b6
-    2b30:	200002b8 	.word	0x200002b8
-    2b34:	2000003c 	.word	0x2000003c
-    2b38:	2000003e 	.word	0x2000003e
-    2b3c:	0000296d 	.word	0x0000296d
+    2b34:	bd10      	pop	{r4, pc}
+    2b36:	46c0      	nop			; (mov r8, r8)
+    2b38:	200002b6 	.word	0x200002b6
+    2b3c:	200002b8 	.word	0x200002b8
+    2b40:	2000003c 	.word	0x2000003c
+    2b44:	2000003e 	.word	0x2000003e
+    2b48:	00002979 	.word	0x00002979
 
-00002b40 <LCD_Write_Bus>:
+00002b4c <LCD_Write_Bus>:
 	fillRect(0,0,799,489);
 		
 }
 
 void LCD_Write_Bus(char VH, char VL)
 {
-    2b40:	b510      	push	{r4, lr}
+    2b4c:	b510      	push	{r4, lr}
 	REG_PORT_OUTCLR1 = 0x0000ffff;
-    2b42:	4c06      	ldr	r4, [pc, #24]	; (2b5c <LCD_Write_Bus+0x1c>)
-    2b44:	4b06      	ldr	r3, [pc, #24]	; (2b60 <LCD_Write_Bus+0x20>)
-    2b46:	6023      	str	r3, [r4, #0]
+    2b4e:	4c06      	ldr	r4, [pc, #24]	; (2b68 <LCD_Write_Bus+0x1c>)
+    2b50:	4b06      	ldr	r3, [pc, #24]	; (2b6c <LCD_Write_Bus+0x20>)
+    2b52:	6023      	str	r3, [r4, #0]
 	REG_PORT_OUTSET1 = (VH << 8) | VL;
-    2b48:	0200      	lsls	r0, r0, #8
-    2b4a:	4301      	orrs	r1, r0
-    2b4c:	4b05      	ldr	r3, [pc, #20]	; (2b64 <LCD_Write_Bus+0x24>)
-    2b4e:	6019      	str	r1, [r3, #0]
+    2b54:	0200      	lsls	r0, r0, #8
+    2b56:	4301      	orrs	r1, r0
+    2b58:	4b05      	ldr	r3, [pc, #20]	; (2b70 <LCD_Write_Bus+0x24>)
+    2b5a:	6019      	str	r1, [r3, #0]
 	REG_PORT_OUTCLR1 = LCD_WR;
-    2b50:	2280      	movs	r2, #128	; 0x80
-    2b52:	0292      	lsls	r2, r2, #10
-    2b54:	6022      	str	r2, [r4, #0]
+    2b5c:	2280      	movs	r2, #128	; 0x80
+    2b5e:	0292      	lsls	r2, r2, #10
+    2b60:	6022      	str	r2, [r4, #0]
 	REG_PORT_OUTSET1 = LCD_WR;
-    2b56:	601a      	str	r2, [r3, #0]
+    2b62:	601a      	str	r2, [r3, #0]
 }
-    2b58:	bd10      	pop	{r4, pc}
-    2b5a:	46c0      	nop			; (mov r8, r8)
-    2b5c:	41004494 	.word	0x41004494
-    2b60:	0000ffff 	.word	0x0000ffff
-    2b64:	41004498 	.word	0x41004498
+    2b64:	bd10      	pop	{r4, pc}
+    2b66:	46c0      	nop			; (mov r8, r8)
+    2b68:	41004494 	.word	0x41004494
+    2b6c:	0000ffff 	.word	0x0000ffff
+    2b70:	41004498 	.word	0x41004498
 
-00002b68 <LCD_Write_COM16>:
+00002b74 <LCD_Write_COM16>:
 
 void LCD_Write_COM16(char VH, char VL)
 {
-    2b68:	b510      	push	{r4, lr}
+    2b74:	b510      	push	{r4, lr}
 	REG_PORT_OUTCLR1 = LCD_DC;
-    2b6a:	2280      	movs	r2, #128	; 0x80
-    2b6c:	0412      	lsls	r2, r2, #16
-    2b6e:	4b02      	ldr	r3, [pc, #8]	; (2b78 <LCD_Write_COM16+0x10>)
-    2b70:	601a      	str	r2, [r3, #0]
+    2b76:	2280      	movs	r2, #128	; 0x80
+    2b78:	0412      	lsls	r2, r2, #16
+    2b7a:	4b02      	ldr	r3, [pc, #8]	; (2b84 <LCD_Write_COM16+0x10>)
+    2b7c:	601a      	str	r2, [r3, #0]
 	LCD_Write_Bus(VH,VL);
-    2b72:	4b02      	ldr	r3, [pc, #8]	; (2b7c <LCD_Write_COM16+0x14>)
-    2b74:	4798      	blx	r3
+    2b7e:	4b02      	ldr	r3, [pc, #8]	; (2b88 <LCD_Write_COM16+0x14>)
+    2b80:	4798      	blx	r3
 }
-    2b76:	bd10      	pop	{r4, pc}
-    2b78:	41004494 	.word	0x41004494
-    2b7c:	00002b41 	.word	0x00002b41
+    2b82:	bd10      	pop	{r4, pc}
+    2b84:	41004494 	.word	0x41004494
+    2b88:	00002b4d 	.word	0x00002b4d
 
-00002b80 <LCD_Write_DATA16>:
+00002b8c <LCD_Write_DATA16>:
 	REG_PORT_OUTCLR1 = LCD_DC;
 	LCD_Write_Bus(0x00, VL);
 }
 
 void LCD_Write_DATA16(char VH, char VL)
 {
-    2b80:	b510      	push	{r4, lr}
+    2b8c:	b510      	push	{r4, lr}
 	REG_PORT_OUTSET1 = LCD_DC;
-    2b82:	2280      	movs	r2, #128	; 0x80
-    2b84:	0412      	lsls	r2, r2, #16
-    2b86:	4b02      	ldr	r3, [pc, #8]	; (2b90 <LCD_Write_DATA16+0x10>)
-    2b88:	601a      	str	r2, [r3, #0]
+    2b8e:	2280      	movs	r2, #128	; 0x80
+    2b90:	0412      	lsls	r2, r2, #16
+    2b92:	4b02      	ldr	r3, [pc, #8]	; (2b9c <LCD_Write_DATA16+0x10>)
+    2b94:	601a      	str	r2, [r3, #0]
 	LCD_Write_Bus(VH,VL);
-    2b8a:	4b02      	ldr	r3, [pc, #8]	; (2b94 <LCD_Write_DATA16+0x14>)
-    2b8c:	4798      	blx	r3
+    2b96:	4b02      	ldr	r3, [pc, #8]	; (2ba0 <LCD_Write_DATA16+0x14>)
+    2b98:	4798      	blx	r3
 }
-    2b8e:	bd10      	pop	{r4, pc}
-    2b90:	41004498 	.word	0x41004498
-    2b94:	00002b41 	.word	0x00002b41
+    2b9a:	bd10      	pop	{r4, pc}
+    2b9c:	41004498 	.word	0x41004498
+    2ba0:	00002b4d 	.word	0x00002b4d
 
-00002b98 <LCD_Write_DATA8>:
+00002ba4 <LCD_Write_DATA8>:
 
 void LCD_Write_DATA8(char VL)
 {
-    2b98:	b510      	push	{r4, lr}
-    2b9a:	0001      	movs	r1, r0
+    2ba4:	b510      	push	{r4, lr}
+    2ba6:	0001      	movs	r1, r0
 	REG_PORT_OUTSET1 = LCD_DC;
-    2b9c:	2280      	movs	r2, #128	; 0x80
-    2b9e:	0412      	lsls	r2, r2, #16
-    2ba0:	4b02      	ldr	r3, [pc, #8]	; (2bac <LCD_Write_DATA8+0x14>)
-    2ba2:	601a      	str	r2, [r3, #0]
+    2ba8:	2280      	movs	r2, #128	; 0x80
+    2baa:	0412      	lsls	r2, r2, #16
+    2bac:	4b02      	ldr	r3, [pc, #8]	; (2bb8 <LCD_Write_DATA8+0x14>)
+    2bae:	601a      	str	r2, [r3, #0]
 	LCD_Write_Bus(0x00, VL);
-    2ba4:	2000      	movs	r0, #0
-    2ba6:	4b02      	ldr	r3, [pc, #8]	; (2bb0 <LCD_Write_DATA8+0x18>)
-    2ba8:	4798      	blx	r3
+    2bb0:	2000      	movs	r0, #0
+    2bb2:	4b02      	ldr	r3, [pc, #8]	; (2bbc <LCD_Write_DATA8+0x18>)
+    2bb4:	4798      	blx	r3
 }
-    2baa:	bd10      	pop	{r4, pc}
-    2bac:	41004498 	.word	0x41004498
-    2bb0:	00002b41 	.word	0x00002b41
+    2bb6:	bd10      	pop	{r4, pc}
+    2bb8:	41004498 	.word	0x41004498
+    2bbc:	00002b4d 	.word	0x00002b4d
 
-00002bb4 <InitLCD>:
+00002bc0 <InitLCD>:
 {
-    2bb4:	b5f0      	push	{r4, r5, r6, r7, lr}
-    2bb6:	46c6      	mov	lr, r8
-    2bb8:	b500      	push	{lr}
-    2bba:	b082      	sub	sp, #8
+    2bc0:	b5f0      	push	{r4, r5, r6, r7, lr}
+    2bc2:	46c6      	mov	lr, r8
+    2bc4:	b500      	push	{lr}
+    2bc6:	b082      	sub	sp, #8
 	REG_PORT_DIRSET1 = 0x0000ffff;		//LCD data bus, PB00 - PB15
-    2bbc:	4b80      	ldr	r3, [pc, #512]	; (2dc0 <InitLCD+0x20c>)
-    2bbe:	4f81      	ldr	r7, [pc, #516]	; (2dc4 <InitLCD+0x210>)
-    2bc0:	601f      	str	r7, [r3, #0]
+    2bc8:	4b80      	ldr	r3, [pc, #512]	; (2dcc <InitLCD+0x20c>)
+    2bca:	4f81      	ldr	r7, [pc, #516]	; (2dd0 <InitLCD+0x210>)
+    2bcc:	601f      	str	r7, [r3, #0]
 	REG_PORT_DIRSET1 = LCD_Reset;
-    2bc2:	2580      	movs	r5, #128	; 0x80
-    2bc4:	05ed      	lsls	r5, r5, #23
-    2bc6:	601d      	str	r5, [r3, #0]
+    2bce:	2580      	movs	r5, #128	; 0x80
+    2bd0:	05ed      	lsls	r5, r5, #23
+    2bd2:	601d      	str	r5, [r3, #0]
 	REG_PORT_DIRSET1 = LCD_CS;
-    2bc8:	2680      	movs	r6, #128	; 0x80
-    2bca:	03f6      	lsls	r6, r6, #15
-    2bcc:	601e      	str	r6, [r3, #0]
+    2bd4:	2680      	movs	r6, #128	; 0x80
+    2bd6:	03f6      	lsls	r6, r6, #15
+    2bd8:	601e      	str	r6, [r3, #0]
 	REG_PORT_DIRSET1 = LCD_WR;
-    2bce:	2080      	movs	r0, #128	; 0x80
-    2bd0:	0280      	lsls	r0, r0, #10
-    2bd2:	6018      	str	r0, [r3, #0]
+    2bda:	2080      	movs	r0, #128	; 0x80
+    2bdc:	0280      	lsls	r0, r0, #10
+    2bde:	6018      	str	r0, [r3, #0]
 	REG_PORT_DIRSET1 = LCD_DC;
-    2bd4:	2180      	movs	r1, #128	; 0x80
-    2bd6:	0409      	lsls	r1, r1, #16
-    2bd8:	6019      	str	r1, [r3, #0]
+    2be0:	2180      	movs	r1, #128	; 0x80
+    2be2:	0409      	lsls	r1, r1, #16
+    2be4:	6019      	str	r1, [r3, #0]
 	REG_PORT_DIRSET1 = LCD_RD;
-    2bda:	2280      	movs	r2, #128	; 0x80
-    2bdc:	0252      	lsls	r2, r2, #9
-    2bde:	601a      	str	r2, [r3, #0]
+    2be6:	2280      	movs	r2, #128	; 0x80
+    2be8:	0252      	lsls	r2, r2, #9
+    2bea:	601a      	str	r2, [r3, #0]
 	REG_PORT_OUTCLR1 = 0x0000ffff;
-    2be0:	4c79      	ldr	r4, [pc, #484]	; (2dc8 <InitLCD+0x214>)
-    2be2:	6027      	str	r7, [r4, #0]
+    2bec:	4c79      	ldr	r4, [pc, #484]	; (2dd4 <InitLCD+0x214>)
+    2bee:	6027      	str	r7, [r4, #0]
 	REG_PORT_OUTCLR1 = LCD_Reset;
-    2be4:	6025      	str	r5, [r4, #0]
+    2bf0:	6025      	str	r5, [r4, #0]
 	REG_PORT_OUTCLR1 = LCD_CS;
-    2be6:	6026      	str	r6, [r4, #0]
+    2bf2:	6026      	str	r6, [r4, #0]
 	REG_PORT_OUTCLR1 = LCD_WR;
-    2be8:	6020      	str	r0, [r4, #0]
+    2bf4:	6020      	str	r0, [r4, #0]
 	REG_PORT_OUTCLR1 = LCD_DC;
-    2bea:	6021      	str	r1, [r4, #0]
+    2bf6:	6021      	str	r1, [r4, #0]
 	REG_PORT_OUTCLR1 = LCD_RD;
-    2bec:	6022      	str	r2, [r4, #0]
+    2bf8:	6022      	str	r2, [r4, #0]
 	REG_PORT_DIRSET1 = PORT_PB16;
-    2bee:	601a      	str	r2, [r3, #0]
+    2bfa:	601a      	str	r2, [r3, #0]
 	REG_PORT_OUTSET1 = PORT_PB16;
-    2bf0:	4f76      	ldr	r7, [pc, #472]	; (2dcc <InitLCD+0x218>)
-    2bf2:	603a      	str	r2, [r7, #0]
+    2bfc:	4f76      	ldr	r7, [pc, #472]	; (2dd8 <InitLCD+0x218>)
+    2bfe:	603a      	str	r2, [r7, #0]
 	REG_PORT_OUTSET1 = LCD_Reset;
-    2bf4:	603d      	str	r5, [r7, #0]
+    2c00:	603d      	str	r5, [r7, #0]
 	delay_ms(5);
-    2bf6:	2005      	movs	r0, #5
-    2bf8:	4b75      	ldr	r3, [pc, #468]	; (2dd0 <InitLCD+0x21c>)
-    2bfa:	4698      	mov	r8, r3
-    2bfc:	4798      	blx	r3
+    2c02:	2005      	movs	r0, #5
+    2c04:	4b75      	ldr	r3, [pc, #468]	; (2ddc <InitLCD+0x21c>)
+    2c06:	4698      	mov	r8, r3
+    2c08:	4798      	blx	r3
 	REG_PORT_OUTCLR1 = LCD_Reset;
-    2bfe:	6025      	str	r5, [r4, #0]
+    2c0a:	6025      	str	r5, [r4, #0]
 	delay_ms(5);
-    2c00:	2005      	movs	r0, #5
-    2c02:	47c0      	blx	r8
+    2c0c:	2005      	movs	r0, #5
+    2c0e:	47c0      	blx	r8
 	REG_PORT_OUTSET1 = LCD_Reset;
-    2c04:	603d      	str	r5, [r7, #0]
+    2c10:	603d      	str	r5, [r7, #0]
 	REG_PORT_OUTCLR1 = LCD_CS;
-    2c06:	6026      	str	r6, [r4, #0]
+    2c12:	6026      	str	r6, [r4, #0]
 	for(int i = 0; i < 70; i++)
-    2c08:	2400      	movs	r4, #0
+    2c14:	2400      	movs	r4, #0
 		REG_PORT_OUTCLR1 = LCD_DC;
-    2c0a:	4b6f      	ldr	r3, [pc, #444]	; (2dc8 <InitLCD+0x214>)
-    2c0c:	4698      	mov	r8, r3
-    2c0e:	2580      	movs	r5, #128	; 0x80
-    2c10:	042d      	lsls	r5, r5, #16
-    2c12:	002f      	movs	r7, r5
+    2c16:	4b6f      	ldr	r3, [pc, #444]	; (2dd4 <InitLCD+0x214>)
+    2c18:	4698      	mov	r8, r3
+    2c1a:	2580      	movs	r5, #128	; 0x80
+    2c1c:	042d      	lsls	r5, r5, #16
+    2c1e:	002f      	movs	r7, r5
 		LCD_Write_COM16(belial[i],mulciber[i]);
-    2c14:	4e6f      	ldr	r6, [pc, #444]	; (2dd4 <InitLCD+0x220>)
+    2c20:	4e6f      	ldr	r6, [pc, #444]	; (2de0 <InitLCD+0x220>)
 		REG_PORT_OUTCLR1 = LCD_DC;
-    2c16:	4643      	mov	r3, r8
-    2c18:	601f      	str	r7, [r3, #0]
+    2c22:	4643      	mov	r3, r8
+    2c24:	601f      	str	r7, [r3, #0]
 		LCD_Write_COM16(belial[i],mulciber[i]);
-    2c1a:	5da1      	ldrb	r1, [r4, r6]
-    2c1c:	4b6e      	ldr	r3, [pc, #440]	; (2dd8 <InitLCD+0x224>)
-    2c1e:	5ce0      	ldrb	r0, [r4, r3]
-    2c20:	4b6e      	ldr	r3, [pc, #440]	; (2ddc <InitLCD+0x228>)
-    2c22:	4798      	blx	r3
-		REG_PORT_OUTSET1 = LCD_DC;
-    2c24:	4b69      	ldr	r3, [pc, #420]	; (2dcc <InitLCD+0x218>)
-    2c26:	601d      	str	r5, [r3, #0]
-		LCD_Write_DATA8(lucifer[i]);
-    2c28:	4b6d      	ldr	r3, [pc, #436]	; (2de0 <InitLCD+0x22c>)
+    2c26:	5da1      	ldrb	r1, [r4, r6]
+    2c28:	4b6e      	ldr	r3, [pc, #440]	; (2de4 <InitLCD+0x224>)
     2c2a:	5ce0      	ldrb	r0, [r4, r3]
-    2c2c:	4b6d      	ldr	r3, [pc, #436]	; (2de4 <InitLCD+0x230>)
+    2c2c:	4b6e      	ldr	r3, [pc, #440]	; (2de8 <InitLCD+0x228>)
     2c2e:	4798      	blx	r3
+		REG_PORT_OUTSET1 = LCD_DC;
+    2c30:	4b69      	ldr	r3, [pc, #420]	; (2dd8 <InitLCD+0x218>)
+    2c32:	601d      	str	r5, [r3, #0]
+		LCD_Write_DATA8(lucifer[i]);
+    2c34:	4b6d      	ldr	r3, [pc, #436]	; (2dec <InitLCD+0x22c>)
+    2c36:	5ce0      	ldrb	r0, [r4, r3]
+    2c38:	4b6d      	ldr	r3, [pc, #436]	; (2df0 <InitLCD+0x230>)
+    2c3a:	4798      	blx	r3
 	for(int i = 0; i < 70; i++)
-    2c30:	3401      	adds	r4, #1
-    2c32:	2c46      	cmp	r4, #70	; 0x46
-    2c34:	d1ef      	bne.n	2c16 <InitLCD+0x62>
-    2c36:	23d1      	movs	r3, #209	; 0xd1
-    2c38:	9301      	str	r3, [sp, #4]
+    2c3c:	3401      	adds	r4, #1
+    2c3e:	2c46      	cmp	r4, #70	; 0x46
+    2c40:	d1ef      	bne.n	2c22 <InitLCD+0x62>
+    2c42:	23d1      	movs	r3, #209	; 0xd1
+    2c44:	9301      	str	r3, [sp, #4]
 			LCD_Write_COM16(k,0x00);
-    2c3a:	4d68      	ldr	r5, [pc, #416]	; (2ddc <InitLCD+0x228>)
+    2c46:	4d68      	ldr	r5, [pc, #416]	; (2de8 <InitLCD+0x228>)
 			LCD_Write_DATA8(beelzebub[l]);
-    2c3c:	4f69      	ldr	r7, [pc, #420]	; (2de4 <InitLCD+0x230>)
-    2c3e:	4c6a      	ldr	r4, [pc, #424]	; (2de8 <InitLCD+0x234>)
-    2c40:	0026      	movs	r6, r4
-    2c42:	3634      	adds	r6, #52	; 0x34
+    2c48:	4f69      	ldr	r7, [pc, #420]	; (2df0 <InitLCD+0x230>)
+    2c4a:	4c6a      	ldr	r4, [pc, #424]	; (2df4 <InitLCD+0x234>)
+    2c4c:	0026      	movs	r6, r4
+    2c4e:	3634      	adds	r6, #52	; 0x34
 			LCD_Write_COM16(k,0x00);
-    2c44:	2100      	movs	r1, #0
-    2c46:	9801      	ldr	r0, [sp, #4]
-    2c48:	47a8      	blx	r5
+    2c50:	2100      	movs	r1, #0
+    2c52:	9801      	ldr	r0, [sp, #4]
+    2c54:	47a8      	blx	r5
 			LCD_Write_DATA8(beelzebub[l]);
-    2c4a:	7820      	ldrb	r0, [r4, #0]
-    2c4c:	47b8      	blx	r7
-    2c4e:	3401      	adds	r4, #1
+    2c56:	7820      	ldrb	r0, [r4, #0]
+    2c58:	47b8      	blx	r7
+    2c5a:	3401      	adds	r4, #1
 		for(int l = 0; l < 52; l++)
-    2c50:	42a6      	cmp	r6, r4
-    2c52:	d1f7      	bne.n	2c44 <InitLCD+0x90>
+    2c5c:	42a6      	cmp	r6, r4
+    2c5e:	d1f7      	bne.n	2c50 <InitLCD+0x90>
 	for(char k = 0xD1; k < 0xD6; k++)
-    2c54:	9b01      	ldr	r3, [sp, #4]
-    2c56:	3301      	adds	r3, #1
-    2c58:	b2db      	uxtb	r3, r3
-    2c5a:	9301      	str	r3, [sp, #4]
-    2c5c:	2bd6      	cmp	r3, #214	; 0xd6
-    2c5e:	d1ee      	bne.n	2c3e <InitLCD+0x8a>
+    2c60:	9b01      	ldr	r3, [sp, #4]
+    2c62:	3301      	adds	r3, #1
+    2c64:	b2db      	uxtb	r3, r3
+    2c66:	9301      	str	r3, [sp, #4]
+    2c68:	2bd6      	cmp	r3, #214	; 0xd6
+    2c6a:	d1ee      	bne.n	2c4a <InitLCD+0x8a>
 	LCD_Write_COM16(0xF0, 0x00);LCD_Write_DATA8(0x55);
-    2c60:	2100      	movs	r1, #0
-    2c62:	20f0      	movs	r0, #240	; 0xf0
-    2c64:	4c5d      	ldr	r4, [pc, #372]	; (2ddc <InitLCD+0x228>)
-    2c66:	47a0      	blx	r4
-    2c68:	2055      	movs	r0, #85	; 0x55
-    2c6a:	4d5e      	ldr	r5, [pc, #376]	; (2de4 <InitLCD+0x230>)
-    2c6c:	47a8      	blx	r5
-	LCD_Write_COM16(0xF0, 0x01);LCD_Write_DATA8(0xAA);	
-    2c6e:	2101      	movs	r1, #1
-    2c70:	20f0      	movs	r0, #240	; 0xf0
+    2c6c:	2100      	movs	r1, #0
+    2c6e:	20f0      	movs	r0, #240	; 0xf0
+    2c70:	4c5d      	ldr	r4, [pc, #372]	; (2de8 <InitLCD+0x228>)
     2c72:	47a0      	blx	r4
-    2c74:	20aa      	movs	r0, #170	; 0xaa
-    2c76:	47a8      	blx	r5
+    2c74:	2055      	movs	r0, #85	; 0x55
+    2c76:	4d5e      	ldr	r5, [pc, #376]	; (2df0 <InitLCD+0x230>)
+    2c78:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0, 0x01);LCD_Write_DATA8(0xAA);	
+    2c7a:	2101      	movs	r1, #1
+    2c7c:	20f0      	movs	r0, #240	; 0xf0
+    2c7e:	47a0      	blx	r4
+    2c80:	20aa      	movs	r0, #170	; 0xaa
+    2c82:	47a8      	blx	r5
 	LCD_Write_COM16(0xF0, 0x02);LCD_Write_DATA8(0x52);	
-    2c78:	2102      	movs	r1, #2
-    2c7a:	20f0      	movs	r0, #240	; 0xf0
-    2c7c:	47a0      	blx	r4
-    2c7e:	2052      	movs	r0, #82	; 0x52
-    2c80:	47a8      	blx	r5
+    2c84:	2102      	movs	r1, #2
+    2c86:	20f0      	movs	r0, #240	; 0xf0
+    2c88:	47a0      	blx	r4
+    2c8a:	2052      	movs	r0, #82	; 0x52
+    2c8c:	47a8      	blx	r5
 	LCD_Write_COM16(0xF0, 0x03);LCD_Write_DATA8(0x08);	
-    2c82:	2103      	movs	r1, #3
-    2c84:	20f0      	movs	r0, #240	; 0xf0
-    2c86:	47a0      	blx	r4
-    2c88:	2008      	movs	r0, #8
-    2c8a:	47a8      	blx	r5
+    2c8e:	2103      	movs	r1, #3
+    2c90:	20f0      	movs	r0, #240	; 0xf0
+    2c92:	47a0      	blx	r4
+    2c94:	2008      	movs	r0, #8
+    2c96:	47a8      	blx	r5
 	LCD_Write_COM16(0xF0, 0x04);LCD_Write_DATA8(0x00);	
-    2c8c:	2104      	movs	r1, #4
-    2c8e:	20f0      	movs	r0, #240	; 0xf0
-    2c90:	47a0      	blx	r4
-    2c92:	2000      	movs	r0, #0
-    2c94:	47a8      	blx	r5
+    2c98:	2104      	movs	r1, #4
+    2c9a:	20f0      	movs	r0, #240	; 0xf0
+    2c9c:	47a0      	blx	r4
+    2c9e:	2000      	movs	r0, #0
+    2ca0:	47a8      	blx	r5
 	LCD_Write_COM16(0xB1, 0x00);LCD_Write_DATA8(0xCC);
-    2c96:	2100      	movs	r1, #0
-    2c98:	20b1      	movs	r0, #177	; 0xb1
-    2c9a:	47a0      	blx	r4
-    2c9c:	20cc      	movs	r0, #204	; 0xcc
-    2c9e:	47a8      	blx	r5
+    2ca2:	2100      	movs	r1, #0
+    2ca4:	20b1      	movs	r0, #177	; 0xb1
+    2ca6:	47a0      	blx	r4
+    2ca8:	20cc      	movs	r0, #204	; 0xcc
+    2caa:	47a8      	blx	r5
 	LCD_Write_COM16(0xB1, 0x01);LCD_Write_DATA8(0x00);	
-    2ca0:	2101      	movs	r1, #1
-    2ca2:	20b1      	movs	r0, #177	; 0xb1
-    2ca4:	47a0      	blx	r4
-    2ca6:	2000      	movs	r0, #0
-    2ca8:	47a8      	blx	r5
+    2cac:	2101      	movs	r1, #1
+    2cae:	20b1      	movs	r0, #177	; 0xb1
+    2cb0:	47a0      	blx	r4
+    2cb2:	2000      	movs	r0, #0
+    2cb4:	47a8      	blx	r5
 	LCD_Write_COM16(0xB5, 0x00);LCD_Write_DATA8(0x50);	
-    2caa:	2100      	movs	r1, #0
-    2cac:	20b5      	movs	r0, #181	; 0xb5
-    2cae:	47a0      	blx	r4
-    2cb0:	2050      	movs	r0, #80	; 0x50
-    2cb2:	47a8      	blx	r5
+    2cb6:	2100      	movs	r1, #0
+    2cb8:	20b5      	movs	r0, #181	; 0xb5
+    2cba:	47a0      	blx	r4
+    2cbc:	2050      	movs	r0, #80	; 0x50
+    2cbe:	47a8      	blx	r5
 	LCD_Write_COM16(0xB6, 0x00);LCD_Write_DATA8(0x05);
-    2cb4:	2100      	movs	r1, #0
-    2cb6:	20b6      	movs	r0, #182	; 0xb6
-    2cb8:	47a0      	blx	r4
-    2cba:	2005      	movs	r0, #5
-    2cbc:	47a8      	blx	r5
+    2cc0:	2100      	movs	r1, #0
+    2cc2:	20b6      	movs	r0, #182	; 0xb6
+    2cc4:	47a0      	blx	r4
+    2cc6:	2005      	movs	r0, #5
+    2cc8:	47a8      	blx	r5
 	LCD_Write_COM16(0xB7, 0x00);LCD_Write_DATA8(0x70);
-    2cbe:	2100      	movs	r1, #0
-    2cc0:	20b7      	movs	r0, #183	; 0xb7
-    2cc2:	47a0      	blx	r4
-    2cc4:	2070      	movs	r0, #112	; 0x70
-    2cc6:	47a8      	blx	r5
+    2cca:	2100      	movs	r1, #0
+    2ccc:	20b7      	movs	r0, #183	; 0xb7
+    2cce:	47a0      	blx	r4
+    2cd0:	2070      	movs	r0, #112	; 0x70
+    2cd2:	47a8      	blx	r5
 	LCD_Write_COM16(0xB7, 0x01);LCD_Write_DATA8(0x70);
-    2cc8:	2101      	movs	r1, #1
-    2cca:	20b7      	movs	r0, #183	; 0xb7
-    2ccc:	47a0      	blx	r4
-    2cce:	2070      	movs	r0, #112	; 0x70
-    2cd0:	47a8      	blx	r5
+    2cd4:	2101      	movs	r1, #1
+    2cd6:	20b7      	movs	r0, #183	; 0xb7
+    2cd8:	47a0      	blx	r4
+    2cda:	2070      	movs	r0, #112	; 0x70
+    2cdc:	47a8      	blx	r5
 	LCD_Write_COM16(0xB8, 0x00);LCD_Write_DATA8(0x01);
-    2cd2:	2100      	movs	r1, #0
-    2cd4:	20b8      	movs	r0, #184	; 0xb8
-    2cd6:	47a0      	blx	r4
-    2cd8:	2001      	movs	r0, #1
-    2cda:	47a8      	blx	r5
+    2cde:	2100      	movs	r1, #0
+    2ce0:	20b8      	movs	r0, #184	; 0xb8
+    2ce2:	47a0      	blx	r4
+    2ce4:	2001      	movs	r0, #1
+    2ce6:	47a8      	blx	r5
 	LCD_Write_COM16(0xB8, 0x01);LCD_Write_DATA8(0x03);
-    2cdc:	2101      	movs	r1, #1
-    2cde:	20b8      	movs	r0, #184	; 0xb8
-    2ce0:	47a0      	blx	r4
-    2ce2:	2003      	movs	r0, #3
-    2ce4:	47a8      	blx	r5
+    2ce8:	2101      	movs	r1, #1
+    2cea:	20b8      	movs	r0, #184	; 0xb8
+    2cec:	47a0      	blx	r4
+    2cee:	2003      	movs	r0, #3
+    2cf0:	47a8      	blx	r5
 	LCD_Write_COM16(0xB8, 0x02);LCD_Write_DATA8(0x03);
-    2ce6:	2102      	movs	r1, #2
-    2ce8:	20b8      	movs	r0, #184	; 0xb8
-    2cea:	47a0      	blx	r4
-    2cec:	2003      	movs	r0, #3
-    2cee:	47a8      	blx	r5
+    2cf2:	2102      	movs	r1, #2
+    2cf4:	20b8      	movs	r0, #184	; 0xb8
+    2cf6:	47a0      	blx	r4
+    2cf8:	2003      	movs	r0, #3
+    2cfa:	47a8      	blx	r5
 	LCD_Write_COM16(0xB8, 0x03);LCD_Write_DATA8(0x03);	
-    2cf0:	2103      	movs	r1, #3
-    2cf2:	20b8      	movs	r0, #184	; 0xb8
-    2cf4:	47a0      	blx	r4
-    2cf6:	2003      	movs	r0, #3
-    2cf8:	47a8      	blx	r5
+    2cfc:	2103      	movs	r1, #3
+    2cfe:	20b8      	movs	r0, #184	; 0xb8
+    2d00:	47a0      	blx	r4
+    2d02:	2003      	movs	r0, #3
+    2d04:	47a8      	blx	r5
 	LCD_Write_COM16(0xBC, 0x00);LCD_Write_DATA8(0x02);
-    2cfa:	2100      	movs	r1, #0
-    2cfc:	20bc      	movs	r0, #188	; 0xbc
-    2cfe:	47a0      	blx	r4
-    2d00:	2002      	movs	r0, #2
-    2d02:	47a8      	blx	r5
+    2d06:	2100      	movs	r1, #0
+    2d08:	20bc      	movs	r0, #188	; 0xbc
+    2d0a:	47a0      	blx	r4
+    2d0c:	2002      	movs	r0, #2
+    2d0e:	47a8      	blx	r5
 	LCD_Write_COM16(0xBC, 0x01);LCD_Write_DATA8(0x00);
-    2d04:	2101      	movs	r1, #1
-    2d06:	20bc      	movs	r0, #188	; 0xbc
-    2d08:	47a0      	blx	r4
-    2d0a:	2000      	movs	r0, #0
-    2d0c:	47a8      	blx	r5
+    2d10:	2101      	movs	r1, #1
+    2d12:	20bc      	movs	r0, #188	; 0xbc
+    2d14:	47a0      	blx	r4
+    2d16:	2000      	movs	r0, #0
+    2d18:	47a8      	blx	r5
 	LCD_Write_COM16(0xBC, 0x02);LCD_Write_DATA8(0x00);
-    2d0e:	2102      	movs	r1, #2
-    2d10:	20bc      	movs	r0, #188	; 0xbc
-    2d12:	47a0      	blx	r4
-    2d14:	2000      	movs	r0, #0
-    2d16:	47a8      	blx	r5
+    2d1a:	2102      	movs	r1, #2
+    2d1c:	20bc      	movs	r0, #188	; 0xbc
+    2d1e:	47a0      	blx	r4
+    2d20:	2000      	movs	r0, #0
+    2d22:	47a8      	blx	r5
 	LCD_Write_COM16(0xC9, 0x00);LCD_Write_DATA8(0xD0);
-    2d18:	2100      	movs	r1, #0
-    2d1a:	20c9      	movs	r0, #201	; 0xc9
-    2d1c:	47a0      	blx	r4
-    2d1e:	20d0      	movs	r0, #208	; 0xd0
-    2d20:	47a8      	blx	r5
+    2d24:	2100      	movs	r1, #0
+    2d26:	20c9      	movs	r0, #201	; 0xc9
+    2d28:	47a0      	blx	r4
+    2d2a:	20d0      	movs	r0, #208	; 0xd0
+    2d2c:	47a8      	blx	r5
 	LCD_Write_COM16(0xC9, 0x01);LCD_Write_DATA8(0x02);
-    2d22:	2101      	movs	r1, #1
-    2d24:	20c9      	movs	r0, #201	; 0xc9
-    2d26:	47a0      	blx	r4
-    2d28:	2002      	movs	r0, #2
-    2d2a:	47a8      	blx	r5
+    2d2e:	2101      	movs	r1, #1
+    2d30:	20c9      	movs	r0, #201	; 0xc9
+    2d32:	47a0      	blx	r4
+    2d34:	2002      	movs	r0, #2
+    2d36:	47a8      	blx	r5
 	LCD_Write_COM16(0xC9, 0x02);LCD_Write_DATA8(0x50);
-    2d2c:	2102      	movs	r1, #2
-    2d2e:	20c9      	movs	r0, #201	; 0xc9
-    2d30:	47a0      	blx	r4
-    2d32:	2050      	movs	r0, #80	; 0x50
-    2d34:	47a8      	blx	r5
+    2d38:	2102      	movs	r1, #2
+    2d3a:	20c9      	movs	r0, #201	; 0xc9
+    2d3c:	47a0      	blx	r4
+    2d3e:	2050      	movs	r0, #80	; 0x50
+    2d40:	47a8      	blx	r5
 	LCD_Write_COM16(0xC9, 0x03);LCD_Write_DATA8(0x50);
-    2d36:	2103      	movs	r1, #3
-    2d38:	20c9      	movs	r0, #201	; 0xc9
-    2d3a:	47a0      	blx	r4
-    2d3c:	2050      	movs	r0, #80	; 0x50
-    2d3e:	47a8      	blx	r5
+    2d42:	2103      	movs	r1, #3
+    2d44:	20c9      	movs	r0, #201	; 0xc9
+    2d46:	47a0      	blx	r4
+    2d48:	2050      	movs	r0, #80	; 0x50
+    2d4a:	47a8      	blx	r5
 	LCD_Write_COM16(0xC9, 0x04);LCD_Write_DATA8(0x50);
-    2d40:	2104      	movs	r1, #4
-    2d42:	20c9      	movs	r0, #201	; 0xc9
-    2d44:	47a0      	blx	r4
-    2d46:	2050      	movs	r0, #80	; 0x50
-    2d48:	47a8      	blx	r5
+    2d4c:	2104      	movs	r1, #4
+    2d4e:	20c9      	movs	r0, #201	; 0xc9
+    2d50:	47a0      	blx	r4
+    2d52:	2050      	movs	r0, #80	; 0x50
+    2d54:	47a8      	blx	r5
 	LCD_Write_COM16(0x35, 0x00);LCD_Write_DATA8(0x00);
-    2d4a:	2100      	movs	r1, #0
-    2d4c:	2035      	movs	r0, #53	; 0x35
-    2d4e:	47a0      	blx	r4
-    2d50:	2000      	movs	r0, #0
-    2d52:	47a8      	blx	r5
+    2d56:	2100      	movs	r1, #0
+    2d58:	2035      	movs	r0, #53	; 0x35
+    2d5a:	47a0      	blx	r4
+    2d5c:	2000      	movs	r0, #0
+    2d5e:	47a8      	blx	r5
 	LCD_Write_COM16(0x3A, 0x00);LCD_Write_DATA8(0x55);
-    2d54:	2100      	movs	r1, #0
-    2d56:	203a      	movs	r0, #58	; 0x3a
-    2d58:	47a0      	blx	r4
-    2d5a:	2055      	movs	r0, #85	; 0x55
-    2d5c:	47a8      	blx	r5
+    2d60:	2100      	movs	r1, #0
+    2d62:	203a      	movs	r0, #58	; 0x3a
+    2d64:	47a0      	blx	r4
+    2d66:	2055      	movs	r0, #85	; 0x55
+    2d68:	47a8      	blx	r5
 	LCD_Write_COM16(0x36, 0x00);LCD_Write_DATA8(0x00);
-    2d5e:	2100      	movs	r1, #0
-    2d60:	2036      	movs	r0, #54	; 0x36
-    2d62:	47a0      	blx	r4
-    2d64:	2000      	movs	r0, #0
-    2d66:	47a8      	blx	r5
+    2d6a:	2100      	movs	r1, #0
+    2d6c:	2036      	movs	r0, #54	; 0x36
+    2d6e:	47a0      	blx	r4
+    2d70:	2000      	movs	r0, #0
+    2d72:	47a8      	blx	r5
   	LCD_Write_COM16(0x11,0x00);   //Start Up  
-    2d68:	2100      	movs	r1, #0
-    2d6a:	2011      	movs	r0, #17
-    2d6c:	47a0      	blx	r4
-  	delay_ms(100);
-    2d6e:	2064      	movs	r0, #100	; 0x64
-    2d70:	4e17      	ldr	r6, [pc, #92]	; (2dd0 <InitLCD+0x21c>)
-    2d72:	47b0      	blx	r6
-  	LCD_Write_COM16(0x29,0x00);   //Display On  
     2d74:	2100      	movs	r1, #0
-    2d76:	2029      	movs	r0, #41	; 0x29
+    2d76:	2011      	movs	r0, #17
     2d78:	47a0      	blx	r4
-   	delay_ms(100);
+  	delay_ms(100);
     2d7a:	2064      	movs	r0, #100	; 0x64
-    2d7c:	47b0      	blx	r6
+    2d7c:	4e17      	ldr	r6, [pc, #92]	; (2ddc <InitLCD+0x21c>)
+    2d7e:	47b0      	blx	r6
+  	LCD_Write_COM16(0x29,0x00);   //Display On  
+    2d80:	2100      	movs	r1, #0
+    2d82:	2029      	movs	r0, #41	; 0x29
+    2d84:	47a0      	blx	r4
+   	delay_ms(100);
+    2d86:	2064      	movs	r0, #100	; 0x64
+    2d88:	47b0      	blx	r6
 	LCD_Write_COM16(0x51,0x00);LCD_Write_DATA8(0xFF);
-    2d7e:	2100      	movs	r1, #0
-    2d80:	2051      	movs	r0, #81	; 0x51
-    2d82:	47a0      	blx	r4
-    2d84:	20ff      	movs	r0, #255	; 0xff
-    2d86:	47a8      	blx	r5
+    2d8a:	2100      	movs	r1, #0
+    2d8c:	2051      	movs	r0, #81	; 0x51
+    2d8e:	47a0      	blx	r4
+    2d90:	20ff      	movs	r0, #255	; 0xff
+    2d92:	47a8      	blx	r5
 	REG_PORT_OUTSET1 = LCD_CS;
-    2d88:	2280      	movs	r2, #128	; 0x80
-    2d8a:	03d2      	lsls	r2, r2, #15
-    2d8c:	4b0f      	ldr	r3, [pc, #60]	; (2dcc <InitLCD+0x218>)
-    2d8e:	601a      	str	r2, [r3, #0]
+    2d94:	2280      	movs	r2, #128	; 0x80
+    2d96:	03d2      	lsls	r2, r2, #15
+    2d98:	4b0f      	ldr	r3, [pc, #60]	; (2dd8 <InitLCD+0x218>)
+    2d9a:	601a      	str	r2, [r3, #0]
 	clrScr();
-    2d90:	4b16      	ldr	r3, [pc, #88]	; (2dec <InitLCD+0x238>)
-    2d92:	4798      	blx	r3
+    2d9c:	4b16      	ldr	r3, [pc, #88]	; (2df8 <InitLCD+0x238>)
+    2d9e:	4798      	blx	r3
 	setColorRGB(0,0,0);
-    2d94:	2200      	movs	r2, #0
-    2d96:	2100      	movs	r1, #0
-    2d98:	2000      	movs	r0, #0
-    2d9a:	4b15      	ldr	r3, [pc, #84]	; (2df0 <InitLCD+0x23c>)
-    2d9c:	4798      	blx	r3
+    2da0:	2200      	movs	r2, #0
+    2da2:	2100      	movs	r1, #0
+    2da4:	2000      	movs	r0, #0
+    2da6:	4b15      	ldr	r3, [pc, #84]	; (2dfc <InitLCD+0x23c>)
+    2da8:	4798      	blx	r3
 	setBackColorRGB(0, 0, 0);
-    2d9e:	2200      	movs	r2, #0
-    2da0:	2100      	movs	r1, #0
-    2da2:	2000      	movs	r0, #0
-    2da4:	4b13      	ldr	r3, [pc, #76]	; (2df4 <InitLCD+0x240>)
-    2da6:	4798      	blx	r3
+    2daa:	2200      	movs	r2, #0
+    2dac:	2100      	movs	r1, #0
+    2dae:	2000      	movs	r0, #0
+    2db0:	4b13      	ldr	r3, [pc, #76]	; (2e00 <InitLCD+0x240>)
+    2db2:	4798      	blx	r3
 	fillRect(0,0,799,489);
-    2da8:	23ea      	movs	r3, #234	; 0xea
-    2daa:	33ff      	adds	r3, #255	; 0xff
-    2dac:	4a12      	ldr	r2, [pc, #72]	; (2df8 <InitLCD+0x244>)
-    2dae:	2100      	movs	r1, #0
-    2db0:	2000      	movs	r0, #0
-    2db2:	4c12      	ldr	r4, [pc, #72]	; (2dfc <InitLCD+0x248>)
-    2db4:	47a0      	blx	r4
+    2db4:	23ea      	movs	r3, #234	; 0xea
+    2db6:	33ff      	adds	r3, #255	; 0xff
+    2db8:	4a12      	ldr	r2, [pc, #72]	; (2e04 <InitLCD+0x244>)
+    2dba:	2100      	movs	r1, #0
+    2dbc:	2000      	movs	r0, #0
+    2dbe:	4c12      	ldr	r4, [pc, #72]	; (2e08 <InitLCD+0x248>)
+    2dc0:	47a0      	blx	r4
 }
-    2db6:	b002      	add	sp, #8
-    2db8:	bc04      	pop	{r2}
-    2dba:	4690      	mov	r8, r2
-    2dbc:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    2dbe:	46c0      	nop			; (mov r8, r8)
-    2dc0:	41004488 	.word	0x41004488
-    2dc4:	0000ffff 	.word	0x0000ffff
-    2dc8:	41004494 	.word	0x41004494
-    2dcc:	41004498 	.word	0x41004498
-    2dd0:	00000409 	.word	0x00000409
-    2dd4:	00006488 	.word	0x00006488
-    2dd8:	000063f8 	.word	0x000063f8
-    2ddc:	00002b69 	.word	0x00002b69
-    2de0:	00006440 	.word	0x00006440
-    2de4:	00002b99 	.word	0x00002b99
-    2de8:	000063c4 	.word	0x000063c4
-    2dec:	00002aad 	.word	0x00002aad
-    2df0:	00002821 	.word	0x00002821
-    2df4:	00002849 	.word	0x00002849
-    2df8:	0000031f 	.word	0x0000031f
-    2dfc:	0000296d 	.word	0x0000296d
+    2dc2:	b002      	add	sp, #8
+    2dc4:	bc04      	pop	{r2}
+    2dc6:	4690      	mov	r8, r2
+    2dc8:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2dca:	46c0      	nop			; (mov r8, r8)
+    2dcc:	41004488 	.word	0x41004488
+    2dd0:	0000ffff 	.word	0x0000ffff
+    2dd4:	41004494 	.word	0x41004494
+    2dd8:	41004498 	.word	0x41004498
+    2ddc:	00000409 	.word	0x00000409
+    2de0:	00006488 	.word	0x00006488
+    2de4:	000063f8 	.word	0x000063f8
+    2de8:	00002b75 	.word	0x00002b75
+    2dec:	00006440 	.word	0x00006440
+    2df0:	00002ba5 	.word	0x00002ba5
+    2df4:	000063c4 	.word	0x000063c4
+    2df8:	00002ab9 	.word	0x00002ab9
+    2dfc:	0000282d 	.word	0x0000282d
+    2e00:	00002855 	.word	0x00002855
+    2e04:	0000031f 	.word	0x0000031f
+    2e08:	00002979 	.word	0x00002979
 
-00002e00 <SysTick_Handler>:
+00002e0c <SysTick_Handler>:
 
 void SysTick_Handler(void)
 {
 
 	
 	ul_tickcount++;
-    2e00:	4b06      	ldr	r3, [pc, #24]	; (2e1c <SysTick_Handler+0x1c>)
-    2e02:	881b      	ldrh	r3, [r3, #0]
-    2e04:	3301      	adds	r3, #1
-    2e06:	b29b      	uxth	r3, r3
+    2e0c:	4b06      	ldr	r3, [pc, #24]	; (2e28 <SysTick_Handler+0x1c>)
+    2e0e:	881b      	ldrh	r3, [r3, #0]
+    2e10:	3301      	adds	r3, #1
+    2e12:	b29b      	uxth	r3, r3
 			
 	if(ul_tickcount == (12000-1))
-    2e08:	4a05      	ldr	r2, [pc, #20]	; (2e20 <SysTick_Handler+0x20>)
-    2e0a:	4293      	cmp	r3, r2
-    2e0c:	d002      	beq.n	2e14 <SysTick_Handler+0x14>
+    2e14:	4a05      	ldr	r2, [pc, #20]	; (2e2c <SysTick_Handler+0x20>)
+    2e16:	4293      	cmp	r3, r2
+    2e18:	d002      	beq.n	2e20 <SysTick_Handler+0x14>
 	ul_tickcount++;
-    2e0e:	4a03      	ldr	r2, [pc, #12]	; (2e1c <SysTick_Handler+0x1c>)
-    2e10:	8013      	strh	r3, [r2, #0]
+    2e1a:	4a03      	ldr	r2, [pc, #12]	; (2e28 <SysTick_Handler+0x1c>)
+    2e1c:	8013      	strh	r3, [r2, #0]
 	{
 		ul_tickcount = 0;
 	}
 			
 
 }
-    2e12:	4770      	bx	lr
+    2e1e:	4770      	bx	lr
 		ul_tickcount = 0;
-    2e14:	2200      	movs	r2, #0
-    2e16:	4b01      	ldr	r3, [pc, #4]	; (2e1c <SysTick_Handler+0x1c>)
-    2e18:	801a      	strh	r2, [r3, #0]
+    2e20:	2200      	movs	r2, #0
+    2e22:	4b01      	ldr	r3, [pc, #4]	; (2e28 <SysTick_Handler+0x1c>)
+    2e24:	801a      	strh	r2, [r3, #0]
 }
-    2e1a:	e7fa      	b.n	2e12 <SysTick_Handler+0x12>
-    2e1c:	20000182 	.word	0x20000182
-    2e20:	00002edf 	.word	0x00002edf
+    2e26:	e7fa      	b.n	2e1e <SysTick_Handler+0x12>
+    2e28:	20000182 	.word	0x20000182
+    2e2c:	00002edf 	.word	0x00002edf
 
-00002e24 <conf_systick>:
+00002e30 <conf_systick>:
 
 void conf_systick(void)
 {
-    2e24:	b510      	push	{r4, lr}
+    2e30:	b510      	push	{r4, lr}
 	//system_core_clk=48Mhz / 1000=48kHz systic clk if 48Mhz  is used
 	SysTick_Config(SystemCoreClock/1000);
-    2e26:	4b0e      	ldr	r3, [pc, #56]	; (2e60 <conf_systick+0x3c>)
-    2e28:	6818      	ldr	r0, [r3, #0]
-    2e2a:	21fa      	movs	r1, #250	; 0xfa
-    2e2c:	0089      	lsls	r1, r1, #2
-    2e2e:	4b0d      	ldr	r3, [pc, #52]	; (2e64 <conf_systick+0x40>)
-    2e30:	4798      	blx	r3
+    2e32:	4b0e      	ldr	r3, [pc, #56]	; (2e6c <conf_systick+0x3c>)
+    2e34:	6818      	ldr	r0, [r3, #0]
+    2e36:	21fa      	movs	r1, #250	; 0xfa
+    2e38:	0089      	lsls	r1, r1, #2
+    2e3a:	4b0d      	ldr	r3, [pc, #52]	; (2e70 <conf_systick+0x40>)
+    2e3c:	4798      	blx	r3
            function <b>SysTick_Config</b> is not included. In this case, the file <b><i>device</i>.h</b>
            must contain a vendor-specific implementation of this function.
  */
 __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
 {
   if ((ticks - 1UL) > SysTick_LOAD_RELOAD_Msk)
-    2e32:	3801      	subs	r0, #1
-    2e34:	4b0c      	ldr	r3, [pc, #48]	; (2e68 <conf_systick+0x44>)
-    2e36:	4298      	cmp	r0, r3
-    2e38:	d80d      	bhi.n	2e56 <conf_systick+0x32>
+    2e3e:	3801      	subs	r0, #1
+    2e40:	4b0c      	ldr	r3, [pc, #48]	; (2e74 <conf_systick+0x44>)
+    2e42:	4298      	cmp	r0, r3
+    2e44:	d80d      	bhi.n	2e62 <conf_systick+0x32>
   {
     return (1UL);                                                   /* Reload value impossible */
   }
 
   SysTick->LOAD  = (uint32_t)(ticks - 1UL);                         /* set reload register */
-    2e3a:	4a0c      	ldr	r2, [pc, #48]	; (2e6c <conf_systick+0x48>)
-    2e3c:	6050      	str	r0, [r2, #4]
+    2e46:	4a0c      	ldr	r2, [pc, #48]	; (2e78 <conf_systick+0x48>)
+    2e48:	6050      	str	r0, [r2, #4]
     SCB->SHP[_SHP_IDX(IRQn)] = ((uint32_t)(SCB->SHP[_SHP_IDX(IRQn)] & ~(0xFFUL << _BIT_SHIFT(IRQn))) |
-    2e3e:	480c      	ldr	r0, [pc, #48]	; (2e70 <conf_systick+0x4c>)
-    2e40:	6a03      	ldr	r3, [r0, #32]
-    2e42:	021b      	lsls	r3, r3, #8
-    2e44:	0a1b      	lsrs	r3, r3, #8
-    2e46:	21c0      	movs	r1, #192	; 0xc0
-    2e48:	0609      	lsls	r1, r1, #24
-    2e4a:	430b      	orrs	r3, r1
-    2e4c:	6203      	str	r3, [r0, #32]
+    2e4a:	480c      	ldr	r0, [pc, #48]	; (2e7c <conf_systick+0x4c>)
+    2e4c:	6a03      	ldr	r3, [r0, #32]
+    2e4e:	021b      	lsls	r3, r3, #8
+    2e50:	0a1b      	lsrs	r3, r3, #8
+    2e52:	21c0      	movs	r1, #192	; 0xc0
+    2e54:	0609      	lsls	r1, r1, #24
+    2e56:	430b      	orrs	r3, r1
+    2e58:	6203      	str	r3, [r0, #32]
   NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL); /* set Priority for Systick Interrupt */
   SysTick->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
-    2e4e:	2300      	movs	r3, #0
-    2e50:	6093      	str	r3, [r2, #8]
+    2e5a:	2300      	movs	r3, #0
+    2e5c:	6093      	str	r3, [r2, #8]
   SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
-    2e52:	3307      	adds	r3, #7
-    2e54:	6013      	str	r3, [r2, #0]
-    2e56:	2280      	movs	r2, #128	; 0x80
-    2e58:	0612      	lsls	r2, r2, #24
-    2e5a:	4b06      	ldr	r3, [pc, #24]	; (2e74 <conf_systick+0x50>)
-    2e5c:	601a      	str	r2, [r3, #0]
+    2e5e:	3307      	adds	r3, #7
+    2e60:	6013      	str	r3, [r2, #0]
+    2e62:	2280      	movs	r2, #128	; 0x80
+    2e64:	0612      	lsls	r2, r2, #24
+    2e66:	4b06      	ldr	r3, [pc, #24]	; (2e80 <conf_systick+0x50>)
+    2e68:	601a      	str	r2, [r3, #0]
 	system_interrupt_enable(SYSTEM_INTERRUPT_SYSTICK);
 }
-    2e5e:	bd10      	pop	{r4, pc}
-    2e60:	2000000c 	.word	0x2000000c
-    2e64:	000030d9 	.word	0x000030d9
-    2e68:	00ffffff 	.word	0x00ffffff
-    2e6c:	e000e010 	.word	0xe000e010
-    2e70:	e000ed00 	.word	0xe000ed00
-    2e74:	e000e100 	.word	0xe000e100
+    2e6a:	bd10      	pop	{r4, pc}
+    2e6c:	2000000c 	.word	0x2000000c
+    2e70:	000030d9 	.word	0x000030d9
+    2e74:	00ffffff 	.word	0x00ffffff
+    2e78:	e000e010 	.word	0xe000e010
+    2e7c:	e000ed00 	.word	0xe000ed00
+    2e80:	e000e100 	.word	0xe000e100
 
-00002e78 <configure_usart_USB>:
+00002e84 <configure_usart_USB>:
 
 /**************************SERCOM STUFF*******************************/
 void configure_usart_USB(void)
 {
-    2e78:	b530      	push	{r4, r5, lr}
-    2e7a:	b091      	sub	sp, #68	; 0x44
+    2e84:	b530      	push	{r4, r5, lr}
+    2e86:	b091      	sub	sp, #68	; 0x44
 	config->data_order       = USART_DATAORDER_LSB;
-    2e7c:	2380      	movs	r3, #128	; 0x80
-    2e7e:	05db      	lsls	r3, r3, #23
-    2e80:	9300      	str	r3, [sp, #0]
+    2e88:	2380      	movs	r3, #128	; 0x80
+    2e8a:	05db      	lsls	r3, r3, #23
+    2e8c:	9300      	str	r3, [sp, #0]
 	config->transfer_mode    = USART_TRANSFER_ASYNCHRONOUSLY;
-    2e82:	2300      	movs	r3, #0
-    2e84:	9301      	str	r3, [sp, #4]
+    2e8e:	2300      	movs	r3, #0
+    2e90:	9301      	str	r3, [sp, #4]
 	config->parity           = USART_PARITY_NONE;
-    2e86:	22ff      	movs	r2, #255	; 0xff
-    2e88:	4669      	mov	r1, sp
-    2e8a:	810a      	strh	r2, [r1, #8]
+    2e92:	22ff      	movs	r2, #255	; 0xff
+    2e94:	4669      	mov	r1, sp
+    2e96:	810a      	strh	r2, [r1, #8]
 	config->stopbits         = USART_STOPBITS_1;
-    2e8c:	2200      	movs	r2, #0
-    2e8e:	728b      	strb	r3, [r1, #10]
+    2e98:	2200      	movs	r2, #0
+    2e9a:	728b      	strb	r3, [r1, #10]
 	config->character_size   = USART_CHARACTER_SIZE_8BIT;
-    2e90:	72cb      	strb	r3, [r1, #11]
+    2e9c:	72cb      	strb	r3, [r1, #11]
 	config->baudrate         = 9600;
-    2e92:	2196      	movs	r1, #150	; 0x96
-    2e94:	0189      	lsls	r1, r1, #6
-    2e96:	9108      	str	r1, [sp, #32]
+    2e9e:	2196      	movs	r1, #150	; 0x96
+    2ea0:	0189      	lsls	r1, r1, #6
+    2ea2:	9108      	str	r1, [sp, #32]
 	config->receiver_enable  = true;
-    2e98:	2101      	movs	r1, #1
-    2e9a:	2024      	movs	r0, #36	; 0x24
-    2e9c:	466c      	mov	r4, sp
-    2e9e:	5421      	strb	r1, [r4, r0]
+    2ea4:	2101      	movs	r1, #1
+    2ea6:	2024      	movs	r0, #36	; 0x24
+    2ea8:	466c      	mov	r4, sp
+    2eaa:	5421      	strb	r1, [r4, r0]
 	config->transmitter_enable = true;
-    2ea0:	3001      	adds	r0, #1
-    2ea2:	5421      	strb	r1, [r4, r0]
+    2eac:	3001      	adds	r0, #1
+    2eae:	5421      	strb	r1, [r4, r0]
 	config->clock_polarity_inverted = false;
-    2ea4:	3125      	adds	r1, #37	; 0x25
-    2ea6:	5463      	strb	r3, [r4, r1]
+    2eb0:	3125      	adds	r1, #37	; 0x25
+    2eb2:	5463      	strb	r3, [r4, r1]
 	config->use_external_clock = false;
-    2ea8:	3101      	adds	r1, #1
-    2eaa:	5463      	strb	r3, [r4, r1]
+    2eb4:	3101      	adds	r1, #1
+    2eb6:	5463      	strb	r3, [r4, r1]
 	config->ext_clock_freq   = 0;
-    2eac:	930a      	str	r3, [sp, #40]	; 0x28
+    2eb8:	930a      	str	r3, [sp, #40]	; 0x28
 	config->run_in_standby   = false;
-    2eae:	3105      	adds	r1, #5
-    2eb0:	5463      	strb	r3, [r4, r1]
+    2eba:	3105      	adds	r1, #5
+    2ebc:	5463      	strb	r3, [r4, r1]
 	config->generator_source = GCLK_GENERATOR_0;
-    2eb2:	3101      	adds	r1, #1
-    2eb4:	5463      	strb	r3, [r4, r1]
+    2ebe:	3101      	adds	r1, #1
+    2ec0:	5463      	strb	r3, [r4, r1]
 	config->sample_adjustment     = USART_SAMPLE_ADJUSTMENT_7_8_9;
-    2eb6:	9305      	str	r3, [sp, #20]
+    2ec2:	9305      	str	r3, [sp, #20]
 	config->sample_rate           = USART_SAMPLE_RATE_16X_ARITHMETIC;
-    2eb8:	8223      	strh	r3, [r4, #16]
+    2ec4:	8223      	strh	r3, [r4, #16]
 	config->lin_slave_enable      = false;
-    2eba:	76e3      	strb	r3, [r4, #27]
+    2ec6:	76e3      	strb	r3, [r4, #27]
 	config->immediate_buffer_overflow_notification  = false;
-    2ebc:	7622      	strb	r2, [r4, #24]
+    2ec8:	7622      	strb	r2, [r4, #24]
 	config->start_frame_detection_enable            = false;
-    2ebe:	7722      	strb	r2, [r4, #28]
+    2eca:	7722      	strb	r2, [r4, #28]
 	config->encoding_format_enable                  = false;
-    2ec0:	7662      	strb	r2, [r4, #25]
+    2ecc:	7662      	strb	r2, [r4, #25]
 	config->receive_pulse_length                    = 19;
-    2ec2:	2313      	movs	r3, #19
-    2ec4:	76a3      	strb	r3, [r4, #26]
+    2ece:	2313      	movs	r3, #19
+    2ed0:	76a3      	strb	r3, [r4, #26]
 	config->collision_detection_enable              = false;
-    2ec6:	7762      	strb	r2, [r4, #29]
+    2ed2:	7762      	strb	r2, [r4, #29]
 	struct usart_config config_usart_USB;
 	usart_get_config_defaults(&config_usart_USB);
 
 		config_usart_USB.baudrate    = 9600;
 		config_usart_USB.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
-    2ec8:	2380      	movs	r3, #128	; 0x80
-    2eca:	035b      	lsls	r3, r3, #13
-    2ecc:	9303      	str	r3, [sp, #12]
+    2ed4:	2380      	movs	r3, #128	; 0x80
+    2ed6:	035b      	lsls	r3, r3, #13
+    2ed8:	9303      	str	r3, [sp, #12]
 		config_usart_USB.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
-    2ece:	4b12      	ldr	r3, [pc, #72]	; (2f18 <configure_usart_USB+0xa0>)
-    2ed0:	930c      	str	r3, [sp, #48]	; 0x30
+    2eda:	4b12      	ldr	r3, [pc, #72]	; (2f24 <configure_usart_USB+0xa0>)
+    2edc:	930c      	str	r3, [sp, #48]	; 0x30
 		config_usart_USB.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
-    2ed2:	4b12      	ldr	r3, [pc, #72]	; (2f1c <configure_usart_USB+0xa4>)
-    2ed4:	930d      	str	r3, [sp, #52]	; 0x34
+    2ede:	4b12      	ldr	r3, [pc, #72]	; (2f28 <configure_usart_USB+0xa4>)
+    2ee0:	930d      	str	r3, [sp, #52]	; 0x34
 		config_usart_USB.pinmux_pad2 = EDBG_CDC_SERCOM_PINMUX_PAD2;
-    2ed6:	2301      	movs	r3, #1
-    2ed8:	425b      	negs	r3, r3
-    2eda:	930e      	str	r3, [sp, #56]	; 0x38
+    2ee2:	2301      	movs	r3, #1
+    2ee4:	425b      	negs	r3, r3
+    2ee6:	930e      	str	r3, [sp, #56]	; 0x38
 		config_usart_USB.pinmux_pad3 = EDBG_CDC_SERCOM_PINMUX_PAD3;
-    2edc:	930f      	str	r3, [sp, #60]	; 0x3c
+    2ee8:	930f      	str	r3, [sp, #60]	; 0x3c
 		while (usart_init(&usart_USB,
-    2ede:	4d10      	ldr	r5, [pc, #64]	; (2f20 <configure_usart_USB+0xa8>)
-    2ee0:	4c10      	ldr	r4, [pc, #64]	; (2f24 <configure_usart_USB+0xac>)
-    2ee2:	466a      	mov	r2, sp
-    2ee4:	4910      	ldr	r1, [pc, #64]	; (2f28 <configure_usart_USB+0xb0>)
-    2ee6:	0028      	movs	r0, r5
-    2ee8:	47a0      	blx	r4
-    2eea:	2800      	cmp	r0, #0
-    2eec:	d1f9      	bne.n	2ee2 <configure_usart_USB+0x6a>
+    2eea:	4d10      	ldr	r5, [pc, #64]	; (2f2c <configure_usart_USB+0xa8>)
+    2eec:	4c10      	ldr	r4, [pc, #64]	; (2f30 <configure_usart_USB+0xac>)
+    2eee:	466a      	mov	r2, sp
+    2ef0:	4910      	ldr	r1, [pc, #64]	; (2f34 <configure_usart_USB+0xb0>)
+    2ef2:	0028      	movs	r0, r5
+    2ef4:	47a0      	blx	r4
+    2ef6:	2800      	cmp	r0, #0
+    2ef8:	d1f9      	bne.n	2eee <configure_usart_USB+0x6a>
 	SercomUsart *const usart_hw = &(module->hw->USART);
-    2eee:	4d0c      	ldr	r5, [pc, #48]	; (2f20 <configure_usart_USB+0xa8>)
-    2ef0:	682c      	ldr	r4, [r5, #0]
+    2efa:	4d0c      	ldr	r5, [pc, #48]	; (2f2c <configure_usart_USB+0xa8>)
+    2efc:	682c      	ldr	r4, [r5, #0]
 	system_interrupt_enable(_sercom_get_interrupt_vector(module->hw));
-    2ef2:	0020      	movs	r0, r4
-    2ef4:	4b0d      	ldr	r3, [pc, #52]	; (2f2c <configure_usart_USB+0xb4>)
-    2ef6:	4798      	blx	r3
-    2ef8:	231f      	movs	r3, #31
-    2efa:	4018      	ands	r0, r3
-    2efc:	3b1e      	subs	r3, #30
-    2efe:	4083      	lsls	r3, r0
-    2f00:	4a0b      	ldr	r2, [pc, #44]	; (2f30 <configure_usart_USB+0xb8>)
-    2f02:	6013      	str	r3, [r2, #0]
+    2efe:	0020      	movs	r0, r4
+    2f00:	4b0d      	ldr	r3, [pc, #52]	; (2f38 <configure_usart_USB+0xb4>)
+    2f02:	4798      	blx	r3
+    2f04:	231f      	movs	r3, #31
+    2f06:	4018      	ands	r0, r3
+    2f08:	3b1e      	subs	r3, #30
+    2f0a:	4083      	lsls	r3, r0
+    2f0c:	4a0b      	ldr	r2, [pc, #44]	; (2f3c <configure_usart_USB+0xb8>)
+    2f0e:	6013      	str	r3, [r2, #0]
 	SercomUsart *const usart_hw = &(module->hw->USART);
-    2f04:	682a      	ldr	r2, [r5, #0]
+    2f10:	682a      	ldr	r2, [r5, #0]
 	return (usart_hw->SYNCBUSY.reg);
-    2f06:	69d3      	ldr	r3, [r2, #28]
+    2f12:	69d3      	ldr	r3, [r2, #28]
 	while (usart_is_syncing(module)) {
-    2f08:	2b00      	cmp	r3, #0
-    2f0a:	d1fc      	bne.n	2f06 <configure_usart_USB+0x8e>
+    2f14:	2b00      	cmp	r3, #0
+    2f16:	d1fc      	bne.n	2f12 <configure_usart_USB+0x8e>
 	usart_hw->CTRLA.reg |= SERCOM_USART_CTRLA_ENABLE;
-    2f0c:	6823      	ldr	r3, [r4, #0]
-    2f0e:	2202      	movs	r2, #2
-    2f10:	4313      	orrs	r3, r2
-    2f12:	6023      	str	r3, [r4, #0]
+    2f18:	6823      	ldr	r3, [r4, #0]
+    2f1a:	2202      	movs	r2, #2
+    2f1c:	4313      	orrs	r3, r2
+    2f1e:	6023      	str	r3, [r4, #0]
 		EDBG_CDC_MODULE, &config_usart_USB) != STATUS_OK) {
 		}
 
 	usart_enable(&usart_USB);
 }
-    2f14:	b011      	add	sp, #68	; 0x44
-    2f16:	bd30      	pop	{r4, r5, pc}
-    2f18:	00160002 	.word	0x00160002
-    2f1c:	00170002 	.word	0x00170002
-    2f20:	200002bc 	.word	0x200002bc
-    2f24:	00000e75 	.word	0x00000e75
-    2f28:	42001400 	.word	0x42001400
-    2f2c:	00000de5 	.word	0x00000de5
-    2f30:	e000e100 	.word	0xe000e100
+    2f20:	b011      	add	sp, #68	; 0x44
+    2f22:	bd30      	pop	{r4, r5, pc}
+    2f24:	00160002 	.word	0x00160002
+    2f28:	00170002 	.word	0x00170002
+    2f2c:	200002bc 	.word	0x200002bc
+    2f30:	00000e75 	.word	0x00000e75
+    2f34:	42001400 	.word	0x42001400
+    2f38:	00000de5 	.word	0x00000de5
+    2f3c:	e000e100 	.word	0xe000e100
 
-00002f34 <configure_adc>:
+00002f40 <configure_adc>:
 
 void configure_adc(void)
 {
-    2f34:	b510      	push	{r4, lr}
-    2f36:	b08c      	sub	sp, #48	; 0x30
+    2f40:	b510      	push	{r4, lr}
+    2f42:	b08c      	sub	sp, #48	; 0x30
 	struct adc_config config_adc;
 	adc_get_config_defaults(&config_adc);
-    2f38:	4668      	mov	r0, sp
-    2f3a:	4b11      	ldr	r3, [pc, #68]	; (2f80 <configure_adc+0x4c>)
-    2f3c:	4798      	blx	r3
+    2f44:	4668      	mov	r0, sp
+    2f46:	4b11      	ldr	r3, [pc, #68]	; (2f8c <configure_adc+0x4c>)
+    2f48:	4798      	blx	r3
 	config_adc.positive_input = ADC_POSITIVE_INPUT_DAC;
-    2f3e:	231c      	movs	r3, #28
-    2f40:	466a      	mov	r2, sp
-    2f42:	7313      	strb	r3, [r2, #12]
+    2f4a:	231c      	movs	r3, #28
+    2f4c:	466a      	mov	r2, sp
+    2f4e:	7313      	strb	r3, [r2, #12]
 	adc_init(&adc_instance, ADC, &config_adc);
-    2f44:	4c0f      	ldr	r4, [pc, #60]	; (2f84 <configure_adc+0x50>)
-    2f46:	4910      	ldr	r1, [pc, #64]	; (2f88 <configure_adc+0x54>)
-    2f48:	0020      	movs	r0, r4
-    2f4a:	4b10      	ldr	r3, [pc, #64]	; (2f8c <configure_adc+0x58>)
-    2f4c:	4798      	blx	r3
+    2f50:	4c0f      	ldr	r4, [pc, #60]	; (2f90 <configure_adc+0x50>)
+    2f52:	4910      	ldr	r1, [pc, #64]	; (2f94 <configure_adc+0x54>)
+    2f54:	0020      	movs	r0, r4
+    2f56:	4b10      	ldr	r3, [pc, #64]	; (2f98 <configure_adc+0x58>)
+    2f58:	4798      	blx	r3
 	Adc *const adc_module = module_inst->hw;
-    2f4e:	6822      	ldr	r2, [r4, #0]
-    2f50:	7e53      	ldrb	r3, [r2, #25]
+    2f5a:	6822      	ldr	r2, [r4, #0]
+    2f5c:	7e53      	ldrb	r3, [r2, #25]
 	while (adc_is_syncing(module_inst)) {
-    2f52:	b25b      	sxtb	r3, r3
-    2f54:	2b00      	cmp	r3, #0
-    2f56:	dbfb      	blt.n	2f50 <configure_adc+0x1c>
-    2f58:	2180      	movs	r1, #128	; 0x80
-    2f5a:	0409      	lsls	r1, r1, #16
-    2f5c:	4b0c      	ldr	r3, [pc, #48]	; (2f90 <configure_adc+0x5c>)
-    2f5e:	6019      	str	r1, [r3, #0]
+    2f5e:	b25b      	sxtb	r3, r3
+    2f60:	2b00      	cmp	r3, #0
+    2f62:	dbfb      	blt.n	2f5c <configure_adc+0x1c>
+    2f64:	2180      	movs	r1, #128	; 0x80
+    2f66:	0409      	lsls	r1, r1, #16
+    2f68:	4b0c      	ldr	r3, [pc, #48]	; (2f9c <configure_adc+0x5c>)
+    2f6a:	6019      	str	r1, [r3, #0]
 	adc_module->INTENCLR.reg = ADC_INTENCLR_MASK;
-    2f60:	230f      	movs	r3, #15
-    2f62:	7593      	strb	r3, [r2, #22]
+    2f6c:	230f      	movs	r3, #15
+    2f6e:	7593      	strb	r3, [r2, #22]
 	adc_module->INTFLAG.reg = ADC_INTFLAG_MASK;
-    2f64:	7613      	strb	r3, [r2, #24]
+    2f70:	7613      	strb	r3, [r2, #24]
 	adc_module->CTRLA.reg |= ADC_CTRLA_ENABLE;
-    2f66:	7813      	ldrb	r3, [r2, #0]
-    2f68:	2102      	movs	r1, #2
-    2f6a:	430b      	orrs	r3, r1
-    2f6c:	7013      	strb	r3, [r2, #0]
+    2f72:	7813      	ldrb	r3, [r2, #0]
+    2f74:	2102      	movs	r1, #2
+    2f76:	430b      	orrs	r3, r1
+    2f78:	7013      	strb	r3, [r2, #0]
 	Adc *const adc_module = module_inst->hw;
-    2f6e:	4b05      	ldr	r3, [pc, #20]	; (2f84 <configure_adc+0x50>)
-    2f70:	681a      	ldr	r2, [r3, #0]
+    2f7a:	4b05      	ldr	r3, [pc, #20]	; (2f90 <configure_adc+0x50>)
+    2f7c:	681a      	ldr	r2, [r3, #0]
 	if (adc_module->STATUS.reg & ADC_STATUS_SYNCBUSY) {
-    2f72:	7e53      	ldrb	r3, [r2, #25]
+    2f7e:	7e53      	ldrb	r3, [r2, #25]
 	while (adc_is_syncing(module_inst)) {
-    2f74:	b25b      	sxtb	r3, r3
-    2f76:	2b00      	cmp	r3, #0
-    2f78:	dbfb      	blt.n	2f72 <configure_adc+0x3e>
+    2f80:	b25b      	sxtb	r3, r3
+    2f82:	2b00      	cmp	r3, #0
+    2f84:	dbfb      	blt.n	2f7e <configure_adc+0x3e>
 	adc_enable(&adc_instance);
 }
-    2f7a:	b00c      	add	sp, #48	; 0x30
-    2f7c:	bd10      	pop	{r4, pc}
-    2f7e:	46c0      	nop			; (mov r8, r8)
-    2f80:	000004dd 	.word	0x000004dd
-    2f84:	200002f0 	.word	0x200002f0
-    2f88:	42004000 	.word	0x42004000
-    2f8c:	00000521 	.word	0x00000521
-    2f90:	e000e100 	.word	0xe000e100
+    2f86:	b00c      	add	sp, #48	; 0x30
+    2f88:	bd10      	pop	{r4, pc}
+    2f8a:	46c0      	nop			; (mov r8, r8)
+    2f8c:	000004dd 	.word	0x000004dd
+    2f90:	200002f0 	.word	0x200002f0
+    2f94:	42004000 	.word	0x42004000
+    2f98:	00000521 	.word	0x00000521
+    2f9c:	e000e100 	.word	0xe000e100
 
-00002f94 <setupBoard>:
+00002fa0 <setupBoard>:
 
 
 void setupBoard(void)
 {
-    2f94:	b570      	push	{r4, r5, r6, lr}
+    2fa0:	b570      	push	{r4, r5, r6, lr}
 	uint16_t adcResult;
 	
 	configure_adc();
-    2f96:	4b29      	ldr	r3, [pc, #164]	; (303c <setupBoard+0xa8>)
-    2f98:	4798      	blx	r3
+    2fa2:	4b29      	ldr	r3, [pc, #164]	; (3048 <setupBoard+0xa8>)
+    2fa4:	4798      	blx	r3
 	Adc *const adc_module = module_inst->hw;
-    2f9a:	4b29      	ldr	r3, [pc, #164]	; (3040 <setupBoard+0xac>)
-    2f9c:	6819      	ldr	r1, [r3, #0]
-    2f9e:	7e4b      	ldrb	r3, [r1, #25]
+    2fa6:	4b29      	ldr	r3, [pc, #164]	; (304c <setupBoard+0xac>)
+    2fa8:	6819      	ldr	r1, [r3, #0]
+    2faa:	7e4b      	ldrb	r3, [r1, #25]
 	while (adc_is_syncing(module_inst)) {
-    2fa0:	b25b      	sxtb	r3, r3
-    2fa2:	2b00      	cmp	r3, #0
-    2fa4:	dbfb      	blt.n	2f9e <setupBoard+0xa>
+    2fac:	b25b      	sxtb	r3, r3
+    2fae:	2b00      	cmp	r3, #0
+    2fb0:	dbfb      	blt.n	2faa <setupBoard+0xa>
 	adc_module->SWTRIG.reg |= ADC_SWTRIG_START;
-    2fa6:	7b0b      	ldrb	r3, [r1, #12]
-    2fa8:	2202      	movs	r2, #2
-    2faa:	4313      	orrs	r3, r2
-    2fac:	730b      	strb	r3, [r1, #12]
-    2fae:	7e4b      	ldrb	r3, [r1, #25]
+    2fb2:	7b0b      	ldrb	r3, [r1, #12]
+    2fb4:	2202      	movs	r2, #2
+    2fb6:	4313      	orrs	r3, r2
+    2fb8:	730b      	strb	r3, [r1, #12]
+    2fba:	7e4b      	ldrb	r3, [r1, #25]
 	while (adc_is_syncing(module_inst)) {
-    2fb0:	b25b      	sxtb	r3, r3
-    2fb2:	2b00      	cmp	r3, #0
-    2fb4:	dbfb      	blt.n	2fae <setupBoard+0x1a>
+    2fbc:	b25b      	sxtb	r3, r3
+    2fbe:	2b00      	cmp	r3, #0
+    2fc0:	dbfb      	blt.n	2fba <setupBoard+0x1a>
 	if (int_flags & ADC_INTFLAG_RESRDY) {
-    2fb6:	2001      	movs	r0, #1
+    2fc2:	2001      	movs	r0, #1
 	if (int_flags & ADC_INTFLAG_WINMON) {
-    2fb8:	2504      	movs	r5, #4
+    2fc4:	2504      	movs	r5, #4
 		status_flags |= ADC_STATUS_WINDOW;
-    2fba:	2402      	movs	r4, #2
-    2fbc:	e001      	b.n	2fc2 <setupBoard+0x2e>
+    2fc6:	2402      	movs	r4, #2
+    2fc8:	e001      	b.n	2fce <setupBoard+0x2e>
 	if (!(adc_get_status(module_inst) & ADC_STATUS_RESULT_READY)) {
-    2fbe:	4210      	tst	r0, r2
-    2fc0:	d10a      	bne.n	2fd8 <setupBoard+0x44>
+    2fca:	4210      	tst	r0, r2
+    2fcc:	d10a      	bne.n	2fe4 <setupBoard+0x44>
 	uint32_t int_flags = adc_module->INTFLAG.reg;
-    2fc2:	7e0b      	ldrb	r3, [r1, #24]
-    2fc4:	b2db      	uxtb	r3, r3
+    2fce:	7e0b      	ldrb	r3, [r1, #24]
+    2fd0:	b2db      	uxtb	r3, r3
 	if (int_flags & ADC_INTFLAG_RESRDY) {
-    2fc6:	0002      	movs	r2, r0
-    2fc8:	401a      	ands	r2, r3
+    2fd2:	0002      	movs	r2, r0
+    2fd4:	401a      	ands	r2, r3
 	if (int_flags & ADC_INTFLAG_WINMON) {
-    2fca:	421d      	tst	r5, r3
-    2fcc:	d000      	beq.n	2fd0 <setupBoard+0x3c>
+    2fd6:	421d      	tst	r5, r3
+    2fd8:	d000      	beq.n	2fdc <setupBoard+0x3c>
 		status_flags |= ADC_STATUS_WINDOW;
-    2fce:	4322      	orrs	r2, r4
+    2fda:	4322      	orrs	r2, r4
 	if (int_flags & ADC_INTFLAG_OVERRUN) {
-    2fd0:	421c      	tst	r4, r3
-    2fd2:	d0f4      	beq.n	2fbe <setupBoard+0x2a>
+    2fdc:	421c      	tst	r4, r3
+    2fde:	d0f4      	beq.n	2fca <setupBoard+0x2a>
 		status_flags |= ADC_STATUS_OVERRUN;
-    2fd4:	432a      	orrs	r2, r5
-    2fd6:	e7f2      	b.n	2fbe <setupBoard+0x2a>
-    2fd8:	7e4b      	ldrb	r3, [r1, #25]
+    2fe0:	432a      	orrs	r2, r5
+    2fe2:	e7f2      	b.n	2fca <setupBoard+0x2a>
+    2fe4:	7e4b      	ldrb	r3, [r1, #25]
 	while (adc_is_syncing(module_inst)) {
-    2fda:	b25b      	sxtb	r3, r3
-    2fdc:	2b00      	cmp	r3, #0
-    2fde:	dbfb      	blt.n	2fd8 <setupBoard+0x44>
+    2fe6:	b25b      	sxtb	r3, r3
+    2fe8:	2b00      	cmp	r3, #0
+    2fea:	dbfb      	blt.n	2fe4 <setupBoard+0x44>
 	*result = adc_module->RESULT.reg;
-    2fe0:	8b4c      	ldrh	r4, [r1, #26]
-    2fe2:	b2a4      	uxth	r4, r4
+    2fec:	8b4c      	ldrh	r4, [r1, #26]
+    2fee:	b2a4      	uxth	r4, r4
 	adc_module->INTFLAG.reg = int_flags;
-    2fe4:	2301      	movs	r3, #1
-    2fe6:	760b      	strb	r3, [r1, #24]
+    2ff0:	2301      	movs	r3, #1
+    2ff2:	760b      	strb	r3, [r1, #24]
 	uint32_t int_flags = adc_module->INTFLAG.reg;
-    2fe8:	7e0a      	ldrb	r2, [r1, #24]
-    2fea:	b2d2      	uxtb	r2, r2
+    2ff4:	7e0a      	ldrb	r2, [r1, #24]
+    2ff6:	b2d2      	uxtb	r2, r2
 	if (int_flags & ADC_INTFLAG_RESRDY) {
-    2fec:	4013      	ands	r3, r2
+    2ff8:	4013      	ands	r3, r2
 	if (int_flags & ADC_INTFLAG_WINMON) {
-    2fee:	0750      	lsls	r0, r2, #29
-    2ff0:	d501      	bpl.n	2ff6 <setupBoard+0x62>
+    2ffa:	0750      	lsls	r0, r2, #29
+    2ffc:	d501      	bpl.n	3002 <setupBoard+0x62>
 		status_flags |= ADC_STATUS_WINDOW;
-    2ff2:	2002      	movs	r0, #2
-    2ff4:	4303      	orrs	r3, r0
+    2ffe:	2002      	movs	r0, #2
+    3000:	4303      	orrs	r3, r0
 	if (int_flags & ADC_INTFLAG_OVERRUN) {
-    2ff6:	0792      	lsls	r2, r2, #30
-    2ff8:	d501      	bpl.n	2ffe <setupBoard+0x6a>
+    3002:	0792      	lsls	r2, r2, #30
+    3004:	d501      	bpl.n	300a <setupBoard+0x6a>
 		status_flags |= ADC_STATUS_OVERRUN;
-    2ffa:	2204      	movs	r2, #4
-    2ffc:	4313      	orrs	r3, r2
+    3006:	2204      	movs	r2, #4
+    3008:	4313      	orrs	r3, r2
 	if (adc_get_status(module_inst) & ADC_STATUS_OVERRUN) {
-    2ffe:	075b      	lsls	r3, r3, #29
-    3000:	d501      	bpl.n	3006 <setupBoard+0x72>
+    300a:	075b      	lsls	r3, r3, #29
+    300c:	d501      	bpl.n	3012 <setupBoard+0x72>
 	adc_module->INTFLAG.reg = int_flags;
-    3002:	2302      	movs	r3, #2
-    3004:	760b      	strb	r3, [r1, #24]
+    300e:	2302      	movs	r3, #2
+    3010:	760b      	strb	r3, [r1, #24]
 		/* Wait for conversion to be done and read out result */
 	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
 	
 	//interruptInit();
 	
 	system_init();
-    3006:	4b0f      	ldr	r3, [pc, #60]	; (3044 <setupBoard+0xb0>)
-    3008:	4798      	blx	r3
+    3012:	4b0f      	ldr	r3, [pc, #60]	; (3050 <setupBoard+0xb0>)
+    3014:	4798      	blx	r3
 	delay_init();
-    300a:	4b0f      	ldr	r3, [pc, #60]	; (3048 <setupBoard+0xb4>)
-    300c:	4798      	blx	r3
+    3016:	4b0f      	ldr	r3, [pc, #60]	; (3054 <setupBoard+0xb4>)
+    3018:	4798      	blx	r3
 	srand(adcResult);
-    300e:	0020      	movs	r0, r4
-    3010:	4b0e      	ldr	r3, [pc, #56]	; (304c <setupBoard+0xb8>)
-    3012:	4798      	blx	r3
+    301a:	0020      	movs	r0, r4
+    301c:	4b0e      	ldr	r3, [pc, #56]	; (3058 <setupBoard+0xb8>)
+    301e:	4798      	blx	r3
 	configure_usart_USB();
-    3014:	4b0e      	ldr	r3, [pc, #56]	; (3050 <setupBoard+0xbc>)
-    3016:	4798      	blx	r3
+    3020:	4b0e      	ldr	r3, [pc, #56]	; (305c <setupBoard+0xbc>)
+    3022:	4798      	blx	r3
 	configure_console();
-    3018:	4b0e      	ldr	r3, [pc, #56]	; (3054 <setupBoard+0xc0>)
-    301a:	4798      	blx	r3
+    3024:	4b0e      	ldr	r3, [pc, #56]	; (3060 <setupBoard+0xc0>)
+    3026:	4798      	blx	r3
 	
 	printf("Serial OK 9600 8N1\n\r");
-    301c:	480e      	ldr	r0, [pc, #56]	; (3058 <setupBoard+0xc4>)
-    301e:	4b0f      	ldr	r3, [pc, #60]	; (305c <setupBoard+0xc8>)
-    3020:	4798      	blx	r3
+    3028:	480e      	ldr	r0, [pc, #56]	; (3064 <setupBoard+0xc4>)
+    302a:	4b0f      	ldr	r3, [pc, #60]	; (3068 <setupBoard+0xc8>)
+    302c:	4798      	blx	r3
 	
 	InitLCD();
-    3022:	4b0f      	ldr	r3, [pc, #60]	; (3060 <setupBoard+0xcc>)
-    3024:	4798      	blx	r3
+    302e:	4b0f      	ldr	r3, [pc, #60]	; (306c <setupBoard+0xcc>)
+    3030:	4798      	blx	r3
 	splashScreen();
-    3026:	4b0f      	ldr	r3, [pc, #60]	; (3064 <setupBoard+0xd0>)
-    3028:	4798      	blx	r3
+    3032:	4b0f      	ldr	r3, [pc, #60]	; (3070 <setupBoard+0xd0>)
+    3034:	4798      	blx	r3
 	
 	conf_systick();
-    302a:	4b0f      	ldr	r3, [pc, #60]	; (3068 <setupBoard+0xd4>)
-    302c:	4798      	blx	r3
+    3036:	4b0f      	ldr	r3, [pc, #60]	; (3074 <setupBoard+0xd4>)
+    3038:	4798      	blx	r3
 	clearCursorBuffer();
-    302e:	4b0f      	ldr	r3, [pc, #60]	; (306c <setupBoard+0xd8>)
-    3030:	4798      	blx	r3
+    303a:	4b0f      	ldr	r3, [pc, #60]	; (3078 <setupBoard+0xd8>)
+    303c:	4798      	blx	r3
 
 	moveCursor(0,0);
-    3032:	2100      	movs	r1, #0
-    3034:	2000      	movs	r0, #0
-    3036:	4b0e      	ldr	r3, [pc, #56]	; (3070 <setupBoard+0xdc>)
-    3038:	4798      	blx	r3
+    303e:	2100      	movs	r1, #0
+    3040:	2000      	movs	r0, #0
+    3042:	4b0e      	ldr	r3, [pc, #56]	; (307c <setupBoard+0xdc>)
+    3044:	4798      	blx	r3
 }
-    303a:	bd70      	pop	{r4, r5, r6, pc}
-    303c:	00002f35 	.word	0x00002f35
-    3040:	200002f0 	.word	0x200002f0
-    3044:	00001b45 	.word	0x00001b45
-    3048:	000003c9 	.word	0x000003c9
-    304c:	000032e5 	.word	0x000032e5
-    3050:	00002e79 	.word	0x00002e79
-    3054:	00001d6d 	.word	0x00001d6d
-    3058:	000064dc 	.word	0x000064dc
-    305c:	000032b1 	.word	0x000032b1
-    3060:	00002bb5 	.word	0x00002bb5
-    3064:	000001e5 	.word	0x000001e5
-    3068:	00002e25 	.word	0x00002e25
-    306c:	00002319 	.word	0x00002319
-    3070:	000023cd 	.word	0x000023cd
+    3046:	bd70      	pop	{r4, r5, r6, pc}
+    3048:	00002f41 	.word	0x00002f41
+    304c:	200002f0 	.word	0x200002f0
+    3050:	00001b45 	.word	0x00001b45
+    3054:	000003c9 	.word	0x000003c9
+    3058:	000032e5 	.word	0x000032e5
+    305c:	00002e85 	.word	0x00002e85
+    3060:	00001d6d 	.word	0x00001d6d
+    3064:	000064d0 	.word	0x000064d0
+    3068:	000032b1 	.word	0x000032b1
+    306c:	00002bc1 	.word	0x00002bc1
+    3070:	000001e5 	.word	0x000001e5
+    3074:	00002e31 	.word	0x00002e31
+    3078:	00002325 	.word	0x00002325
+    307c:	000023d9 	.word	0x000023d9
 
-00003074 <main>:
+00003080 <main>:
 {
-    3074:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    3080:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
 	setupBoard();
-    3076:	4b0f      	ldr	r3, [pc, #60]	; (30b4 <main+0x40>)
-    3078:	4798      	blx	r3
+    3082:	4b0e      	ldr	r3, [pc, #56]	; (30bc <main+0x3c>)
+    3084:	4798      	blx	r3
 		if(ul_tickcount % 12000 == 0)
-    307a:	4e0f      	ldr	r6, [pc, #60]	; (30b8 <main+0x44>)
-    307c:	4d0f      	ldr	r5, [pc, #60]	; (30bc <main+0x48>)
+    3086:	4e0e      	ldr	r6, [pc, #56]	; (30c0 <main+0x40>)
+    3088:	4d0e      	ldr	r5, [pc, #56]	; (30c4 <main+0x44>)
 			blinkCursor();
-    307e:	4f10      	ldr	r7, [pc, #64]	; (30c0 <main+0x4c>)
-    3080:	e016      	b.n	30b0 <main+0x3c>
+    308a:	4f0f      	ldr	r7, [pc, #60]	; (30c8 <main+0x48>)
+    308c:	e014      	b.n	30b8 <main+0x38>
 		if(ul_tickcount % 20 == 0)
-    3082:	4b0d      	ldr	r3, [pc, #52]	; (30b8 <main+0x44>)
-    3084:	8818      	ldrh	r0, [r3, #0]
-    3086:	2114      	movs	r1, #20
-    3088:	4b0c      	ldr	r3, [pc, #48]	; (30bc <main+0x48>)
-    308a:	4798      	blx	r3
-    308c:	b289      	uxth	r1, r1
-    308e:	2900      	cmp	r1, #0
-    3090:	d00a      	beq.n	30a8 <main+0x34>
-		if(ul_tickcount % 12000 == 0)
-    3092:	8830      	ldrh	r0, [r6, #0]
-    3094:	0021      	movs	r1, r4
-    3096:	47a8      	blx	r5
+    308e:	4b0c      	ldr	r3, [pc, #48]	; (30c0 <main+0x40>)
+    3090:	8818      	ldrh	r0, [r3, #0]
+    3092:	2114      	movs	r1, #20
+    3094:	4b0b      	ldr	r3, [pc, #44]	; (30c4 <main+0x44>)
+    3096:	4798      	blx	r3
     3098:	b289      	uxth	r1, r1
     309a:	2900      	cmp	r1, #0
-    309c:	d1f1      	bne.n	3082 <main+0xe>
-			blinkCursor();
-    309e:	47b8      	blx	r7
-			printf("Blink/n/r");
-    30a0:	4808      	ldr	r0, [pc, #32]	; (30c4 <main+0x50>)
-    30a2:	4b09      	ldr	r3, [pc, #36]	; (30c8 <main+0x54>)
-    30a4:	4798      	blx	r3
-    30a6:	e7ec      	b.n	3082 <main+0xe>
-			readKeyboard();
-    30a8:	4b08      	ldr	r3, [pc, #32]	; (30cc <main+0x58>)
-    30aa:	4798      	blx	r3
-			printKeyboardBuffer();
-    30ac:	4b08      	ldr	r3, [pc, #32]	; (30d0 <main+0x5c>)
-    30ae:	4798      	blx	r3
+    309c:	d008      	beq.n	30b0 <main+0x30>
+		__WFI();
+    309e:	bf30      	wfi
 		if(ul_tickcount % 12000 == 0)
-    30b0:	4c08      	ldr	r4, [pc, #32]	; (30d4 <main+0x60>)
-    30b2:	e7ee      	b.n	3092 <main+0x1e>
-    30b4:	00002f95 	.word	0x00002f95
-    30b8:	20000182 	.word	0x20000182
-    30bc:	000031e5 	.word	0x000031e5
-    30c0:	000026f9 	.word	0x000026f9
-    30c4:	000064d0 	.word	0x000064d0
-    30c8:	000032b1 	.word	0x000032b1
+    30a0:	8830      	ldrh	r0, [r6, #0]
+    30a2:	0021      	movs	r1, r4
+    30a4:	47a8      	blx	r5
+    30a6:	b289      	uxth	r1, r1
+    30a8:	2900      	cmp	r1, #0
+    30aa:	d1f0      	bne.n	308e <main+0xe>
+			blinkCursor();
+    30ac:	47b8      	blx	r7
+    30ae:	e7ee      	b.n	308e <main+0xe>
+			readKeyboard();
+    30b0:	4b06      	ldr	r3, [pc, #24]	; (30cc <main+0x4c>)
+    30b2:	4798      	blx	r3
+			printKeyboardBuffer();
+    30b4:	4b06      	ldr	r3, [pc, #24]	; (30d0 <main+0x50>)
+    30b6:	4798      	blx	r3
+		if(ul_tickcount % 12000 == 0)
+    30b8:	4c06      	ldr	r4, [pc, #24]	; (30d4 <main+0x54>)
+    30ba:	e7f0      	b.n	309e <main+0x1e>
+    30bc:	00002fa1 	.word	0x00002fa1
+    30c0:	20000182 	.word	0x20000182
+    30c4:	000031e5 	.word	0x000031e5
+    30c8:	00002705 	.word	0x00002705
     30cc:	00002175 	.word	0x00002175
-    30d0:	000024d1 	.word	0x000024d1
+    30d0:	000024dd 	.word	0x000024dd
     30d4:	00002ee0 	.word	0x00002ee0
 
 000030d8 <__udivsi3>:
@@ -9211,7 +9211,7 @@ void setupBoard(void)
     3250:	42a6      	cmp	r6, r4
     3252:	d109      	bne.n	3268 <__libc_init_array+0x24>
     3254:	2600      	movs	r6, #0
-    3256:	f003 f999 	bl	658c <_init>
+    3256:	f003 f993 	bl	6580 <_init>
     325a:	4d0a      	ldr	r5, [pc, #40]	; (3284 <__libc_init_array+0x40>)
     325c:	4c0a      	ldr	r4, [pc, #40]	; (3288 <__libc_init_array+0x44>)
     325e:	1b64      	subs	r4, r4, r5
@@ -9229,10 +9229,10 @@ void setupBoard(void)
     3276:	4798      	blx	r3
     3278:	3601      	adds	r6, #1
     327a:	e7f2      	b.n	3262 <__libc_init_array+0x1e>
-    327c:	00006598 	.word	0x00006598
-    3280:	00006598 	.word	0x00006598
-    3284:	00006598 	.word	0x00006598
-    3288:	0000659c 	.word	0x0000659c
+    327c:	0000658c 	.word	0x0000658c
+    3280:	0000658c 	.word	0x0000658c
+    3284:	0000658c 	.word	0x0000658c
+    3288:	00006590 	.word	0x00006590
 
 0000328c <memcpy>:
     328c:	2300      	movs	r3, #0
@@ -9541,10 +9541,10 @@ void setupBoard(void)
     350c:	4240      	negs	r0, r0
     350e:	e7bf      	b.n	3490 <setvbuf+0xc4>
     3510:	20000040 	.word	0x20000040
-    3514:	00006518 	.word	0x00006518
+    3514:	0000650c 	.word	0x0000650c
     3518:	fffff35c 	.word	0xfffff35c
-    351c:	00006538 	.word	0x00006538
-    3520:	000064f8 	.word	0x000064f8
+    351c:	0000652c 	.word	0x0000652c
+    3520:	000064ec 	.word	0x000064ec
 
 00003524 <strlen>:
     3524:	2300      	movs	r3, #0
@@ -9731,9 +9731,9 @@ void setupBoard(void)
     368e:	d1ee      	bne.n	366e <_fflush_r+0x26>
     3690:	68ec      	ldr	r4, [r5, #12]
     3692:	e7ec      	b.n	366e <_fflush_r+0x26>
-    3694:	00006518 	.word	0x00006518
-    3698:	00006538 	.word	0x00006538
-    369c:	000064f8 	.word	0x000064f8
+    3694:	0000650c 	.word	0x0000650c
+    3698:	0000652c 	.word	0x0000652c
+    369c:	000064ec 	.word	0x000064ec
 
 000036a0 <_cleanup_r>:
     36a0:	b510      	push	{r4, lr}
@@ -9841,7 +9841,7 @@ void setupBoard(void)
     377e:	61a3      	str	r3, [r4, #24]
     3780:	bd13      	pop	{r0, r1, r4, pc}
     3782:	46c0      	nop			; (mov r8, r8)
-    3784:	000064f4 	.word	0x000064f4
+    3784:	000064e8 	.word	0x000064e8
     3788:	000036a1 	.word	0x000036a1
 
 0000378c <__sfp>:
@@ -9904,7 +9904,7 @@ void setupBoard(void)
     3802:	64e5      	str	r5, [r4, #76]	; 0x4c
     3804:	e7e6      	b.n	37d4 <__sfp+0x48>
     3806:	46c0      	nop			; (mov r8, r8)
-    3808:	000064f4 	.word	0x000064f4
+    3808:	000064e8 	.word	0x000064e8
 
 0000380c <_fwalk_reent>:
     380c:	b5f7      	push	{r0, r1, r2, r4, r5, r6, r7, lr}
@@ -10523,12 +10523,12 @@ void setupBoard(void)
     3cec:	0030      	movs	r0, r6
     3cee:	f000 f87f 	bl	3df0 <_printf_i>
     3cf2:	e7ec      	b.n	3cce <_vfiprintf_r+0x1f2>
-    3cf4:	00006518 	.word	0x00006518
-    3cf8:	00006558 	.word	0x00006558
-    3cfc:	00006538 	.word	0x00006538
-    3d00:	000064f8 	.word	0x000064f8
-    3d04:	0000655e 	.word	0x0000655e
-    3d08:	00006562 	.word	0x00006562
+    3cf4:	0000650c 	.word	0x0000650c
+    3cf8:	0000654c 	.word	0x0000654c
+    3cfc:	0000652c 	.word	0x0000652c
+    3d00:	000064ec 	.word	0x000064ec
+    3d04:	00006552 	.word	0x00006552
+    3d08:	00006556 	.word	0x00006556
     3d0c:	00000000 	.word	0x00000000
     3d10:	00003ab7 	.word	0x00003ab7
 
@@ -10919,8 +10919,8 @@ void setupBoard(void)
     4016:	4240      	negs	r0, r0
     4018:	b00b      	add	sp, #44	; 0x2c
     401a:	bdf0      	pop	{r4, r5, r6, r7, pc}
-    401c:	0000657a 	.word	0x0000657a
-    4020:	00006569 	.word	0x00006569
+    401c:	0000656e 	.word	0x0000656e
+    4020:	0000655d 	.word	0x0000655d
 
 00004024 <_sbrk_r>:
     4024:	2300      	movs	r3, #0
@@ -11093,9 +11093,9 @@ void setupBoard(void)
     417a:	4276      	negs	r6, r6
     417c:	0030      	movs	r0, r6
     417e:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
-    4180:	00006518 	.word	0x00006518
-    4184:	00006538 	.word	0x00006538
-    4188:	000064f8 	.word	0x000064f8
+    4180:	0000650c 	.word	0x0000650c
+    4184:	0000652c 	.word	0x0000652c
+    4188:	000064ec 	.word	0x000064ec
 
 0000418c <_write_r>:
     418c:	b570      	push	{r4, r5, r6, lr}
@@ -11226,9 +11226,9 @@ void setupBoard(void)
     428c:	60a3      	str	r3, [r4, #8]
     428e:	e7ed      	b.n	426c <__swsetup_r+0xb8>
     4290:	20000040 	.word	0x20000040
-    4294:	00006518 	.word	0x00006518
-    4298:	00006538 	.word	0x00006538
-    429c:	000064f8 	.word	0x000064f8
+    4294:	0000650c 	.word	0x0000650c
+    4298:	0000652c 	.word	0x0000652c
+    429c:	000064ec 	.word	0x000064ec
 
 000042a0 <_close_r>:
     42a0:	2300      	movs	r3, #0
@@ -13120,44 +13120,43 @@ void setupBoard(void)
     6498:	02010002 00020100 01000201 01000002     ................
     64a8:	02010000 00020100 01000201 03020100     ................
     64b8:	00000004 01000100 01000302 02010002     ................
-    64c8:	00000403 00000000 6e696c42 2f6e2f6b     ........Blink/n/
-    64d8:	00000072 69726553 4f206c61 3639204b     r...Serial OK 96
-    64e8:	38203030 0d0a314e 00000000              00 8N1......
+    64c8:	00000403 00000000 69726553 4f206c61     ........Serial O
+    64d8:	3639204b 38203030 0d0a314e 00000000     K 9600 8N1......
 
-000064f4 <_global_impure_ptr>:
-    64f4:	20000044                                D.. 
+000064e8 <_global_impure_ptr>:
+    64e8:	20000044                                D.. 
 
-000064f8 <__sf_fake_stderr>:
+000064ec <__sf_fake_stderr>:
 	...
 
-00006518 <__sf_fake_stdin>:
+0000650c <__sf_fake_stdin>:
 	...
 
-00006538 <__sf_fake_stdout>:
+0000652c <__sf_fake_stdout>:
 	...
-    6558:	2b302d23 6c680020 6665004c 47464567     #-0+ .hlL.efgEFG
-    6568:	32313000 36353433 41393837 45444342     .0123456789ABCDE
-    6578:	31300046 35343332 39383736 64636261     F.0123456789abcd
-    6588:	00006665                                ef..
+    654c:	2b302d23 6c680020 6665004c 47464567     #-0+ .hlL.efgEFG
+    655c:	32313000 36353433 41393837 45444342     .0123456789ABCDE
+    656c:	31300046 35343332 39383736 64636261     F.0123456789abcd
+    657c:	00006665                                ef..
 
-0000658c <_init>:
-    658c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
-    658e:	46c0      	nop			; (mov r8, r8)
-    6590:	bcf8      	pop	{r3, r4, r5, r6, r7}
-    6592:	bc08      	pop	{r3}
-    6594:	469e      	mov	lr, r3
-    6596:	4770      	bx	lr
+00006580 <_init>:
+    6580:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    6582:	46c0      	nop			; (mov r8, r8)
+    6584:	bcf8      	pop	{r3, r4, r5, r6, r7}
+    6586:	bc08      	pop	{r3}
+    6588:	469e      	mov	lr, r3
+    658a:	4770      	bx	lr
 
-00006598 <__init_array_start>:
-    6598:	000000dd 	.word	0x000000dd
+0000658c <__init_array_start>:
+    658c:	000000dd 	.word	0x000000dd
 
-0000659c <_fini>:
-    659c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
-    659e:	46c0      	nop			; (mov r8, r8)
-    65a0:	bcf8      	pop	{r3, r4, r5, r6, r7}
-    65a2:	bc08      	pop	{r3}
-    65a4:	469e      	mov	lr, r3
-    65a6:	4770      	bx	lr
+00006590 <_fini>:
+    6590:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    6592:	46c0      	nop			; (mov r8, r8)
+    6594:	bcf8      	pop	{r3, r4, r5, r6, r7}
+    6596:	bc08      	pop	{r3}
+    6598:	469e      	mov	lr, r3
+    659a:	4770      	bx	lr
 
-000065a8 <__fini_array_start>:
-    65a8:	000000b5 	.word	0x000000b5
+0000659c <__fini_array_start>:
+    659c:	000000b5 	.word	0x000000b5
