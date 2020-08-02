@@ -322,6 +322,7 @@ void readKeyboard(void)
 	}
 }
 
+
 bool bufferContains(int scanCode)
 {
 	for(int i = 0 ; i < 20 ; i++)
@@ -329,10 +330,6 @@ bool bufferContains(int scanCode)
 		if(scanCodeBuffer[i] == scanCode)
 		{
 			return true;
-		}
-		else
-		{
-			return false;
 		}
 	}
 	return false;
@@ -345,12 +342,7 @@ bool keyDown(int scancode)
 		if(keyDownBuffer[i] == scancode)
 		{
 			return true;
-		}
-		else
-		{
-			return false;
-		}
-		
+		}	
 	}
 	return false;
 }
