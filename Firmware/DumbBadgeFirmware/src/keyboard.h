@@ -13,6 +13,7 @@ void printKeyboardBuffer(void);
 void readKeyboard(void);
 
 bool bufferContains(int scanCode);
+bool scanCodesContains(int scanCode);
 bool keyDown(int scancode);
 void removeFromKeyDown(int scancode);
 

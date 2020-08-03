@@ -17,11 +17,19 @@ bool scrollLock = false;
 bool cursorBlinkState = true;
 
 char scanCodeBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-						0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
 char keyDownBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-						0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
-
+0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+	
+int scanCodes[70] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+	0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+						
 uint8_t cursorBuffer[200];
 
 #define NUM_ROW 10
@@ -195,6 +203,7 @@ void printKeyboardBuffer(void)
 						moveCursor(xCharPos++,yCharPos);
 						xCharPos++;
 						clearCursorBuffer();
+						
 					}
 				}
 				else
@@ -206,12 +215,12 @@ void printKeyboardBuffer(void)
 						moveCursor(xCharPos++,yCharPos);
 						xCharPos++;
 						clearCursorBuffer();
+						
 					}
 				}
 			}
 		}
 	}
-	
 	
 	
 	//Reset the buffer.
@@ -240,25 +249,18 @@ void readKeyboard(void)
 	
 	For each keypress, scanCodeIndex is incremented. this is used as a counter
 	to keep track of how many keys are pressed.
-	
-	all keys are added to the keyDownBuffer. This is to 
-	
-	Relevant information:
-	------------------------------------------------------------------------
-	KB_ROW0		PORT_PA02				KB_COL0		PORT_PA16
-	KB_ROW1		PORT_PA03				KB_COL1		PORT_PA17
-	KB_ROW2		PORT_PA04				KB_COL2		PORT_PA18
-	KB_ROW3		PORT_PA05				KB_COL3		PORT_PA19
-	KB_ROW4		PORT_PA06				KB_COL4		PORT_PA20
-	KB_ROW5		PORT_PA07				KB_COL5		PORT_PA21
-	KB_ROW6		PORT_PA10				KB_COL6		PORT_PA27
-	KB_ROW7		PORT_PA11
-	KB_ROW8		PORT_PA12
-	KB_ROW9		PORT_PA13	*/
+	*/
 	
 	int scanCodeIndex = 0;
-	int scanCodes[70];
 	int i, j;
+	
+
+	//Reset ScanCodes[]
+	for(i = 0 ; i < 70 ; i++)
+	{
+		scanCodes[i] = 0xFF;
+	}
+	
 	
 	//Set strong drive on column
 	PORT->Group[0].WRCONFIG.bit.DRVSTR = 1;
@@ -313,15 +315,36 @@ void readKeyboard(void)
 		REG_PORT_OUTCLR0 = kb_row[i];
 	}
 	
-	for(i = 0; i < scanCodeIndex; i++)
+	//Send the scancodes to scancodebuffer, this is what 
+	//printkeyboardbuffer actually reads
+	for(i = 0 ; i < scanCodeIndex ; i++)
 	{
-		if(!bufferContains(scanCodes[i]))		//if it isn't already in the scancode buffer
+		scanCodeBuffer[i] = scanCodes[i];	
+	}
+	
+	//Remove a key if it is in the keyDownBuffer and
+	//not in scanCodes[]. There are only 70 keys,
+	//so we can go through all of those individually.
+	for(i = 0; i < 70; i++)
+	{
+		if(keyDown(i) && !scanCodesContains(i))
 		{
-			scanCodeBuffer[i] = scanCodes[i];
+			removeFromKeyDown(i);
 		}
 	}
 }
 
+bool scanCodesContains(int scanCode)
+{
+	for(int i = 0 ; i < 70 ; i++)
+	{
+		if(scanCodes[i] == scanCode)
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 bool bufferContains(int scanCode)
 {
