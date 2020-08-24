@@ -53,6 +53,7 @@ int main (void)
 		{
 			readKeyboard();
 			printKeyboardBuffer();
+			printf("Xcharpos: %i \t Ycharpos: %i\n\r",xCharPos,yCharPos);
 		}
 		
 
@@ -133,10 +134,7 @@ void setupBoard(void)
 	
 	InitLCD();
 	splashScreen();
-	
-	
-
-	
+		
 	printf("Serial OK 9600 8N1\n\r");
 	
 	conf_systick();
