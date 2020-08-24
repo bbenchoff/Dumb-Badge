@@ -438,7 +438,7 @@ void moveCursor(uint8_t x, uint8_t y)
 	//Per page 40 of datasheet (5.1.2.7, 16-bit
 	//parallel interface for data ram read.
 	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY(abs(x-79)*10,y*20,abs(x-79)*10+9,y*20+19);
+	setXY(abs(xCharPos-79)*10,yCharPos*20,abs(xCharPos-79)*10+9,yCharPos*20+19);
 	
 	//Send'Memory read' command 0x2E00, no data bit
 	LCD_Write_COM16(0x2E,0x00);

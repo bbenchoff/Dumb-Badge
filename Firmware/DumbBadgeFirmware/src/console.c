@@ -14,8 +14,6 @@
 
 #include "globals.h"
 
-
-
 uint8_t xCharPos = 0;
 uint8_t yCharPos = 0;
 

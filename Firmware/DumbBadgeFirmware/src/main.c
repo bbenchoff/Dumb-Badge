@@ -39,9 +39,9 @@ int main (void)
 	while(1)
 	{	
 		
-		__WFI();
+		//__WFI();
 		
-		if(ul_tickcount % 12000 == 0)
+		if(ul_tickcount % 10000 == 0)
 		{
 			blinkCursor();
 			//invertCursorBuffer();
@@ -66,12 +66,12 @@ void SysTick_Handler(void)
 
 	
 	ul_tickcount++;
-			
-	if(ul_tickcount == (12000-1))
+	
+	if(ul_tickcount == (10000))
 	{
 		ul_tickcount = 0;
 	}
-			
+	
 
 }
 
@@ -115,24 +115,29 @@ void setupBoard(void)
 {
 	uint16_t adcResult;
 	
+
+	system_init();
+	
 	configure_adc();
 	adc_start_conversion(&adc_instance);
 	do {
 		/* Wait for conversion to be done and read out result */
 	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
 	
-	//interruptInit();
-	
 	system_init();
+	
 	delay_init();
 	srand(adcResult);
 	configure_usart_USB();
 	configure_console();
 	
-	printf("Serial OK 9600 8N1\n\r");
-	
 	InitLCD();
 	splashScreen();
+	
+	
+
+	
+	printf("Serial OK 9600 8N1\n\r");
 	
 	conf_systick();
 	clearCursorBuffer();
