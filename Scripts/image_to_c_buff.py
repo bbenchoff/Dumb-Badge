@@ -47,8 +47,8 @@ def split_source_image(infile, block_size=[20,10]):
     idx = 0
     retVal = {}
     # top to bottom, left to right through the source image.
-    hc = int(w/block_size[0])-1
-    vc = int(h/block_size[1])-1
+    hc = int(w/block_size[0])  
+    vc = int(h/block_size[1]) 
     for hsz in range(0,hc):
         for vsz in range(0,vc):
             x_start = hsz*block_size[1]
@@ -71,7 +71,7 @@ def int_series_to_c_string(int_series,variable_name):
     """
     Make a series of ints into a C style hex array
     """
-    return_value =  "{0}[25] = {{ \n\t"
+    return_value =  "{0} = \n{{ \n\t"
     return_value = return_value.format(variable_name)
     count = 0;
     for v in int_series[0:-1]:
@@ -89,7 +89,7 @@ def int_series_to_c_string(int_series,variable_name):
 def chip_map_to_c_file(chip_map,fname):
     f = open(fname, "w")
     for k,v in chip_map.items():
-        name = "[0x{:02x}]".format(k)
+        name = "//Character 0x{:02x}".format(k)
         c_def = int_series_to_c_string(v,name)
         f.write(c_def)
     return

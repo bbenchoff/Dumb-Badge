@@ -140,7 +140,12 @@ void splashScreen(void)
 	else
 	drawKare(0); //The normal graphic
 	
+	/*
 	setDrawDirection();
+	This is not used since I fixed the way fonts are rendered;
+	Now, pixel(0,0) is in the top *right* corner of the screen.
+	Trust me, this is easier.
+	*/
 	
 	xCharPos = 40 - (strlen(textPhrase)/2);
 	yCharPos = 16;
