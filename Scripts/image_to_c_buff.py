@@ -14,8 +14,8 @@ def chip_to_int_series(chip,style="col_major"):
     of ints. Default is col major, approach.
     """
     bits = 8
-    #chip = np.fliplr(chip)
-    chip = np.flipud(chip)
+    chip = np.fliplr(chip)
+    #chip = np.flipud(chip)
     #cv2.imwrite("Chip.png",chip)
     chip = chip / 255
     if style == "col_major":
