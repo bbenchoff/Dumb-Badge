@@ -39,7 +39,7 @@ int main (void)
 	while(1)
 	{	
 		
-		//__WFI();
+		__WFI();
 		
 		if(ul_tickcount % 10000 == 0)
 		{
@@ -53,7 +53,7 @@ int main (void)
 		{
 			readKeyboard();
 			printKeyboardBuffer();
-			printf("Xcharpos: %i \t Ycharpos: %i\n\r",xCharPos,yCharPos);
+			//printf("Xcharpos: %i \t Ycharpos: %i\n\r",xCharPos,yCharPos);
 		}
 		
 
@@ -68,7 +68,7 @@ void SysTick_Handler(void)
 	
 	ul_tickcount++;
 	
-	if(ul_tickcount == (10000))
+	if(ul_tickcount == (10000+1))
 	{
 		ul_tickcount = 0;
 	}

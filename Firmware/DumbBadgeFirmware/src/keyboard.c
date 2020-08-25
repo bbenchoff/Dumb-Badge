@@ -112,11 +112,10 @@ void printKeyboardBuffer(void)
 				if(xCharPos > 0)  ///I think I need to decouple the reading the next cursor
 				//and actually moving the thing.
 				{
-					
 					drawCursorBuffer();
 					moveCursor(xCharPos-1,yCharPos);
-					
-					//clearCursorBuffer();
+					drawCursorBuffer();
+					clearCursorBuffer();
 				}
 			}
 			else if(scanCodeBuffer[i] == 45)	//down
