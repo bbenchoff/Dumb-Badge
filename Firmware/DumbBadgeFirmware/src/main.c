@@ -41,7 +41,7 @@ int main (void)
 		
 		__WFI();
 		
-		if(ul_tickcount % 10000 == 0)
+		if(ul_tickcount == (UINT16_MAX))
 		{
 			blinkCursor();
 			//invertCursorBuffer();
@@ -49,7 +49,7 @@ int main (void)
 			//printf("Blink %i\n\r",rand());
 		}
 		
-		if(ul_tickcount % 20 == 0)
+		if(ul_tickcount % 200 == 0)
 		{
 			readKeyboard();
 			printKeyboardBuffer();
@@ -68,11 +68,11 @@ void SysTick_Handler(void)
 	
 	ul_tickcount++;
 	
-	if(ul_tickcount == (10000+1))
+	/*if(ul_tickcount == (15000+1))
 	{
 		ul_tickcount = 0;
 	}
-	
+	*/
 
 }
 

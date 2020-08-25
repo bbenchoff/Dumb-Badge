@@ -139,7 +139,8 @@ src/console.d src/console.o: ../src/console.c ../src/asf.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
- ../src/LCDBus.h ../src/LCD.h ../src/console.h ../src/globals.h
+ ../src/LCDBus.h ../src/LCD.h ../src/console.h ../src/fonts.h \
+ ../src/globals.h
 
 ../src/asf.h:
 
@@ -434,5 +435,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/LCD.h:
 
 ../src/console.h:
+
+../src/fonts.h:
 
 ../src/globals.h:

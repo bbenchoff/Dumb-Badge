@@ -115,40 +115,41 @@ void printKeyboardBuffer(void)
 					drawCursorBuffer();
 					moveCursor(xCharPos-1,yCharPos);
 					drawCursorBuffer();
-					clearCursorBuffer();
+					cursorBlinkState = true;
+					blinkCursor();
 				}
 			}
 			else if(scanCodeBuffer[i] == 45)	//down
 			{
 				if(yCharPos < 24)
 				{
-					
 					drawCursorBuffer();
 					moveCursor(xCharPos,yCharPos+1);
-					
-					//clearCursorBuffer();
+					drawCursorBuffer();
+					cursorBlinkState = true;
+					blinkCursor();
 				}
 			}
 			else if(scanCodeBuffer[i] == 55)	//up
 			{
 				if(yCharPos > 0)
 				{
-					
 					drawCursorBuffer();
 					moveCursor(xCharPos,yCharPos-1);
-					
-					//clearCursorBuffer();
+					drawCursorBuffer();
+					cursorBlinkState = true;
+					blinkCursor();
 				}
 			}
 			else if(scanCodeBuffer[i] == 65)	//right
 			{
 				if(xCharPos < 79)
 				{
-					
 					drawCursorBuffer();
 					moveCursor(xCharPos+1,yCharPos);
-					
-					//clearCursorBuffer();
+					drawCursorBuffer();
+					cursorBlinkState = true;
+					blinkCursor();
 				}
 			}
 			
@@ -187,7 +188,7 @@ void printKeyboardBuffer(void)
 				drawCursorBuffer();
 				xCharPos--;
 				drawChar(0x20);
-				//drawCursorBuffer();
+				drawCursorBuffer();
 				clearCursorBuffer();
 				moveCursor(xCharPos,yCharPos);
 				
@@ -204,11 +205,13 @@ void printKeyboardBuffer(void)
 						clearCursorBuffer();
 						
 					}
+					cursorBlinkState = true;
+					blinkCursor();
 				}
 				else
 				{
 					drawChar(noCase[scanCodeBuffer[i]]);
-					//clearCursorBuffer();
+				
 					if(xCharPos < 79)
 					{
 						moveCursor(xCharPos++,yCharPos);
@@ -216,6 +219,8 @@ void printKeyboardBuffer(void)
 						clearCursorBuffer();
 						
 					}
+					cursorBlinkState = true;
+					blinkCursor();
 				}
 			}
 		}
@@ -391,7 +396,7 @@ void clearCursorBuffer(void)
 void drawCursorBuffer(void)
 {
 
-	setXY((xCharPos)*10,yCharPos*20,(xCharPos)*10+9,yCharPos*20+19);
+	setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
 	
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
@@ -428,6 +433,7 @@ void moveCursor(uint8_t x, uint8_t y)
 	
 	//All this function does is read the GRAM and move the cursor.
 	
+	
 	//set PB07 to input
 	REG_PORT_DIRCLR1 = PORT_PB07;
 	PORT->Group[1].PINCFG[7].bit.INEN = 1;
@@ -437,7 +443,7 @@ void moveCursor(uint8_t x, uint8_t y)
 	//Per page 40 of datasheet (5.1.2.7, 16-bit
 	//parallel interface for data ram read.
 	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY((xCharPos)*10,yCharPos*20,(xCharPos)*10+9,yCharPos*20+19);
+	setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
 	
 	//Send'Memory read' command 0x2E00, no data bit
 	LCD_Write_COM16(0x2E,0x00);
@@ -490,7 +496,7 @@ void blinkCursor(void)
 	{
 
 		//Draw the *inverse* of cursorBuffer
-		setXY((xCharPos)*10,yCharPos*20,(xCharPos)*10+9,yCharPos*20+19);
+		setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
 		
 		for(uint16_t i = 0 ; i < 200 ; i++)
 		{
@@ -506,7 +512,7 @@ void blinkCursor(void)
 	else
 	{
 
-		setXY((xCharPos)*10,yCharPos*20,(xCharPos)*10+9,yCharPos*20+19);
+		setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
 		
 		for(uint16_t i = 0 ; i < 200 ; i++)
 		{
