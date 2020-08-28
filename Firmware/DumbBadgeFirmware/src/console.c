@@ -8,7 +8,6 @@
 #include <asf.h>
 #include <string.h>
 
-
 #include "LCDBus.h"
 #include "LCD.h"
 #include "console.h"
@@ -19,8 +18,6 @@
 uint8_t xCharPos = 0;
 uint8_t yCharPos = 0;
 
-//Wherein I give up and start getting this thing done
-char console[80][24];
 
 void drawChar(uint8_t character)
 {
@@ -135,8 +132,11 @@ void newLine(void)
 				setPixel((back_Color_High<<8)|back_Color_Low);
 		}
 	}
+	
 	//finally, clear the last character line of the display
+	//and fix the console text buffer
 	fillRectBackColor(0, 460, 799, 480);
+
 }
 
 void writeString(char str[])

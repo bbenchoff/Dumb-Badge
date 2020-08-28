@@ -152,6 +152,7 @@ void drawPixel(int x, int y)
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
+/*
 void setDrawDirection(void)
 {
 	//Following sets the MADCTL register for correct interfacing
@@ -166,7 +167,7 @@ void setDrawDirection(void)
 	LCD_Write_DATA8(0x80);
 	REG_PORT_OUTSET1 = LCD_CS;
 }
-
+*/
 void clearScreen(void)
 {
 	setColorRGB(0,0,0);

@@ -112,8 +112,9 @@ void printKeyboardBuffer(void)
 				if(xCharPos > 0)  ///I think I need to decouple the reading the next cursor
 				//and actually moving the thing.
 				{
-					drawCursorBuffer();
+					printf("left\n\r");
 					moveCursor(xCharPos-1,yCharPos);
+					xCharPos--;
 					drawCursorBuffer();
 					cursorBlinkState = true;
 					blinkCursor();
@@ -123,8 +124,9 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos < 24)
 				{
-					drawCursorBuffer();
+
 					moveCursor(xCharPos,yCharPos+1);
+					yCharPos++;
 					drawCursorBuffer();
 					cursorBlinkState = true;
 					blinkCursor();
@@ -134,8 +136,9 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos > 0)
 				{
-					drawCursorBuffer();
+
 					moveCursor(xCharPos,yCharPos-1);
+					yCharPos--;
 					drawCursorBuffer();
 					cursorBlinkState = true;
 					blinkCursor();
@@ -145,8 +148,9 @@ void printKeyboardBuffer(void)
 			{
 				if(xCharPos < 79)
 				{
-					drawCursorBuffer();
+
 					moveCursor(xCharPos+1,yCharPos);
+					xCharPos++;
 					drawCursorBuffer();
 					cursorBlinkState = true;
 					blinkCursor();
@@ -198,10 +202,11 @@ void printKeyboardBuffer(void)
 				if(shifted)
 				{
 					drawChar(shiftCase[scanCodeBuffer[i]]);
+					
 					if(xCharPos < 79)
 					{
 						moveCursor(xCharPos++,yCharPos);
-						xCharPos++;
+						//xCharPos++;
 						clearCursorBuffer();
 						
 					}
@@ -211,11 +216,10 @@ void printKeyboardBuffer(void)
 				else
 				{
 					drawChar(noCase[scanCodeBuffer[i]]);
-				
 					if(xCharPos < 79)
 					{
 						moveCursor(xCharPos++,yCharPos);
-						xCharPos++;
+						//xCharPos++;
 						clearCursorBuffer();
 						
 					}
@@ -395,9 +399,9 @@ void clearCursorBuffer(void)
 
 void drawCursorBuffer(void)
 {
-
+	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
-	
+	printf("Draw\t%i, %i, %i, %i\n\r",xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
 		if((cursorBuffer[i] == 0xFF))
@@ -405,7 +409,7 @@ void drawCursorBuffer(void)
 		else
 		setPixel((back_Color_High<<8)|back_Color_Low);
 	}
-	
+	REG_PORT_OUTSET1 = LCD_CS;
 
 }
 
@@ -443,7 +447,9 @@ void moveCursor(uint8_t x, uint8_t y)
 	//Per page 40 of datasheet (5.1.2.7, 16-bit
 	//parallel interface for data ram read.
 	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
+	setXY(x*10,y*20,x*10+9,y*20+19);
+	printf("Read\t%i, %i, %i, %i\n\r",x*10,y*20,x*10+9,y*20+19);
+	
 	
 	//Send'Memory read' command 0x2E00, no data bit
 	LCD_Write_COM16(0x2E,0x00);
@@ -483,11 +489,11 @@ void moveCursor(uint8_t x, uint8_t y)
 	REG_PORT_OUTSET1 = LCD_DC;
 	REG_PORT_DIRSET1 = 0x0000FFFF;
 	
-	//The cursor data is in the cursorBuffer, so now we move
+	/*//The cursor data is in the cursorBuffer, so now we move
 	//xCharPos and yCharPos
 	xCharPos = x;
 	yCharPos = y;
-	
+	*/
 }
 
 void blinkCursor(void)

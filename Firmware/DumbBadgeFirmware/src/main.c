@@ -41,7 +41,7 @@ int main (void)
 		
 		__WFI();
 		
-		if(ul_tickcount == (UINT16_MAX))
+		if(ul_tickcount == (UINT16_MAX/2))
 		{
 			blinkCursor();
 			//invertCursorBuffer();
@@ -53,7 +53,6 @@ int main (void)
 		{
 			readKeyboard();
 			printKeyboardBuffer();
-			//printf("Xcharpos: %i \t Ycharpos: %i\n\r",xCharPos,yCharPos);
 		}
 		
 

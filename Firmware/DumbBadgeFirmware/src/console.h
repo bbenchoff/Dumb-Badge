@@ -12,6 +12,7 @@
 void drawChar(uint8_t character);
 void newLine(void);
 
+
 void writeString(char str[]);
 
 
