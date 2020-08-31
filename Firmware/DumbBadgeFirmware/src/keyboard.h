@@ -18,7 +18,7 @@ bool keyDown(int scancode);
 void removeFromKeyDown(int scancode);
 
 void drawCursorBuffer(void);
-void moveCursor(uint8_t x, uint8_t y);
+void readCursor(uint8_t x, uint8_t y);
 void clearCursorBuffer(void);
 void invertCursorBuffer(void);
 void drawBlank(void);

@@ -41,12 +41,13 @@ int main (void)
 		
 		__WFI();
 		
-		if(ul_tickcount == (UINT16_MAX/2))
+		if(ul_tickcount % (UINT16_MAX/4) == 0)
 		{
+			
 			blinkCursor();
 			//invertCursorBuffer();
 			//drawCursorBuffer();
-			//printf("Blink %i\n\r",rand());
+			printf("Blink %i\n\r",rand());
 		}
 		
 		if(ul_tickcount % 200 == 0)
@@ -139,5 +140,7 @@ void setupBoard(void)
 	conf_systick();
 	clearCursorBuffer();
 
-	moveCursor(0,0);
+	readCursor(0,0);
+	xCharPos=0;
+	yCharPos=0;
 }

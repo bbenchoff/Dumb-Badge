@@ -50,7 +50,8 @@ void printKeyboardBuffer(void)
 {
 	bool shifted = false;
 	
-	char noCase[] =	  {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
+	char noCase[] =	  
+		{0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
 		0x37,0x75,0x67,0x6A,0x2C,	//Col0, Row5-9
 		0x31,0x71,0xFF,0xFF,0xFF,	//Col1, Row0-4
 		0x38,0x69,0x68,0x6B,0xFF,	//Col1, Row5-9
@@ -65,7 +66,8 @@ void printKeyboardBuffer(void)
 		0x36,0x79,0x66,0x62,0x6D,	//Col6, Row0-4
 		0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row5-9
 	
-	char shiftCase[] = {0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
+	char shiftCase[] = 
+		{0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
 		0x26,0x55,0x47,0x4A,0x3C,	//Col0, Row5-9
 		0x21,0x51,0xFF,0xFF,0xFF,	//Col1, Row0-4
 		0x2A,0x49,0x48,0x4B,0xFF,	//Col1, Row5-9
@@ -86,8 +88,6 @@ void printKeyboardBuffer(void)
 	{
 		if((scanCodeBuffer[i] == 13) | (scanCodeBuffer[i] == 49))
 			shifted = true;
-		
-	
 	}
 	
 	for(int i=0; i<20; i++)
@@ -112,8 +112,8 @@ void printKeyboardBuffer(void)
 				if(xCharPos > 0)  ///I think I need to decouple the reading the next cursor
 				//and actually moving the thing.
 				{
-					printf("left\n\r");
-					moveCursor(xCharPos-1,yCharPos);
+					drawCursorBuffer();
+					readCursor(xCharPos-1,yCharPos);
 					xCharPos--;
 					drawCursorBuffer();
 					cursorBlinkState = true;
@@ -124,8 +124,8 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos < 24)
 				{
-
-					moveCursor(xCharPos,yCharPos+1);
+					drawCursorBuffer();
+					readCursor(xCharPos,yCharPos+1);
 					yCharPos++;
 					drawCursorBuffer();
 					cursorBlinkState = true;
@@ -136,8 +136,8 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos > 0)
 				{
-
-					moveCursor(xCharPos,yCharPos-1);
+					drawCursorBuffer();
+					readCursor(xCharPos,yCharPos-1);
 					yCharPos--;
 					drawCursorBuffer();
 					cursorBlinkState = true;
@@ -148,8 +148,8 @@ void printKeyboardBuffer(void)
 			{
 				if(xCharPos < 79)
 				{
-
-					moveCursor(xCharPos+1,yCharPos);
+					drawCursorBuffer();
+					readCursor(xCharPos+1,yCharPos);
 					xCharPos++;
 					drawCursorBuffer();
 					cursorBlinkState = true;
@@ -194,7 +194,7 @@ void printKeyboardBuffer(void)
 				drawChar(0x20);
 				drawCursorBuffer();
 				clearCursorBuffer();
-				moveCursor(xCharPos,yCharPos);
+				readCursor(xCharPos,yCharPos);
 				
 			}
 			else
@@ -205,7 +205,7 @@ void printKeyboardBuffer(void)
 					
 					if(xCharPos < 79)
 					{
-						moveCursor(xCharPos++,yCharPos);
+						readCursor(xCharPos++,yCharPos);
 						//xCharPos++;
 						clearCursorBuffer();
 						
@@ -218,7 +218,7 @@ void printKeyboardBuffer(void)
 					drawChar(noCase[scanCodeBuffer[i]]);
 					if(xCharPos < 79)
 					{
-						moveCursor(xCharPos++,yCharPos);
+						readCursor(xCharPos++,yCharPos);
 						//xCharPos++;
 						clearCursorBuffer();
 						
@@ -428,14 +428,14 @@ void invertCursorBuffer(void)
 	}	
 }
 
-void moveCursor(uint8_t x, uint8_t y)
+void readCursor(uint8_t x, uint8_t y)
 {
 	//First, this reads the GRAM memory at the cursor location
 	//x,y. This is saved in a buffer. When the cursor blinks,
 	//it alternates either that buffer, or the *inverse* of that
 	//buffer.
 	
-	//All this function does is read the GRAM and move the cursor.
+	//This function does not actually *move* the cursor, this is handled
 	
 	
 	//set PB07 to input
@@ -489,11 +489,6 @@ void moveCursor(uint8_t x, uint8_t y)
 	REG_PORT_OUTSET1 = LCD_DC;
 	REG_PORT_DIRSET1 = 0x0000FFFF;
 	
-	/*//The cursor data is in the cursorBuffer, so now we move
-	//xCharPos and yCharPos
-	xCharPos = x;
-	yCharPos = y;
-	*/
 }
 
 void blinkCursor(void)
