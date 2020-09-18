@@ -165,19 +165,20 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos == 23)
 				{
-					drawCursorBuffer();
+					
 					newLine();
 					xCharPos = 0;
 				}
 				else
 				{
-					drawCursorBuffer();
+					
 					yCharPos++;
 					xCharPos = 0;
 				}
 			}
 			else if(scanCodeBuffer[i] == 69) //Line
 			{
+				
 				if(yCharPos == 23)
 				{
 					newLine();
@@ -229,7 +230,6 @@ void printKeyboardBuffer(void)
 			}
 		}
 	}
-	
 	
 	//Reset the buffer.
 	for(int i = 0 ; i < 20 ; i++)
@@ -399,9 +399,9 @@ void clearCursorBuffer(void)
 
 void drawCursorBuffer(void)
 {
-	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
-	printf("Draw\t%i, %i, %i, %i\n\r",xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
+	
+	setXY(xCharPos*10,yCharPos*20,(xCharPos*10)+9,(yCharPos*20)+19);
+	//printf("Draw\t%i, %i, %i, %i\n\r",xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
 		if((cursorBuffer[i] == 0xFF))
@@ -409,7 +409,7 @@ void drawCursorBuffer(void)
 		else
 		setPixel((back_Color_High<<8)|back_Color_Low);
 	}
-	REG_PORT_OUTSET1 = LCD_CS;
+
 
 }
 
@@ -428,14 +428,14 @@ void invertCursorBuffer(void)
 	}	
 }
 
-void readCursor(uint8_t x, uint8_t y)
+void readCursor(uint16_t cursorLocationX, uint16_t cursorLocationY)
 {
 	//First, this reads the GRAM memory at the cursor location
 	//x,y. This is saved in a buffer. When the cursor blinks,
 	//it alternates either that buffer, or the *inverse* of that
 	//buffer.
 	
-	//This function does not actually *move* the cursor, this is handled
+	//This function does not actually *move* the cursor
 	
 	
 	//set PB07 to input
@@ -447,8 +447,8 @@ void readCursor(uint8_t x, uint8_t y)
 	//Per page 40 of datasheet (5.1.2.7, 16-bit
 	//parallel interface for data ram read.
 	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY(x*10,y*20,x*10+9,y*20+19);
-	printf("Read\t%i, %i, %i, %i\n\r",x*10,y*20,x*10+9,y*20+19);
+	setXY((uint16_t)cursorLocationX*10,(uint16_t)cursorLocationY*20,((uint16_t)cursorLocationX*10)+9,((uint16_t)cursorLocationY*20)+19);
+	//printf("Read\t%i, %i, %i, %i\n\r",x*10,y*20,x*10+9,y*20+19);
 	
 	
 	//Send'Memory read' command 0x2E00, no data bit

@@ -12,20 +12,19 @@
 #include "LCD.h"
 #include "console.h"
 #include "fonts.h"
-
 #include "globals.h"
 
-uint8_t xCharPos = 0;
-uint8_t yCharPos = 0;
+uint16_t xCharPos = 0;
+uint16_t yCharPos = 0;
 
 
 void drawChar(uint8_t character)
 {
-	int x = xCharPos;
-	int y = yCharPos;
+	uint16_t x = xCharPos;
+	uint16_t y = yCharPos;
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x*10,y*20,x*10+9,y*20+19);
-	for(uint8_t i=0; i <= 24; i++)
+	for(uint16_t i=0; i <= 24; i++)
 	{
 		for(int j=0;j<8;j++)
 		{

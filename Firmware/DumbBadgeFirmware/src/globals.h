@@ -44,8 +44,8 @@ extern uint16_t back_Color_High, back_Color_Low;
 extern uint16_t display_X_size;
 extern uint16_t display_Y_size;
 
-extern uint8_t xCharPos;
-extern uint8_t yCharPos;
+extern uint16_t xCharPos;
+extern uint16_t yCharPos;
 
 extern char scanCodeBuffer[20];
 
@@ -57,11 +57,5 @@ extern bool sPoNgEbObCaSe;
 
 extern bool cursorBlinkState;
 extern uint8_t cursorBuffer[200];
-
-
-
-
-
-
 
 #endif /* GLOBALS_H_ */
