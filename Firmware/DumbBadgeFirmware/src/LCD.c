@@ -110,15 +110,12 @@ void clrXY(void)
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 {
 	
-	//printf("setxy:\t%i\t%i\t%i\t%i\t\n\r",x1,y1,x2,y2);
-	
-	/*
 	SwapUint16(x1, y1);
 	SwapUint16(x2, y2);
 	y1=display_Y_size-y1;
 	y2=display_Y_size-y2;
 	SwapUint16(y1, y2);
-	*/
+	
 	
 	//printf("%i, \t%i, \t%i, \t%i\n\r",x1,y1,x2,y2);
 	
@@ -165,7 +162,7 @@ void setPixel(uint16_t color)
 	LCD_Write_DATA16((color>>8),(color&0xFF));
 }
 
-void drawPixel(uint16_t x, uint16_t y)
+void drawPixel(int x, int y)
 {
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x,y,x,y);

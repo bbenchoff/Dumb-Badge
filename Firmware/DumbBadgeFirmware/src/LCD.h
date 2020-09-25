@@ -22,7 +22,7 @@ void clrScr(void);
 void clrXY(void);
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2);
 void setPixel(uint16_t color);
-void drawPixel(uint16_t x, uint16_t y);
+void drawPixel(int x, int y);
 void setDrawDirection(void);
 void clearScreen(void);
 

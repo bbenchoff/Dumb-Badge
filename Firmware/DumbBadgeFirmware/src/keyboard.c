@@ -168,20 +168,19 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos == 23)
 				{
-					
+					drawCursorBuffer();
 					newLine();
 					xCharPos = 0;
 				}
 				else
 				{
-					
+					drawCursorBuffer();
 					yCharPos++;
 					xCharPos = 0;
 				}
 			}
 			else if(scanCodeBuffer[i] == 69) //Line
 			{
-				
 				if(yCharPos == 23)
 				{
 					newLine();
@@ -234,6 +233,7 @@ void printKeyboardBuffer(void)
 			}
 		}
 	}
+	
 	
 	//Reset the buffer.
 	for(int i = 0 ; i < 20 ; i++)
@@ -403,8 +403,14 @@ void clearCursorBuffer(void)
 
 void drawCursorBuffer(void)
 {
+<<<<<<< HEAD
 	
 	setXY(xCharPos*10,yCharPos*20,(xCharPos*10)+9,(yCharPos*20)+19);
+=======
+	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
+	printf("Draw\t%i, %i, %i, %i\n\r",xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
 		if((cursorBuffer[i] == 0xFF))
@@ -416,7 +422,7 @@ void drawCursorBuffer(void)
 			setPixel((back_Color_High<<8)|back_Color_Low);
 		}
 	}
-
+	REG_PORT_OUTSET1 = LCD_CS;
 
 }
 
@@ -435,6 +441,44 @@ void invertCursorBuffer(void)
 	}	
 }
 
+<<<<<<< HEAD
+=======
+void readCursor(uint8_t x, uint8_t y)
+{
+	//First, this reads the GRAM memory at the cursor location
+	//x,y. This is saved in a buffer. When the cursor blinks,
+	//it alternates either that buffer, or the *inverse* of that
+	//buffer.
+	
+	//This function does not actually *move* the cursor, this is handled
+	
+	
+	//set PB07 to input
+	REG_PORT_DIRCLR1 = PORT_PB07;
+	PORT->Group[1].PINCFG[7].bit.INEN = 1;
+	PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
+	
+	
+	//Per page 40 of datasheet (5.1.2.7, 16-bit
+	//parallel interface for data ram read.
+	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY(x*10,y*20,x*10+9,y*20+19);
+	printf("Read\t%i, %i, %i, %i\n\r",x*10,y*20,x*10+9,y*20+19);
+	
+	
+	//Send'Memory read' command 0x2E00, no data bit
+	LCD_Write_COM16(0x2E,0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+
+	//needs dummy write, per data sheet, page 40
+	REG_PORT_OUTCLR1 = LCD_RD;
+	REG_PORT_OUTSET1 = LCD_RD;
+	
+	for(uint8_t pixel = 0; pixel <= 200 ; pixel++)
+	{
+		REG_PORT_OUTCLR1 = LCD_RD;
+		REG_PORT_OUTSET1 = LCD_RD;
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 
 void blinkCursor(void)

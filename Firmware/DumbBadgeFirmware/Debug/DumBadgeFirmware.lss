@@ -3,6 +3,7 @@ DumBadgeFirmware.elf:     file format elf32-littlearm
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
+<<<<<<< HEAD
   0 .text         0000666c  00000000  00000000  00010000  2**2
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 .relocate     000001b8  20000000  0000666c  00020000  2**2
@@ -10,11 +11,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
   2 .bss          000009f4  200001b8  00006824  000201b8  2**2
                   ALLOC
   3 .stack        00002004  20000bac  00007218  000201b8  2**0
+=======
+  0 .text         000066a8  00000000  00000000  00010000  2**2
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  1 .relocate     000001bc  20000000  000066a8  00020000  2**2
+                  CONTENTS, ALLOC, LOAD, DATA
+  2 .bss          00000270  200001bc  00006864  000201bc  2**2
+                  ALLOC
+  3 .stack        00002004  2000042c  00006ad4  000201bc  2**0
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
                   ALLOC
   4 .ARM.attributes 00000028  00000000  00000000  000201b8  2**0
                   CONTENTS, READONLY
   5 .comment      00000059  00000000  00000000  000201e0  2**0
                   CONTENTS, READONLY
+<<<<<<< HEAD
   6 .debug_info   00037578  00000000  00000000  00020239  2**0
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 00004fdb  00000000  00000000  000577b1  2**0
@@ -32,6 +43,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
  13 .debug_str    0009010b  00000000  00000000  00094b10  2**0
                   CONTENTS, READONLY, DEBUGGING
  14 .debug_frame  0000184c  00000000  00000000  00124c1c  2**2
+=======
+  6 .debug_info   0003750d  00000000  00000000  0002023d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_abbrev 00004fd8  00000000  00000000  0005774a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_loc    00006443  00000000  00000000  0005c722  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_aranges 000006e0  00000000  00000000  00062b65  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_ranges 000007e8  00000000  00000000  00063245  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_macro  0001e76a  00000000  00000000  00063a2d  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 12 .debug_line   000127d8  00000000  00000000  00082197  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 13 .debug_str    000900b2  00000000  00000000  0009496f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 14 .debug_frame  00001848  00000000  00000000  00124a24  2**2
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -46,7 +76,11 @@ void SystemInit(void)
        0:	b0 2b 00 20 6d 1b 00 00 69 1b 00 00 69 1b 00 00     .+. m...i...i...
 	...
       2c:	69 1b 00 00 00 00 00 00 00 00 00 00 69 1b 00 00     i...........i...
+<<<<<<< HEAD
       3c:	85 2e 00 00 69 1b 00 00 69 1b 00 00 69 1b 00 00     ....i...i...i...
+=======
+      3c:	bd 2e 00 00 69 1b 00 00 69 1b 00 00 69 1b 00 00     ....i...i...i...
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
       4c:	69 1b 00 00 69 1b 00 00 69 1b 00 00 69 1b 00 00     i...i...i...i...
       5c:	69 1b 00 00 69 1b 00 00 0d 0e 00 00 1d 0e 00 00     i...i...........
       6c:	2d 0e 00 00 3d 0e 00 00 4d 0e 00 00 5d 0e 00 00     -...=...M...]...
@@ -72,7 +106,11 @@ void SystemInit(void)
       ce:	bd10      	pop	{r4, pc}
       d0:	200001b8 	.word	0x200001b8
       d4:	00000000 	.word	0x00000000
+<<<<<<< HEAD
       d8:	0000666c 	.word	0x0000666c
+=======
+      d8:	000066a8 	.word	0x000066a8
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000000dc <frame_dummy>:
       dc:	4b08      	ldr	r3, [pc, #32]	; (100 <frame_dummy+0x24>)
@@ -94,9 +132,15 @@ void SystemInit(void)
       fc:	4798      	blx	r3
       fe:	e7f9      	b.n	f4 <frame_dummy+0x18>
      100:	00000000 	.word	0x00000000
+<<<<<<< HEAD
      104:	200001bc 	.word	0x200001bc
      108:	0000666c 	.word	0x0000666c
      10c:	0000666c 	.word	0x0000666c
+=======
+     104:	200001c0 	.word	0x200001c0
+     108:	000066a8 	.word	0x000066a8
+     10c:	000066a8 	.word	0x000066a8
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
      110:	00000000 	.word	0x00000000
 
 00000114 <drawKare>:
@@ -257,7 +301,11 @@ void drawKare(int emotion)
      1d4:	00004444 	.word	0x00004444
      1d8:	00003359 	.word	0x00003359
      1dc:	000044c4 	.word	0x000044c4
+<<<<<<< HEAD
      1e0:	00002a29 	.word	0x00002a29
+=======
+     1e0:	00002a61 	.word	0x00002a61
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000001e4 <splashScreen>:
 
@@ -434,11 +482,11 @@ void splashScreen(void)
      2c2:	0840      	lsrs	r0, r0, #1
      2c4:	2328      	movs	r3, #40	; 0x28
      2c6:	1a18      	subs	r0, r3, r0
-     2c8:	8030      	strh	r0, [r6, #0]
+     2c8:	7030      	strb	r0, [r6, #0]
 	yCharPos = 16;
      2ca:	4d39      	ldr	r5, [pc, #228]	; (3b0 <splashScreen+0x1cc>)
      2cc:	2310      	movs	r3, #16
-     2ce:	802b      	strh	r3, [r5, #0]
+     2ce:	702b      	strb	r3, [r5, #0]
 	
 	writeString(textPhrase);
      2d0:	0020      	movs	r0, r4
@@ -470,9 +518,9 @@ void splashScreen(void)
 	//after splashScreen() and InitLCD();
 	xCharPos = 0;
      2f6:	2300      	movs	r3, #0
-     2f8:	8033      	strh	r3, [r6, #0]
+     2f8:	7033      	strb	r3, [r6, #0]
 	yCharPos = 0;
-     2fa:	802b      	strh	r3, [r5, #0]
+     2fa:	702b      	strb	r3, [r5, #0]
 	
 
      2fc:	bd70      	pop	{r4, r5, r6, pc}
@@ -482,7 +530,11 @@ void splashScreen(void)
      302:	4798      	blx	r3
      304:	e7d9      	b.n	2ba <splashScreen+0xd6>
      306:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
      308:	200001d4 	.word	0x200001d4
+=======
+     308:	200001d8 	.word	0x200001d8
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
      30c:	00004544 	.word	0x00004544
      310:	00004560 	.word	0x00004560
      314:	00004574 	.word	0x00004574
@@ -517,17 +569,30 @@ void splashScreen(void)
      388:	000048b4 	.word	0x000048b4
      38c:	000048d4 	.word	0x000048d4
      390:	0000340d 	.word	0x0000340d
+<<<<<<< HEAD
      394:	00002b91 	.word	0x00002b91
      398:	000028d5 	.word	0x000028d5
+=======
+     394:	00002bc9 	.word	0x00002bc9
+     398:	00002915 	.word	0x00002915
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
      39c:	4100448c 	.word	0x4100448c
      3a0:	41004400 	.word	0x41004400
      3a4:	00000115 	.word	0x00000115
      3a8:	000035f1 	.word	0x000035f1
+<<<<<<< HEAD
      3ac:	20000294 	.word	0x20000294
      3b0:	20000296 	.word	0x20000296
      3b4:	000020e1 	.word	0x000020e1
      3b8:	00000401 	.word	0x00000401
      3bc:	000028fd 	.word	0x000028fd
+=======
+     3ac:	20000298 	.word	0x20000298
+     3b0:	20000299 	.word	0x20000299
+     3b4:	000020b5 	.word	0x000020b5
+     3b8:	00000401 	.word	0x00000401
+     3bc:	0000293d 	.word	0x0000293d
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000003c0 <delay_init>:
  *
@@ -3748,7 +3813,11 @@ uint32_t system_clock_source_get_hz(
     1444:	bd10      	pop	{r4, pc}
     1446:	46c0      	nop			; (mov r8, r8)
     1448:	00004a30 	.word	0x00004a30
+<<<<<<< HEAD
     144c:	20000278 	.word	0x20000278
+=======
+    144c:	2000027c 	.word	0x2000027c
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     1450:	40000800 	.word	0x40000800
     1454:	007a1200 	.word	0x007a1200
     1458:	02dc6c00 	.word	0x02dc6c00
@@ -5423,12 +5492,21 @@ void Dummy_Handler(void)
     1c12:	4b0e      	ldr	r3, [pc, #56]	; (1c4c <Reset_Handler+0xe0>)
     1c14:	4798      	blx	r3
     1c16:	e7fe      	b.n	1c16 <Reset_Handler+0xaa>
+<<<<<<< HEAD
     1c18:	0000666c 	.word	0x0000666c
+=======
+    1c18:	000066a8 	.word	0x000066a8
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     1c1c:	20000000 	.word	0x20000000
     1c20:	200001b8 	.word	0x200001b8
     1c24:	20000004 	.word	0x20000004
+<<<<<<< HEAD
     1c28:	200001b8 	.word	0x200001b8
     1c2c:	20000bac 	.word	0x20000bac
+=======
+    1c28:	200001bc 	.word	0x200001bc
+    1c2c:	2000042c 	.word	0x2000042c
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     1c30:	e000ed00 	.word	0xe000ed00
     1c34:	00000000 	.word	0x00000000
     1c38:	41007000 	.word	0x41007000
@@ -5436,7 +5514,11 @@ void Dummy_Handler(void)
     1c40:	41004800 	.word	0x41004800
     1c44:	41004000 	.word	0x41004000
     1c48:	00003311 	.word	0x00003311
+<<<<<<< HEAD
     1c4c:	00003105 	.word	0x00003105
+=======
+    1c4c:	00003135 	.word	0x00003135
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 00001c50 <_read>:
 int __attribute__((weak))
@@ -5911,13 +5993,22 @@ static inline void system_interrupt_enable(
     1e50:	200002c4 	.word	0x200002c4
     1e54:	00001d21 	.word	0x00001d21
     1e58:	200002c0 	.word	0x200002c0
+<<<<<<< HEAD
     1e5c:	20000154 	.word	0x20000154
+=======
+    1e5c:	20000158 	.word	0x20000158
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     1e60:	00003485 	.word	0x00003485
     1e64:	00000ddd 	.word	0x00000ddd
     1e68:	e000e100 	.word	0xe000e100
 
 00001e6c <drawChar>:
+<<<<<<< HEAD
 uint16_t yCharPos = 0;
+=======
+uint8_t xCharPos = 0;
+uint8_t yCharPos = 0;
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 char console[80][24];
 
@@ -5929,105 +6020,104 @@ void drawChar(uint8_t character)
     1e72:	4646      	mov	r6, r8
     1e74:	b5c0      	push	{r6, r7, lr}
     1e76:	0004      	movs	r4, r0
-	uint16_t x = xCharPos;
-    1e78:	4b27      	ldr	r3, [pc, #156]	; (1f18 <drawChar+0xac>)
-    1e7a:	8818      	ldrh	r0, [r3, #0]
-	uint16_t y = yCharPos;
-    1e7c:	4b27      	ldr	r3, [pc, #156]	; (1f1c <drawChar+0xb0>)
-    1e7e:	881b      	ldrh	r3, [r3, #0]
+	int x = xCharPos;
+    1e78:	4b26      	ldr	r3, [pc, #152]	; (1f14 <drawChar+0xa8>)
+    1e7a:	7818      	ldrb	r0, [r3, #0]
+	int y = yCharPos;
+    1e7c:	4b26      	ldr	r3, [pc, #152]	; (1f18 <drawChar+0xac>)
+    1e7e:	7819      	ldrb	r1, [r3, #0]
 	REG_PORT_OUTCLR1 = LCD_CS;
-    1e80:	2180      	movs	r1, #128	; 0x80
-    1e82:	03c9      	lsls	r1, r1, #15
-    1e84:	4a26      	ldr	r2, [pc, #152]	; (1f20 <drawChar+0xb4>)
-    1e86:	6011      	str	r1, [r2, #0]
+    1e80:	2280      	movs	r2, #128	; 0x80
+    1e82:	03d2      	lsls	r2, r2, #15
+    1e84:	4b25      	ldr	r3, [pc, #148]	; (1f1c <drawChar+0xb0>)
+    1e86:	601a      	str	r2, [r3, #0]
 	setXY(x*10,y*20,x*10+9,y*20+19);
-    1e88:	0082      	lsls	r2, r0, #2
-    1e8a:	1880      	adds	r0, r0, r2
+    1e88:	0083      	lsls	r3, r0, #2
+    1e8a:	18c0      	adds	r0, r0, r3
     1e8c:	0040      	lsls	r0, r0, #1
-    1e8e:	b280      	uxth	r0, r0
-    1e90:	2114      	movs	r1, #20
-    1e92:	4359      	muls	r1, r3
-    1e94:	b289      	uxth	r1, r1
-    1e96:	000b      	movs	r3, r1
-    1e98:	3313      	adds	r3, #19
-    1e9a:	b29b      	uxth	r3, r3
-    1e9c:	0002      	movs	r2, r0
-    1e9e:	3209      	adds	r2, #9
-    1ea0:	b292      	uxth	r2, r2
-    1ea2:	4d20      	ldr	r5, [pc, #128]	; (1f24 <drawChar+0xb8>)
-    1ea4:	47a8      	blx	r5
-    1ea6:	4a20      	ldr	r2, [pc, #128]	; (1f28 <drawChar+0xbc>)
-    1ea8:	00a5      	lsls	r5, r4, #2
-    1eaa:	192d      	adds	r5, r5, r4
-    1eac:	00ab      	lsls	r3, r5, #2
-    1eae:	18ed      	adds	r5, r5, r3
-    1eb0:	1955      	adds	r5, r2, r5
-    1eb2:	3401      	adds	r4, #1
-    1eb4:	00a3      	lsls	r3, r4, #2
-    1eb6:	191b      	adds	r3, r3, r4
-    1eb8:	0099      	lsls	r1, r3, #2
-    1eba:	185b      	adds	r3, r3, r1
-    1ebc:	4692      	mov	sl, r2
-    1ebe:	449a      	add	sl, r3
+    1e8e:	2314      	movs	r3, #20
+    1e90:	4359      	muls	r1, r3
+    1e92:	000b      	movs	r3, r1
+    1e94:	3313      	adds	r3, #19
+    1e96:	b29b      	uxth	r3, r3
+    1e98:	0002      	movs	r2, r0
+    1e9a:	3209      	adds	r2, #9
+    1e9c:	b292      	uxth	r2, r2
+    1e9e:	4d20      	ldr	r5, [pc, #128]	; (1f20 <drawChar+0xb4>)
+    1ea0:	47a8      	blx	r5
+    1ea2:	4a20      	ldr	r2, [pc, #128]	; (1f24 <drawChar+0xb8>)
+    1ea4:	00a5      	lsls	r5, r4, #2
+    1ea6:	192d      	adds	r5, r5, r4
+    1ea8:	00ab      	lsls	r3, r5, #2
+    1eaa:	18ed      	adds	r5, r5, r3
+    1eac:	1955      	adds	r5, r2, r5
+    1eae:	3401      	adds	r4, #1
+    1eb0:	00a3      	lsls	r3, r4, #2
+    1eb2:	191b      	adds	r3, r3, r4
+    1eb4:	0099      	lsls	r1, r3, #2
+    1eb6:	185b      	adds	r3, r3, r1
+    1eb8:	4692      	mov	sl, r2
+    1eba:	449a      	add	sl, r3
 			{
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
 			}
 			else
 			{
 				setPixel((back_Color_High<<8)|back_Color_Low);
+    1ebc:	4b1a      	ldr	r3, [pc, #104]	; (1f28 <drawChar+0xbc>)
+    1ebe:	4699      	mov	r9, r3
     1ec0:	4b1a      	ldr	r3, [pc, #104]	; (1f2c <drawChar+0xc0>)
-    1ec2:	4699      	mov	r9, r3
-    1ec4:	4b1a      	ldr	r3, [pc, #104]	; (1f30 <drawChar+0xc4>)
-    1ec6:	4698      	mov	r8, r3
-    1ec8:	4f1a      	ldr	r7, [pc, #104]	; (1f34 <drawChar+0xc8>)
+    1ec2:	4698      	mov	r8, r3
+    1ec4:	4f1a      	ldr	r7, [pc, #104]	; (1f30 <drawChar+0xc4>)
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
-    1eca:	4e1b      	ldr	r6, [pc, #108]	; (1f38 <drawChar+0xcc>)
-    1ecc:	e019      	b.n	1f02 <drawChar+0x96>
+    1ec6:	4e1b      	ldr	r6, [pc, #108]	; (1f34 <drawChar+0xc8>)
+    1ec8:	e019      	b.n	1efe <drawChar+0x92>
 				setPixel((back_Color_High<<8)|back_Color_Low);
-    1ece:	464b      	mov	r3, r9
-    1ed0:	8818      	ldrh	r0, [r3, #0]
-    1ed2:	0200      	lsls	r0, r0, #8
-    1ed4:	4643      	mov	r3, r8
-    1ed6:	881b      	ldrh	r3, [r3, #0]
-    1ed8:	4318      	orrs	r0, r3
-    1eda:	b280      	uxth	r0, r0
-    1edc:	47b8      	blx	r7
+    1eca:	464b      	mov	r3, r9
+    1ecc:	8818      	ldrh	r0, [r3, #0]
+    1ece:	0200      	lsls	r0, r0, #8
+    1ed0:	4643      	mov	r3, r8
+    1ed2:	881b      	ldrh	r3, [r3, #0]
+    1ed4:	4318      	orrs	r0, r3
+    1ed6:	b280      	uxth	r0, r0
+    1ed8:	47b8      	blx	r7
 		for(int j=0;j<8;j++)
-    1ede:	3c01      	subs	r4, #1
-    1ee0:	d30c      	bcc.n	1efc <drawChar+0x90>
+    1eda:	3c01      	subs	r4, #1
+    1edc:	d30c      	bcc.n	1ef8 <drawChar+0x8c>
 			if((CodePage437[character][i]&(1<<(7-j)))!=0)
-    1ee2:	782b      	ldrb	r3, [r5, #0]
-    1ee4:	4123      	asrs	r3, r4
-    1ee6:	07db      	lsls	r3, r3, #31
-    1ee8:	d5f1      	bpl.n	1ece <drawChar+0x62>
+    1ede:	782b      	ldrb	r3, [r5, #0]
+    1ee0:	4123      	asrs	r3, r4
+    1ee2:	07db      	lsls	r3, r3, #31
+    1ee4:	d5f1      	bpl.n	1eca <drawChar+0x5e>
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
-    1eea:	8830      	ldrh	r0, [r6, #0]
-    1eec:	0200      	lsls	r0, r0, #8
-    1eee:	4b13      	ldr	r3, [pc, #76]	; (1f3c <drawChar+0xd0>)
-    1ef0:	881b      	ldrh	r3, [r3, #0]
-    1ef2:	4318      	orrs	r0, r3
-    1ef4:	b280      	uxth	r0, r0
-    1ef6:	4b0f      	ldr	r3, [pc, #60]	; (1f34 <drawChar+0xc8>)
-    1ef8:	4798      	blx	r3
-    1efa:	e7f0      	b.n	1ede <drawChar+0x72>
-    1efc:	3501      	adds	r5, #1
-	for(uint16_t i=0; i <= 24; i++)
-    1efe:	4555      	cmp	r5, sl
-    1f00:	d001      	beq.n	1f06 <drawChar+0x9a>
+    1ee6:	8830      	ldrh	r0, [r6, #0]
+    1ee8:	0200      	lsls	r0, r0, #8
+    1eea:	4b13      	ldr	r3, [pc, #76]	; (1f38 <drawChar+0xcc>)
+    1eec:	881b      	ldrh	r3, [r3, #0]
+    1eee:	4318      	orrs	r0, r3
+    1ef0:	b280      	uxth	r0, r0
+    1ef2:	4b0f      	ldr	r3, [pc, #60]	; (1f30 <drawChar+0xc4>)
+    1ef4:	4798      	blx	r3
+    1ef6:	e7f0      	b.n	1eda <drawChar+0x6e>
+    1ef8:	3501      	adds	r5, #1
+	for(uint8_t i=0; i <= 24; i++)
+    1efa:	4555      	cmp	r5, sl
+    1efc:	d001      	beq.n	1f02 <drawChar+0x96>
 {
-    1f02:	2407      	movs	r4, #7
-    1f04:	e7ed      	b.n	1ee2 <drawChar+0x76>
+    1efe:	2407      	movs	r4, #7
+    1f00:	e7ed      	b.n	1ede <drawChar+0x72>
 			}
 
 		}
 	}
 	REG_PORT_OUTSET1 = LCD_CS;
-    1f06:	2280      	movs	r2, #128	; 0x80
-    1f08:	03d2      	lsls	r2, r2, #15
-    1f0a:	4b0d      	ldr	r3, [pc, #52]	; (1f40 <drawChar+0xd4>)
-    1f0c:	601a      	str	r2, [r3, #0]
+    1f02:	2280      	movs	r2, #128	; 0x80
+    1f04:	03d2      	lsls	r2, r2, #15
+    1f06:	4b0d      	ldr	r3, [pc, #52]	; (1f3c <drawChar+0xd0>)
+    1f08:	601a      	str	r2, [r3, #0]
 
 }
+<<<<<<< HEAD
     1f0e:	bc1c      	pop	{r2, r3, r4}
     1f10:	4690      	mov	r8, r2
     1f12:	4699      	mov	r9, r3
@@ -6093,48 +6183,105 @@ void newLine(void)
     1f76:	b5e0      	push	{r5, r6, r7, lr}
     1f78:	4c49      	ldr	r4, [pc, #292]	; (20a0 <STACK_SIZE+0xa0>)
     1f7a:	44a5      	add	sp, r4
+=======
+    1f0a:	bc1c      	pop	{r2, r3, r4}
+    1f0c:	4690      	mov	r8, r2
+    1f0e:	4699      	mov	r9, r3
+    1f10:	46a2      	mov	sl, r4
+    1f12:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    1f14:	20000298 	.word	0x20000298
+    1f18:	20000299 	.word	0x20000299
+    1f1c:	41004494 	.word	0x41004494
+    1f20:	000029d9 	.word	0x000029d9
+    1f24:	00004a78 	.word	0x00004a78
+    1f28:	200003d2 	.word	0x200003d2
+    1f2c:	200003cc 	.word	0x200003cc
+    1f30:	00002bb9 	.word	0x00002bb9
+    1f34:	200003ce 	.word	0x200003ce
+    1f38:	200003d0 	.word	0x200003d0
+    1f3c:	41004498 	.word	0x41004498
+
+00001f40 <newLine>:
+
+void newLine(void)
+{
+    1f40:	b5f0      	push	{r4, r5, r6, r7, lr}
+    1f42:	46de      	mov	lr, fp
+    1f44:	4657      	mov	r7, sl
+    1f46:	464e      	mov	r6, r9
+    1f48:	4645      	mov	r5, r8
+    1f4a:	b5e0      	push	{r5, r6, r7, lr}
+    1f4c:	4c49      	ldr	r4, [pc, #292]	; (2074 <STACK_SIZE+0x74>)
+    1f4e:	44a5      	add	sp, r4
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	460 times, for each line in the display.
 	*/
 	
 	uint8_t rowPixel[800];
 		
 	for(uint16_t row = 0 ; row < 460 ; row++)
+<<<<<<< HEAD
     1f7c:	2300      	movs	r3, #0
     1f7e:	9300      	str	r3, [sp, #0]
+=======
+    1f50:	2300      	movs	r3, #0
+    1f52:	9300      	str	r3, [sp, #0]
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	{
 		//Per page 40 of datasheet (5.1.2.7, 16-bit
 		//parallel interface for data ram read.
 		REG_PORT_OUTCLR1 = LCD_CS;
+<<<<<<< HEAD
     1f80:	4b48      	ldr	r3, [pc, #288]	; (20a4 <STACK_SIZE+0xa4>)
     1f82:	4698      	mov	r8, r3
+=======
+    1f54:	4b48      	ldr	r3, [pc, #288]	; (2078 <STACK_SIZE+0x78>)
+    1f56:	4698      	mov	r8, r3
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		setXY(0, row+20, 799, row+20);
 		//Send'Memory read' command 0x2E00, no data bit
 		LCD_Write_COM16(0x2E,0x00);
 		REG_PORT_OUTSET1 = LCD_DC;
+<<<<<<< HEAD
     1f84:	4f48      	ldr	r7, [pc, #288]	; (20a8 <STACK_SIZE+0xa8>)
+=======
+    1f58:	4f48      	ldr	r7, [pc, #288]	; (207c <STACK_SIZE+0x7c>)
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		
 		
 		//Read pixel data into the display	
 		for(uint16_t getpixel = 0 ; getpixel < 800 ; getpixel++)
 		{
 			REG_PORT_OUTCLR1 = LCD_RD;
+<<<<<<< HEAD
     1f86:	2680      	movs	r6, #128	; 0x80
     1f88:	0276      	lsls	r6, r6, #9
     1f8a:	e046      	b.n	201a <STACK_SIZE+0x1a>
+=======
+    1f5a:	2680      	movs	r6, #128	; 0x80
+    1f5c:	0276      	lsls	r6, r6, #9
+    1f5e:	e046      	b.n	1fee <newLine+0xae>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 			//This can be expanded with else if for the MSBs
 			//of all the colors; see datasheet page 40.
 			if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
 				rowPixel[getpixel] = 0xFF;
 			else
 				rowPixel[getpixel] = 0x00;
+<<<<<<< HEAD
     1f8c:	4653      	mov	r3, sl
     1f8e:	7023      	strb	r3, [r4, #0]
+=======
+    1f60:	4653      	mov	r3, sl
+    1f62:	7023      	strb	r3, [r4, #0]
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 			//dummy read, because pixel data broken up
 			//per datasheet page 40. Everything after
 			//the dummy write is BLUE pixels. Do we ever
 			//need blue? IDK.
 			
 			REG_PORT_OUTCLR1 = LCD_RD;
+<<<<<<< HEAD
     1f90:	4643      	mov	r3, r8
     1f92:	601e      	str	r6, [r3, #0]
 			REG_PORT_OUTSET1 = LCD_RD;
@@ -6176,12 +6323,56 @@ void newLine(void)
     1fc2:	2000      	movs	r0, #0
     1fc4:	4c3c      	ldr	r4, [pc, #240]	; (20b8 <STACK_SIZE+0xb8>)
     1fc6:	47a0      	blx	r4
+=======
+    1f64:	4643      	mov	r3, r8
+    1f66:	601e      	str	r6, [r3, #0]
+			REG_PORT_OUTSET1 = LCD_RD;
+    1f68:	603e      	str	r6, [r7, #0]
+    1f6a:	3401      	adds	r4, #1
+		for(uint16_t getpixel = 0 ; getpixel < 800 ; getpixel++)
+    1f6c:	4564      	cmp	r4, ip
+    1f6e:	d008      	beq.n	1f82 <newLine+0x42>
+			REG_PORT_OUTCLR1 = LCD_RD;
+    1f70:	4643      	mov	r3, r8
+    1f72:	601e      	str	r6, [r3, #0]
+			REG_PORT_OUTSET1 = LCD_RD;
+    1f74:	603e      	str	r6, [r7, #0]
+			if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
+    1f76:	5843      	ldr	r3, [r0, r1]
+    1f78:	421a      	tst	r2, r3
+    1f7a:	d0f1      	beq.n	1f60 <newLine+0x20>
+				rowPixel[getpixel] = 0xFF;
+    1f7c:	464b      	mov	r3, r9
+    1f7e:	7023      	strb	r3, [r4, #0]
+    1f80:	e7f0      	b.n	1f64 <newLine+0x24>
+    1f82:	9401      	str	r4, [sp, #4]
+		}
+		
+		REG_PORT_OUTSET1 = LCD_DC;
+    1f84:	2380      	movs	r3, #128	; 0x80
+    1f86:	041b      	lsls	r3, r3, #16
+    1f88:	603b      	str	r3, [r7, #0]
+		REG_PORT_DIRSET1 = 0x0000FFFF;
+    1f8a:	4a3d      	ldr	r2, [pc, #244]	; (2080 <STACK_SIZE+0x80>)
+    1f8c:	4b3d      	ldr	r3, [pc, #244]	; (2084 <STACK_SIZE+0x84>)
+    1f8e:	601a      	str	r2, [r3, #0]
+		
+		//now, read out that line of the display
+		setXY(0, row, 799, row);	
+    1f90:	9900      	ldr	r1, [sp, #0]
+    1f92:	000b      	movs	r3, r1
+    1f94:	4a3c      	ldr	r2, [pc, #240]	; (2088 <STACK_SIZE+0x88>)
+    1f96:	2000      	movs	r0, #0
+    1f98:	4c3c      	ldr	r4, [pc, #240]	; (208c <STACK_SIZE+0x8c>)
+    1f9a:	47a0      	blx	r4
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		for(uint16_t writepixel = 0 ; writepixel < 800 ; writepixel++)
 		{
 			if((rowPixel[writepixel] == 0xFF))
 				setPixel((fore_Color_High<<8)|fore_Color_Low);
 			else
 				setPixel((back_Color_High<<8)|back_Color_Low);
+<<<<<<< HEAD
     1fc8:	4b3c      	ldr	r3, [pc, #240]	; (20bc <STACK_SIZE+0xbc>)
     1fca:	469b      	mov	fp, r3
     1fcc:	4b3c      	ldr	r3, [pc, #240]	; (20c0 <STACK_SIZE+0xc0>)
@@ -6290,12 +6481,123 @@ void newLine(void)
     2078:	4699      	mov	r9, r3
     207a:	002c      	movs	r4, r5
     207c:	e78e      	b.n	1f9c <newLine+0x30>
+=======
+    1f9c:	4b3c      	ldr	r3, [pc, #240]	; (2090 <STACK_SIZE+0x90>)
+    1f9e:	469b      	mov	fp, r3
+    1fa0:	4b3c      	ldr	r3, [pc, #240]	; (2094 <STACK_SIZE+0x94>)
+    1fa2:	469a      	mov	sl, r3
+    1fa4:	4b3c      	ldr	r3, [pc, #240]	; (2098 <STACK_SIZE+0x98>)
+    1fa6:	4699      	mov	r9, r3
+    1fa8:	9c01      	ldr	r4, [sp, #4]
+    1faa:	e00b      	b.n	1fc4 <newLine+0x84>
+				setPixel((fore_Color_High<<8)|fore_Color_Low);
+    1fac:	4b3b      	ldr	r3, [pc, #236]	; (209c <STACK_SIZE+0x9c>)
+    1fae:	8818      	ldrh	r0, [r3, #0]
+    1fb0:	0200      	lsls	r0, r0, #8
+    1fb2:	4b3b      	ldr	r3, [pc, #236]	; (20a0 <STACK_SIZE+0xa0>)
+    1fb4:	881b      	ldrh	r3, [r3, #0]
+    1fb6:	4318      	orrs	r0, r3
+    1fb8:	b280      	uxth	r0, r0
+    1fba:	4b37      	ldr	r3, [pc, #220]	; (2098 <STACK_SIZE+0x98>)
+    1fbc:	4798      	blx	r3
+    1fbe:	3501      	adds	r5, #1
+		for(uint16_t writepixel = 0 ; writepixel < 800 ; writepixel++)
+    1fc0:	42ac      	cmp	r4, r5
+    1fc2:	d00b      	beq.n	1fdc <newLine+0x9c>
+			if((rowPixel[writepixel] == 0xFF))
+    1fc4:	782b      	ldrb	r3, [r5, #0]
+    1fc6:	2bff      	cmp	r3, #255	; 0xff
+    1fc8:	d0f0      	beq.n	1fac <newLine+0x6c>
+				setPixel((back_Color_High<<8)|back_Color_Low);
+    1fca:	465b      	mov	r3, fp
+    1fcc:	8818      	ldrh	r0, [r3, #0]
+    1fce:	0200      	lsls	r0, r0, #8
+    1fd0:	4653      	mov	r3, sl
+    1fd2:	881b      	ldrh	r3, [r3, #0]
+    1fd4:	4318      	orrs	r0, r3
+    1fd6:	b280      	uxth	r0, r0
+    1fd8:	47c8      	blx	r9
+    1fda:	e7f0      	b.n	1fbe <newLine+0x7e>
+	for(uint16_t row = 0 ; row < 460 ; row++)
+    1fdc:	9b00      	ldr	r3, [sp, #0]
+    1fde:	3301      	adds	r3, #1
+    1fe0:	b29b      	uxth	r3, r3
+    1fe2:	001a      	movs	r2, r3
+    1fe4:	9300      	str	r3, [sp, #0]
+    1fe6:	23e6      	movs	r3, #230	; 0xe6
+    1fe8:	005b      	lsls	r3, r3, #1
+    1fea:	429a      	cmp	r2, r3
+    1fec:	d031      	beq.n	2052 <STACK_SIZE+0x52>
+		REG_PORT_OUTCLR1 = LCD_CS;
+    1fee:	4643      	mov	r3, r8
+    1ff0:	2280      	movs	r2, #128	; 0x80
+    1ff2:	03d2      	lsls	r2, r2, #15
+    1ff4:	601a      	str	r2, [r3, #0]
+		setXY(0, row+20, 799, row+20);
+    1ff6:	9900      	ldr	r1, [sp, #0]
+    1ff8:	3114      	adds	r1, #20
+    1ffa:	b289      	uxth	r1, r1
+    1ffc:	000b      	movs	r3, r1
+    1ffe:	4a22      	ldr	r2, [pc, #136]	; (2088 <STACK_SIZE+0x88>)
+    2000:	2000      	movs	r0, #0
+    2002:	4c22      	ldr	r4, [pc, #136]	; (208c <STACK_SIZE+0x8c>)
+    2004:	47a0      	blx	r4
+		LCD_Write_COM16(0x2E,0x00);
+    2006:	2100      	movs	r1, #0
+    2008:	202e      	movs	r0, #46	; 0x2e
+    200a:	4b26      	ldr	r3, [pc, #152]	; (20a4 <STACK_SIZE+0xa4>)
+    200c:	4798      	blx	r3
+		REG_PORT_OUTSET1 = LCD_DC;
+    200e:	2380      	movs	r3, #128	; 0x80
+    2010:	041b      	lsls	r3, r3, #16
+    2012:	603b      	str	r3, [r7, #0]
+		REG_PORT_OUTCLR1 = LCD_RD;
+    2014:	4643      	mov	r3, r8
+    2016:	2280      	movs	r2, #128	; 0x80
+    2018:	0252      	lsls	r2, r2, #9
+    201a:	601a      	str	r2, [r3, #0]
+		REG_PORT_OUTSET1 = LCD_RD;
+    201c:	603a      	str	r2, [r7, #0]
+		REG_PORT_DIRCLR1 = PORT_PB07;
+    201e:	2280      	movs	r2, #128	; 0x80
+    2020:	4b21      	ldr	r3, [pc, #132]	; (20a8 <STACK_SIZE+0xa8>)
+    2022:	601a      	str	r2, [r3, #0]
+		PORT->Group[1].PINCFG[7].bit.INEN = 1;
+    2024:	4a21      	ldr	r2, [pc, #132]	; (20ac <STACK_SIZE+0xac>)
+    2026:	23c7      	movs	r3, #199	; 0xc7
+    2028:	5cd1      	ldrb	r1, [r2, r3]
+    202a:	2002      	movs	r0, #2
+    202c:	4301      	orrs	r1, r0
+    202e:	54d1      	strb	r1, [r2, r3]
+		PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
+    2030:	5cd1      	ldrb	r1, [r2, r3]
+    2032:	2004      	movs	r0, #4
+    2034:	4301      	orrs	r1, r0
+    2036:	54d1      	strb	r1, [r2, r3]
+    2038:	ad02      	add	r5, sp, #8
+    203a:	abca      	add	r3, sp, #808	; 0x328
+    203c:	469c      	mov	ip, r3
+    203e:	9501      	str	r5, [sp, #4]
+			if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
+    2040:	0010      	movs	r0, r2
+    2042:	21a0      	movs	r1, #160	; 0xa0
+    2044:	2280      	movs	r2, #128	; 0x80
+				rowPixel[getpixel] = 0x00;
+    2046:	2300      	movs	r3, #0
+    2048:	469a      	mov	sl, r3
+				rowPixel[getpixel] = 0xFF;
+    204a:	33ff      	adds	r3, #255	; 0xff
+    204c:	4699      	mov	r9, r3
+    204e:	002c      	movs	r4, r5
+    2050:	e78e      	b.n	1f70 <newLine+0x30>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		}
 	}
 	
 	//finally, clear the last character line of the display
 	//and fix the console text buffer
 	fillRectBackColor(0, 460, 799, 480);
+<<<<<<< HEAD
     207e:	3314      	adds	r3, #20
     2080:	4a0c      	ldr	r2, [pc, #48]	; (20b4 <STACK_SIZE+0xb4>)
     2082:	21e6      	movs	r1, #230	; 0xe6
@@ -6454,12 +6756,101 @@ void readCursor(uint16_t cursorLocationX, uint16_t cursorLocationY)
     217c:	20000a84 	.word	0x20000a84
 
 00002180 <scanCodesContains>:
+=======
+    2052:	3314      	adds	r3, #20
+    2054:	4a0c      	ldr	r2, [pc, #48]	; (2088 <STACK_SIZE+0x88>)
+    2056:	21e6      	movs	r1, #230	; 0xe6
+    2058:	0049      	lsls	r1, r1, #1
+    205a:	2000      	movs	r0, #0
+    205c:	4c14      	ldr	r4, [pc, #80]	; (20b0 <STACK_SIZE+0xb0>)
+    205e:	47a0      	blx	r4
+
+}
+    2060:	23cb      	movs	r3, #203	; 0xcb
+    2062:	009b      	lsls	r3, r3, #2
+    2064:	449d      	add	sp, r3
+    2066:	bc3c      	pop	{r2, r3, r4, r5}
+    2068:	4690      	mov	r8, r2
+    206a:	4699      	mov	r9, r3
+    206c:	46a2      	mov	sl, r4
+    206e:	46ab      	mov	fp, r5
+    2070:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2072:	46c0      	nop			; (mov r8, r8)
+    2074:	fffffcd4 	.word	0xfffffcd4
+    2078:	41004494 	.word	0x41004494
+    207c:	41004498 	.word	0x41004498
+    2080:	0000ffff 	.word	0x0000ffff
+    2084:	41004488 	.word	0x41004488
+    2088:	0000031f 	.word	0x0000031f
+    208c:	000029d9 	.word	0x000029d9
+    2090:	200003d2 	.word	0x200003d2
+    2094:	200003cc 	.word	0x200003cc
+    2098:	00002bb9 	.word	0x00002bb9
+    209c:	200003ce 	.word	0x200003ce
+    20a0:	200003d0 	.word	0x200003d0
+    20a4:	00002c25 	.word	0x00002c25
+    20a8:	41004484 	.word	0x41004484
+    20ac:	41004400 	.word	0x41004400
+    20b0:	00002af1 	.word	0x00002af1
+
+000020b4 <writeString>:
+
+void writeString(char str[])
+{
+    20b4:	b5f0      	push	{r4, r5, r6, r7, lr}
+    20b6:	46c6      	mov	lr, r8
+    20b8:	b500      	push	{lr}
+    20ba:	0005      	movs	r5, r0
+	int length = strlen(str);
+    20bc:	4b0c      	ldr	r3, [pc, #48]	; (20f0 <writeString+0x3c>)
+    20be:	4798      	blx	r3
+	for(int i = 0; i < length; i++)
+    20c0:	2800      	cmp	r0, #0
+    20c2:	dd11      	ble.n	20e8 <writeString+0x34>
+    20c4:	002c      	movs	r4, r5
+    20c6:	182d      	adds	r5, r5, r0
+	{
+		drawChar(str[i]);
+    20c8:	4f0a      	ldr	r7, [pc, #40]	; (20f4 <writeString+0x40>)
+		if(xCharPos <= 80)
+    20ca:	4e0b      	ldr	r6, [pc, #44]	; (20f8 <writeString+0x44>)
+		xCharPos++;
+    20cc:	46b0      	mov	r8, r6
+    20ce:	e002      	b.n	20d6 <writeString+0x22>
+    20d0:	3401      	adds	r4, #1
+	for(int i = 0; i < length; i++)
+    20d2:	42ac      	cmp	r4, r5
+    20d4:	d008      	beq.n	20e8 <writeString+0x34>
+		drawChar(str[i]);
+    20d6:	7820      	ldrb	r0, [r4, #0]
+    20d8:	47b8      	blx	r7
+		if(xCharPos <= 80)
+    20da:	7833      	ldrb	r3, [r6, #0]
+    20dc:	2b50      	cmp	r3, #80	; 0x50
+    20de:	d8f7      	bhi.n	20d0 <writeString+0x1c>
+		xCharPos++;
+    20e0:	3301      	adds	r3, #1
+    20e2:	4642      	mov	r2, r8
+    20e4:	7013      	strb	r3, [r2, #0]
+    20e6:	e7f3      	b.n	20d0 <writeString+0x1c>
+	}
+    20e8:	bc04      	pop	{r2}
+    20ea:	4690      	mov	r8, r2
+    20ec:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    20ee:	46c0      	nop			; (mov r8, r8)
+    20f0:	000035f1 	.word	0x000035f1
+    20f4:	00001e6d 	.word	0x00001e6d
+    20f8:	20000298 	.word	0x20000298
+
+000020fc <scanCodesContains>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 bool scanCodesContains(int scanCode)
 {
 	for(int i = 0 ; i < 70 ; i++)
 	{
 		if(scanCodes[i] == scanCode)
+<<<<<<< HEAD
     2180:	4b09      	ldr	r3, [pc, #36]	; (21a8 <scanCodesContains+0x28>)
     2182:	681b      	ldr	r3, [r3, #0]
     2184:	4298      	cmp	r0, r3
@@ -6475,11 +6866,29 @@ bool scanCodesContains(int scanCode)
 	for(int i = 0 ; i < 70 ; i++)
     2198:	4293      	cmp	r3, r2
     219a:	d1f9      	bne.n	2190 <scanCodesContains+0x10>
+=======
+    20fc:	4b09      	ldr	r3, [pc, #36]	; (2124 <scanCodesContains+0x28>)
+    20fe:	681b      	ldr	r3, [r3, #0]
+    2100:	4298      	cmp	r0, r3
+    2102:	d00b      	beq.n	211c <scanCodesContains+0x20>
+    2104:	4a07      	ldr	r2, [pc, #28]	; (2124 <scanCodesContains+0x28>)
+    2106:	1d13      	adds	r3, r2, #4
+    2108:	3219      	adds	r2, #25
+    210a:	32ff      	adds	r2, #255	; 0xff
+    210c:	6819      	ldr	r1, [r3, #0]
+    210e:	4281      	cmp	r1, r0
+    2110:	d006      	beq.n	2120 <scanCodesContains+0x24>
+    2112:	3304      	adds	r3, #4
+	for(int i = 0 ; i < 70 ; i++)
+    2114:	4293      	cmp	r3, r2
+    2116:	d1f9      	bne.n	210c <scanCodesContains+0x10>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		{
 			return true;
 		}
 	}
 	return false;
+<<<<<<< HEAD
     219c:	2000      	movs	r0, #0
     219e:	e002      	b.n	21a6 <scanCodesContains+0x26>
 			return true;
@@ -6491,12 +6900,26 @@ bool scanCodesContains(int scanCode)
     21a8:	20000038 	.word	0x20000038
 
 000021ac <keyDown>:
+=======
+    2118:	2000      	movs	r0, #0
+    211a:	e002      	b.n	2122 <scanCodesContains+0x26>
+			return true;
+    211c:	2001      	movs	r0, #1
+    211e:	e000      	b.n	2122 <scanCodesContains+0x26>
+    2120:	2001      	movs	r0, #1
+}
+    2122:	4770      	bx	lr
+    2124:	2000003c 	.word	0x2000003c
+
+00002128 <keyDown>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 bool keyDown(int scancode)
 {
 	for(int i = 0 ; i < 20 ; i++)
 	{
 		if(keyDownBuffer[i] == scancode)
+<<<<<<< HEAD
     21ac:	4b09      	ldr	r3, [pc, #36]	; (21d4 <keyDown+0x28>)
     21ae:	781b      	ldrb	r3, [r3, #0]
     21b0:	4298      	cmp	r0, r3
@@ -6511,11 +6934,28 @@ bool keyDown(int scancode)
 	for(int i = 0 ; i < 20 ; i++)
     21c2:	428b      	cmp	r3, r1
     21c4:	d1f9      	bne.n	21ba <keyDown+0xe>
+=======
+    2128:	4b09      	ldr	r3, [pc, #36]	; (2150 <keyDown+0x28>)
+    212a:	781b      	ldrb	r3, [r3, #0]
+    212c:	4298      	cmp	r0, r3
+    212e:	d00a      	beq.n	2146 <keyDown+0x1e>
+    2130:	4907      	ldr	r1, [pc, #28]	; (2150 <keyDown+0x28>)
+    2132:	1c4b      	adds	r3, r1, #1
+    2134:	3114      	adds	r1, #20
+    2136:	781a      	ldrb	r2, [r3, #0]
+    2138:	4282      	cmp	r2, r0
+    213a:	d006      	beq.n	214a <keyDown+0x22>
+    213c:	3301      	adds	r3, #1
+	for(int i = 0 ; i < 20 ; i++)
+    213e:	428b      	cmp	r3, r1
+    2140:	d1f9      	bne.n	2136 <keyDown+0xe>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		{
 			return true;
 		}	
 	}
 	return false;
+<<<<<<< HEAD
     21c6:	2000      	movs	r0, #0
 }
     21c8:	4770      	bx	lr
@@ -6535,11 +6975,33 @@ void removeFromKeyDown(int scancode)
     21da:	4b07      	ldr	r3, [pc, #28]	; (21f8 <removeFromKeyDown+0x20>)
     21dc:	0019      	movs	r1, r3
     21de:	3114      	adds	r1, #20
+=======
+    2142:	2000      	movs	r0, #0
+}
+    2144:	4770      	bx	lr
+			return true;
+    2146:	2001      	movs	r0, #1
+    2148:	e7fc      	b.n	2144 <keyDown+0x1c>
+    214a:	2001      	movs	r0, #1
+    214c:	e7fa      	b.n	2144 <keyDown+0x1c>
+    214e:	46c0      	nop			; (mov r8, r8)
+    2150:	20000014 	.word	0x20000014
+
+00002154 <removeFromKeyDown>:
+
+void removeFromKeyDown(int scancode)
+{
+    2154:	b510      	push	{r4, lr}
+    2156:	4b07      	ldr	r3, [pc, #28]	; (2174 <removeFromKeyDown+0x20>)
+    2158:	0019      	movs	r1, r3
+    215a:	3114      	adds	r1, #20
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	for(int i = 0 ; i < 20 ; i++)
 	{
 		if(keyDownBuffer[i] == scancode)
 		{
 			keyDownBuffer[i] = 0xFF;
+<<<<<<< HEAD
     21e0:	24ff      	movs	r4, #255	; 0xff
     21e2:	e002      	b.n	21ea <removeFromKeyDown+0x12>
     21e4:	3301      	adds	r3, #1
@@ -6955,10 +7417,451 @@ void drawCursorBuffer(void)
     247a:	47b0      	blx	r6
     247c:	e7f1      	b.n	2462 <drawCursorBuffer+0x4e>
 		}
+=======
+    215c:	24ff      	movs	r4, #255	; 0xff
+    215e:	e002      	b.n	2166 <removeFromKeyDown+0x12>
+    2160:	3301      	adds	r3, #1
+	for(int i = 0 ; i < 20 ; i++)
+    2162:	428b      	cmp	r3, r1
+    2164:	d004      	beq.n	2170 <removeFromKeyDown+0x1c>
+		if(keyDownBuffer[i] == scancode)
+    2166:	781a      	ldrb	r2, [r3, #0]
+    2168:	4282      	cmp	r2, r0
+    216a:	d1f9      	bne.n	2160 <removeFromKeyDown+0xc>
+			keyDownBuffer[i] = 0xFF;
+    216c:	701c      	strb	r4, [r3, #0]
+    216e:	e7f7      	b.n	2160 <removeFromKeyDown+0xc>
+		}
 	}
+}
+    2170:	bd10      	pop	{r4, pc}
+    2172:	46c0      	nop			; (mov r8, r8)
+    2174:	20000014 	.word	0x20000014
 
+00002178 <readKeyboard>:
+{
+    2178:	b5f0      	push	{r4, r5, r6, r7, lr}
+    217a:	46de      	mov	lr, fp
+    217c:	4657      	mov	r7, sl
+    217e:	464e      	mov	r6, r9
+    2180:	4645      	mov	r5, r8
+    2182:	b5e0      	push	{r5, r6, r7, lr}
+    2184:	b083      	sub	sp, #12
+    2186:	4e6d      	ldr	r6, [pc, #436]	; (233c <readKeyboard+0x1c4>)
+    2188:	0031      	movs	r1, r6
+    218a:	3119      	adds	r1, #25
+    218c:	31ff      	adds	r1, #255	; 0xff
+    218e:	0033      	movs	r3, r6
+		scanCodes[i] = 0xFF;
+    2190:	22ff      	movs	r2, #255	; 0xff
+    2192:	c304      	stmia	r3!, {r2}
+	for(i = 0 ; i < 70 ; i++)
+    2194:	428b      	cmp	r3, r1
+    2196:	d1fc      	bne.n	2192 <readKeyboard+0x1a>
+	PORT->Group[0].WRCONFIG.bit.DRVSTR = 1;
+    2198:	4a69      	ldr	r2, [pc, #420]	; (2340 <readKeyboard+0x1c8>)
+    219a:	6a91      	ldr	r1, [r2, #40]	; 0x28
+    219c:	2380      	movs	r3, #128	; 0x80
+    219e:	03db      	lsls	r3, r3, #15
+    21a0:	430b      	orrs	r3, r1
+    21a2:	6293      	str	r3, [r2, #40]	; 0x28
+    21a4:	4c67      	ldr	r4, [pc, #412]	; (2344 <readKeyboard+0x1cc>)
+    21a6:	341c      	adds	r4, #28
+    21a8:	4b66      	ldr	r3, [pc, #408]	; (2344 <readKeyboard+0x1cc>)
+		REG_PORT_DIRSET0 = kb_col[i];
+    21aa:	4867      	ldr	r0, [pc, #412]	; (2348 <readKeyboard+0x1d0>)
+		REG_PORT_OUTCLR0 = kb_col[i];
+    21ac:	4967      	ldr	r1, [pc, #412]	; (234c <readKeyboard+0x1d4>)
+		REG_PORT_DIRSET0 = kb_col[i];
+    21ae:	681a      	ldr	r2, [r3, #0]
+    21b0:	6002      	str	r2, [r0, #0]
+		REG_PORT_OUTCLR0 = kb_col[i];
+    21b2:	cb04      	ldmia	r3!, {r2}
+    21b4:	600a      	str	r2, [r1, #0]
+	for (i = 0; i < NUM_COL; i++) {
+    21b6:	42a3      	cmp	r3, r4
+    21b8:	d1f9      	bne.n	21ae <readKeyboard+0x36>
+    21ba:	2200      	movs	r2, #0
+		REG_PORT_DIRCLR0 = kb_row[i];
+    21bc:	4b64      	ldr	r3, [pc, #400]	; (2350 <readKeyboard+0x1d8>)
+    21be:	469c      	mov	ip, r3
+    21c0:	4f64      	ldr	r7, [pc, #400]	; (2354 <readKeyboard+0x1dc>)
+		PORT->Group[0].PINCFG[kb_row_index[i]].bit.PULLEN = 1;
+    21c2:	4d65      	ldr	r5, [pc, #404]	; (2358 <readKeyboard+0x1e0>)
+    21c4:	2404      	movs	r4, #4
+		PORT->Group[0].PINCFG[kb_row_index[i]].bit.INEN = 1;
+    21c6:	2002      	movs	r0, #2
+		REG_PORT_DIRCLR0 = kb_row[i];
+    21c8:	4663      	mov	r3, ip
+    21ca:	58d3      	ldr	r3, [r2, r3]
+    21cc:	603b      	str	r3, [r7, #0]
+		PORT->Group[0].PINCFG[kb_row_index[i]].bit.PULLEN = 1;
+    21ce:	5953      	ldr	r3, [r2, r5]
+    21d0:	4962      	ldr	r1, [pc, #392]	; (235c <readKeyboard+0x1e4>)
+    21d2:	4688      	mov	r8, r1
+    21d4:	4443      	add	r3, r8
+    21d6:	7819      	ldrb	r1, [r3, #0]
+    21d8:	4321      	orrs	r1, r4
+    21da:	7019      	strb	r1, [r3, #0]
+		PORT->Group[0].PINCFG[kb_row_index[i]].bit.INEN = 1;
+    21dc:	7819      	ldrb	r1, [r3, #0]
+    21de:	4301      	orrs	r1, r0
+    21e0:	7019      	strb	r1, [r3, #0]
+    21e2:	3204      	adds	r2, #4
+	for (i = 0; i < NUM_ROW; i++) {
+    21e4:	2a28      	cmp	r2, #40	; 0x28
+    21e6:	d1ef      	bne.n	21c8 <readKeyboard+0x50>
+    21e8:	4b56      	ldr	r3, [pc, #344]	; (2344 <readKeyboard+0x1cc>)
+    21ea:	4699      	mov	r9, r3
+    21ec:	2300      	movs	r3, #0
+    21ee:	4698      	mov	r8, r3
+    21f0:	2200      	movs	r2, #0
+		REG_PORT_OUTSET0 = kb_col[i];
+    21f2:	4b5b      	ldr	r3, [pc, #364]	; (2360 <readKeyboard+0x1e8>)
+    21f4:	469b      	mov	fp, r3
+			if((PORT->Group[0].IN.reg & kb_row[j]) != 0) {
+    21f6:	4d52      	ldr	r5, [pc, #328]	; (2340 <readKeyboard+0x1c8>)
+				scanCodes[scanCodeIndex] = (i * NUM_ROW) + j;
+    21f8:	4b50      	ldr	r3, [pc, #320]	; (233c <readKeyboard+0x1c4>)
+    21fa:	469c      	mov	ip, r3
+		REG_PORT_OUTCLR0 = kb_col[i];
+    21fc:	4b53      	ldr	r3, [pc, #332]	; (234c <readKeyboard+0x1d4>)
+    21fe:	469a      	mov	sl, r3
+    2200:	9601      	str	r6, [sp, #4]
+    2202:	464e      	mov	r6, r9
+    2204:	4647      	mov	r7, r8
+    2206:	e015      	b.n	2234 <readKeyboard+0xbc>
+    2208:	3304      	adds	r3, #4
+    220a:	3101      	adds	r1, #1
+		for (j = 0; j < NUM_ROW; j++) {	
+    220c:	42a3      	cmp	r3, r4
+    220e:	d008      	beq.n	2222 <readKeyboard+0xaa>
+			if((PORT->Group[0].IN.reg & kb_row[j]) != 0) {
+    2210:	6a28      	ldr	r0, [r5, #32]
+    2212:	681e      	ldr	r6, [r3, #0]
+    2214:	4206      	tst	r6, r0
+    2216:	d0f7      	beq.n	2208 <readKeyboard+0x90>
+				scanCodes[scanCodeIndex] = (i * NUM_ROW) + j;
+    2218:	0090      	lsls	r0, r2, #2
+    221a:	4666      	mov	r6, ip
+    221c:	5181      	str	r1, [r0, r6]
+				scanCodeIndex++;
+    221e:	3201      	adds	r2, #1
+    2220:	e7f2      	b.n	2208 <readKeyboard+0x90>
+    2222:	9e00      	ldr	r6, [sp, #0]
+		REG_PORT_OUTCLR0 = kb_col[i];
+    2224:	4649      	mov	r1, r9
+    2226:	6809      	ldr	r1, [r1, #0]
+    2228:	4650      	mov	r0, sl
+    222a:	6001      	str	r1, [r0, #0]
+    222c:	3604      	adds	r6, #4
+    222e:	370a      	adds	r7, #10
+	for (i = 0; i < NUM_COL; i++) {
+    2230:	2f46      	cmp	r7, #70	; 0x46
+    2232:	d00a      	beq.n	224a <readKeyboard+0xd2>
+    2234:	46b1      	mov	r9, r6
+		REG_PORT_OUTSET0 = kb_col[i];
+    2236:	465b      	mov	r3, fp
+    2238:	6831      	ldr	r1, [r6, #0]
+    223a:	6019      	str	r1, [r3, #0]
+    223c:	4b44      	ldr	r3, [pc, #272]	; (2350 <readKeyboard+0x1d8>)
+    223e:	4698      	mov	r8, r3
+    2240:	001c      	movs	r4, r3
+    2242:	3428      	adds	r4, #40	; 0x28
+    2244:	0039      	movs	r1, r7
+    2246:	9600      	str	r6, [sp, #0]
+    2248:	e7e2      	b.n	2210 <readKeyboard+0x98>
+    224a:	4647      	mov	r7, r8
+    224c:	9e01      	ldr	r6, [sp, #4]
+    224e:	4641      	mov	r1, r8
+		REG_PORT_DIRSET0 = kb_row[i];
+    2250:	4d3d      	ldr	r5, [pc, #244]	; (2348 <readKeyboard+0x1d0>)
+		REG_PORT_OUTCLR0 = kb_row[i];
+    2252:	4c3e      	ldr	r4, [pc, #248]	; (234c <readKeyboard+0x1d4>)
+		REG_PORT_DIRSET0 = kb_row[i];
+    2254:	6808      	ldr	r0, [r1, #0]
+    2256:	6028      	str	r0, [r5, #0]
+		REG_PORT_OUTCLR0 = kb_row[i];
+    2258:	c901      	ldmia	r1!, {r0}
+    225a:	6020      	str	r0, [r4, #0]
+	for (i = 0; i < NUM_ROW; i++) {
+    225c:	4299      	cmp	r1, r3
+    225e:	d1f9      	bne.n	2254 <readKeyboard+0xdc>
+    2260:	2100      	movs	r1, #0
+		REG_PORT_DIRCLR0 = kb_col[i];
+    2262:	4b38      	ldr	r3, [pc, #224]	; (2344 <readKeyboard+0x1cc>)
+    2264:	4699      	mov	r9, r3
+    2266:	4b3b      	ldr	r3, [pc, #236]	; (2354 <readKeyboard+0x1dc>)
+    2268:	4698      	mov	r8, r3
+		PORT->Group[0].PINCFG[kb_col_index[i]].bit.PULLEN = 1;
+    226a:	4b3e      	ldr	r3, [pc, #248]	; (2364 <readKeyboard+0x1ec>)
+    226c:	469c      	mov	ip, r3
+    226e:	2504      	movs	r5, #4
+		PORT->Group[0].PINCFG[kb_col_index[i]].bit.INEN = 1;
+    2270:	2402      	movs	r4, #2
+		REG_PORT_DIRCLR0 = kb_col[i];
+    2272:	4643      	mov	r3, r8
+    2274:	4648      	mov	r0, r9
+    2276:	5808      	ldr	r0, [r1, r0]
+    2278:	6018      	str	r0, [r3, #0]
+		PORT->Group[0].PINCFG[kb_col_index[i]].bit.PULLEN = 1;
+    227a:	4663      	mov	r3, ip
+    227c:	58cb      	ldr	r3, [r1, r3]
+    227e:	4837      	ldr	r0, [pc, #220]	; (235c <readKeyboard+0x1e4>)
+    2280:	4682      	mov	sl, r0
+    2282:	4453      	add	r3, sl
+    2284:	7818      	ldrb	r0, [r3, #0]
+    2286:	4328      	orrs	r0, r5
+    2288:	7018      	strb	r0, [r3, #0]
+		PORT->Group[0].PINCFG[kb_col_index[i]].bit.INEN = 1;
+    228a:	7818      	ldrb	r0, [r3, #0]
+    228c:	4320      	orrs	r0, r4
+    228e:	7018      	strb	r0, [r3, #0]
+    2290:	3104      	adds	r1, #4
+	for (i = 0; i < NUM_COL; i++) {
+    2292:	291c      	cmp	r1, #28
+    2294:	d1ed      	bne.n	2272 <readKeyboard+0xfa>
+    2296:	2300      	movs	r3, #0
+    2298:	469c      	mov	ip, r3
+		REG_PORT_OUTSET0 = kb_row[i];
+    229a:	4b31      	ldr	r3, [pc, #196]	; (2360 <readKeyboard+0x1e8>)
+    229c:	469b      	mov	fp, r3
+			if((PORT->Group[0].IN.reg & kb_col[j]) != 0)
+    229e:	4d28      	ldr	r5, [pc, #160]	; (2340 <readKeyboard+0x1c8>)
+				scanCodes[scanCodeIndex] = (j * NUM_ROW) + i;
+    22a0:	4b26      	ldr	r3, [pc, #152]	; (233c <readKeyboard+0x1c4>)
+    22a2:	4698      	mov	r8, r3
+		REG_PORT_OUTCLR0 = kb_row[i];
+    22a4:	4b29      	ldr	r3, [pc, #164]	; (234c <readKeyboard+0x1d4>)
+    22a6:	469a      	mov	sl, r3
+    22a8:	46b1      	mov	r9, r6
+    22aa:	003e      	movs	r6, r7
+    22ac:	4667      	mov	r7, ip
+    22ae:	e015      	b.n	22dc <readKeyboard+0x164>
+    22b0:	3104      	adds	r1, #4
+    22b2:	330a      	adds	r3, #10
+		for (j = 0; j < NUM_COL; j++) {
+    22b4:	42a3      	cmp	r3, r4
+    22b6:	d008      	beq.n	22ca <readKeyboard+0x152>
+			if((PORT->Group[0].IN.reg & kb_col[j]) != 0)
+    22b8:	6a28      	ldr	r0, [r5, #32]
+    22ba:	680e      	ldr	r6, [r1, #0]
+    22bc:	4206      	tst	r6, r0
+    22be:	d0f7      	beq.n	22b0 <readKeyboard+0x138>
+				scanCodes[scanCodeIndex] = (j * NUM_ROW) + i;
+    22c0:	0090      	lsls	r0, r2, #2
+    22c2:	4646      	mov	r6, r8
+    22c4:	5183      	str	r3, [r0, r6]
+				scanCodeIndex++;
+    22c6:	3201      	adds	r2, #1
+    22c8:	e7f2      	b.n	22b0 <readKeyboard+0x138>
+    22ca:	9e00      	ldr	r6, [sp, #0]
+		REG_PORT_OUTCLR0 = kb_row[i];
+    22cc:	4663      	mov	r3, ip
+    22ce:	681b      	ldr	r3, [r3, #0]
+    22d0:	4651      	mov	r1, sl
+    22d2:	600b      	str	r3, [r1, #0]
+	for (i = 0; i < NUM_ROW; i++) {
+    22d4:	3701      	adds	r7, #1
+    22d6:	3604      	adds	r6, #4
+    22d8:	2f0a      	cmp	r7, #10
+    22da:	d009      	beq.n	22f0 <readKeyboard+0x178>
+    22dc:	46b4      	mov	ip, r6
+		REG_PORT_OUTSET0 = kb_row[i];
+    22de:	465b      	mov	r3, fp
+    22e0:	6831      	ldr	r1, [r6, #0]
+    22e2:	6019      	str	r1, [r3, #0]
+    22e4:	003b      	movs	r3, r7
+    22e6:	003c      	movs	r4, r7
+    22e8:	3446      	adds	r4, #70	; 0x46
+    22ea:	4916      	ldr	r1, [pc, #88]	; (2344 <readKeyboard+0x1cc>)
+    22ec:	9600      	str	r6, [sp, #0]
+    22ee:	e7e3      	b.n	22b8 <readKeyboard+0x140>
+    22f0:	464e      	mov	r6, r9
+	for(i = 0 ; i < scanCodeIndex ; i++)
+    22f2:	2a00      	cmp	r2, #0
+    22f4:	dd08      	ble.n	2308 <readKeyboard+0x190>
+    22f6:	4b1c      	ldr	r3, [pc, #112]	; (2368 <readKeyboard+0x1f0>)
+    22f8:	0092      	lsls	r2, r2, #2
+    22fa:	4910      	ldr	r1, [pc, #64]	; (233c <readKeyboard+0x1c4>)
+    22fc:	188a      	adds	r2, r1, r2
+		scanCodeBuffer[i] = scanCodes[i];	
+    22fe:	ce02      	ldmia	r6!, {r1}
+    2300:	7019      	strb	r1, [r3, #0]
+    2302:	3301      	adds	r3, #1
+	for(i = 0 ; i < scanCodeIndex ; i++)
+    2304:	42b2      	cmp	r2, r6
+    2306:	d1fa      	bne.n	22fe <readKeyboard+0x186>
+		REG_PORT_OUTSET0 = kb_row[i];
+    2308:	2400      	movs	r4, #0
+		if(keyDown(i) && !scanCodesContains(i))
+    230a:	4d18      	ldr	r5, [pc, #96]	; (236c <readKeyboard+0x1f4>)
+    230c:	4e18      	ldr	r6, [pc, #96]	; (2370 <readKeyboard+0x1f8>)
+			removeFromKeyDown(i);
+    230e:	4f19      	ldr	r7, [pc, #100]	; (2374 <readKeyboard+0x1fc>)
+    2310:	e002      	b.n	2318 <readKeyboard+0x1a0>
+	for(i = 0; i < 70; i++)
+    2312:	3401      	adds	r4, #1
+    2314:	2c46      	cmp	r4, #70	; 0x46
+    2316:	d00a      	beq.n	232e <readKeyboard+0x1b6>
+		if(keyDown(i) && !scanCodesContains(i))
+    2318:	0020      	movs	r0, r4
+    231a:	47a8      	blx	r5
+    231c:	2800      	cmp	r0, #0
+    231e:	d0f8      	beq.n	2312 <readKeyboard+0x19a>
+    2320:	0020      	movs	r0, r4
+    2322:	47b0      	blx	r6
+    2324:	2800      	cmp	r0, #0
+    2326:	d1f4      	bne.n	2312 <readKeyboard+0x19a>
+			removeFromKeyDown(i);
+    2328:	0020      	movs	r0, r4
+    232a:	47b8      	blx	r7
+    232c:	e7f1      	b.n	2312 <readKeyboard+0x19a>
+}
+    232e:	b003      	add	sp, #12
+    2330:	bc3c      	pop	{r2, r3, r4, r5}
+    2332:	4690      	mov	r8, r2
+    2334:	4699      	mov	r9, r3
+    2336:	46a2      	mov	sl, r4
+    2338:	46ab      	mov	fp, r5
+    233a:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    233c:	2000003c 	.word	0x2000003c
+    2340:	41004400 	.word	0x41004400
+    2344:	00006420 	.word	0x00006420
+    2348:	41004408 	.word	0x41004408
+    234c:	41004414 	.word	0x41004414
+    2350:	00006458 	.word	0x00006458
+    2354:	41004404 	.word	0x41004404
+    2358:	00006480 	.word	0x00006480
+    235c:	41004440 	.word	0x41004440
+    2360:	41004418 	.word	0x41004418
+    2364:	0000643c 	.word	0x0000643c
+    2368:	20000028 	.word	0x20000028
+    236c:	00002129 	.word	0x00002129
+    2370:	000020fd 	.word	0x000020fd
+    2374:	00002155 	.word	0x00002155
+
+00002378 <clearCursorBuffer>:
+
+void clearCursorBuffer(void)
+{
+    2378:	4b04      	ldr	r3, [pc, #16]	; (238c <clearCursorBuffer+0x14>)
+    237a:	0019      	movs	r1, r3
+    237c:	31c8      	adds	r1, #200	; 0xc8
+	for(uint16_t i = 0 ; i < 200 ; i++)
+	{
+		cursorBuffer[i] = 0x00;
+    237e:	2200      	movs	r2, #0
+    2380:	701a      	strb	r2, [r3, #0]
+    2382:	3301      	adds	r3, #1
+	for(uint16_t i = 0 ; i < 200 ; i++)
+    2384:	428b      	cmp	r3, r1
+    2386:	d1fb      	bne.n	2380 <clearCursorBuffer+0x8>
+	}
+}
+    2388:	4770      	bx	lr
+    238a:	46c0      	nop			; (mov r8, r8)
+    238c:	20000304 	.word	0x20000304
+
+00002390 <drawCursorBuffer>:
+
+void drawCursorBuffer(void)
+{
+    2390:	b5f0      	push	{r4, r5, r6, r7, lr}
+    2392:	46c6      	mov	lr, r8
+    2394:	b500      	push	{lr}
+    2396:	b082      	sub	sp, #8
+	REG_PORT_OUTCLR1 = LCD_CS;
+    2398:	2280      	movs	r2, #128	; 0x80
+    239a:	03d2      	lsls	r2, r2, #15
+    239c:	4b24      	ldr	r3, [pc, #144]	; (2430 <drawCursorBuffer+0xa0>)
+    239e:	601a      	str	r2, [r3, #0]
+	setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
+    23a0:	4d24      	ldr	r5, [pc, #144]	; (2434 <drawCursorBuffer+0xa4>)
+    23a2:	7828      	ldrb	r0, [r5, #0]
+    23a4:	0083      	lsls	r3, r0, #2
+    23a6:	18c0      	adds	r0, r0, r3
+    23a8:	0040      	lsls	r0, r0, #1
+    23aa:	4c23      	ldr	r4, [pc, #140]	; (2438 <drawCursorBuffer+0xa8>)
+    23ac:	7821      	ldrb	r1, [r4, #0]
+    23ae:	2314      	movs	r3, #20
+    23b0:	4359      	muls	r1, r3
+    23b2:	000b      	movs	r3, r1
+    23b4:	3313      	adds	r3, #19
+    23b6:	b29b      	uxth	r3, r3
+    23b8:	0002      	movs	r2, r0
+    23ba:	3209      	adds	r2, #9
+    23bc:	b292      	uxth	r2, r2
+    23be:	4e1f      	ldr	r6, [pc, #124]	; (243c <drawCursorBuffer+0xac>)
+    23c0:	47b0      	blx	r6
+	printf("Draw\t%i, %i, %i, %i\n\r",xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
+    23c2:	782b      	ldrb	r3, [r5, #0]
+    23c4:	0099      	lsls	r1, r3, #2
+    23c6:	18c9      	adds	r1, r1, r3
+    23c8:	0049      	lsls	r1, r1, #1
+    23ca:	7823      	ldrb	r3, [r4, #0]
+    23cc:	009a      	lsls	r2, r3, #2
+    23ce:	18d2      	adds	r2, r2, r3
+    23d0:	0092      	lsls	r2, r2, #2
+    23d2:	000b      	movs	r3, r1
+    23d4:	3309      	adds	r3, #9
+    23d6:	0010      	movs	r0, r2
+    23d8:	3013      	adds	r0, #19
+    23da:	9000      	str	r0, [sp, #0]
+    23dc:	4818      	ldr	r0, [pc, #96]	; (2440 <drawCursorBuffer+0xb0>)
+    23de:	4c19      	ldr	r4, [pc, #100]	; (2444 <drawCursorBuffer+0xb4>)
+    23e0:	47a0      	blx	r4
+    23e2:	4c19      	ldr	r4, [pc, #100]	; (2448 <drawCursorBuffer+0xb8>)
+    23e4:	0025      	movs	r5, r4
+    23e6:	35c8      	adds	r5, #200	; 0xc8
+	for(uint16_t i = 0 ; i < 200 ; i++)
+	{
+		if((cursorBuffer[i] == 0xFF))
+		setPixel((fore_Color_High<<8)|fore_Color_Low);
+		else
+		setPixel((back_Color_High<<8)|back_Color_Low);
+    23e8:	4b18      	ldr	r3, [pc, #96]	; (244c <drawCursorBuffer+0xbc>)
+    23ea:	4698      	mov	r8, r3
+    23ec:	4f18      	ldr	r7, [pc, #96]	; (2450 <drawCursorBuffer+0xc0>)
+    23ee:	4e19      	ldr	r6, [pc, #100]	; (2454 <drawCursorBuffer+0xc4>)
+    23f0:	e00b      	b.n	240a <drawCursorBuffer+0x7a>
+		setPixel((fore_Color_High<<8)|fore_Color_Low);
+    23f2:	4b19      	ldr	r3, [pc, #100]	; (2458 <drawCursorBuffer+0xc8>)
+    23f4:	8818      	ldrh	r0, [r3, #0]
+    23f6:	0200      	lsls	r0, r0, #8
+    23f8:	4b18      	ldr	r3, [pc, #96]	; (245c <drawCursorBuffer+0xcc>)
+    23fa:	881b      	ldrh	r3, [r3, #0]
+    23fc:	4318      	orrs	r0, r3
+    23fe:	b280      	uxth	r0, r0
+    2400:	4b14      	ldr	r3, [pc, #80]	; (2454 <drawCursorBuffer+0xc4>)
+    2402:	4798      	blx	r3
+    2404:	3401      	adds	r4, #1
+	for(uint16_t i = 0 ; i < 200 ; i++)
+    2406:	42ac      	cmp	r4, r5
+    2408:	d00a      	beq.n	2420 <drawCursorBuffer+0x90>
+		if((cursorBuffer[i] == 0xFF))
+    240a:	7823      	ldrb	r3, [r4, #0]
+    240c:	2bff      	cmp	r3, #255	; 0xff
+    240e:	d0f0      	beq.n	23f2 <drawCursorBuffer+0x62>
+		setPixel((back_Color_High<<8)|back_Color_Low);
+    2410:	4643      	mov	r3, r8
+    2412:	8818      	ldrh	r0, [r3, #0]
+    2414:	0200      	lsls	r0, r0, #8
+    2416:	883b      	ldrh	r3, [r7, #0]
+    2418:	4318      	orrs	r0, r3
+    241a:	b280      	uxth	r0, r0
+    241c:	47b0      	blx	r6
+    241e:	e7f1      	b.n	2404 <drawCursorBuffer+0x74>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
+	}
+	REG_PORT_OUTSET1 = LCD_CS;
+    2420:	2280      	movs	r2, #128	; 0x80
+    2422:	03d2      	lsls	r2, r2, #15
+    2424:	4b0e      	ldr	r3, [pc, #56]	; (2460 <drawCursorBuffer+0xd0>)
+    2426:	601a      	str	r2, [r3, #0]
 
 }
+<<<<<<< HEAD
     247e:	bc04      	pop	{r2}
     2480:	4690      	mov	r8, r2
     2482:	bdf0      	pop	{r4, r5, r6, r7, pc}
@@ -6980,11 +7883,148 @@ void invertCursorBuffer(void)
     24aa:	4b08      	ldr	r3, [pc, #32]	; (24cc <invertCursorBuffer+0x24>)
     24ac:	0019      	movs	r1, r3
     24ae:	31c8      	adds	r1, #200	; 0xc8
+=======
+    2428:	b002      	add	sp, #8
+    242a:	bc04      	pop	{r2}
+    242c:	4690      	mov	r8, r2
+    242e:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2430:	41004494 	.word	0x41004494
+    2434:	20000298 	.word	0x20000298
+    2438:	20000299 	.word	0x20000299
+    243c:	000029d9 	.word	0x000029d9
+    2440:	00006408 	.word	0x00006408
+    2444:	0000337d 	.word	0x0000337d
+    2448:	20000304 	.word	0x20000304
+    244c:	200003d2 	.word	0x200003d2
+    2450:	200003cc 	.word	0x200003cc
+    2454:	00002bb9 	.word	0x00002bb9
+    2458:	200003ce 	.word	0x200003ce
+    245c:	200003d0 	.word	0x200003d0
+    2460:	41004498 	.word	0x41004498
+
+00002464 <readCursor>:
+		}
+	}	
+}
+
+void readCursor(uint8_t x, uint8_t y)
+{
+    2464:	b5f0      	push	{r4, r5, r6, r7, lr}
+    2466:	46ce      	mov	lr, r9
+    2468:	4647      	mov	r7, r8
+    246a:	b580      	push	{r7, lr}
+    246c:	b083      	sub	sp, #12
+    246e:	0006      	movs	r6, r0
+    2470:	000d      	movs	r5, r1
+	
+	//This function does not actually *move* the cursor, this is handled
+	
+	
+	//set PB07 to input
+	REG_PORT_DIRCLR1 = PORT_PB07;
+    2472:	2280      	movs	r2, #128	; 0x80
+    2474:	4b30      	ldr	r3, [pc, #192]	; (2538 <readCursor+0xd4>)
+    2476:	601a      	str	r2, [r3, #0]
+	PORT->Group[1].PINCFG[7].bit.INEN = 1;
+    2478:	4a30      	ldr	r2, [pc, #192]	; (253c <readCursor+0xd8>)
+    247a:	23c7      	movs	r3, #199	; 0xc7
+    247c:	5cd1      	ldrb	r1, [r2, r3]
+    247e:	2002      	movs	r0, #2
+    2480:	4301      	orrs	r1, r0
+    2482:	54d1      	strb	r1, [r2, r3]
+	PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
+    2484:	5cd1      	ldrb	r1, [r2, r3]
+    2486:	2004      	movs	r0, #4
+    2488:	4301      	orrs	r1, r0
+    248a:	54d1      	strb	r1, [r2, r3]
+	
+	
+	//Per page 40 of datasheet (5.1.2.7, 16-bit
+	//parallel interface for data ram read.
+	REG_PORT_OUTCLR1 = LCD_CS;
+    248c:	4c2c      	ldr	r4, [pc, #176]	; (2540 <readCursor+0xdc>)
+    248e:	2380      	movs	r3, #128	; 0x80
+    2490:	03db      	lsls	r3, r3, #15
+    2492:	6023      	str	r3, [r4, #0]
+	setXY(x*10,y*20,x*10+9,y*20+19);
+    2494:	00b0      	lsls	r0, r6, #2
+    2496:	1830      	adds	r0, r6, r0
+    2498:	0040      	lsls	r0, r0, #1
+    249a:	2114      	movs	r1, #20
+    249c:	4369      	muls	r1, r5
+    249e:	000b      	movs	r3, r1
+    24a0:	3313      	adds	r3, #19
+    24a2:	b29b      	uxth	r3, r3
+    24a4:	0002      	movs	r2, r0
+    24a6:	3209      	adds	r2, #9
+    24a8:	b292      	uxth	r2, r2
+    24aa:	4f26      	ldr	r7, [pc, #152]	; (2544 <readCursor+0xe0>)
+    24ac:	47b8      	blx	r7
+	printf("Read\t%i, %i, %i, %i\n\r",x*10,y*20,x*10+9,y*20+19);
+    24ae:	00b1      	lsls	r1, r6, #2
+    24b0:	1989      	adds	r1, r1, r6
+    24b2:	0049      	lsls	r1, r1, #1
+    24b4:	00aa      	lsls	r2, r5, #2
+    24b6:	1952      	adds	r2, r2, r5
+    24b8:	0092      	lsls	r2, r2, #2
+    24ba:	000b      	movs	r3, r1
+    24bc:	3309      	adds	r3, #9
+    24be:	0010      	movs	r0, r2
+    24c0:	3013      	adds	r0, #19
+    24c2:	9000      	str	r0, [sp, #0]
+    24c4:	4820      	ldr	r0, [pc, #128]	; (2548 <readCursor+0xe4>)
+    24c6:	4d21      	ldr	r5, [pc, #132]	; (254c <readCursor+0xe8>)
+    24c8:	47a8      	blx	r5
+	
+	
+	//Send'Memory read' command 0x2E00, no data bit
+	LCD_Write_COM16(0x2E,0x00);
+    24ca:	2100      	movs	r1, #0
+    24cc:	202e      	movs	r0, #46	; 0x2e
+    24ce:	4b20      	ldr	r3, [pc, #128]	; (2550 <readCursor+0xec>)
+    24d0:	4798      	blx	r3
+	REG_PORT_OUTSET1 = LCD_DC;
+    24d2:	4b20      	ldr	r3, [pc, #128]	; (2554 <readCursor+0xf0>)
+    24d4:	2280      	movs	r2, #128	; 0x80
+    24d6:	0412      	lsls	r2, r2, #16
+    24d8:	601a      	str	r2, [r3, #0]
+
+	//needs dummy write, per data sheet, page 40
+	REG_PORT_OUTCLR1 = LCD_RD;
+    24da:	2280      	movs	r2, #128	; 0x80
+    24dc:	0252      	lsls	r2, r2, #9
+    24de:	6022      	str	r2, [r4, #0]
+	REG_PORT_OUTSET1 = LCD_RD;
+    24e0:	601a      	str	r2, [r3, #0]
+    24e2:	4b1d      	ldr	r3, [pc, #116]	; (2558 <readCursor+0xf4>)
+    24e4:	22c9      	movs	r2, #201	; 0xc9
+    24e6:	4694      	mov	ip, r2
+    24e8:	449c      	add	ip, r3
+	
+	for(uint8_t pixel = 0; pixel <= 200 ; pixel++)
+	{
+		REG_PORT_OUTCLR1 = LCD_RD;
+    24ea:	0020      	movs	r0, r4
+    24ec:	2280      	movs	r2, #128	; 0x80
+    24ee:	0252      	lsls	r2, r2, #9
+		REG_PORT_OUTSET1 = LCD_RD;
+    24f0:	4918      	ldr	r1, [pc, #96]	; (2554 <readCursor+0xf0>)
+
+		//get the pin state, stuff into array
+		
+		//This can be expanded with else if for the MSBs
+		//of all the colors; see datasheet page 40.
+		if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
+    24f2:	4f12      	ldr	r7, [pc, #72]	; (253c <readCursor+0xd8>)
+    24f4:	26a0      	movs	r6, #160	; 0xa0
+    24f6:	2580      	movs	r5, #128	; 0x80
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		{
 			cursorBuffer[i] = 0x00;
 		}
 		else
 		{
+<<<<<<< HEAD
 			cursorBuffer[i] = 0xFF;
     24b0:	20ff      	movs	r0, #255	; 0xff
 			cursorBuffer[i] = 0x00;
@@ -7023,10 +8063,90 @@ void blinkCursor(void)
     24d8:	781b      	ldrb	r3, [r3, #0]
     24da:	2b00      	cmp	r3, #0
     24dc:	d039      	beq.n	2552 <blinkCursor+0x82>
+=======
+			cursorBuffer[pixel] = 0x00;
+    24f8:	2400      	movs	r4, #0
+    24fa:	46a1      	mov	r9, r4
+			cursorBuffer[pixel] = 0xFF;
+    24fc:	34ff      	adds	r4, #255	; 0xff
+    24fe:	46a0      	mov	r8, r4
+    2500:	e006      	b.n	2510 <readCursor+0xac>
+			cursorBuffer[pixel] = 0x00;
+    2502:	464c      	mov	r4, r9
+    2504:	701c      	strb	r4, [r3, #0]
+		//dummy read, because pixel data broken up
+		//per datasheet page 40. Everything after
+		//the dummy write is BLUE pixels. Do we ever
+		//need blue? IDK.
+		
+		REG_PORT_OUTCLR1 = LCD_RD;
+    2506:	6002      	str	r2, [r0, #0]
+		REG_PORT_OUTSET1 = LCD_RD;
+    2508:	600a      	str	r2, [r1, #0]
+    250a:	3301      	adds	r3, #1
+	for(uint8_t pixel = 0; pixel <= 200 ; pixel++)
+    250c:	4563      	cmp	r3, ip
+    250e:	d007      	beq.n	2520 <readCursor+0xbc>
+		REG_PORT_OUTCLR1 = LCD_RD;
+    2510:	6002      	str	r2, [r0, #0]
+		REG_PORT_OUTSET1 = LCD_RD;
+    2512:	600a      	str	r2, [r1, #0]
+		if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
+    2514:	59bc      	ldr	r4, [r7, r6]
+    2516:	4225      	tst	r5, r4
+    2518:	d0f3      	beq.n	2502 <readCursor+0x9e>
+			cursorBuffer[pixel] = 0xFF;
+    251a:	4644      	mov	r4, r8
+    251c:	701c      	strb	r4, [r3, #0]
+    251e:	e7f2      	b.n	2506 <readCursor+0xa2>
+	}
+	
+	REG_PORT_OUTSET1 = LCD_DC;
+    2520:	2280      	movs	r2, #128	; 0x80
+    2522:	0412      	lsls	r2, r2, #16
+    2524:	4b0b      	ldr	r3, [pc, #44]	; (2554 <readCursor+0xf0>)
+    2526:	601a      	str	r2, [r3, #0]
+	REG_PORT_DIRSET1 = 0x0000FFFF;
+    2528:	4a0c      	ldr	r2, [pc, #48]	; (255c <readCursor+0xf8>)
+    252a:	4b0d      	ldr	r3, [pc, #52]	; (2560 <readCursor+0xfc>)
+    252c:	601a      	str	r2, [r3, #0]
+	
+}
+    252e:	b003      	add	sp, #12
+    2530:	bc0c      	pop	{r2, r3}
+    2532:	4690      	mov	r8, r2
+    2534:	4699      	mov	r9, r3
+    2536:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2538:	41004484 	.word	0x41004484
+    253c:	41004400 	.word	0x41004400
+    2540:	41004494 	.word	0x41004494
+    2544:	000029d9 	.word	0x000029d9
+    2548:	000064a8 	.word	0x000064a8
+    254c:	0000337d 	.word	0x0000337d
+    2550:	00002c25 	.word	0x00002c25
+    2554:	41004498 	.word	0x41004498
+    2558:	20000304 	.word	0x20000304
+    255c:	0000ffff 	.word	0x0000ffff
+    2560:	41004488 	.word	0x41004488
+
+00002564 <blinkCursor>:
+
+void blinkCursor(void)
+{
+    2564:	b5f0      	push	{r4, r5, r6, r7, lr}
+    2566:	46c6      	mov	lr, r8
+    2568:	b500      	push	{lr}
+	if(cursorBlinkState)
+    256a:	4b39      	ldr	r3, [pc, #228]	; (2650 <blinkCursor+0xec>)
+    256c:	781b      	ldrb	r3, [r3, #0]
+    256e:	2b00      	cmp	r3, #0
+    2570:	d037      	beq.n	25e2 <blinkCursor+0x7e>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	{
 
 		//Draw the *inverse* of cursorBuffer
 		setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
+<<<<<<< HEAD
     24de:	4b3a      	ldr	r3, [pc, #232]	; (25c8 <blinkCursor+0xf8>)
     24e0:	8818      	ldrh	r0, [r3, #0]
     24e2:	0083      	lsls	r3, r0, #2
@@ -7049,12 +8169,35 @@ void blinkCursor(void)
     2504:	4c33      	ldr	r4, [pc, #204]	; (25d4 <blinkCursor+0x104>)
     2506:	0025      	movs	r5, r4
     2508:	35c8      	adds	r5, #200	; 0xc8
+=======
+    2572:	4b38      	ldr	r3, [pc, #224]	; (2654 <blinkCursor+0xf0>)
+    2574:	7818      	ldrb	r0, [r3, #0]
+    2576:	0083      	lsls	r3, r0, #2
+    2578:	18c0      	adds	r0, r0, r3
+    257a:	0040      	lsls	r0, r0, #1
+    257c:	4b36      	ldr	r3, [pc, #216]	; (2658 <blinkCursor+0xf4>)
+    257e:	7819      	ldrb	r1, [r3, #0]
+    2580:	2314      	movs	r3, #20
+    2582:	4359      	muls	r1, r3
+    2584:	000b      	movs	r3, r1
+    2586:	3313      	adds	r3, #19
+    2588:	b29b      	uxth	r3, r3
+    258a:	0002      	movs	r2, r0
+    258c:	3209      	adds	r2, #9
+    258e:	b292      	uxth	r2, r2
+    2590:	4c32      	ldr	r4, [pc, #200]	; (265c <blinkCursor+0xf8>)
+    2592:	47a0      	blx	r4
+    2594:	4c32      	ldr	r4, [pc, #200]	; (2660 <blinkCursor+0xfc>)
+    2596:	0025      	movs	r5, r4
+    2598:	35c8      	adds	r5, #200	; 0xc8
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		for(uint16_t i = 0 ; i < 200 ; i++)
 		{
 			if((cursorBuffer[i] != 0xFF))
 			setPixel((fore_Color_High<<8)|fore_Color_Low);
 			else
 			setPixel((back_Color_High<<8)|back_Color_Low);
+<<<<<<< HEAD
     250a:	4b33      	ldr	r3, [pc, #204]	; (25d8 <blinkCursor+0x108>)
     250c:	4698      	mov	r8, r3
     250e:	4f33      	ldr	r7, [pc, #204]	; (25dc <blinkCursor+0x10c>)
@@ -7086,21 +8229,63 @@ void blinkCursor(void)
     253c:	4b28      	ldr	r3, [pc, #160]	; (25e0 <blinkCursor+0x110>)
     253e:	4798      	blx	r3
     2540:	e7ef      	b.n	2522 <blinkCursor+0x52>
+=======
+    259a:	4b32      	ldr	r3, [pc, #200]	; (2664 <blinkCursor+0x100>)
+    259c:	4698      	mov	r8, r3
+    259e:	4f32      	ldr	r7, [pc, #200]	; (2668 <blinkCursor+0x104>)
+    25a0:	4e32      	ldr	r6, [pc, #200]	; (266c <blinkCursor+0x108>)
+    25a2:	e009      	b.n	25b8 <blinkCursor+0x54>
+    25a4:	4643      	mov	r3, r8
+    25a6:	8818      	ldrh	r0, [r3, #0]
+    25a8:	0200      	lsls	r0, r0, #8
+    25aa:	883b      	ldrh	r3, [r7, #0]
+    25ac:	4318      	orrs	r0, r3
+    25ae:	b280      	uxth	r0, r0
+    25b0:	47b0      	blx	r6
+    25b2:	3401      	adds	r4, #1
+		for(uint16_t i = 0 ; i < 200 ; i++)
+    25b4:	42a5      	cmp	r5, r4
+    25b6:	d00c      	beq.n	25d2 <blinkCursor+0x6e>
+			if((cursorBuffer[i] != 0xFF))
+    25b8:	7823      	ldrb	r3, [r4, #0]
+    25ba:	2bff      	cmp	r3, #255	; 0xff
+    25bc:	d0f2      	beq.n	25a4 <blinkCursor+0x40>
+			setPixel((fore_Color_High<<8)|fore_Color_Low);
+    25be:	4b2c      	ldr	r3, [pc, #176]	; (2670 <blinkCursor+0x10c>)
+    25c0:	8818      	ldrh	r0, [r3, #0]
+    25c2:	0200      	lsls	r0, r0, #8
+    25c4:	4b2b      	ldr	r3, [pc, #172]	; (2674 <blinkCursor+0x110>)
+    25c6:	881b      	ldrh	r3, [r3, #0]
+    25c8:	4318      	orrs	r0, r3
+    25ca:	b280      	uxth	r0, r0
+    25cc:	4b27      	ldr	r3, [pc, #156]	; (266c <blinkCursor+0x108>)
+    25ce:	4798      	blx	r3
+    25d0:	e7ef      	b.n	25b2 <blinkCursor+0x4e>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		}
 		
 		//finally set cursorBlinkState to false
 		cursorBlinkState = !cursorBlinkState;
+<<<<<<< HEAD
     2542:	4a20      	ldr	r2, [pc, #128]	; (25c4 <blinkCursor+0xf4>)
     2544:	7813      	ldrb	r3, [r2, #0]
     2546:	2101      	movs	r1, #1
     2548:	404b      	eors	r3, r1
     254a:	7013      	strb	r3, [r2, #0]
+=======
+    25d2:	4a1f      	ldr	r2, [pc, #124]	; (2650 <blinkCursor+0xec>)
+    25d4:	7813      	ldrb	r3, [r2, #0]
+    25d6:	2101      	movs	r1, #1
+    25d8:	404b      	eors	r3, r1
+    25da:	7013      	strb	r3, [r2, #0]
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 			setPixel((back_Color_High<<8)|back_Color_Low);
 		}
 		//set cursorBlinkState to true
 		cursorBlinkState = !cursorBlinkState;
 	}
 }
+<<<<<<< HEAD
     254c:	bc04      	pop	{r2}
     254e:	4690      	mov	r8, r2
     2550:	bdf0      	pop	{r4, r5, r6, r7, pc}
@@ -7617,12 +8802,496 @@ void blinkCursor(void)
     28d0:	000023fd 	.word	0x000023fd
 
 000028d4 <setColorRGB>:
+=======
+    25dc:	bc04      	pop	{r2}
+    25de:	4690      	mov	r8, r2
+    25e0:	bdf0      	pop	{r4, r5, r6, r7, pc}
+		setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
+    25e2:	4b1c      	ldr	r3, [pc, #112]	; (2654 <blinkCursor+0xf0>)
+    25e4:	7818      	ldrb	r0, [r3, #0]
+    25e6:	0083      	lsls	r3, r0, #2
+    25e8:	18c0      	adds	r0, r0, r3
+    25ea:	0040      	lsls	r0, r0, #1
+    25ec:	4b1a      	ldr	r3, [pc, #104]	; (2658 <blinkCursor+0xf4>)
+    25ee:	7819      	ldrb	r1, [r3, #0]
+    25f0:	2314      	movs	r3, #20
+    25f2:	4359      	muls	r1, r3
+    25f4:	000b      	movs	r3, r1
+    25f6:	3313      	adds	r3, #19
+    25f8:	b29b      	uxth	r3, r3
+    25fa:	0002      	movs	r2, r0
+    25fc:	3209      	adds	r2, #9
+    25fe:	b292      	uxth	r2, r2
+    2600:	4c16      	ldr	r4, [pc, #88]	; (265c <blinkCursor+0xf8>)
+    2602:	47a0      	blx	r4
+    2604:	4c16      	ldr	r4, [pc, #88]	; (2660 <blinkCursor+0xfc>)
+    2606:	0025      	movs	r5, r4
+    2608:	35c8      	adds	r5, #200	; 0xc8
+			setPixel((back_Color_High<<8)|back_Color_Low);
+    260a:	4b16      	ldr	r3, [pc, #88]	; (2664 <blinkCursor+0x100>)
+    260c:	4698      	mov	r8, r3
+    260e:	4f16      	ldr	r7, [pc, #88]	; (2668 <blinkCursor+0x104>)
+    2610:	4e16      	ldr	r6, [pc, #88]	; (266c <blinkCursor+0x108>)
+    2612:	e00b      	b.n	262c <blinkCursor+0xc8>
+			setPixel((fore_Color_High<<8)|fore_Color_Low);
+    2614:	4b16      	ldr	r3, [pc, #88]	; (2670 <blinkCursor+0x10c>)
+    2616:	8818      	ldrh	r0, [r3, #0]
+    2618:	0200      	lsls	r0, r0, #8
+    261a:	4b16      	ldr	r3, [pc, #88]	; (2674 <blinkCursor+0x110>)
+    261c:	881b      	ldrh	r3, [r3, #0]
+    261e:	4318      	orrs	r0, r3
+    2620:	b280      	uxth	r0, r0
+    2622:	4b12      	ldr	r3, [pc, #72]	; (266c <blinkCursor+0x108>)
+    2624:	4798      	blx	r3
+    2626:	3401      	adds	r4, #1
+		for(uint16_t i = 0 ; i < 200 ; i++)
+    2628:	42ac      	cmp	r4, r5
+    262a:	d00a      	beq.n	2642 <blinkCursor+0xde>
+			if((cursorBuffer[i] == 0xFF))
+    262c:	7823      	ldrb	r3, [r4, #0]
+    262e:	2bff      	cmp	r3, #255	; 0xff
+    2630:	d0f0      	beq.n	2614 <blinkCursor+0xb0>
+			setPixel((back_Color_High<<8)|back_Color_Low);
+    2632:	4643      	mov	r3, r8
+    2634:	8818      	ldrh	r0, [r3, #0]
+    2636:	0200      	lsls	r0, r0, #8
+    2638:	883b      	ldrh	r3, [r7, #0]
+    263a:	4318      	orrs	r0, r3
+    263c:	b280      	uxth	r0, r0
+    263e:	47b0      	blx	r6
+    2640:	e7f1      	b.n	2626 <blinkCursor+0xc2>
+		cursorBlinkState = !cursorBlinkState;
+    2642:	4a03      	ldr	r2, [pc, #12]	; (2650 <blinkCursor+0xec>)
+    2644:	7813      	ldrb	r3, [r2, #0]
+    2646:	2101      	movs	r1, #1
+    2648:	404b      	eors	r3, r1
+    264a:	7013      	strb	r3, [r2, #0]
+}
+    264c:	e7c6      	b.n	25dc <blinkCursor+0x78>
+    264e:	46c0      	nop			; (mov r8, r8)
+    2650:	20000010 	.word	0x20000010
+    2654:	20000298 	.word	0x20000298
+    2658:	20000299 	.word	0x20000299
+    265c:	000029d9 	.word	0x000029d9
+    2660:	20000304 	.word	0x20000304
+    2664:	200003d2 	.word	0x200003d2
+    2668:	200003cc 	.word	0x200003cc
+    266c:	00002bb9 	.word	0x00002bb9
+    2670:	200003ce 	.word	0x200003ce
+    2674:	200003d0 	.word	0x200003d0
+
+00002678 <printKeyboardBuffer>:
+{
+    2678:	b5f0      	push	{r4, r5, r6, r7, lr}
+    267a:	46de      	mov	lr, fp
+    267c:	4657      	mov	r7, sl
+    267e:	464e      	mov	r6, r9
+    2680:	4645      	mov	r5, r8
+    2682:	b5e0      	push	{r5, r6, r7, lr}
+    2684:	b0a7      	sub	sp, #156	; 0x9c
+	char noCase[] =	  
+    2686:	4c95      	ldr	r4, [pc, #596]	; (28dc <printKeyboardBuffer+0x264>)
+    2688:	2246      	movs	r2, #70	; 0x46
+    268a:	0021      	movs	r1, r4
+    268c:	a814      	add	r0, sp, #80	; 0x50
+    268e:	4d94      	ldr	r5, [pc, #592]	; (28e0 <printKeyboardBuffer+0x268>)
+    2690:	47a8      	blx	r5
+	char shiftCase[] = 
+    2692:	0021      	movs	r1, r4
+    2694:	3148      	adds	r1, #72	; 0x48
+    2696:	2246      	movs	r2, #70	; 0x46
+    2698:	a802      	add	r0, sp, #8
+    269a:	47a8      	blx	r5
+    269c:	4e91      	ldr	r6, [pc, #580]	; (28e4 <printKeyboardBuffer+0x26c>)
+    269e:	0031      	movs	r1, r6
+    26a0:	3114      	adds	r1, #20
+    26a2:	0034      	movs	r4, r6
+	bool shifted = false;
+    26a4:	2300      	movs	r3, #0
+    26a6:	9301      	str	r3, [sp, #4]
+    26a8:	e002      	b.n	26b0 <printKeyboardBuffer+0x38>
+    26aa:	3401      	adds	r4, #1
+	for(int i=0; i<20; i++)
+    26ac:	428c      	cmp	r4, r1
+    26ae:	d00b      	beq.n	26c8 <printKeyboardBuffer+0x50>
+		if((scanCodeBuffer[i] == 13) | (scanCodeBuffer[i] == 49))
+    26b0:	7823      	ldrb	r3, [r4, #0]
+    26b2:	001a      	movs	r2, r3
+    26b4:	3a0d      	subs	r2, #13
+    26b6:	4250      	negs	r0, r2
+    26b8:	4142      	adcs	r2, r0
+    26ba:	3b31      	subs	r3, #49	; 0x31
+    26bc:	4258      	negs	r0, r3
+    26be:	4143      	adcs	r3, r0
+    26c0:	4313      	orrs	r3, r2
+    26c2:	d0f2      	beq.n	26aa <printKeyboardBuffer+0x32>
+			shifted = true;
+    26c4:	9301      	str	r3, [sp, #4]
+    26c6:	e7f0      	b.n	26aa <printKeyboardBuffer+0x32>
+    26c8:	2500      	movs	r5, #0
+		if(!keyDown(scanCodeBuffer[i]))
+    26ca:	4b86      	ldr	r3, [pc, #536]	; (28e4 <printKeyboardBuffer+0x26c>)
+    26cc:	4699      	mov	r9, r3
+			keyDownBuffer[i] = scanCodeBuffer[i];
+    26ce:	4b86      	ldr	r3, [pc, #536]	; (28e8 <printKeyboardBuffer+0x270>)
+    26d0:	469a      	mov	sl, r3
+    26d2:	e007      	b.n	26e4 <printKeyboardBuffer+0x6c>
+				if(xCharPos > 0)  ///I think I need to decouple the reading the next cursor
+    26d4:	4b85      	ldr	r3, [pc, #532]	; (28ec <printKeyboardBuffer+0x274>)
+    26d6:	781b      	ldrb	r3, [r3, #0]
+    26d8:	2b00      	cmp	r3, #0
+    26da:	d136      	bne.n	274a <printKeyboardBuffer+0xd2>
+	for(int i=0; i<20; i++)
+    26dc:	3501      	adds	r5, #1
+    26de:	2d14      	cmp	r5, #20
+    26e0:	d100      	bne.n	26e4 <printKeyboardBuffer+0x6c>
+    26e2:	e0ef      	b.n	28c4 <printKeyboardBuffer+0x24c>
+		if(!keyDown(scanCodeBuffer[i]))
+    26e4:	464b      	mov	r3, r9
+    26e6:	5cef      	ldrb	r7, [r5, r3]
+    26e8:	0038      	movs	r0, r7
+    26ea:	4b81      	ldr	r3, [pc, #516]	; (28f0 <printKeyboardBuffer+0x278>)
+    26ec:	4798      	blx	r3
+    26ee:	2800      	cmp	r0, #0
+    26f0:	d1f4      	bne.n	26dc <printKeyboardBuffer+0x64>
+			keyDownBuffer[i] = scanCodeBuffer[i];
+    26f2:	4653      	mov	r3, sl
+    26f4:	555f      	strb	r7, [r3, r5]
+			if(scanCodeBuffer[i] == 0xFF)
+    26f6:	2fff      	cmp	r7, #255	; 0xff
+    26f8:	d0f0      	beq.n	26dc <printKeyboardBuffer+0x64>
+			else if(scanCodeBuffer[i] == 35) //left
+    26fa:	2f23      	cmp	r7, #35	; 0x23
+    26fc:	d0ea      	beq.n	26d4 <printKeyboardBuffer+0x5c>
+			else if(scanCodeBuffer[i] == 45)	//down
+    26fe:	2f2d      	cmp	r7, #45	; 0x2d
+    2700:	d03a      	beq.n	2778 <printKeyboardBuffer+0x100>
+			else if(scanCodeBuffer[i] == 55)	//up
+    2702:	2f37      	cmp	r7, #55	; 0x37
+    2704:	d053      	beq.n	27ae <printKeyboardBuffer+0x136>
+			else if(scanCodeBuffer[i] == 65)	//right
+    2706:	2f41      	cmp	r7, #65	; 0x41
+    2708:	d06c      	beq.n	27e4 <printKeyboardBuffer+0x16c>
+			else if((scanCodeBuffer[i] == 49) | (scanCodeBuffer[i] == 13))
+    270a:	2f31      	cmp	r7, #49	; 0x31
+    270c:	d0e6      	beq.n	26dc <printKeyboardBuffer+0x64>
+    270e:	2f0d      	cmp	r7, #13
+    2710:	d0e4      	beq.n	26dc <printKeyboardBuffer+0x64>
+			else if(scanCodeBuffer[i] == 58) //Return
+    2712:	2f3a      	cmp	r7, #58	; 0x3a
+    2714:	d100      	bne.n	2718 <printKeyboardBuffer+0xa0>
+    2716:	e081      	b.n	281c <printKeyboardBuffer+0x1a4>
+			else if(scanCodeBuffer[i] == 69) //Line
+    2718:	2f45      	cmp	r7, #69	; 0x45
+    271a:	d100      	bne.n	271e <printKeyboardBuffer+0xa6>
+    271c:	e094      	b.n	2848 <printKeyboardBuffer+0x1d0>
+			else if(scanCodeBuffer[i] == 66) //Backspace
+    271e:	2f42      	cmp	r7, #66	; 0x42
+    2720:	d100      	bne.n	2724 <printKeyboardBuffer+0xac>
+    2722:	e09c      	b.n	285e <printKeyboardBuffer+0x1e6>
+				if(shifted)
+    2724:	9b01      	ldr	r3, [sp, #4]
+    2726:	2b00      	cmp	r3, #0
+    2728:	d100      	bne.n	272c <printKeyboardBuffer+0xb4>
+    272a:	e0b4      	b.n	2896 <printKeyboardBuffer+0x21e>
+					drawChar(shiftCase[scanCodeBuffer[i]]);
+    272c:	ab02      	add	r3, sp, #8
+    272e:	5dd8      	ldrb	r0, [r3, r7]
+    2730:	4b70      	ldr	r3, [pc, #448]	; (28f4 <printKeyboardBuffer+0x27c>)
+    2732:	4798      	blx	r3
+					if(xCharPos < 79)
+    2734:	4b6d      	ldr	r3, [pc, #436]	; (28ec <printKeyboardBuffer+0x274>)
+    2736:	7818      	ldrb	r0, [r3, #0]
+    2738:	284e      	cmp	r0, #78	; 0x4e
+    273a:	d800      	bhi.n	273e <printKeyboardBuffer+0xc6>
+    273c:	e0a2      	b.n	2884 <printKeyboardBuffer+0x20c>
+					cursorBlinkState = true;
+    273e:	2201      	movs	r2, #1
+    2740:	4b6d      	ldr	r3, [pc, #436]	; (28f8 <printKeyboardBuffer+0x280>)
+    2742:	701a      	strb	r2, [r3, #0]
+					blinkCursor();
+    2744:	4b6d      	ldr	r3, [pc, #436]	; (28fc <printKeyboardBuffer+0x284>)
+    2746:	4798      	blx	r3
+    2748:	e7c8      	b.n	26dc <printKeyboardBuffer+0x64>
+					drawCursorBuffer();
+    274a:	4f6d      	ldr	r7, [pc, #436]	; (2900 <printKeyboardBuffer+0x288>)
+    274c:	47b8      	blx	r7
+					readCursor(xCharPos-1,yCharPos);
+    274e:	4b6d      	ldr	r3, [pc, #436]	; (2904 <printKeyboardBuffer+0x28c>)
+    2750:	7819      	ldrb	r1, [r3, #0]
+    2752:	4b66      	ldr	r3, [pc, #408]	; (28ec <printKeyboardBuffer+0x274>)
+    2754:	469b      	mov	fp, r3
+    2756:	7818      	ldrb	r0, [r3, #0]
+    2758:	3801      	subs	r0, #1
+    275a:	b2c0      	uxtb	r0, r0
+    275c:	4b6a      	ldr	r3, [pc, #424]	; (2908 <printKeyboardBuffer+0x290>)
+    275e:	4798      	blx	r3
+					xCharPos--;
+    2760:	465b      	mov	r3, fp
+    2762:	781b      	ldrb	r3, [r3, #0]
+    2764:	3b01      	subs	r3, #1
+    2766:	465a      	mov	r2, fp
+    2768:	7013      	strb	r3, [r2, #0]
+					drawCursorBuffer();
+    276a:	47b8      	blx	r7
+					cursorBlinkState = true;
+    276c:	2201      	movs	r2, #1
+    276e:	4b62      	ldr	r3, [pc, #392]	; (28f8 <printKeyboardBuffer+0x280>)
+    2770:	701a      	strb	r2, [r3, #0]
+					blinkCursor();
+    2772:	4b62      	ldr	r3, [pc, #392]	; (28fc <printKeyboardBuffer+0x284>)
+    2774:	4798      	blx	r3
+    2776:	e7b1      	b.n	26dc <printKeyboardBuffer+0x64>
+				if(yCharPos < 24)
+    2778:	4b62      	ldr	r3, [pc, #392]	; (2904 <printKeyboardBuffer+0x28c>)
+    277a:	781b      	ldrb	r3, [r3, #0]
+    277c:	2b17      	cmp	r3, #23
+    277e:	d8ad      	bhi.n	26dc <printKeyboardBuffer+0x64>
+					drawCursorBuffer();
+    2780:	4f5f      	ldr	r7, [pc, #380]	; (2900 <printKeyboardBuffer+0x288>)
+    2782:	47b8      	blx	r7
+					readCursor(xCharPos,yCharPos+1);
+    2784:	4b5f      	ldr	r3, [pc, #380]	; (2904 <printKeyboardBuffer+0x28c>)
+    2786:	469b      	mov	fp, r3
+    2788:	7819      	ldrb	r1, [r3, #0]
+    278a:	3101      	adds	r1, #1
+    278c:	b2c9      	uxtb	r1, r1
+    278e:	4b57      	ldr	r3, [pc, #348]	; (28ec <printKeyboardBuffer+0x274>)
+    2790:	7818      	ldrb	r0, [r3, #0]
+    2792:	4b5d      	ldr	r3, [pc, #372]	; (2908 <printKeyboardBuffer+0x290>)
+    2794:	4798      	blx	r3
+					yCharPos++;
+    2796:	465b      	mov	r3, fp
+    2798:	781b      	ldrb	r3, [r3, #0]
+    279a:	3301      	adds	r3, #1
+    279c:	465a      	mov	r2, fp
+    279e:	7013      	strb	r3, [r2, #0]
+					drawCursorBuffer();
+    27a0:	47b8      	blx	r7
+					cursorBlinkState = true;
+    27a2:	2201      	movs	r2, #1
+    27a4:	4b54      	ldr	r3, [pc, #336]	; (28f8 <printKeyboardBuffer+0x280>)
+    27a6:	701a      	strb	r2, [r3, #0]
+					blinkCursor();
+    27a8:	4b54      	ldr	r3, [pc, #336]	; (28fc <printKeyboardBuffer+0x284>)
+    27aa:	4798      	blx	r3
+    27ac:	e796      	b.n	26dc <printKeyboardBuffer+0x64>
+				if(yCharPos > 0)
+    27ae:	4b55      	ldr	r3, [pc, #340]	; (2904 <printKeyboardBuffer+0x28c>)
+    27b0:	781b      	ldrb	r3, [r3, #0]
+    27b2:	2b00      	cmp	r3, #0
+    27b4:	d092      	beq.n	26dc <printKeyboardBuffer+0x64>
+					drawCursorBuffer();
+    27b6:	4f52      	ldr	r7, [pc, #328]	; (2900 <printKeyboardBuffer+0x288>)
+    27b8:	47b8      	blx	r7
+					readCursor(xCharPos,yCharPos-1);
+    27ba:	4b52      	ldr	r3, [pc, #328]	; (2904 <printKeyboardBuffer+0x28c>)
+    27bc:	469b      	mov	fp, r3
+    27be:	7819      	ldrb	r1, [r3, #0]
+    27c0:	3901      	subs	r1, #1
+    27c2:	b2c9      	uxtb	r1, r1
+    27c4:	4b49      	ldr	r3, [pc, #292]	; (28ec <printKeyboardBuffer+0x274>)
+    27c6:	7818      	ldrb	r0, [r3, #0]
+    27c8:	4b4f      	ldr	r3, [pc, #316]	; (2908 <printKeyboardBuffer+0x290>)
+    27ca:	4798      	blx	r3
+					yCharPos--;
+    27cc:	465b      	mov	r3, fp
+    27ce:	781b      	ldrb	r3, [r3, #0]
+    27d0:	3b01      	subs	r3, #1
+    27d2:	465a      	mov	r2, fp
+    27d4:	7013      	strb	r3, [r2, #0]
+					drawCursorBuffer();
+    27d6:	47b8      	blx	r7
+					cursorBlinkState = true;
+    27d8:	2201      	movs	r2, #1
+    27da:	4b47      	ldr	r3, [pc, #284]	; (28f8 <printKeyboardBuffer+0x280>)
+    27dc:	701a      	strb	r2, [r3, #0]
+					blinkCursor();
+    27de:	4b47      	ldr	r3, [pc, #284]	; (28fc <printKeyboardBuffer+0x284>)
+    27e0:	4798      	blx	r3
+    27e2:	e77b      	b.n	26dc <printKeyboardBuffer+0x64>
+				if(xCharPos < 79)
+    27e4:	4b41      	ldr	r3, [pc, #260]	; (28ec <printKeyboardBuffer+0x274>)
+    27e6:	781b      	ldrb	r3, [r3, #0]
+    27e8:	2b4e      	cmp	r3, #78	; 0x4e
+    27ea:	d900      	bls.n	27ee <printKeyboardBuffer+0x176>
+    27ec:	e776      	b.n	26dc <printKeyboardBuffer+0x64>
+					drawCursorBuffer();
+    27ee:	4f44      	ldr	r7, [pc, #272]	; (2900 <printKeyboardBuffer+0x288>)
+    27f0:	47b8      	blx	r7
+					readCursor(xCharPos+1,yCharPos);
+    27f2:	4b44      	ldr	r3, [pc, #272]	; (2904 <printKeyboardBuffer+0x28c>)
+    27f4:	7819      	ldrb	r1, [r3, #0]
+    27f6:	4b3d      	ldr	r3, [pc, #244]	; (28ec <printKeyboardBuffer+0x274>)
+    27f8:	469b      	mov	fp, r3
+    27fa:	7818      	ldrb	r0, [r3, #0]
+    27fc:	3001      	adds	r0, #1
+    27fe:	b2c0      	uxtb	r0, r0
+    2800:	4b41      	ldr	r3, [pc, #260]	; (2908 <printKeyboardBuffer+0x290>)
+    2802:	4798      	blx	r3
+					xCharPos++;
+    2804:	465b      	mov	r3, fp
+    2806:	781b      	ldrb	r3, [r3, #0]
+    2808:	3301      	adds	r3, #1
+    280a:	465a      	mov	r2, fp
+    280c:	7013      	strb	r3, [r2, #0]
+					drawCursorBuffer();
+    280e:	47b8      	blx	r7
+					cursorBlinkState = true;
+    2810:	2201      	movs	r2, #1
+    2812:	4b39      	ldr	r3, [pc, #228]	; (28f8 <printKeyboardBuffer+0x280>)
+    2814:	701a      	strb	r2, [r3, #0]
+					blinkCursor();
+    2816:	4b39      	ldr	r3, [pc, #228]	; (28fc <printKeyboardBuffer+0x284>)
+    2818:	4798      	blx	r3
+    281a:	e75f      	b.n	26dc <printKeyboardBuffer+0x64>
+				if(yCharPos == 23)
+    281c:	4b39      	ldr	r3, [pc, #228]	; (2904 <printKeyboardBuffer+0x28c>)
+    281e:	781b      	ldrb	r3, [r3, #0]
+    2820:	2b17      	cmp	r3, #23
+    2822:	d009      	beq.n	2838 <printKeyboardBuffer+0x1c0>
+					drawCursorBuffer();
+    2824:	4b36      	ldr	r3, [pc, #216]	; (2900 <printKeyboardBuffer+0x288>)
+    2826:	4798      	blx	r3
+					yCharPos++;
+    2828:	4a36      	ldr	r2, [pc, #216]	; (2904 <printKeyboardBuffer+0x28c>)
+    282a:	7813      	ldrb	r3, [r2, #0]
+    282c:	3301      	adds	r3, #1
+    282e:	7013      	strb	r3, [r2, #0]
+					xCharPos = 0;
+    2830:	2200      	movs	r2, #0
+    2832:	4b2e      	ldr	r3, [pc, #184]	; (28ec <printKeyboardBuffer+0x274>)
+    2834:	701a      	strb	r2, [r3, #0]
+    2836:	e751      	b.n	26dc <printKeyboardBuffer+0x64>
+					drawCursorBuffer();
+    2838:	4b31      	ldr	r3, [pc, #196]	; (2900 <printKeyboardBuffer+0x288>)
+    283a:	4798      	blx	r3
+					newLine();
+    283c:	4b33      	ldr	r3, [pc, #204]	; (290c <printKeyboardBuffer+0x294>)
+    283e:	4798      	blx	r3
+					xCharPos = 0;
+    2840:	2200      	movs	r2, #0
+    2842:	4b2a      	ldr	r3, [pc, #168]	; (28ec <printKeyboardBuffer+0x274>)
+    2844:	701a      	strb	r2, [r3, #0]
+    2846:	e749      	b.n	26dc <printKeyboardBuffer+0x64>
+				if(yCharPos == 23)
+    2848:	4b2e      	ldr	r3, [pc, #184]	; (2904 <printKeyboardBuffer+0x28c>)
+    284a:	781b      	ldrb	r3, [r3, #0]
+    284c:	2b17      	cmp	r3, #23
+    284e:	d003      	beq.n	2858 <printKeyboardBuffer+0x1e0>
+					yCharPos++;
+    2850:	3301      	adds	r3, #1
+    2852:	4a2c      	ldr	r2, [pc, #176]	; (2904 <printKeyboardBuffer+0x28c>)
+    2854:	7013      	strb	r3, [r2, #0]
+    2856:	e741      	b.n	26dc <printKeyboardBuffer+0x64>
+					newLine();
+    2858:	4b2c      	ldr	r3, [pc, #176]	; (290c <printKeyboardBuffer+0x294>)
+    285a:	4798      	blx	r3
+    285c:	e73e      	b.n	26dc <printKeyboardBuffer+0x64>
+				drawCursorBuffer();
+    285e:	4b28      	ldr	r3, [pc, #160]	; (2900 <printKeyboardBuffer+0x288>)
+    2860:	4698      	mov	r8, r3
+    2862:	4798      	blx	r3
+				xCharPos--;
+    2864:	4f21      	ldr	r7, [pc, #132]	; (28ec <printKeyboardBuffer+0x274>)
+    2866:	783b      	ldrb	r3, [r7, #0]
+    2868:	3b01      	subs	r3, #1
+    286a:	703b      	strb	r3, [r7, #0]
+				drawChar(0x20);
+    286c:	2020      	movs	r0, #32
+    286e:	4b21      	ldr	r3, [pc, #132]	; (28f4 <printKeyboardBuffer+0x27c>)
+    2870:	4798      	blx	r3
+				drawCursorBuffer();
+    2872:	47c0      	blx	r8
+				clearCursorBuffer();
+    2874:	4b26      	ldr	r3, [pc, #152]	; (2910 <printKeyboardBuffer+0x298>)
+    2876:	4798      	blx	r3
+				readCursor(xCharPos,yCharPos);
+    2878:	4b22      	ldr	r3, [pc, #136]	; (2904 <printKeyboardBuffer+0x28c>)
+    287a:	7819      	ldrb	r1, [r3, #0]
+    287c:	7838      	ldrb	r0, [r7, #0]
+    287e:	4b22      	ldr	r3, [pc, #136]	; (2908 <printKeyboardBuffer+0x290>)
+    2880:	4798      	blx	r3
+    2882:	e72b      	b.n	26dc <printKeyboardBuffer+0x64>
+						readCursor(xCharPos++,yCharPos);
+    2884:	1c42      	adds	r2, r0, #1
+    2886:	701a      	strb	r2, [r3, #0]
+    2888:	4b1e      	ldr	r3, [pc, #120]	; (2904 <printKeyboardBuffer+0x28c>)
+    288a:	7819      	ldrb	r1, [r3, #0]
+    288c:	4b1e      	ldr	r3, [pc, #120]	; (2908 <printKeyboardBuffer+0x290>)
+    288e:	4798      	blx	r3
+						clearCursorBuffer();
+    2890:	4b1f      	ldr	r3, [pc, #124]	; (2910 <printKeyboardBuffer+0x298>)
+    2892:	4798      	blx	r3
+    2894:	e753      	b.n	273e <printKeyboardBuffer+0xc6>
+					drawChar(noCase[scanCodeBuffer[i]]);
+    2896:	ab14      	add	r3, sp, #80	; 0x50
+    2898:	5dd8      	ldrb	r0, [r3, r7]
+    289a:	4b16      	ldr	r3, [pc, #88]	; (28f4 <printKeyboardBuffer+0x27c>)
+    289c:	4798      	blx	r3
+					if(xCharPos < 79)
+    289e:	4b13      	ldr	r3, [pc, #76]	; (28ec <printKeyboardBuffer+0x274>)
+    28a0:	7818      	ldrb	r0, [r3, #0]
+    28a2:	284e      	cmp	r0, #78	; 0x4e
+    28a4:	d905      	bls.n	28b2 <printKeyboardBuffer+0x23a>
+					cursorBlinkState = true;
+    28a6:	2201      	movs	r2, #1
+    28a8:	4b13      	ldr	r3, [pc, #76]	; (28f8 <printKeyboardBuffer+0x280>)
+    28aa:	701a      	strb	r2, [r3, #0]
+					blinkCursor();
+    28ac:	4b13      	ldr	r3, [pc, #76]	; (28fc <printKeyboardBuffer+0x284>)
+    28ae:	4798      	blx	r3
+    28b0:	e714      	b.n	26dc <printKeyboardBuffer+0x64>
+						readCursor(xCharPos++,yCharPos);
+    28b2:	1c42      	adds	r2, r0, #1
+    28b4:	701a      	strb	r2, [r3, #0]
+    28b6:	4b13      	ldr	r3, [pc, #76]	; (2904 <printKeyboardBuffer+0x28c>)
+    28b8:	7819      	ldrb	r1, [r3, #0]
+    28ba:	4b13      	ldr	r3, [pc, #76]	; (2908 <printKeyboardBuffer+0x290>)
+    28bc:	4798      	blx	r3
+						clearCursorBuffer();
+    28be:	4b14      	ldr	r3, [pc, #80]	; (2910 <printKeyboardBuffer+0x298>)
+    28c0:	4798      	blx	r3
+    28c2:	e7f0      	b.n	28a6 <printKeyboardBuffer+0x22e>
+		scanCodeBuffer[i] = 0xFF;
+    28c4:	23ff      	movs	r3, #255	; 0xff
+    28c6:	7033      	strb	r3, [r6, #0]
+    28c8:	3601      	adds	r6, #1
+	for(int i = 0 ; i < 20 ; i++)
+    28ca:	42a6      	cmp	r6, r4
+    28cc:	d1fb      	bne.n	28c6 <printKeyboardBuffer+0x24e>
+}
+    28ce:	b027      	add	sp, #156	; 0x9c
+    28d0:	bc3c      	pop	{r2, r3, r4, r5}
+    28d2:	4690      	mov	r8, r2
+    28d4:	4699      	mov	r9, r3
+    28d6:	46a2      	mov	sl, r4
+    28d8:	46ab      	mov	fp, r5
+    28da:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    28dc:	00006378 	.word	0x00006378
+    28e0:	00003359 	.word	0x00003359
+    28e4:	20000028 	.word	0x20000028
+    28e8:	20000014 	.word	0x20000014
+    28ec:	20000298 	.word	0x20000298
+    28f0:	00002129 	.word	0x00002129
+    28f4:	00001e6d 	.word	0x00001e6d
+    28f8:	20000010 	.word	0x20000010
+    28fc:	00002565 	.word	0x00002565
+    2900:	00002391 	.word	0x00002391
+    2904:	20000299 	.word	0x20000299
+    2908:	00002465 	.word	0x00002465
+    290c:	00001f41 	.word	0x00001f41
+    2910:	00002379 	.word	0x00002379
+
+00002914 <setColorRGB>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 uint16_t fore_Color_High, fore_Color_Low;
 uint16_t back_Color_High, back_Color_Low;
 
 void setColorRGB(uint8_t r, uint8_t g, uint8_t b)
 {
+<<<<<<< HEAD
     28d4:	b510      	push	{r4, lr}
 	fore_Color_High = ((r&248)|g>>5);
     28d6:	094b      	lsrs	r3, r1, #5
@@ -7646,12 +9315,38 @@ void setColorRGB(uint8_t r, uint8_t g, uint8_t b)
     28f8:	20000b50 	.word	0x20000b50
 
 000028fc <setBackColorRGB>:
+=======
+    2914:	b510      	push	{r4, lr}
+	fore_Color_High = ((r&248)|g>>5);
+    2916:	094b      	lsrs	r3, r1, #5
+    2918:	2407      	movs	r4, #7
+    291a:	43a0      	bics	r0, r4
+    291c:	4318      	orrs	r0, r3
+    291e:	4b05      	ldr	r3, [pc, #20]	; (2934 <setColorRGB+0x20>)
+    2920:	8018      	strh	r0, [r3, #0]
+	fore_Color_Low = ((g&28)<<3|b>>3);
+    2922:	00c9      	lsls	r1, r1, #3
+    2924:	23e0      	movs	r3, #224	; 0xe0
+    2926:	4019      	ands	r1, r3
+    2928:	08d2      	lsrs	r2, r2, #3
+    292a:	430a      	orrs	r2, r1
+    292c:	4b02      	ldr	r3, [pc, #8]	; (2938 <setColorRGB+0x24>)
+    292e:	801a      	strh	r2, [r3, #0]
+}
+    2930:	bd10      	pop	{r4, pc}
+    2932:	46c0      	nop			; (mov r8, r8)
+    2934:	200003ce 	.word	0x200003ce
+    2938:	200003d0 	.word	0x200003d0
+
+0000293c <setBackColorRGB>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	fore_Color_Low = (color & 0xFF);
 }
 
 void setBackColorRGB(unsigned char r,
 unsigned char g, unsigned char b)
 {
+<<<<<<< HEAD
     28fc:	b510      	push	{r4, lr}
 	back_Color_High = ((r&248)|g>>5);
     28fe:	094b      	lsrs	r3, r1, #5
@@ -7675,17 +9370,47 @@ unsigned char g, unsigned char b)
     2920:	20000b4c 	.word	0x20000b4c
 
 00002924 <LCD_Fast_Fill>:
+=======
+    293c:	b510      	push	{r4, lr}
+	back_Color_High = ((r&248)|g>>5);
+    293e:	094b      	lsrs	r3, r1, #5
+    2940:	2407      	movs	r4, #7
+    2942:	43a0      	bics	r0, r4
+    2944:	4318      	orrs	r0, r3
+    2946:	4b05      	ldr	r3, [pc, #20]	; (295c <setBackColorRGB+0x20>)
+    2948:	8018      	strh	r0, [r3, #0]
+	back_Color_Low = ((g&28)<<3|b>>3);
+    294a:	00c9      	lsls	r1, r1, #3
+    294c:	23e0      	movs	r3, #224	; 0xe0
+    294e:	4019      	ands	r1, r3
+    2950:	08d2      	lsrs	r2, r2, #3
+    2952:	430a      	orrs	r2, r1
+    2954:	4b02      	ldr	r3, [pc, #8]	; (2960 <setBackColorRGB+0x24>)
+    2956:	801a      	strh	r2, [r3, #0]
+}
+    2958:	bd10      	pop	{r4, pc}
+    295a:	46c0      	nop			; (mov r8, r8)
+    295c:	200003d2 	.word	0x200003d2
+    2960:	200003cc 	.word	0x200003cc
+
+00002964 <LCD_Fast_Fill>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
 void LCD_Fast_Fill(int ch, int cl, long pix)
 {
+<<<<<<< HEAD
     2924:	b570      	push	{r4, r5, r6, lr}
+=======
+    2964:	b570      	push	{r4, r5, r6, lr}
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	int blocks;
 	
 	
 	REG_PORT_OUTCLR1 = 0x0000ffff;
+<<<<<<< HEAD
     2926:	4c19      	ldr	r4, [pc, #100]	; (298c <LCD_Fast_Fill+0x68>)
     2928:	4b19      	ldr	r3, [pc, #100]	; (2990 <LCD_Fast_Fill+0x6c>)
     292a:	601c      	str	r4, [r3, #0]
@@ -7705,10 +9430,32 @@ void LCD_Fast_Fill(int ch, int cl, long pix)
     293e:	2500      	movs	r5, #0
     2940:	2e00      	cmp	r6, #0
     2942:	dd0c      	ble.n	295e <LCD_Fast_Fill+0x3a>
+=======
+    2966:	4c19      	ldr	r4, [pc, #100]	; (29cc <LCD_Fast_Fill+0x68>)
+    2968:	4b19      	ldr	r3, [pc, #100]	; (29d0 <LCD_Fast_Fill+0x6c>)
+    296a:	601c      	str	r4, [r3, #0]
+	REG_PORT_OUTSET1 = (ch << 8) | cl;
+    296c:	0200      	lsls	r0, r0, #8
+    296e:	4301      	orrs	r1, r0
+    2970:	4b18      	ldr	r3, [pc, #96]	; (29d4 <LCD_Fast_Fill+0x70>)
+    2972:	6019      	str	r1, [r3, #0]
+
+	blocks = pix/16;
+    2974:	17d3      	asrs	r3, r2, #31
+    2976:	260f      	movs	r6, #15
+    2978:	401e      	ands	r6, r3
+    297a:	18b6      	adds	r6, r6, r2
+    297c:	1136      	asrs	r6, r6, #4
+	for (int i=0; i<blocks; i++)
+    297e:	2500      	movs	r5, #0
+    2980:	2e00      	cmp	r6, #0
+    2982:	dd0c      	ble.n	299e <LCD_Fast_Fill+0x3a>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	{
 		for (int j=0; j<16; j++)
 		{
 			REG_PORT_OUTCLR1 = LCD_WR;
+<<<<<<< HEAD
     2944:	4c12      	ldr	r4, [pc, #72]	; (2990 <LCD_Fast_Fill+0x6c>)
     2946:	2180      	movs	r1, #128	; 0x80
     2948:	0289      	lsls	r1, r1, #10
@@ -7728,10 +9475,32 @@ void LCD_Fast_Fill(int ch, int cl, long pix)
     2958:	3501      	adds	r5, #1
     295a:	42ae      	cmp	r6, r5
     295c:	d1f6      	bne.n	294c <LCD_Fast_Fill+0x28>
+=======
+    2984:	4c12      	ldr	r4, [pc, #72]	; (29d0 <LCD_Fast_Fill+0x6c>)
+    2986:	2180      	movs	r1, #128	; 0x80
+    2988:	0289      	lsls	r1, r1, #10
+			REG_PORT_OUTSET1 = LCD_WR;
+    298a:	4812      	ldr	r0, [pc, #72]	; (29d4 <LCD_Fast_Fill+0x70>)
+{
+    298c:	2310      	movs	r3, #16
+			REG_PORT_OUTCLR1 = LCD_WR;
+    298e:	6021      	str	r1, [r4, #0]
+			REG_PORT_OUTSET1 = LCD_WR;
+    2990:	6001      	str	r1, [r0, #0]
+    2992:	3b01      	subs	r3, #1
+		for (int j=0; j<16; j++)
+    2994:	2b00      	cmp	r3, #0
+    2996:	d1fa      	bne.n	298e <LCD_Fast_Fill+0x2a>
+	for (int i=0; i<blocks; i++)
+    2998:	3501      	adds	r5, #1
+    299a:	42ae      	cmp	r6, r5
+    299c:	d1f6      	bne.n	298c <LCD_Fast_Fill+0x28>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		}
 	}
 	
 	if ((pix % 16) != 0)
+<<<<<<< HEAD
     295e:	0713      	lsls	r3, r2, #28
     2960:	d013      	beq.n	298a <LCD_Fast_Fill+0x66>
 	for (int i=0; i<(pix % 16)+1; i++)
@@ -7769,12 +9538,52 @@ void LCD_Fast_Fill(int ch, int cl, long pix)
     2994:	41004498 	.word	0x41004498
 
 00002998 <setXY>:
+=======
+    299e:	0713      	lsls	r3, r2, #28
+    29a0:	d013      	beq.n	29ca <LCD_Fast_Fill+0x66>
+	for (int i=0; i<(pix % 16)+1; i++)
+    29a2:	17d3      	asrs	r3, r2, #31
+    29a4:	0f1b      	lsrs	r3, r3, #28
+    29a6:	18d2      	adds	r2, r2, r3
+    29a8:	210f      	movs	r1, #15
+    29aa:	4011      	ands	r1, r2
+    29ac:	1ac9      	subs	r1, r1, r3
+    29ae:	1c4b      	adds	r3, r1, #1
+    29b0:	2b00      	cmp	r3, #0
+    29b2:	dd0a      	ble.n	29ca <LCD_Fast_Fill+0x66>
+    29b4:	0019      	movs	r1, r3
+    29b6:	2300      	movs	r3, #0
+	{
+		REG_PORT_OUTCLR1 = LCD_WR;
+    29b8:	4c05      	ldr	r4, [pc, #20]	; (29d0 <LCD_Fast_Fill+0x6c>)
+    29ba:	2280      	movs	r2, #128	; 0x80
+    29bc:	0292      	lsls	r2, r2, #10
+		REG_PORT_OUTSET1 = LCD_WR;
+    29be:	4805      	ldr	r0, [pc, #20]	; (29d4 <LCD_Fast_Fill+0x70>)
+		REG_PORT_OUTCLR1 = LCD_WR;
+    29c0:	6022      	str	r2, [r4, #0]
+		REG_PORT_OUTSET1 = LCD_WR;
+    29c2:	6002      	str	r2, [r0, #0]
+	for (int i=0; i<(pix % 16)+1; i++)
+    29c4:	3301      	adds	r3, #1
+    29c6:	4299      	cmp	r1, r3
+    29c8:	d1fa      	bne.n	29c0 <LCD_Fast_Fill+0x5c>
+	}
+}
+    29ca:	bd70      	pop	{r4, r5, r6, pc}
+    29cc:	0000ffff 	.word	0x0000ffff
+    29d0:	41004494 	.word	0x41004494
+    29d4:	41004498 	.word	0x41004498
+
+000029d8 <setXY>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 {
 	setXY(0,0,display_X_size,display_Y_size);
 }
 
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 {
+<<<<<<< HEAD
     2998:	b5f0      	push	{r4, r5, r6, r7, lr}
     299a:	b083      	sub	sp, #12
     299c:	9000      	str	r0, [sp, #0]
@@ -8095,12 +9904,319 @@ void setPixel(uint16_t color)
     2b8c:	00002c05 	.word	0x00002c05
 
 00002b90 <clearScreen>:
+=======
+    29d8:	b5f0      	push	{r4, r5, r6, r7, lr}
+    29da:	b083      	sub	sp, #12
+    29dc:	000e      	movs	r6, r1
+    29de:	9300      	str	r3, [sp, #0]
+	
+	SwapUint16(x1, y1);
+	SwapUint16(x2, y2);
+	y1=display_Y_size-y1;
+    29e0:	4b1c      	ldr	r3, [pc, #112]	; (2a54 <setXY+0x7c>)
+    29e2:	881d      	ldrh	r5, [r3, #0]
+    29e4:	1a28      	subs	r0, r5, r0
+    29e6:	b287      	uxth	r7, r0
+	y2=display_Y_size-y2;
+    29e8:	1aad      	subs	r5, r5, r2
+    29ea:	b2ad      	uxth	r5, r5
+	SwapUint16(y1, y2);
+	
+	
+	LCD_Write_COM16(0x2a,0x00);
+    29ec:	2100      	movs	r1, #0
+    29ee:	202a      	movs	r0, #42	; 0x2a
+    29f0:	4c19      	ldr	r4, [pc, #100]	; (2a58 <setXY+0x80>)
+    29f2:	47a0      	blx	r4
+	LCD_Write_DATA8(x1>>8);
+    29f4:	9601      	str	r6, [sp, #4]
+    29f6:	0a30      	lsrs	r0, r6, #8
+    29f8:	4e18      	ldr	r6, [pc, #96]	; (2a5c <setXY+0x84>)
+    29fa:	47b0      	blx	r6
+	LCD_Write_COM16(0x2a,0x01);
+    29fc:	2101      	movs	r1, #1
+    29fe:	202a      	movs	r0, #42	; 0x2a
+    2a00:	47a0      	blx	r4
+	LCD_Write_DATA8(x1);
+    2a02:	466b      	mov	r3, sp
+    2a04:	7918      	ldrb	r0, [r3, #4]
+    2a06:	47b0      	blx	r6
+	LCD_Write_COM16(0x2a,0x02);
+    2a08:	2102      	movs	r1, #2
+    2a0a:	202a      	movs	r0, #42	; 0x2a
+    2a0c:	47a0      	blx	r4
+	LCD_Write_DATA8(x2>>8);
+    2a0e:	9b00      	ldr	r3, [sp, #0]
+    2a10:	0a18      	lsrs	r0, r3, #8
+    2a12:	47b0      	blx	r6
+	LCD_Write_COM16(0x2a,0x03);
+    2a14:	2103      	movs	r1, #3
+    2a16:	202a      	movs	r0, #42	; 0x2a
+    2a18:	47a0      	blx	r4
+	LCD_Write_DATA8(x2);
+    2a1a:	466b      	mov	r3, sp
+    2a1c:	7818      	ldrb	r0, [r3, #0]
+    2a1e:	47b0      	blx	r6
+
+	LCD_Write_COM16(0x2b,0x00);
+    2a20:	2100      	movs	r1, #0
+    2a22:	202b      	movs	r0, #43	; 0x2b
+    2a24:	47a0      	blx	r4
+	LCD_Write_DATA8(y1>>8);
+    2a26:	0a28      	lsrs	r0, r5, #8
+    2a28:	47b0      	blx	r6
+	LCD_Write_COM16(0x2b,0x01);
+    2a2a:	2101      	movs	r1, #1
+    2a2c:	202b      	movs	r0, #43	; 0x2b
+    2a2e:	47a0      	blx	r4
+	LCD_Write_DATA8(y1);
+    2a30:	b2e8      	uxtb	r0, r5
+    2a32:	47b0      	blx	r6
+	LCD_Write_COM16(0x2b,0x02);
+    2a34:	2102      	movs	r1, #2
+    2a36:	202b      	movs	r0, #43	; 0x2b
+    2a38:	47a0      	blx	r4
+	LCD_Write_DATA8(y2>>8);
+    2a3a:	0a38      	lsrs	r0, r7, #8
+    2a3c:	47b0      	blx	r6
+	LCD_Write_COM16(0x2b,0x03);
+    2a3e:	2103      	movs	r1, #3
+    2a40:	202b      	movs	r0, #43	; 0x2b
+    2a42:	47a0      	blx	r4
+	LCD_Write_DATA8(y2);
+    2a44:	b2f8      	uxtb	r0, r7
+    2a46:	47b0      	blx	r6
+
+	LCD_Write_COM16(0x2c,0x00);
+    2a48:	2100      	movs	r1, #0
+    2a4a:	202c      	movs	r0, #44	; 0x2c
+    2a4c:	47a0      	blx	r4
+}
+    2a4e:	b003      	add	sp, #12
+    2a50:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2a52:	46c0      	nop			; (mov r8, r8)
+    2a54:	20000156 	.word	0x20000156
+    2a58:	00002c25 	.word	0x00002c25
+    2a5c:	00002c55 	.word	0x00002c55
+
+00002a60 <fillRect>:
+{
+    2a60:	b5f0      	push	{r4, r5, r6, r7, lr}
+    2a62:	46ce      	mov	lr, r9
+    2a64:	4647      	mov	r7, r8
+    2a66:	b580      	push	{r7, lr}
+    2a68:	b083      	sub	sp, #12
+    2a6a:	4681      	mov	r9, r0
+    2a6c:	4688      	mov	r8, r1
+    2a6e:	0015      	movs	r5, r2
+    2a70:	001c      	movs	r4, r3
+	if (x1>x2)
+    2a72:	4290      	cmp	r0, r2
+    2a74:	dd02      	ble.n	2a7c <fillRect+0x1c>
+    2a76:	0403      	lsls	r3, r0, #16
+	SwapUint16(x1, x2);
+    2a78:	4691      	mov	r9, r2
+    2a7a:	0c1d      	lsrs	r5, r3, #16
+	if (y1>y2)
+    2a7c:	45a0      	cmp	r8, r4
+    2a7e:	dd03      	ble.n	2a88 <fillRect+0x28>
+    2a80:	4643      	mov	r3, r8
+    2a82:	041b      	lsls	r3, r3, #16
+	SwapUint16(y1, y2);
+    2a84:	46a0      	mov	r8, r4
+    2a86:	0c1c      	lsrs	r4, r3, #16
+	REG_PORT_OUTCLR1 = LCD_CS;
+    2a88:	2780      	movs	r7, #128	; 0x80
+    2a8a:	03ff      	lsls	r7, r7, #15
+    2a8c:	4b12      	ldr	r3, [pc, #72]	; (2ad8 <fillRect+0x78>)
+    2a8e:	601f      	str	r7, [r3, #0]
+	setXY(x1, y1, x2, y2);
+    2a90:	b2a3      	uxth	r3, r4
+    2a92:	b2aa      	uxth	r2, r5
+    2a94:	4641      	mov	r1, r8
+    2a96:	4668      	mov	r0, sp
+    2a98:	80c1      	strh	r1, [r0, #6]
+    2a9a:	88c1      	ldrh	r1, [r0, #6]
+    2a9c:	4648      	mov	r0, r9
+    2a9e:	466e      	mov	r6, sp
+    2aa0:	80f0      	strh	r0, [r6, #6]
+    2aa2:	88f0      	ldrh	r0, [r6, #6]
+    2aa4:	4e0d      	ldr	r6, [pc, #52]	; (2adc <fillRect+0x7c>)
+    2aa6:	47b0      	blx	r6
+	REG_PORT_OUTSET1 = LCD_DC;
+    2aa8:	4e0d      	ldr	r6, [pc, #52]	; (2ae0 <fillRect+0x80>)
+    2aaa:	2380      	movs	r3, #128	; 0x80
+    2aac:	041b      	lsls	r3, r3, #16
+    2aae:	6033      	str	r3, [r6, #0]
+	(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
+    2ab0:	464b      	mov	r3, r9
+    2ab2:	1aed      	subs	r5, r5, r3
+    2ab4:	3501      	adds	r5, #1
+    2ab6:	4643      	mov	r3, r8
+    2ab8:	1ae2      	subs	r2, r4, r3
+    2aba:	3201      	adds	r2, #1
+	LCD_Fast_Fill(fore_Color_High, fore_Color_Low,
+    2abc:	436a      	muls	r2, r5
+    2abe:	4b09      	ldr	r3, [pc, #36]	; (2ae4 <fillRect+0x84>)
+    2ac0:	8819      	ldrh	r1, [r3, #0]
+    2ac2:	4b09      	ldr	r3, [pc, #36]	; (2ae8 <fillRect+0x88>)
+    2ac4:	8818      	ldrh	r0, [r3, #0]
+    2ac6:	4b09      	ldr	r3, [pc, #36]	; (2aec <fillRect+0x8c>)
+    2ac8:	4798      	blx	r3
+	REG_PORT_OUTSET1 = LCD_CS;
+    2aca:	6037      	str	r7, [r6, #0]
+}
+    2acc:	b003      	add	sp, #12
+    2ace:	bc0c      	pop	{r2, r3}
+    2ad0:	4690      	mov	r8, r2
+    2ad2:	4699      	mov	r9, r3
+    2ad4:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2ad6:	46c0      	nop			; (mov r8, r8)
+    2ad8:	41004494 	.word	0x41004494
+    2adc:	000029d9 	.word	0x000029d9
+    2ae0:	41004498 	.word	0x41004498
+    2ae4:	200003d0 	.word	0x200003d0
+    2ae8:	200003ce 	.word	0x200003ce
+    2aec:	00002965 	.word	0x00002965
+
+00002af0 <fillRectBackColor>:
+{
+    2af0:	b5f0      	push	{r4, r5, r6, r7, lr}
+    2af2:	46ce      	mov	lr, r9
+    2af4:	4647      	mov	r7, r8
+    2af6:	b580      	push	{r7, lr}
+    2af8:	b083      	sub	sp, #12
+    2afa:	4681      	mov	r9, r0
+    2afc:	4688      	mov	r8, r1
+    2afe:	0015      	movs	r5, r2
+    2b00:	001c      	movs	r4, r3
+	if (x1>x2)
+    2b02:	4290      	cmp	r0, r2
+    2b04:	dd02      	ble.n	2b0c <fillRectBackColor+0x1c>
+    2b06:	0403      	lsls	r3, r0, #16
+	SwapUint16(x1, x2);
+    2b08:	4691      	mov	r9, r2
+    2b0a:	0c1d      	lsrs	r5, r3, #16
+	if (y1>y2)
+    2b0c:	45a0      	cmp	r8, r4
+    2b0e:	dd03      	ble.n	2b18 <fillRectBackColor+0x28>
+    2b10:	4643      	mov	r3, r8
+    2b12:	041b      	lsls	r3, r3, #16
+	SwapUint16(y1, y2);
+    2b14:	46a0      	mov	r8, r4
+    2b16:	0c1c      	lsrs	r4, r3, #16
+	REG_PORT_OUTCLR1 = LCD_CS;
+    2b18:	2780      	movs	r7, #128	; 0x80
+    2b1a:	03ff      	lsls	r7, r7, #15
+    2b1c:	4b12      	ldr	r3, [pc, #72]	; (2b68 <fillRectBackColor+0x78>)
+    2b1e:	601f      	str	r7, [r3, #0]
+	setXY(x1, y1, x2, y2);
+    2b20:	b2a3      	uxth	r3, r4
+    2b22:	b2aa      	uxth	r2, r5
+    2b24:	4641      	mov	r1, r8
+    2b26:	4668      	mov	r0, sp
+    2b28:	80c1      	strh	r1, [r0, #6]
+    2b2a:	88c1      	ldrh	r1, [r0, #6]
+    2b2c:	4648      	mov	r0, r9
+    2b2e:	466e      	mov	r6, sp
+    2b30:	80f0      	strh	r0, [r6, #6]
+    2b32:	88f0      	ldrh	r0, [r6, #6]
+    2b34:	4e0d      	ldr	r6, [pc, #52]	; (2b6c <fillRectBackColor+0x7c>)
+    2b36:	47b0      	blx	r6
+	REG_PORT_OUTSET1 = LCD_DC;
+    2b38:	4e0d      	ldr	r6, [pc, #52]	; (2b70 <fillRectBackColor+0x80>)
+    2b3a:	2380      	movs	r3, #128	; 0x80
+    2b3c:	041b      	lsls	r3, r3, #16
+    2b3e:	6033      	str	r3, [r6, #0]
+	(((long)(x2-x1)+1)*((long)(y2-y1)+1)));
+    2b40:	464b      	mov	r3, r9
+    2b42:	1aed      	subs	r5, r5, r3
+    2b44:	3501      	adds	r5, #1
+    2b46:	4643      	mov	r3, r8
+    2b48:	1ae2      	subs	r2, r4, r3
+    2b4a:	3201      	adds	r2, #1
+	LCD_Fast_Fill(back_Color_High, back_Color_Low,
+    2b4c:	436a      	muls	r2, r5
+    2b4e:	4b09      	ldr	r3, [pc, #36]	; (2b74 <fillRectBackColor+0x84>)
+    2b50:	8819      	ldrh	r1, [r3, #0]
+    2b52:	4b09      	ldr	r3, [pc, #36]	; (2b78 <fillRectBackColor+0x88>)
+    2b54:	8818      	ldrh	r0, [r3, #0]
+    2b56:	4b09      	ldr	r3, [pc, #36]	; (2b7c <fillRectBackColor+0x8c>)
+    2b58:	4798      	blx	r3
+	REG_PORT_OUTSET1 = LCD_CS;
+    2b5a:	6037      	str	r7, [r6, #0]
+}
+    2b5c:	b003      	add	sp, #12
+    2b5e:	bc0c      	pop	{r2, r3}
+    2b60:	4690      	mov	r8, r2
+    2b62:	4699      	mov	r9, r3
+    2b64:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2b66:	46c0      	nop			; (mov r8, r8)
+    2b68:	41004494 	.word	0x41004494
+    2b6c:	000029d9 	.word	0x000029d9
+    2b70:	41004498 	.word	0x41004498
+    2b74:	200003cc 	.word	0x200003cc
+    2b78:	200003d2 	.word	0x200003d2
+    2b7c:	00002965 	.word	0x00002965
+
+00002b80 <clrXY>:
+{
+    2b80:	b510      	push	{r4, lr}
+	setXY(0,0,display_X_size,display_Y_size);
+    2b82:	4b04      	ldr	r3, [pc, #16]	; (2b94 <clrXY+0x14>)
+    2b84:	881b      	ldrh	r3, [r3, #0]
+    2b86:	4a04      	ldr	r2, [pc, #16]	; (2b98 <clrXY+0x18>)
+    2b88:	8812      	ldrh	r2, [r2, #0]
+    2b8a:	2100      	movs	r1, #0
+    2b8c:	2000      	movs	r0, #0
+    2b8e:	4c03      	ldr	r4, [pc, #12]	; (2b9c <clrXY+0x1c>)
+    2b90:	47a0      	blx	r4
+}
+    2b92:	bd10      	pop	{r4, pc}
+    2b94:	20000156 	.word	0x20000156
+    2b98:	20000154 	.word	0x20000154
+    2b9c:	000029d9 	.word	0x000029d9
+
+00002ba0 <clrScr>:
+{
+    2ba0:	b510      	push	{r4, lr}
+	REG_PORT_OUTCLR1 = LCD_CS;
+    2ba2:	2280      	movs	r2, #128	; 0x80
+    2ba4:	03d2      	lsls	r2, r2, #15
+    2ba6:	4b02      	ldr	r3, [pc, #8]	; (2bb0 <clrScr+0x10>)
+    2ba8:	601a      	str	r2, [r3, #0]
+	clrXY();
+    2baa:	4b02      	ldr	r3, [pc, #8]	; (2bb4 <clrScr+0x14>)
+    2bac:	4798      	blx	r3
+}
+    2bae:	bd10      	pop	{r4, pc}
+    2bb0:	41004494 	.word	0x41004494
+    2bb4:	00002b81 	.word	0x00002b81
+
+00002bb8 <setPixel>:
+
+void setPixel(uint16_t color)
+{
+    2bb8:	b510      	push	{r4, lr}
+	//it sets it to a 16-bit color.
+	LCD_Write_DATA16((color>>8),(color&0xFF));
+    2bba:	b2c1      	uxtb	r1, r0
+    2bbc:	0a00      	lsrs	r0, r0, #8
+    2bbe:	4b01      	ldr	r3, [pc, #4]	; (2bc4 <setPixel+0xc>)
+    2bc0:	4798      	blx	r3
+}
+    2bc2:	bd10      	pop	{r4, pc}
+    2bc4:	00002c3d 	.word	0x00002c3d
+
+00002bc8 <clearScreen>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	LCD_Write_DATA8(0x80);
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 */
 void clearScreen(void)
 {
+<<<<<<< HEAD
     2b90:	b510      	push	{r4, lr}
 	fore_Color_High = ((r&248)|g>>5);
     2b92:	2300      	movs	r3, #0
@@ -8129,12 +10245,43 @@ void clearScreen(void)
     2bc0:	00002a29 	.word	0x00002a29
 
 00002bc4 <LCD_Write_Bus>:
+=======
+    2bc8:	b510      	push	{r4, lr}
+	fore_Color_High = ((r&248)|g>>5);
+    2bca:	2300      	movs	r3, #0
+    2bcc:	4a06      	ldr	r2, [pc, #24]	; (2be8 <clearScreen+0x20>)
+    2bce:	8013      	strh	r3, [r2, #0]
+	fore_Color_Low = ((g&28)<<3|b>>3);
+    2bd0:	4a06      	ldr	r2, [pc, #24]	; (2bec <clearScreen+0x24>)
+    2bd2:	8013      	strh	r3, [r2, #0]
+	setColorRGB(0,0,0);
+	fillRect(0,0,display_Y_size,display_X_size);
+    2bd4:	4b06      	ldr	r3, [pc, #24]	; (2bf0 <clearScreen+0x28>)
+    2bd6:	881b      	ldrh	r3, [r3, #0]
+    2bd8:	4a06      	ldr	r2, [pc, #24]	; (2bf4 <clearScreen+0x2c>)
+    2bda:	8812      	ldrh	r2, [r2, #0]
+    2bdc:	2100      	movs	r1, #0
+    2bde:	2000      	movs	r0, #0
+    2be0:	4c05      	ldr	r4, [pc, #20]	; (2bf8 <clearScreen+0x30>)
+    2be2:	47a0      	blx	r4
+}
+    2be4:	bd10      	pop	{r4, pc}
+    2be6:	46c0      	nop			; (mov r8, r8)
+    2be8:	200003ce 	.word	0x200003ce
+    2bec:	200003d0 	.word	0x200003d0
+    2bf0:	20000154 	.word	0x20000154
+    2bf4:	20000156 	.word	0x20000156
+    2bf8:	00002a61 	.word	0x00002a61
+
+00002bfc <LCD_Write_Bus>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	fillRect(0,0,799,489);
 		
 }
 
 void LCD_Write_Bus(char VH, char VL)
 {
+<<<<<<< HEAD
     2bc4:	b510      	push	{r4, lr}
 	REG_PORT_OUTCLR1 = 0x0000ffff;
     2bc6:	4c06      	ldr	r4, [pc, #24]	; (2be0 <LCD_Write_Bus+0x1c>)
@@ -8177,12 +10324,57 @@ void LCD_Write_COM16(char VH, char VL)
     2c00:	00002bc5 	.word	0x00002bc5
 
 00002c04 <LCD_Write_DATA16>:
+=======
+    2bfc:	b510      	push	{r4, lr}
+	REG_PORT_OUTCLR1 = 0x0000ffff;
+    2bfe:	4c06      	ldr	r4, [pc, #24]	; (2c18 <LCD_Write_Bus+0x1c>)
+    2c00:	4b06      	ldr	r3, [pc, #24]	; (2c1c <LCD_Write_Bus+0x20>)
+    2c02:	6023      	str	r3, [r4, #0]
+	REG_PORT_OUTSET1 = (VH << 8) | VL;
+    2c04:	0200      	lsls	r0, r0, #8
+    2c06:	4301      	orrs	r1, r0
+    2c08:	4b05      	ldr	r3, [pc, #20]	; (2c20 <LCD_Write_Bus+0x24>)
+    2c0a:	6019      	str	r1, [r3, #0]
+	REG_PORT_OUTCLR1 = LCD_WR;
+    2c0c:	2280      	movs	r2, #128	; 0x80
+    2c0e:	0292      	lsls	r2, r2, #10
+    2c10:	6022      	str	r2, [r4, #0]
+	REG_PORT_OUTSET1 = LCD_WR;
+    2c12:	601a      	str	r2, [r3, #0]
+}
+    2c14:	bd10      	pop	{r4, pc}
+    2c16:	46c0      	nop			; (mov r8, r8)
+    2c18:	41004494 	.word	0x41004494
+    2c1c:	0000ffff 	.word	0x0000ffff
+    2c20:	41004498 	.word	0x41004498
+
+00002c24 <LCD_Write_COM16>:
+
+void LCD_Write_COM16(char VH, char VL)
+{
+    2c24:	b510      	push	{r4, lr}
+	REG_PORT_OUTCLR1 = LCD_DC;
+    2c26:	2280      	movs	r2, #128	; 0x80
+    2c28:	0412      	lsls	r2, r2, #16
+    2c2a:	4b02      	ldr	r3, [pc, #8]	; (2c34 <LCD_Write_COM16+0x10>)
+    2c2c:	601a      	str	r2, [r3, #0]
+	LCD_Write_Bus(VH,VL);
+    2c2e:	4b02      	ldr	r3, [pc, #8]	; (2c38 <LCD_Write_COM16+0x14>)
+    2c30:	4798      	blx	r3
+}
+    2c32:	bd10      	pop	{r4, pc}
+    2c34:	41004494 	.word	0x41004494
+    2c38:	00002bfd 	.word	0x00002bfd
+
+00002c3c <LCD_Write_DATA16>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	REG_PORT_OUTCLR1 = LCD_DC;
 	LCD_Write_Bus(0x00, VL);
 }
 
 void LCD_Write_DATA16(char VH, char VL)
 {
+<<<<<<< HEAD
     2c04:	b510      	push	{r4, lr}
 	REG_PORT_OUTSET1 = LCD_DC;
     2c06:	2280      	movs	r2, #128	; 0x80
@@ -8570,22 +10762,419 @@ void LCD_Write_DATA8(char VL)
     2e80:	00002a29 	.word	0x00002a29
 
 00002e84 <SysTick_Handler>:
+=======
+    2c3c:	b510      	push	{r4, lr}
+	REG_PORT_OUTSET1 = LCD_DC;
+    2c3e:	2280      	movs	r2, #128	; 0x80
+    2c40:	0412      	lsls	r2, r2, #16
+    2c42:	4b02      	ldr	r3, [pc, #8]	; (2c4c <LCD_Write_DATA16+0x10>)
+    2c44:	601a      	str	r2, [r3, #0]
+	LCD_Write_Bus(VH,VL);
+    2c46:	4b02      	ldr	r3, [pc, #8]	; (2c50 <LCD_Write_DATA16+0x14>)
+    2c48:	4798      	blx	r3
+}
+    2c4a:	bd10      	pop	{r4, pc}
+    2c4c:	41004498 	.word	0x41004498
+    2c50:	00002bfd 	.word	0x00002bfd
+
+00002c54 <LCD_Write_DATA8>:
+
+void LCD_Write_DATA8(char VL)
+{
+    2c54:	b510      	push	{r4, lr}
+    2c56:	0001      	movs	r1, r0
+	REG_PORT_OUTSET1 = LCD_DC;
+    2c58:	2280      	movs	r2, #128	; 0x80
+    2c5a:	0412      	lsls	r2, r2, #16
+    2c5c:	4b02      	ldr	r3, [pc, #8]	; (2c68 <LCD_Write_DATA8+0x14>)
+    2c5e:	601a      	str	r2, [r3, #0]
+	LCD_Write_Bus(0x00, VL);
+    2c60:	2000      	movs	r0, #0
+    2c62:	4b02      	ldr	r3, [pc, #8]	; (2c6c <LCD_Write_DATA8+0x18>)
+    2c64:	4798      	blx	r3
+}
+    2c66:	bd10      	pop	{r4, pc}
+    2c68:	41004498 	.word	0x41004498
+    2c6c:	00002bfd 	.word	0x00002bfd
+
+00002c70 <InitLCD>:
+{
+    2c70:	b5f0      	push	{r4, r5, r6, r7, lr}
+    2c72:	46c6      	mov	lr, r8
+    2c74:	b500      	push	{lr}
+    2c76:	b082      	sub	sp, #8
+	REG_PORT_DIRSET1 = 0x0000ffff;		//LCD data bus, PB00 - PB15
+    2c78:	4b80      	ldr	r3, [pc, #512]	; (2e7c <InitLCD+0x20c>)
+    2c7a:	4f81      	ldr	r7, [pc, #516]	; (2e80 <InitLCD+0x210>)
+    2c7c:	601f      	str	r7, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_Reset;
+    2c7e:	2580      	movs	r5, #128	; 0x80
+    2c80:	05ed      	lsls	r5, r5, #23
+    2c82:	601d      	str	r5, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_CS;
+    2c84:	2680      	movs	r6, #128	; 0x80
+    2c86:	03f6      	lsls	r6, r6, #15
+    2c88:	601e      	str	r6, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_WR;
+    2c8a:	2080      	movs	r0, #128	; 0x80
+    2c8c:	0280      	lsls	r0, r0, #10
+    2c8e:	6018      	str	r0, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_DC;
+    2c90:	2180      	movs	r1, #128	; 0x80
+    2c92:	0409      	lsls	r1, r1, #16
+    2c94:	6019      	str	r1, [r3, #0]
+	REG_PORT_DIRSET1 = LCD_RD;
+    2c96:	2280      	movs	r2, #128	; 0x80
+    2c98:	0252      	lsls	r2, r2, #9
+    2c9a:	601a      	str	r2, [r3, #0]
+	REG_PORT_OUTCLR1 = 0x0000ffff;
+    2c9c:	4c79      	ldr	r4, [pc, #484]	; (2e84 <InitLCD+0x214>)
+    2c9e:	6027      	str	r7, [r4, #0]
+	REG_PORT_OUTCLR1 = LCD_Reset;
+    2ca0:	6025      	str	r5, [r4, #0]
+	REG_PORT_OUTCLR1 = LCD_CS;
+    2ca2:	6026      	str	r6, [r4, #0]
+	REG_PORT_OUTCLR1 = LCD_WR;
+    2ca4:	6020      	str	r0, [r4, #0]
+	REG_PORT_OUTCLR1 = LCD_DC;
+    2ca6:	6021      	str	r1, [r4, #0]
+	REG_PORT_OUTCLR1 = LCD_RD;
+    2ca8:	6022      	str	r2, [r4, #0]
+	REG_PORT_DIRSET1 = PORT_PB16;
+    2caa:	601a      	str	r2, [r3, #0]
+	REG_PORT_OUTSET1 = PORT_PB16;
+    2cac:	4f76      	ldr	r7, [pc, #472]	; (2e88 <InitLCD+0x218>)
+    2cae:	603a      	str	r2, [r7, #0]
+	REG_PORT_OUTSET1 = LCD_Reset;
+    2cb0:	603d      	str	r5, [r7, #0]
+	delay_ms(5);
+    2cb2:	2005      	movs	r0, #5
+    2cb4:	4b75      	ldr	r3, [pc, #468]	; (2e8c <InitLCD+0x21c>)
+    2cb6:	4698      	mov	r8, r3
+    2cb8:	4798      	blx	r3
+	REG_PORT_OUTCLR1 = LCD_Reset;
+    2cba:	6025      	str	r5, [r4, #0]
+	delay_ms(5);
+    2cbc:	2005      	movs	r0, #5
+    2cbe:	47c0      	blx	r8
+	REG_PORT_OUTSET1 = LCD_Reset;
+    2cc0:	603d      	str	r5, [r7, #0]
+	REG_PORT_OUTCLR1 = LCD_CS;
+    2cc2:	6026      	str	r6, [r4, #0]
+	for(int i = 0; i < 70; i++)
+    2cc4:	2400      	movs	r4, #0
+		REG_PORT_OUTCLR1 = LCD_DC;
+    2cc6:	4b6f      	ldr	r3, [pc, #444]	; (2e84 <InitLCD+0x214>)
+    2cc8:	4698      	mov	r8, r3
+    2cca:	2580      	movs	r5, #128	; 0x80
+    2ccc:	042d      	lsls	r5, r5, #16
+    2cce:	002f      	movs	r7, r5
+		LCD_Write_COM16(belial[i],mulciber[i]);
+    2cd0:	4e6f      	ldr	r6, [pc, #444]	; (2e90 <InitLCD+0x220>)
+		REG_PORT_OUTCLR1 = LCD_DC;
+    2cd2:	4643      	mov	r3, r8
+    2cd4:	601f      	str	r7, [r3, #0]
+		LCD_Write_COM16(belial[i],mulciber[i]);
+    2cd6:	5da1      	ldrb	r1, [r4, r6]
+    2cd8:	4b6e      	ldr	r3, [pc, #440]	; (2e94 <InitLCD+0x224>)
+    2cda:	5ce0      	ldrb	r0, [r4, r3]
+    2cdc:	4b6e      	ldr	r3, [pc, #440]	; (2e98 <InitLCD+0x228>)
+    2cde:	4798      	blx	r3
+		REG_PORT_OUTSET1 = LCD_DC;
+    2ce0:	4b69      	ldr	r3, [pc, #420]	; (2e88 <InitLCD+0x218>)
+    2ce2:	601d      	str	r5, [r3, #0]
+		LCD_Write_DATA8(lucifer[i]);
+    2ce4:	4b6d      	ldr	r3, [pc, #436]	; (2e9c <InitLCD+0x22c>)
+    2ce6:	5ce0      	ldrb	r0, [r4, r3]
+    2ce8:	4b6d      	ldr	r3, [pc, #436]	; (2ea0 <InitLCD+0x230>)
+    2cea:	4798      	blx	r3
+	for(int i = 0; i < 70; i++)
+    2cec:	3401      	adds	r4, #1
+    2cee:	2c46      	cmp	r4, #70	; 0x46
+    2cf0:	d1ef      	bne.n	2cd2 <InitLCD+0x62>
+    2cf2:	23d1      	movs	r3, #209	; 0xd1
+    2cf4:	9301      	str	r3, [sp, #4]
+			LCD_Write_COM16(k,0x00);
+    2cf6:	4d68      	ldr	r5, [pc, #416]	; (2e98 <InitLCD+0x228>)
+			LCD_Write_DATA8(beelzebub[l]);
+    2cf8:	4f69      	ldr	r7, [pc, #420]	; (2ea0 <InitLCD+0x230>)
+    2cfa:	4c6a      	ldr	r4, [pc, #424]	; (2ea4 <InitLCD+0x234>)
+    2cfc:	0026      	movs	r6, r4
+    2cfe:	3634      	adds	r6, #52	; 0x34
+			LCD_Write_COM16(k,0x00);
+    2d00:	2100      	movs	r1, #0
+    2d02:	9801      	ldr	r0, [sp, #4]
+    2d04:	47a8      	blx	r5
+			LCD_Write_DATA8(beelzebub[l]);
+    2d06:	7820      	ldrb	r0, [r4, #0]
+    2d08:	47b8      	blx	r7
+    2d0a:	3401      	adds	r4, #1
+		for(int l = 0; l < 52; l++)
+    2d0c:	42a6      	cmp	r6, r4
+    2d0e:	d1f7      	bne.n	2d00 <InitLCD+0x90>
+	for(char k = 0xD1; k < 0xD6; k++)
+    2d10:	9b01      	ldr	r3, [sp, #4]
+    2d12:	3301      	adds	r3, #1
+    2d14:	b2db      	uxtb	r3, r3
+    2d16:	9301      	str	r3, [sp, #4]
+    2d18:	2bd6      	cmp	r3, #214	; 0xd6
+    2d1a:	d1ee      	bne.n	2cfa <InitLCD+0x8a>
+	LCD_Write_COM16(0xF0, 0x00);LCD_Write_DATA8(0x55);
+    2d1c:	2100      	movs	r1, #0
+    2d1e:	20f0      	movs	r0, #240	; 0xf0
+    2d20:	4c5d      	ldr	r4, [pc, #372]	; (2e98 <InitLCD+0x228>)
+    2d22:	47a0      	blx	r4
+    2d24:	2055      	movs	r0, #85	; 0x55
+    2d26:	4d5e      	ldr	r5, [pc, #376]	; (2ea0 <InitLCD+0x230>)
+    2d28:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0, 0x01);LCD_Write_DATA8(0xAA);	
+    2d2a:	2101      	movs	r1, #1
+    2d2c:	20f0      	movs	r0, #240	; 0xf0
+    2d2e:	47a0      	blx	r4
+    2d30:	20aa      	movs	r0, #170	; 0xaa
+    2d32:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0, 0x02);LCD_Write_DATA8(0x52);	
+    2d34:	2102      	movs	r1, #2
+    2d36:	20f0      	movs	r0, #240	; 0xf0
+    2d38:	47a0      	blx	r4
+    2d3a:	2052      	movs	r0, #82	; 0x52
+    2d3c:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0, 0x03);LCD_Write_DATA8(0x08);	
+    2d3e:	2103      	movs	r1, #3
+    2d40:	20f0      	movs	r0, #240	; 0xf0
+    2d42:	47a0      	blx	r4
+    2d44:	2008      	movs	r0, #8
+    2d46:	47a8      	blx	r5
+	LCD_Write_COM16(0xF0, 0x04);LCD_Write_DATA8(0x00);	
+    2d48:	2104      	movs	r1, #4
+    2d4a:	20f0      	movs	r0, #240	; 0xf0
+    2d4c:	47a0      	blx	r4
+    2d4e:	2000      	movs	r0, #0
+    2d50:	47a8      	blx	r5
+	LCD_Write_COM16(0xB1, 0x00);LCD_Write_DATA8(0xCC);
+    2d52:	2100      	movs	r1, #0
+    2d54:	20b1      	movs	r0, #177	; 0xb1
+    2d56:	47a0      	blx	r4
+    2d58:	20cc      	movs	r0, #204	; 0xcc
+    2d5a:	47a8      	blx	r5
+	LCD_Write_COM16(0xB1, 0x01);LCD_Write_DATA8(0x00);	
+    2d5c:	2101      	movs	r1, #1
+    2d5e:	20b1      	movs	r0, #177	; 0xb1
+    2d60:	47a0      	blx	r4
+    2d62:	2000      	movs	r0, #0
+    2d64:	47a8      	blx	r5
+	LCD_Write_COM16(0xB5, 0x00);LCD_Write_DATA8(0x50);	
+    2d66:	2100      	movs	r1, #0
+    2d68:	20b5      	movs	r0, #181	; 0xb5
+    2d6a:	47a0      	blx	r4
+    2d6c:	2050      	movs	r0, #80	; 0x50
+    2d6e:	47a8      	blx	r5
+	LCD_Write_COM16(0xB6, 0x00);LCD_Write_DATA8(0x05);
+    2d70:	2100      	movs	r1, #0
+    2d72:	20b6      	movs	r0, #182	; 0xb6
+    2d74:	47a0      	blx	r4
+    2d76:	2005      	movs	r0, #5
+    2d78:	47a8      	blx	r5
+	LCD_Write_COM16(0xB7, 0x00);LCD_Write_DATA8(0x70);
+    2d7a:	2100      	movs	r1, #0
+    2d7c:	20b7      	movs	r0, #183	; 0xb7
+    2d7e:	47a0      	blx	r4
+    2d80:	2070      	movs	r0, #112	; 0x70
+    2d82:	47a8      	blx	r5
+	LCD_Write_COM16(0xB7, 0x01);LCD_Write_DATA8(0x70);
+    2d84:	2101      	movs	r1, #1
+    2d86:	20b7      	movs	r0, #183	; 0xb7
+    2d88:	47a0      	blx	r4
+    2d8a:	2070      	movs	r0, #112	; 0x70
+    2d8c:	47a8      	blx	r5
+	LCD_Write_COM16(0xB8, 0x00);LCD_Write_DATA8(0x01);
+    2d8e:	2100      	movs	r1, #0
+    2d90:	20b8      	movs	r0, #184	; 0xb8
+    2d92:	47a0      	blx	r4
+    2d94:	2001      	movs	r0, #1
+    2d96:	47a8      	blx	r5
+	LCD_Write_COM16(0xB8, 0x01);LCD_Write_DATA8(0x03);
+    2d98:	2101      	movs	r1, #1
+    2d9a:	20b8      	movs	r0, #184	; 0xb8
+    2d9c:	47a0      	blx	r4
+    2d9e:	2003      	movs	r0, #3
+    2da0:	47a8      	blx	r5
+	LCD_Write_COM16(0xB8, 0x02);LCD_Write_DATA8(0x03);
+    2da2:	2102      	movs	r1, #2
+    2da4:	20b8      	movs	r0, #184	; 0xb8
+    2da6:	47a0      	blx	r4
+    2da8:	2003      	movs	r0, #3
+    2daa:	47a8      	blx	r5
+	LCD_Write_COM16(0xB8, 0x03);LCD_Write_DATA8(0x03);	
+    2dac:	2103      	movs	r1, #3
+    2dae:	20b8      	movs	r0, #184	; 0xb8
+    2db0:	47a0      	blx	r4
+    2db2:	2003      	movs	r0, #3
+    2db4:	47a8      	blx	r5
+	LCD_Write_COM16(0xBC, 0x00);LCD_Write_DATA8(0x02);
+    2db6:	2100      	movs	r1, #0
+    2db8:	20bc      	movs	r0, #188	; 0xbc
+    2dba:	47a0      	blx	r4
+    2dbc:	2002      	movs	r0, #2
+    2dbe:	47a8      	blx	r5
+	LCD_Write_COM16(0xBC, 0x01);LCD_Write_DATA8(0x00);
+    2dc0:	2101      	movs	r1, #1
+    2dc2:	20bc      	movs	r0, #188	; 0xbc
+    2dc4:	47a0      	blx	r4
+    2dc6:	2000      	movs	r0, #0
+    2dc8:	47a8      	blx	r5
+	LCD_Write_COM16(0xBC, 0x02);LCD_Write_DATA8(0x00);
+    2dca:	2102      	movs	r1, #2
+    2dcc:	20bc      	movs	r0, #188	; 0xbc
+    2dce:	47a0      	blx	r4
+    2dd0:	2000      	movs	r0, #0
+    2dd2:	47a8      	blx	r5
+	LCD_Write_COM16(0xC9, 0x00);LCD_Write_DATA8(0xD0);
+    2dd4:	2100      	movs	r1, #0
+    2dd6:	20c9      	movs	r0, #201	; 0xc9
+    2dd8:	47a0      	blx	r4
+    2dda:	20d0      	movs	r0, #208	; 0xd0
+    2ddc:	47a8      	blx	r5
+	LCD_Write_COM16(0xC9, 0x01);LCD_Write_DATA8(0x02);
+    2dde:	2101      	movs	r1, #1
+    2de0:	20c9      	movs	r0, #201	; 0xc9
+    2de2:	47a0      	blx	r4
+    2de4:	2002      	movs	r0, #2
+    2de6:	47a8      	blx	r5
+	LCD_Write_COM16(0xC9, 0x02);LCD_Write_DATA8(0x50);
+    2de8:	2102      	movs	r1, #2
+    2dea:	20c9      	movs	r0, #201	; 0xc9
+    2dec:	47a0      	blx	r4
+    2dee:	2050      	movs	r0, #80	; 0x50
+    2df0:	47a8      	blx	r5
+	LCD_Write_COM16(0xC9, 0x03);LCD_Write_DATA8(0x50);
+    2df2:	2103      	movs	r1, #3
+    2df4:	20c9      	movs	r0, #201	; 0xc9
+    2df6:	47a0      	blx	r4
+    2df8:	2050      	movs	r0, #80	; 0x50
+    2dfa:	47a8      	blx	r5
+	LCD_Write_COM16(0xC9, 0x04);LCD_Write_DATA8(0x50);
+    2dfc:	2104      	movs	r1, #4
+    2dfe:	20c9      	movs	r0, #201	; 0xc9
+    2e00:	47a0      	blx	r4
+    2e02:	2050      	movs	r0, #80	; 0x50
+    2e04:	47a8      	blx	r5
+	LCD_Write_COM16(0x35, 0x00);LCD_Write_DATA8(0x00);
+    2e06:	2100      	movs	r1, #0
+    2e08:	2035      	movs	r0, #53	; 0x35
+    2e0a:	47a0      	blx	r4
+    2e0c:	2000      	movs	r0, #0
+    2e0e:	47a8      	blx	r5
+	LCD_Write_COM16(0x3A, 0x00);LCD_Write_DATA8(0x55);
+    2e10:	2100      	movs	r1, #0
+    2e12:	203a      	movs	r0, #58	; 0x3a
+    2e14:	47a0      	blx	r4
+    2e16:	2055      	movs	r0, #85	; 0x55
+    2e18:	47a8      	blx	r5
+	LCD_Write_COM16(0x36, 0x00);LCD_Write_DATA8(0x00);
+    2e1a:	2100      	movs	r1, #0
+    2e1c:	2036      	movs	r0, #54	; 0x36
+    2e1e:	47a0      	blx	r4
+    2e20:	2000      	movs	r0, #0
+    2e22:	47a8      	blx	r5
+  	LCD_Write_COM16(0x11,0x00);   //Start Up  
+    2e24:	2100      	movs	r1, #0
+    2e26:	2011      	movs	r0, #17
+    2e28:	47a0      	blx	r4
+  	delay_ms(100);
+    2e2a:	2064      	movs	r0, #100	; 0x64
+    2e2c:	4e17      	ldr	r6, [pc, #92]	; (2e8c <InitLCD+0x21c>)
+    2e2e:	47b0      	blx	r6
+  	LCD_Write_COM16(0x29,0x00);   //Display On  
+    2e30:	2100      	movs	r1, #0
+    2e32:	2029      	movs	r0, #41	; 0x29
+    2e34:	47a0      	blx	r4
+   	delay_ms(100);
+    2e36:	2064      	movs	r0, #100	; 0x64
+    2e38:	47b0      	blx	r6
+	LCD_Write_COM16(0x51,0x00);LCD_Write_DATA8(0xFF);
+    2e3a:	2100      	movs	r1, #0
+    2e3c:	2051      	movs	r0, #81	; 0x51
+    2e3e:	47a0      	blx	r4
+    2e40:	20ff      	movs	r0, #255	; 0xff
+    2e42:	47a8      	blx	r5
+	REG_PORT_OUTSET1 = LCD_CS;
+    2e44:	2280      	movs	r2, #128	; 0x80
+    2e46:	03d2      	lsls	r2, r2, #15
+    2e48:	4b0f      	ldr	r3, [pc, #60]	; (2e88 <InitLCD+0x218>)
+    2e4a:	601a      	str	r2, [r3, #0]
+	clrScr();
+    2e4c:	4b16      	ldr	r3, [pc, #88]	; (2ea8 <InitLCD+0x238>)
+    2e4e:	4798      	blx	r3
+	setColorRGB(0,0,0);
+    2e50:	2200      	movs	r2, #0
+    2e52:	2100      	movs	r1, #0
+    2e54:	2000      	movs	r0, #0
+    2e56:	4b15      	ldr	r3, [pc, #84]	; (2eac <InitLCD+0x23c>)
+    2e58:	4798      	blx	r3
+	setBackColorRGB(0, 0, 0);
+    2e5a:	2200      	movs	r2, #0
+    2e5c:	2100      	movs	r1, #0
+    2e5e:	2000      	movs	r0, #0
+    2e60:	4b13      	ldr	r3, [pc, #76]	; (2eb0 <InitLCD+0x240>)
+    2e62:	4798      	blx	r3
+	fillRect(0,0,799,489);
+    2e64:	23ea      	movs	r3, #234	; 0xea
+    2e66:	33ff      	adds	r3, #255	; 0xff
+    2e68:	4a12      	ldr	r2, [pc, #72]	; (2eb4 <InitLCD+0x244>)
+    2e6a:	2100      	movs	r1, #0
+    2e6c:	2000      	movs	r0, #0
+    2e6e:	4c12      	ldr	r4, [pc, #72]	; (2eb8 <InitLCD+0x248>)
+    2e70:	47a0      	blx	r4
+}
+    2e72:	b002      	add	sp, #8
+    2e74:	bc04      	pop	{r2}
+    2e76:	4690      	mov	r8, r2
+    2e78:	bdf0      	pop	{r4, r5, r6, r7, pc}
+    2e7a:	46c0      	nop			; (mov r8, r8)
+    2e7c:	41004488 	.word	0x41004488
+    2e80:	0000ffff 	.word	0x0000ffff
+    2e84:	41004494 	.word	0x41004494
+    2e88:	41004498 	.word	0x41004498
+    2e8c:	00000401 	.word	0x00000401
+    2e90:	00006584 	.word	0x00006584
+    2e94:	000064f4 	.word	0x000064f4
+    2e98:	00002c25 	.word	0x00002c25
+    2e9c:	0000653c 	.word	0x0000653c
+    2ea0:	00002c55 	.word	0x00002c55
+    2ea4:	000064c0 	.word	0x000064c0
+    2ea8:	00002ba1 	.word	0x00002ba1
+    2eac:	00002915 	.word	0x00002915
+    2eb0:	0000293d 	.word	0x0000293d
+    2eb4:	0000031f 	.word	0x0000031f
+    2eb8:	00002a61 	.word	0x00002a61
+
+00002ebc <SysTick_Handler>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 void SysTick_Handler(void)
 {
 
 	
 	ul_tickcount++;
+<<<<<<< HEAD
     2e84:	4a02      	ldr	r2, [pc, #8]	; (2e90 <SysTick_Handler+0xc>)
     2e86:	8813      	ldrh	r3, [r2, #0]
     2e88:	3301      	adds	r3, #1
     2e8a:	8013      	strh	r3, [r2, #0]
+=======
+    2ebc:	4a02      	ldr	r2, [pc, #8]	; (2ec8 <SysTick_Handler+0xc>)
+    2ebe:	8813      	ldrh	r3, [r2, #0]
+    2ec0:	3301      	adds	r3, #1
+    2ec2:	8013      	strh	r3, [r2, #0]
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	{
 		ul_tickcount = 0;
 	}
 	*/
 
 }
+<<<<<<< HEAD
     2e8c:	4770      	bx	lr
     2e8e:	46c0      	nop			; (mov r8, r8)
     2e90:	2000029a 	.word	0x2000029a
@@ -8603,21 +11192,48 @@ void conf_systick(void)
     2e9c:	0089      	lsls	r1, r1, #2
     2e9e:	4b0d      	ldr	r3, [pc, #52]	; (2ed4 <conf_systick+0x40>)
     2ea0:	4798      	blx	r3
+=======
+    2ec4:	4770      	bx	lr
+    2ec6:	46c0      	nop			; (mov r8, r8)
+    2ec8:	2000029a 	.word	0x2000029a
+
+00002ecc <conf_systick>:
+
+void conf_systick(void)
+{
+    2ecc:	b510      	push	{r4, lr}
+	//system_core_clk=48Mhz / 1000=48kHz systic clk if 48Mhz  is used
+	SysTick_Config(SystemCoreClock/1000);
+    2ece:	4b0e      	ldr	r3, [pc, #56]	; (2f08 <conf_systick+0x3c>)
+    2ed0:	6818      	ldr	r0, [r3, #0]
+    2ed2:	21fa      	movs	r1, #250	; 0xfa
+    2ed4:	0089      	lsls	r1, r1, #2
+    2ed6:	4b0d      	ldr	r3, [pc, #52]	; (2f0c <conf_systick+0x40>)
+    2ed8:	4798      	blx	r3
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
            function <b>SysTick_Config</b> is not included. In this case, the file <b><i>device</i>.h</b>
            must contain a vendor-specific implementation of this function.
  */
 __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
 {
   if ((ticks - 1UL) > SysTick_LOAD_RELOAD_Msk)
+<<<<<<< HEAD
     2ea2:	3801      	subs	r0, #1
     2ea4:	4b0c      	ldr	r3, [pc, #48]	; (2ed8 <conf_systick+0x44>)
     2ea6:	4298      	cmp	r0, r3
     2ea8:	d80d      	bhi.n	2ec6 <conf_systick+0x32>
+=======
+    2eda:	3801      	subs	r0, #1
+    2edc:	4b0c      	ldr	r3, [pc, #48]	; (2f10 <conf_systick+0x44>)
+    2ede:	4298      	cmp	r0, r3
+    2ee0:	d80d      	bhi.n	2efe <conf_systick+0x32>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
   {
     return (1UL);                                                   /* Reload value impossible */
   }
 
   SysTick->LOAD  = (uint32_t)(ticks - 1UL);                         /* set reload register */
+<<<<<<< HEAD
     2eaa:	4a0c      	ldr	r2, [pc, #48]	; (2edc <conf_systick+0x48>)
     2eac:	6050      	str	r0, [r2, #4]
     SCB->SHP[_SHP_IDX(IRQn)] = ((uint32_t)(SCB->SHP[_SHP_IDX(IRQn)] & ~(0xFFUL << _BIT_SHIFT(IRQn))) |
@@ -8651,10 +11267,46 @@ __STATIC_INLINE uint32_t SysTick_Config(uint32_t ticks)
     2ee4:	e000e100 	.word	0xe000e100
 
 00002ee8 <configure_usart_USB>:
+=======
+    2ee2:	4a0c      	ldr	r2, [pc, #48]	; (2f14 <conf_systick+0x48>)
+    2ee4:	6050      	str	r0, [r2, #4]
+    SCB->SHP[_SHP_IDX(IRQn)] = ((uint32_t)(SCB->SHP[_SHP_IDX(IRQn)] & ~(0xFFUL << _BIT_SHIFT(IRQn))) |
+    2ee6:	480c      	ldr	r0, [pc, #48]	; (2f18 <conf_systick+0x4c>)
+    2ee8:	6a03      	ldr	r3, [r0, #32]
+    2eea:	021b      	lsls	r3, r3, #8
+    2eec:	0a1b      	lsrs	r3, r3, #8
+    2eee:	21c0      	movs	r1, #192	; 0xc0
+    2ef0:	0609      	lsls	r1, r1, #24
+    2ef2:	430b      	orrs	r3, r1
+    2ef4:	6203      	str	r3, [r0, #32]
+  NVIC_SetPriority (SysTick_IRQn, (1UL << __NVIC_PRIO_BITS) - 1UL); /* set Priority for Systick Interrupt */
+  SysTick->VAL   = 0UL;                                             /* Load the SysTick Counter Value */
+    2ef6:	2300      	movs	r3, #0
+    2ef8:	6093      	str	r3, [r2, #8]
+  SysTick->CTRL  = SysTick_CTRL_CLKSOURCE_Msk |
+    2efa:	3307      	adds	r3, #7
+    2efc:	6013      	str	r3, [r2, #0]
+    2efe:	2280      	movs	r2, #128	; 0x80
+    2f00:	0612      	lsls	r2, r2, #24
+    2f02:	4b06      	ldr	r3, [pc, #24]	; (2f1c <conf_systick+0x50>)
+    2f04:	601a      	str	r2, [r3, #0]
+	system_interrupt_enable(SYSTEM_INTERRUPT_SYSTICK);
+}
+    2f06:	bd10      	pop	{r4, pc}
+    2f08:	2000000c 	.word	0x2000000c
+    2f0c:	000031a5 	.word	0x000031a5
+    2f10:	00ffffff 	.word	0x00ffffff
+    2f14:	e000e010 	.word	0xe000e010
+    2f18:	e000ed00 	.word	0xe000ed00
+    2f1c:	e000e100 	.word	0xe000e100
+
+00002f20 <configure_usart_USB>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 /**************************SERCOM STUFF*******************************/
 void configure_usart_USB(void)
 {
+<<<<<<< HEAD
     2ee8:	b530      	push	{r4, r5, lr}
     2eea:	b091      	sub	sp, #68	; 0x44
 	config->data_order       = USART_DATAORDER_LSB;
@@ -8716,11 +11368,75 @@ void configure_usart_USB(void)
     2f34:	76a3      	strb	r3, [r4, #26]
 	config->collision_detection_enable              = false;
     2f36:	7762      	strb	r2, [r4, #29]
+=======
+    2f20:	b530      	push	{r4, r5, lr}
+    2f22:	b091      	sub	sp, #68	; 0x44
+	config->data_order       = USART_DATAORDER_LSB;
+    2f24:	2380      	movs	r3, #128	; 0x80
+    2f26:	05db      	lsls	r3, r3, #23
+    2f28:	9300      	str	r3, [sp, #0]
+	config->transfer_mode    = USART_TRANSFER_ASYNCHRONOUSLY;
+    2f2a:	2300      	movs	r3, #0
+    2f2c:	9301      	str	r3, [sp, #4]
+	config->parity           = USART_PARITY_NONE;
+    2f2e:	22ff      	movs	r2, #255	; 0xff
+    2f30:	4669      	mov	r1, sp
+    2f32:	810a      	strh	r2, [r1, #8]
+	config->stopbits         = USART_STOPBITS_1;
+    2f34:	2200      	movs	r2, #0
+    2f36:	728b      	strb	r3, [r1, #10]
+	config->character_size   = USART_CHARACTER_SIZE_8BIT;
+    2f38:	72cb      	strb	r3, [r1, #11]
+	config->baudrate         = 9600;
+    2f3a:	2196      	movs	r1, #150	; 0x96
+    2f3c:	0189      	lsls	r1, r1, #6
+    2f3e:	9108      	str	r1, [sp, #32]
+	config->receiver_enable  = true;
+    2f40:	2101      	movs	r1, #1
+    2f42:	2024      	movs	r0, #36	; 0x24
+    2f44:	466c      	mov	r4, sp
+    2f46:	5421      	strb	r1, [r4, r0]
+	config->transmitter_enable = true;
+    2f48:	3001      	adds	r0, #1
+    2f4a:	5421      	strb	r1, [r4, r0]
+	config->clock_polarity_inverted = false;
+    2f4c:	3125      	adds	r1, #37	; 0x25
+    2f4e:	5463      	strb	r3, [r4, r1]
+	config->use_external_clock = false;
+    2f50:	3101      	adds	r1, #1
+    2f52:	5463      	strb	r3, [r4, r1]
+	config->ext_clock_freq   = 0;
+    2f54:	930a      	str	r3, [sp, #40]	; 0x28
+	config->run_in_standby   = false;
+    2f56:	3105      	adds	r1, #5
+    2f58:	5463      	strb	r3, [r4, r1]
+	config->generator_source = GCLK_GENERATOR_0;
+    2f5a:	3101      	adds	r1, #1
+    2f5c:	5463      	strb	r3, [r4, r1]
+	config->sample_adjustment     = USART_SAMPLE_ADJUSTMENT_7_8_9;
+    2f5e:	9305      	str	r3, [sp, #20]
+	config->sample_rate           = USART_SAMPLE_RATE_16X_ARITHMETIC;
+    2f60:	8223      	strh	r3, [r4, #16]
+	config->lin_slave_enable      = false;
+    2f62:	76e3      	strb	r3, [r4, #27]
+	config->immediate_buffer_overflow_notification  = false;
+    2f64:	7622      	strb	r2, [r4, #24]
+	config->start_frame_detection_enable            = false;
+    2f66:	7722      	strb	r2, [r4, #28]
+	config->encoding_format_enable                  = false;
+    2f68:	7662      	strb	r2, [r4, #25]
+	config->receive_pulse_length                    = 19;
+    2f6a:	2313      	movs	r3, #19
+    2f6c:	76a3      	strb	r3, [r4, #26]
+	config->collision_detection_enable              = false;
+    2f6e:	7762      	strb	r2, [r4, #29]
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	struct usart_config config_usart_USB;
 	usart_get_config_defaults(&config_usart_USB);
 
 		config_usart_USB.baudrate    = 9600;
 		config_usart_USB.mux_setting = EDBG_CDC_SERCOM_MUX_SETTING;
+<<<<<<< HEAD
     2f38:	2380      	movs	r3, #128	; 0x80
     2f3a:	035b      	lsls	r3, r3, #13
     2f3c:	9303      	str	r3, [sp, #12]
@@ -8770,11 +11486,63 @@ void configure_usart_USB(void)
     2f7e:	2202      	movs	r2, #2
     2f80:	4313      	orrs	r3, r2
     2f82:	6023      	str	r3, [r4, #0]
+=======
+    2f70:	2380      	movs	r3, #128	; 0x80
+    2f72:	035b      	lsls	r3, r3, #13
+    2f74:	9303      	str	r3, [sp, #12]
+		config_usart_USB.pinmux_pad0 = EDBG_CDC_SERCOM_PINMUX_PAD0;
+    2f76:	4b12      	ldr	r3, [pc, #72]	; (2fc0 <configure_usart_USB+0xa0>)
+    2f78:	930c      	str	r3, [sp, #48]	; 0x30
+		config_usart_USB.pinmux_pad1 = EDBG_CDC_SERCOM_PINMUX_PAD1;
+    2f7a:	4b12      	ldr	r3, [pc, #72]	; (2fc4 <configure_usart_USB+0xa4>)
+    2f7c:	930d      	str	r3, [sp, #52]	; 0x34
+		config_usart_USB.pinmux_pad2 = EDBG_CDC_SERCOM_PINMUX_PAD2;
+    2f7e:	2301      	movs	r3, #1
+    2f80:	425b      	negs	r3, r3
+    2f82:	930e      	str	r3, [sp, #56]	; 0x38
+		config_usart_USB.pinmux_pad3 = EDBG_CDC_SERCOM_PINMUX_PAD3;
+    2f84:	930f      	str	r3, [sp, #60]	; 0x3c
+		while (usart_init(&usart_USB,
+    2f86:	4d10      	ldr	r5, [pc, #64]	; (2fc8 <configure_usart_USB+0xa8>)
+    2f88:	4c10      	ldr	r4, [pc, #64]	; (2fcc <configure_usart_USB+0xac>)
+    2f8a:	466a      	mov	r2, sp
+    2f8c:	4910      	ldr	r1, [pc, #64]	; (2fd0 <configure_usart_USB+0xb0>)
+    2f8e:	0028      	movs	r0, r5
+    2f90:	47a0      	blx	r4
+    2f92:	2800      	cmp	r0, #0
+    2f94:	d1f9      	bne.n	2f8a <configure_usart_USB+0x6a>
+	SercomUsart *const usart_hw = &(module->hw->USART);
+    2f96:	4d0c      	ldr	r5, [pc, #48]	; (2fc8 <configure_usart_USB+0xa8>)
+    2f98:	682c      	ldr	r4, [r5, #0]
+	system_interrupt_enable(_sercom_get_interrupt_vector(module->hw));
+    2f9a:	0020      	movs	r0, r4
+    2f9c:	4b0d      	ldr	r3, [pc, #52]	; (2fd4 <configure_usart_USB+0xb4>)
+    2f9e:	4798      	blx	r3
+    2fa0:	231f      	movs	r3, #31
+    2fa2:	4018      	ands	r0, r3
+    2fa4:	3b1e      	subs	r3, #30
+    2fa6:	4083      	lsls	r3, r0
+    2fa8:	4a0b      	ldr	r2, [pc, #44]	; (2fd8 <configure_usart_USB+0xb8>)
+    2faa:	6013      	str	r3, [r2, #0]
+	SercomUsart *const usart_hw = &(module->hw->USART);
+    2fac:	682a      	ldr	r2, [r5, #0]
+	return (usart_hw->SYNCBUSY.reg);
+    2fae:	69d3      	ldr	r3, [r2, #28]
+	while (usart_is_syncing(module)) {
+    2fb0:	2b00      	cmp	r3, #0
+    2fb2:	d1fc      	bne.n	2fae <configure_usart_USB+0x8e>
+	usart_hw->CTRLA.reg |= SERCOM_USART_CTRLA_ENABLE;
+    2fb4:	6823      	ldr	r3, [r4, #0]
+    2fb6:	2202      	movs	r2, #2
+    2fb8:	4313      	orrs	r3, r2
+    2fba:	6023      	str	r3, [r4, #0]
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 		EDBG_CDC_MODULE, &config_usart_USB) != STATUS_OK) {
 		}
 
 	usart_enable(&usart_USB);
 }
+<<<<<<< HEAD
     2f84:	b011      	add	sp, #68	; 0x44
     2f86:	bd30      	pop	{r4, r5, pc}
     2f88:	00160002 	.word	0x00160002
@@ -8848,14 +11616,95 @@ void configure_adc(void)
     3000:	e000e100 	.word	0xe000e100
 
 00003004 <setupBoard>:
+=======
+    2fbc:	b011      	add	sp, #68	; 0x44
+    2fbe:	bd30      	pop	{r4, r5, pc}
+    2fc0:	00160002 	.word	0x00160002
+    2fc4:	00170002 	.word	0x00170002
+    2fc8:	200003d4 	.word	0x200003d4
+    2fcc:	00000e6d 	.word	0x00000e6d
+    2fd0:	42001400 	.word	0x42001400
+    2fd4:	00000ddd 	.word	0x00000ddd
+    2fd8:	e000e100 	.word	0xe000e100
+
+00002fdc <configure_adc>:
+
+void configure_adc(void)
+{
+    2fdc:	b510      	push	{r4, lr}
+    2fde:	b08c      	sub	sp, #48	; 0x30
+	struct adc_config config_adc;
+	adc_get_config_defaults(&config_adc);
+    2fe0:	4668      	mov	r0, sp
+    2fe2:	4b11      	ldr	r3, [pc, #68]	; (3028 <configure_adc+0x4c>)
+    2fe4:	4798      	blx	r3
+	config_adc.positive_input = ADC_POSITIVE_INPUT_DAC;
+    2fe6:	231c      	movs	r3, #28
+    2fe8:	466a      	mov	r2, sp
+    2fea:	7313      	strb	r3, [r2, #12]
+	adc_init(&adc_instance, ADC, &config_adc);
+    2fec:	4c0f      	ldr	r4, [pc, #60]	; (302c <configure_adc+0x50>)
+    2fee:	4910      	ldr	r1, [pc, #64]	; (3030 <configure_adc+0x54>)
+    2ff0:	0020      	movs	r0, r4
+    2ff2:	4b10      	ldr	r3, [pc, #64]	; (3034 <configure_adc+0x58>)
+    2ff4:	4798      	blx	r3
+	Adc *const adc_module = module_inst->hw;
+    2ff6:	6822      	ldr	r2, [r4, #0]
+    2ff8:	7e53      	ldrb	r3, [r2, #25]
+	while (adc_is_syncing(module_inst)) {
+    2ffa:	b25b      	sxtb	r3, r3
+    2ffc:	2b00      	cmp	r3, #0
+    2ffe:	dbfb      	blt.n	2ff8 <configure_adc+0x1c>
+    3000:	2180      	movs	r1, #128	; 0x80
+    3002:	0409      	lsls	r1, r1, #16
+    3004:	4b0c      	ldr	r3, [pc, #48]	; (3038 <configure_adc+0x5c>)
+    3006:	6019      	str	r1, [r3, #0]
+	adc_module->INTENCLR.reg = ADC_INTENCLR_MASK;
+    3008:	230f      	movs	r3, #15
+    300a:	7593      	strb	r3, [r2, #22]
+	adc_module->INTFLAG.reg = ADC_INTFLAG_MASK;
+    300c:	7613      	strb	r3, [r2, #24]
+	adc_module->CTRLA.reg |= ADC_CTRLA_ENABLE;
+    300e:	7813      	ldrb	r3, [r2, #0]
+    3010:	2102      	movs	r1, #2
+    3012:	430b      	orrs	r3, r1
+    3014:	7013      	strb	r3, [r2, #0]
+	Adc *const adc_module = module_inst->hw;
+    3016:	4b05      	ldr	r3, [pc, #20]	; (302c <configure_adc+0x50>)
+    3018:	681a      	ldr	r2, [r3, #0]
+	if (adc_module->STATUS.reg & ADC_STATUS_SYNCBUSY) {
+    301a:	7e53      	ldrb	r3, [r2, #25]
+	while (adc_is_syncing(module_inst)) {
+    301c:	b25b      	sxtb	r3, r3
+    301e:	2b00      	cmp	r3, #0
+    3020:	dbfb      	blt.n	301a <configure_adc+0x3e>
+	adc_enable(&adc_instance);
+}
+    3022:	b00c      	add	sp, #48	; 0x30
+    3024:	bd10      	pop	{r4, pc}
+    3026:	46c0      	nop			; (mov r8, r8)
+    3028:	000004d5 	.word	0x000004d5
+    302c:	20000408 	.word	0x20000408
+    3030:	42004000 	.word	0x42004000
+    3034:	00000519 	.word	0x00000519
+    3038:	e000e100 	.word	0xe000e100
+
+0000303c <setupBoard>:
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 
 void setupBoard(void)
 {
+<<<<<<< HEAD
     3004:	b570      	push	{r4, r5, r6, lr}
+=======
+    303c:	b570      	push	{r4, r5, r6, lr}
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	uint16_t adcResult;
+	
 
 	system_init();
+<<<<<<< HEAD
     3006:	4b2e      	ldr	r3, [pc, #184]	; (30c0 <setupBoard+0xbc>)
     3008:	4798      	blx	r3
 	
@@ -8941,12 +11790,100 @@ void setupBoard(void)
 	adc_module->INTFLAG.reg = int_flags;
     3076:	2302      	movs	r3, #2
     3078:	760b      	strb	r3, [r1, #24]
+=======
+    303e:	4b2d      	ldr	r3, [pc, #180]	; (30f4 <setupBoard+0xb8>)
+    3040:	4798      	blx	r3
+	
+	configure_adc();
+    3042:	4b2d      	ldr	r3, [pc, #180]	; (30f8 <setupBoard+0xbc>)
+    3044:	4798      	blx	r3
+	Adc *const adc_module = module_inst->hw;
+    3046:	4b2d      	ldr	r3, [pc, #180]	; (30fc <setupBoard+0xc0>)
+    3048:	6819      	ldr	r1, [r3, #0]
+    304a:	7e4b      	ldrb	r3, [r1, #25]
+	while (adc_is_syncing(module_inst)) {
+    304c:	b25b      	sxtb	r3, r3
+    304e:	2b00      	cmp	r3, #0
+    3050:	dbfb      	blt.n	304a <setupBoard+0xe>
+	adc_module->SWTRIG.reg |= ADC_SWTRIG_START;
+    3052:	7b0b      	ldrb	r3, [r1, #12]
+    3054:	2202      	movs	r2, #2
+    3056:	4313      	orrs	r3, r2
+    3058:	730b      	strb	r3, [r1, #12]
+    305a:	7e4b      	ldrb	r3, [r1, #25]
+	while (adc_is_syncing(module_inst)) {
+    305c:	b25b      	sxtb	r3, r3
+    305e:	2b00      	cmp	r3, #0
+    3060:	dbfb      	blt.n	305a <setupBoard+0x1e>
+	if (int_flags & ADC_INTFLAG_RESRDY) {
+    3062:	2001      	movs	r0, #1
+	if (int_flags & ADC_INTFLAG_WINMON) {
+    3064:	2504      	movs	r5, #4
+		status_flags |= ADC_STATUS_WINDOW;
+    3066:	2402      	movs	r4, #2
+    3068:	e001      	b.n	306e <setupBoard+0x32>
+	if (!(adc_get_status(module_inst) & ADC_STATUS_RESULT_READY)) {
+    306a:	4210      	tst	r0, r2
+    306c:	d10a      	bne.n	3084 <setupBoard+0x48>
+	uint32_t int_flags = adc_module->INTFLAG.reg;
+    306e:	7e0b      	ldrb	r3, [r1, #24]
+    3070:	b2db      	uxtb	r3, r3
+	if (int_flags & ADC_INTFLAG_RESRDY) {
+    3072:	0002      	movs	r2, r0
+    3074:	401a      	ands	r2, r3
+	if (int_flags & ADC_INTFLAG_WINMON) {
+    3076:	421d      	tst	r5, r3
+    3078:	d000      	beq.n	307c <setupBoard+0x40>
+		status_flags |= ADC_STATUS_WINDOW;
+    307a:	4322      	orrs	r2, r4
+	if (int_flags & ADC_INTFLAG_OVERRUN) {
+    307c:	421c      	tst	r4, r3
+    307e:	d0f4      	beq.n	306a <setupBoard+0x2e>
+		status_flags |= ADC_STATUS_OVERRUN;
+    3080:	432a      	orrs	r2, r5
+    3082:	e7f2      	b.n	306a <setupBoard+0x2e>
+    3084:	7e4b      	ldrb	r3, [r1, #25]
+	while (adc_is_syncing(module_inst)) {
+    3086:	b25b      	sxtb	r3, r3
+    3088:	2b00      	cmp	r3, #0
+    308a:	dbfb      	blt.n	3084 <setupBoard+0x48>
+	*result = adc_module->RESULT.reg;
+    308c:	8b4c      	ldrh	r4, [r1, #26]
+    308e:	b2a4      	uxth	r4, r4
+	adc_module->INTFLAG.reg = int_flags;
+    3090:	2301      	movs	r3, #1
+    3092:	760b      	strb	r3, [r1, #24]
+	uint32_t int_flags = adc_module->INTFLAG.reg;
+    3094:	7e0a      	ldrb	r2, [r1, #24]
+    3096:	b2d2      	uxtb	r2, r2
+	if (int_flags & ADC_INTFLAG_RESRDY) {
+    3098:	4013      	ands	r3, r2
+	if (int_flags & ADC_INTFLAG_WINMON) {
+    309a:	0750      	lsls	r0, r2, #29
+    309c:	d501      	bpl.n	30a2 <setupBoard+0x66>
+		status_flags |= ADC_STATUS_WINDOW;
+    309e:	2002      	movs	r0, #2
+    30a0:	4303      	orrs	r3, r0
+	if (int_flags & ADC_INTFLAG_OVERRUN) {
+    30a2:	0792      	lsls	r2, r2, #30
+    30a4:	d501      	bpl.n	30aa <setupBoard+0x6e>
+		status_flags |= ADC_STATUS_OVERRUN;
+    30a6:	2204      	movs	r2, #4
+    30a8:	4313      	orrs	r3, r2
+	if (adc_get_status(module_inst) & ADC_STATUS_OVERRUN) {
+    30aa:	075b      	lsls	r3, r3, #29
+    30ac:	d501      	bpl.n	30b2 <setupBoard+0x76>
+	adc_module->INTFLAG.reg = int_flags;
+    30ae:	2302      	movs	r3, #2
+    30b0:	760b      	strb	r3, [r1, #24]
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	adc_start_conversion(&adc_instance);
 	do {
 		/* Wait for conversion to be done and read out result */
 	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
 	
 	system_init();
+<<<<<<< HEAD
     307a:	4b11      	ldr	r3, [pc, #68]	; (30c0 <setupBoard+0xbc>)
     307c:	4798      	blx	r3
 	
@@ -9106,6 +12043,135 @@ void setupBoard(void)
     3198:	000024d1 	.word	0x000024d1
     319c:	000024a9 	.word	0x000024a9
     31a0:	00002415 	.word	0x00002415
+=======
+    30b2:	4b10      	ldr	r3, [pc, #64]	; (30f4 <setupBoard+0xb8>)
+    30b4:	4798      	blx	r3
+	
+	delay_init();
+    30b6:	4b12      	ldr	r3, [pc, #72]	; (3100 <setupBoard+0xc4>)
+    30b8:	4798      	blx	r3
+	srand(adcResult);
+    30ba:	0020      	movs	r0, r4
+    30bc:	4b11      	ldr	r3, [pc, #68]	; (3104 <setupBoard+0xc8>)
+    30be:	4798      	blx	r3
+	configure_usart_USB();
+    30c0:	4b11      	ldr	r3, [pc, #68]	; (3108 <setupBoard+0xcc>)
+    30c2:	4798      	blx	r3
+	configure_console();
+    30c4:	4b11      	ldr	r3, [pc, #68]	; (310c <setupBoard+0xd0>)
+    30c6:	4798      	blx	r3
+	
+	InitLCD();
+    30c8:	4b11      	ldr	r3, [pc, #68]	; (3110 <setupBoard+0xd4>)
+    30ca:	4798      	blx	r3
+	splashScreen();
+    30cc:	4b11      	ldr	r3, [pc, #68]	; (3114 <setupBoard+0xd8>)
+    30ce:	4798      	blx	r3
+		
+	printf("Serial OK 9600 8N1\n\r");
+    30d0:	4811      	ldr	r0, [pc, #68]	; (3118 <setupBoard+0xdc>)
+    30d2:	4b12      	ldr	r3, [pc, #72]	; (311c <setupBoard+0xe0>)
+    30d4:	4798      	blx	r3
+	
+	conf_systick();
+    30d6:	4b12      	ldr	r3, [pc, #72]	; (3120 <setupBoard+0xe4>)
+    30d8:	4798      	blx	r3
+	clearCursorBuffer();
+    30da:	4b12      	ldr	r3, [pc, #72]	; (3124 <setupBoard+0xe8>)
+    30dc:	4798      	blx	r3
+
+	readCursor(0,0);
+    30de:	2100      	movs	r1, #0
+    30e0:	2000      	movs	r0, #0
+    30e2:	4b11      	ldr	r3, [pc, #68]	; (3128 <setupBoard+0xec>)
+    30e4:	4798      	blx	r3
+	xCharPos=0;
+    30e6:	2300      	movs	r3, #0
+    30e8:	4a10      	ldr	r2, [pc, #64]	; (312c <setupBoard+0xf0>)
+    30ea:	7013      	strb	r3, [r2, #0]
+	yCharPos=0;
+    30ec:	4a10      	ldr	r2, [pc, #64]	; (3130 <setupBoard+0xf4>)
+    30ee:	7013      	strb	r3, [r2, #0]
+}
+    30f0:	bd70      	pop	{r4, r5, r6, pc}
+    30f2:	46c0      	nop			; (mov r8, r8)
+    30f4:	00001b3d 	.word	0x00001b3d
+    30f8:	00002fdd 	.word	0x00002fdd
+    30fc:	20000408 	.word	0x20000408
+    3100:	000003c1 	.word	0x000003c1
+    3104:	000033b1 	.word	0x000033b1
+    3108:	00002f21 	.word	0x00002f21
+    310c:	00001d65 	.word	0x00001d65
+    3110:	00002c71 	.word	0x00002c71
+    3114:	000001e5 	.word	0x000001e5
+    3118:	000065d8 	.word	0x000065d8
+    311c:	0000337d 	.word	0x0000337d
+    3120:	00002ecd 	.word	0x00002ecd
+    3124:	00002379 	.word	0x00002379
+    3128:	00002465 	.word	0x00002465
+    312c:	20000298 	.word	0x20000298
+    3130:	20000299 	.word	0x20000299
+
+00003134 <main>:
+{
+    3134:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+	setupBoard();
+    3136:	4b11      	ldr	r3, [pc, #68]	; (317c <main+0x48>)
+    3138:	4798      	blx	r3
+		if(ul_tickcount % (UINT16_MAX/4) == 0)
+    313a:	4e11      	ldr	r6, [pc, #68]	; (3180 <main+0x4c>)
+    313c:	4d11      	ldr	r5, [pc, #68]	; (3184 <main+0x50>)
+			blinkCursor();
+    313e:	4f12      	ldr	r7, [pc, #72]	; (3188 <main+0x54>)
+    3140:	e01a      	b.n	3178 <main+0x44>
+		if(ul_tickcount % 200 == 0)
+    3142:	4b0f      	ldr	r3, [pc, #60]	; (3180 <main+0x4c>)
+    3144:	8818      	ldrh	r0, [r3, #0]
+    3146:	21c8      	movs	r1, #200	; 0xc8
+    3148:	4b0e      	ldr	r3, [pc, #56]	; (3184 <main+0x50>)
+    314a:	4798      	blx	r3
+    314c:	b289      	uxth	r1, r1
+    314e:	2900      	cmp	r1, #0
+    3150:	d00e      	beq.n	3170 <main+0x3c>
+		__WFI();
+    3152:	bf30      	wfi
+		if(ul_tickcount % (UINT16_MAX/4) == 0)
+    3154:	8830      	ldrh	r0, [r6, #0]
+    3156:	0021      	movs	r1, r4
+    3158:	47a8      	blx	r5
+    315a:	b289      	uxth	r1, r1
+    315c:	2900      	cmp	r1, #0
+    315e:	d1f0      	bne.n	3142 <main+0xe>
+			blinkCursor();
+    3160:	47b8      	blx	r7
+			printf("Blink %i\n\r",rand());
+    3162:	4b0a      	ldr	r3, [pc, #40]	; (318c <main+0x58>)
+    3164:	4798      	blx	r3
+    3166:	0001      	movs	r1, r0
+    3168:	4809      	ldr	r0, [pc, #36]	; (3190 <main+0x5c>)
+    316a:	4b0a      	ldr	r3, [pc, #40]	; (3194 <main+0x60>)
+    316c:	4798      	blx	r3
+    316e:	e7e8      	b.n	3142 <main+0xe>
+			readKeyboard();
+    3170:	4b09      	ldr	r3, [pc, #36]	; (3198 <main+0x64>)
+    3172:	4798      	blx	r3
+			printKeyboardBuffer();
+    3174:	4b09      	ldr	r3, [pc, #36]	; (319c <main+0x68>)
+    3176:	4798      	blx	r3
+		if(ul_tickcount % (UINT16_MAX/4) == 0)
+    3178:	4c09      	ldr	r4, [pc, #36]	; (31a0 <main+0x6c>)
+    317a:	e7ea      	b.n	3152 <main+0x1e>
+    317c:	0000303d 	.word	0x0000303d
+    3180:	2000029a 	.word	0x2000029a
+    3184:	000032b1 	.word	0x000032b1
+    3188:	00002565 	.word	0x00002565
+    318c:	0000340d 	.word	0x0000340d
+    3190:	000065cc 	.word	0x000065cc
+    3194:	0000337d 	.word	0x0000337d
+    3198:	00002179 	.word	0x00002179
+    319c:	00002679 	.word	0x00002679
+    31a0:	00003fff 	.word	0x00003fff
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000031a4 <__udivsi3>:
     31a4:	2200      	movs	r2, #0
@@ -9306,7 +12372,11 @@ void setupBoard(void)
     331c:	42a6      	cmp	r6, r4
     331e:	d109      	bne.n	3334 <__libc_init_array+0x24>
     3320:	2600      	movs	r6, #0
+<<<<<<< HEAD
     3322:	f003 f993 	bl	664c <_init>
+=======
+    3322:	f003 f9b1 	bl	6688 <_init>
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     3326:	4d0a      	ldr	r5, [pc, #40]	; (3350 <__libc_init_array+0x40>)
     3328:	4c0a      	ldr	r4, [pc, #40]	; (3354 <__libc_init_array+0x44>)
     332a:	1b64      	subs	r4, r4, r5
@@ -9324,10 +12394,17 @@ void setupBoard(void)
     3342:	4798      	blx	r3
     3344:	3601      	adds	r6, #1
     3346:	e7f2      	b.n	332e <__libc_init_array+0x1e>
+<<<<<<< HEAD
     3348:	00006658 	.word	0x00006658
     334c:	00006658 	.word	0x00006658
     3350:	00006658 	.word	0x00006658
     3354:	0000665c 	.word	0x0000665c
+=======
+    3348:	00006694 	.word	0x00006694
+    334c:	00006694 	.word	0x00006694
+    3350:	00006694 	.word	0x00006694
+    3354:	00006698 	.word	0x00006698
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 00003358 <memcpy>:
     3358:	2300      	movs	r3, #0
@@ -9374,7 +12451,11 @@ void setupBoard(void)
     33a6:	b004      	add	sp, #16
     33a8:	4718      	bx	r3
     33aa:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     33ac:	20000154 	.word	0x20000154
+=======
+    33ac:	20000158 	.word	0x20000158
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000033b0 <srand>:
     33b0:	4b10      	ldr	r3, [pc, #64]	; (33f4 <srand+0x44>)
@@ -9410,7 +12491,11 @@ void setupBoard(void)
     33ee:	611d      	str	r5, [r3, #16]
     33f0:	615a      	str	r2, [r3, #20]
     33f2:	bd70      	pop	{r4, r5, r6, pc}
+<<<<<<< HEAD
     33f4:	20000154 	.word	0x20000154
+=======
+    33f4:	20000158 	.word	0x20000158
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     33f8:	0000330e 	.word	0x0000330e
     33fc:	ffffabcd 	.word	0xffffabcd
     3400:	00001234 	.word	0x00001234
@@ -9460,7 +12545,11 @@ void setupBoard(void)
     345e:	0048      	lsls	r0, r1, #1
     3460:	0840      	lsrs	r0, r0, #1
     3462:	bd10      	pop	{r4, pc}
+<<<<<<< HEAD
     3464:	20000154 	.word	0x20000154
+=======
+    3464:	20000158 	.word	0x20000158
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     3468:	0000330e 	.word	0x0000330e
     346c:	ffffabcd 	.word	0xffffabcd
     3470:	00001234 	.word	0x00001234
@@ -9635,11 +12724,19 @@ void setupBoard(void)
     35d6:	2001      	movs	r0, #1
     35d8:	4240      	negs	r0, r0
     35da:	e7bf      	b.n	355c <setvbuf+0xc4>
+<<<<<<< HEAD
     35dc:	20000154 	.word	0x20000154
     35e0:	000065d8 	.word	0x000065d8
     35e4:	fffff35c 	.word	0xfffff35c
     35e8:	000065f8 	.word	0x000065f8
     35ec:	000065b8 	.word	0x000065b8
+=======
+    35dc:	20000158 	.word	0x20000158
+    35e0:	00006614 	.word	0x00006614
+    35e4:	fffff35c 	.word	0xfffff35c
+    35e8:	00006634 	.word	0x00006634
+    35ec:	000065f4 	.word	0x000065f4
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000035f0 <strlen>:
     35f0:	2300      	movs	r3, #0
@@ -9826,9 +12923,15 @@ void setupBoard(void)
     375a:	d1ee      	bne.n	373a <_fflush_r+0x26>
     375c:	68ec      	ldr	r4, [r5, #12]
     375e:	e7ec      	b.n	373a <_fflush_r+0x26>
+<<<<<<< HEAD
     3760:	000065d8 	.word	0x000065d8
     3764:	000065f8 	.word	0x000065f8
     3768:	000065b8 	.word	0x000065b8
+=======
+    3760:	00006614 	.word	0x00006614
+    3764:	00006634 	.word	0x00006634
+    3768:	000065f4 	.word	0x000065f4
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 0000376c <_cleanup_r>:
     376c:	b510      	push	{r4, lr}
@@ -9936,7 +13039,11 @@ void setupBoard(void)
     384a:	61a3      	str	r3, [r4, #24]
     384c:	bd13      	pop	{r0, r1, r4, pc}
     384e:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     3850:	000065b4 	.word	0x000065b4
+=======
+    3850:	000065f0 	.word	0x000065f0
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     3854:	0000376d 	.word	0x0000376d
 
 00003858 <__sfp>:
@@ -9999,7 +13106,11 @@ void setupBoard(void)
     38ce:	64e5      	str	r5, [r4, #76]	; 0x4c
     38d0:	e7e6      	b.n	38a0 <__sfp+0x48>
     38d2:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     38d4:	000065b4 	.word	0x000065b4
+=======
+    38d4:	000065f0 	.word	0x000065f0
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000038d8 <_fwalk_reent>:
     38d8:	b5f7      	push	{r0, r1, r2, r4, r5, r6, r7, lr}
@@ -10151,7 +13262,11 @@ void setupBoard(void)
     39fc:	f000 f84e 	bl	3a9c <_malloc_r>
     3a00:	bd10      	pop	{r4, pc}
     3a02:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     3a04:	20000154 	.word	0x20000154
+=======
+    3a04:	20000158 	.word	0x20000158
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 00003a08 <_free_r>:
     3a08:	b570      	push	{r4, r5, r6, lr}
@@ -10618,12 +13733,21 @@ void setupBoard(void)
     3db8:	0030      	movs	r0, r6
     3dba:	f000 f87f 	bl	3ebc <_printf_i>
     3dbe:	e7ec      	b.n	3d9a <_vfiprintf_r+0x1f2>
+<<<<<<< HEAD
     3dc0:	000065d8 	.word	0x000065d8
     3dc4:	00006618 	.word	0x00006618
     3dc8:	000065f8 	.word	0x000065f8
     3dcc:	000065b8 	.word	0x000065b8
     3dd0:	0000661e 	.word	0x0000661e
     3dd4:	00006622 	.word	0x00006622
+=======
+    3dc0:	00006614 	.word	0x00006614
+    3dc4:	00006654 	.word	0x00006654
+    3dc8:	00006634 	.word	0x00006634
+    3dcc:	000065f4 	.word	0x000065f4
+    3dd0:	0000665a 	.word	0x0000665a
+    3dd4:	0000665e 	.word	0x0000665e
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     3dd8:	00000000 	.word	0x00000000
     3ddc:	00003b83 	.word	0x00003b83
 
@@ -11014,8 +14138,13 @@ void setupBoard(void)
     40e2:	4240      	negs	r0, r0
     40e4:	b00b      	add	sp, #44	; 0x2c
     40e6:	bdf0      	pop	{r4, r5, r6, r7, pc}
+<<<<<<< HEAD
     40e8:	0000663a 	.word	0x0000663a
     40ec:	00006629 	.word	0x00006629
+=======
+    40e8:	00006676 	.word	0x00006676
+    40ec:	00006665 	.word	0x00006665
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000040f0 <_sbrk_r>:
     40f0:	2300      	movs	r3, #0
@@ -11033,7 +14162,11 @@ void setupBoard(void)
     410a:	602b      	str	r3, [r5, #0]
     410c:	bd70      	pop	{r4, r5, r6, pc}
     410e:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     4110:	20000ba8 	.word	0x20000ba8
+=======
+    4110:	20000428 	.word	0x20000428
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 00004114 <__sread>:
     4114:	b570      	push	{r4, r5, r6, lr}
@@ -11188,9 +14321,15 @@ void setupBoard(void)
     4246:	4276      	negs	r6, r6
     4248:	0030      	movs	r0, r6
     424a:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
+<<<<<<< HEAD
     424c:	000065d8 	.word	0x000065d8
     4250:	000065f8 	.word	0x000065f8
     4254:	000065b8 	.word	0x000065b8
+=======
+    424c:	00006614 	.word	0x00006614
+    4250:	00006634 	.word	0x00006634
+    4254:	000065f4 	.word	0x000065f4
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 00004258 <_write_r>:
     4258:	b570      	push	{r4, r5, r6, lr}
@@ -11210,7 +14349,11 @@ void setupBoard(void)
     4276:	602b      	str	r3, [r5, #0]
     4278:	bd70      	pop	{r4, r5, r6, pc}
     427a:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     427c:	20000ba8 	.word	0x20000ba8
+=======
+    427c:	20000428 	.word	0x20000428
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 00004280 <__swsetup_r>:
     4280:	4b36      	ldr	r3, [pc, #216]	; (435c <__swsetup_r+0xdc>)
@@ -11320,10 +14463,17 @@ void setupBoard(void)
     4356:	6963      	ldr	r3, [r4, #20]
     4358:	60a3      	str	r3, [r4, #8]
     435a:	e7ed      	b.n	4338 <__swsetup_r+0xb8>
+<<<<<<< HEAD
     435c:	20000154 	.word	0x20000154
     4360:	000065d8 	.word	0x000065d8
     4364:	000065f8 	.word	0x000065f8
     4368:	000065b8 	.word	0x000065b8
+=======
+    435c:	20000158 	.word	0x20000158
+    4360:	00006614 	.word	0x00006614
+    4364:	00006634 	.word	0x00006634
+    4368:	000065f4 	.word	0x000065f4
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 0000436c <_close_r>:
     436c:	2300      	movs	r3, #0
@@ -11341,7 +14491,11 @@ void setupBoard(void)
     4386:	602b      	str	r3, [r5, #0]
     4388:	bd70      	pop	{r4, r5, r6, pc}
     438a:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     438c:	20000ba8 	.word	0x20000ba8
+=======
+    438c:	20000428 	.word	0x20000428
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 00004390 <_fstat_r>:
     4390:	2300      	movs	r3, #0
@@ -11359,7 +14513,11 @@ void setupBoard(void)
     43aa:	d000      	beq.n	43ae <_fstat_r+0x1e>
     43ac:	602b      	str	r3, [r5, #0]
     43ae:	bd70      	pop	{r4, r5, r6, pc}
+<<<<<<< HEAD
     43b0:	20000ba8 	.word	0x20000ba8
+=======
+    43b0:	20000428 	.word	0x20000428
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000043b4 <_isatty_r>:
     43b4:	2300      	movs	r3, #0
@@ -11377,7 +14535,11 @@ void setupBoard(void)
     43ce:	602b      	str	r3, [r5, #0]
     43d0:	bd70      	pop	{r4, r5, r6, pc}
     43d2:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     43d4:	20000ba8 	.word	0x20000ba8
+=======
+    43d4:	20000428 	.word	0x20000428
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 000043d8 <_lseek_r>:
     43d8:	b570      	push	{r4, r5, r6, lr}
@@ -11397,7 +14559,11 @@ void setupBoard(void)
     43f6:	602b      	str	r3, [r5, #0]
     43f8:	bd70      	pop	{r4, r5, r6, pc}
     43fa:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     43fc:	20000ba8 	.word	0x20000ba8
+=======
+    43fc:	20000428 	.word	0x20000428
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
 00004400 <memchr>:
     4400:	b2c9      	uxtb	r1, r1
@@ -11437,7 +14603,11 @@ void setupBoard(void)
     443a:	602b      	str	r3, [r5, #0]
     443c:	bd70      	pop	{r4, r5, r6, pc}
     443e:	46c0      	nop			; (mov r8, r8)
+<<<<<<< HEAD
     4440:	20000ba8 	.word	0x20000ba8
+=======
+    4440:	20000428 	.word	0x20000428
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
     4444:	000a000a 	.word	0x000a000a
     4448:	00140014 	.word	0x00140014
     444c:	00000014 	.word	0x00000014
@@ -11837,6 +15007,7 @@ void setupBoard(void)
     4a74:	0000165c 	.word	0x0000165c
 
 00004a78 <CodePage437>:
+<<<<<<< HEAD
 	...
     4db0:	01000000 06186080 18608001 60800106     .....`....`....`
     4dc0:	80010000 00000060 00000000 66986106     ....`........a.f
@@ -12194,6 +15365,368 @@ void setupBoard(void)
     632c:	83070000 03070cf0 3fe0c081 00000000     ...........?....
 	...
     6350:	c30f3ffc 0f3ffcf0 0000f0c3 00000000     .?....?.........
+=======
+	...
+    4dbc:	30ff0300 0000f33f 00000000 00000000     ...0?...........
+    4dcc:	00000000 00f00300 0000003f 03000000     ........?.......
+    4ddc:	003f00f0 00000000 00330000 ff033003     ..?.......3..0..
+    4dec:	00ff3ff0 30030033 3ff0ff03 003300ff     .?..3..0...?..3.
+    4dfc:	00000000 00300000 cc0cc0cc 3ff0ff03     ......0........?
+    4e0c:	c0cc00ff 3000cc0c 00000000 0e000000     .......0........
+    4e1c:	0e308303 0038001c e300e000 010e3380     ..0...8......3..
+    4e2c:	000030c0 00300300 c0000033 0c03330f     .0....0.3....3..
+    4e3c:	03c33030 c330300c 00c0f300 00000000     00...00.........
+    4e4c:	00000000 03003000 000f00c0 00003000     .....0.......0..
+	...
+    4e68:	03300000 03c0c000 003f00f0 00000000     ..0.......?.....
+	...
+    4e80:	03003f00 c0c000f0 00000330 00000000     .?......0.......
+	...
+    4e98:	c0cc00c0 0c00f003 00c00000 cc0c003f     ............?...
+    4ea8:	00000c00 000c0000 0c00c000 00c00000     ................
+    4eb8:	c000c0ff 00000c00 000c00c0 00000000     ................
+	...
+    4ed0:	00c00000 3000000f 00c00000 00000000     .......0........
+    4ee0:	c000000c 00000c00 000c00c0 0c00c000     ................
+    4ef0:	00c00000 0000000c 00000000 00000000     ................
+    4f00:	00000000 000f00f0 0000f000 00000000     ................
+    4f10:	00000000 00030000 00000c00 c0000030     ............0...
+    4f20:	00000300 3000000c 3f000000 03fc0f00     .......0...?....
+    4f30:	0330f0c0 30300003 f0c00303 3f00fc0f     ..0...00.......?
+	...
+    4f48:	3f300000 f0ff03ff c0000318 00030630     ..0?........0...
+    4f58:	00000000 0f30f000 300c0303 0c03c330     ......0....00...
+    4f68:	03333030 3f3c3003 00f0c000 c0030300     003..0<?........
+    4f78:	ec033c3c 03c33330 0330301c 30300003     <<..03...00...00
+    4f88:	c0000307 03000000 00300000 ff3f0003     ..........0...?.
+    4f98:	0600c301 003b0030 0700f000 03000000     ....0.;.........
+    4fa8:	fc30c00f 33303003 30300303 30030333     ..0..003..003..0
+    4fb8:	03c33f30 0000c0fc 00c00300 300c033c     0?..........<..0
+    4fc8:	0c03c330 03c33030 ff0f30cc 00c03f00     0...00...0...?..
+    4fd8:	00c00300 3003003c 03c03000 0f300003     ....<..0.0....0.
+    4fe8:	30f00003 00000300 f3000000 033c0fc0     ...0..........<.
+    4ff8:	c330300c 30300c03 300c03c3 f3003c0f     .00...00...0.<..
+    5008:	000000c0 fc0f00ff 30e03003 300c03c3     .........0.0...0
+    5018:	0c03c330 00c33f30 000000f0 00000000     0...0?..........
+    5028:	00000000 f0000000 000f0ff0 0000f0f0     ................
+	...
+    5048:	0f0fc0f0 00f0f000 0000c000 00000000     ................
+    5058:	03033000 0c0c3000 03c0c000 00330030     .0...0......0.3.
+    5068:	0c00c000 00000000 30030033 03003300     ........3..0.3..
+    5078:	00330030 33003003 00300300 00000033     0.3..0.3..0.3...
+    5088:	00000000 000c00c0 33003003 000c0c00     .........0.3....
+    5098:	0330c0c0 00300003 00c00000 3003000c     ..0...0........0
+    50a8:	03003300 f330300f 3c000003 00c00000     .3...00....<....
+    50b8:	ff000000 03f00f00 3333301e 30303303     .........033.300
+    50c8:	300003c3 ff00ff3f 000000c0 ff03f00f     ...0?...........
+    50d8:	1c00f300 00030330 f300301c 00ff0300     ....0....0......
+    50e8:	0000f00f 0fc0f300 300c033c 0c03c330     ........<..00...
+    50f8:	03c33030 ff3ff0ff 00300003 c0c00000     00....?...0.....
+    5108:	00030c0c 03033030 03303000 0ff0c003     ....00...00.....
+    5118:	003f00fc 1e000000 00f00300 0f3cc0e1     ..?...........<.
+    5128:	30300003 f0ff0303 0003ff3f 03000030     ..00....?...0...
+    5138:	03303000 30300003 300c03c3 0c03c330     .00...00...00...
+    5148:	03ff3f30 0000f0ff 30000003 00000300     0?.........0....
+    5158:	0c03c030 03c03000 ff3f000c 00f0ff03     0....0....?.....
+    5168:	c0c30000 03033c0c 03333030 03303000     .....<..003..00.
+    5178:	0ff0c003 003f00fc ff030000 00ff3ff0     ......?......?..
+    5188:	c000000c 00000c00 000c00c0 ff03ff3f     ............?...
+    5198:	000000f0 00000000 30300003 f0ff0303     ..........00....
+    51a8:	0003ff3f 00033030 00000000 30000003     ?...00.........0
+    51b8:	c0ff0300 0003ff3f 00033030 0f003000     ....?...00...0..
+    51c8:	00c00000 30000300 c0000330 000c0cc0     .......00.......
+    51d8:	30030033 3f000c00 f0ff03ff 00000000     3..0...?........
+    51e8:	00030030 03003000 00300000 30000003     0....0....0....0
+    51f8:	ff03ff3f 030000f0 ff3ff0ff 0700c001     ?.........?.....
+    5208:	003c0000 c0010007 03ff3f00 0000f0ff     ..<......?......
+    5218:	3ff0ff03 c00100ff 1c007000 01000700     ...?.....p......
+    5228:	ff3f00c0 00f0ff03 c0ff0000 8003fc0f     ..?.............
+    5238:	03033070 03303000 0f708003 c0ff00fc     p0...00...p.....
+    5248:	f0000000 03000f00 c030000c 30000c03     ..........0....0
+    5258:	000c03c0 ff03ff3f 000000f0 f30f30ff     ....?........0..
+    5268:	30c00003 3003033f 00030330 00ff3f30     ...0?..00...0?..
+    5278:	0000c0ff 0f30f000 c00f030f 0c03f030     ......0.....0...
+    5288:	03c03000 ff3f000c 00f0ff03 c0c30000     .0....?.........
+    5298:	0c033c0c 03c33030 c330300c 3f300c03     .<..00...00...0?
+    52a8:	c0f000cf 00030000 03003000 00300000     .........0....0.
+    52b8:	30f0ff03 00000300 00030030 03000000     ...0....0.......
+    52c8:	fc3fc0ff 00300000 30000003 00000300     ..?...0....0....
+    52d8:	03fc3f30 0000c0ff 3f00c003 c03f00c0     0?.........?..?.
+    52e8:	00003e00 003e0030 c03fc03f 0000c003     .>..0.>.?.?.....
+    52f8:	e0ff0300 0000ff3f 003e0030 3e00000f     ....?...0.>....>
+    5308:	3f300000 e0ff03ff 00030000 000f3c30     ..0?........0<..
+    5318:	b003c0f3 03001e00 c0f30070 00030f3c     ........p...<...
+    5328:	03000030 003c0000 0300f000 f00f00e0     0.....<.........
+    5338:	f000e003 03003c00 00000000 3c300003     .....<........0<
+    5348:	30e00303 0c038333 03733030 1f303003     ...03...00s..00.
+    5358:	00f00003 00000000 00030000 03033030     ............00..
+    5368:	ff3f3000 00f0ff03 00000000 00000000     .0?.............
+    5378:	000f0030 f000c003 0f003c00 00c00300     0........<......
+    5388:	00000030 00000000 00000000 3f000000     0..............?
+    5398:	f0ff03ff 00030330 00033030 00000000     ....0...00......
+    53a8:	03000c00 00f000c0 0003001c 00001c00     ................
+    53b8:	c00300f0 00000c00 30000000 00000300     ...........0....
+    53c8:	00030030 03003000 00300000 30000003     0....0....0....0
+	...
+    53e0:	000f0030 3000c003 00000300 00000000     0......0........
+    53f0:	00000000 f303f00f 03303300 30330033     .........30.3.30
+    5400:	33003303 000c0030 0000c000 03c00f00     .3.30...........
+    5410:	303000cf 30000303 00030330 ff3fe01c     ..00...00.....?.
+    5420:	00f0ff03 300c0000 3000c300 00030330     .......0...00...
+    5430:	03033030 03303000 c00f00ff ff030000     00...00.........
+    5440:	00ff3ff0 0303c00c 03303000 30300003     .?.......00...00
+    5450:	0f00ff03 000000c0 f300000f 03303300     .............30.
+    5460:	30330033 33003303 00ff0330 0000c00f     3.30.3.30.......
+    5470:	0c00c000 00000300 0c03c030 00ff0f00     ........0.......
+    5480:	c000f0ff 00000c00 0c300000 0cc00003     ..........0.....
+    5490:	30f3033f 33033333 03333330 cc0cf0ff     ?..033.3033.....
+    54a0:	0f000000 00ff00f0 00030030 03003000     ........0....0..
+    54b0:	000c0000 ff03ff3f 000000f0 00000000     ....?...........
+    54c0:	00300000 f03f0303 3000ff33 00030030     ..0...?.3..00...
+	...
+    54d8:	fc3f0300 00f0ff33 30000003 03000300     ..?.3......0....
+    54e8:	003c00f0 00000000 60000300 008c0330     ..<........`0...
+    54f8:	7000c01e 3f000300 f0ff03ff 00000000     ...p...?........
+    5508:	00000000 ff3f3000 30f0ff03 30000303     .....0?....0...0
+	...
+    5520:	ff03f00f 00003800 000700c0 0c007000     .....8.......p..
+    5530:	00ff0300 0000f03f 00f00f00 003000ff     ....?.........0.
+    5540:	30000003 00000300 ff00003c 00f03f00     ...0....<....?..
+    5550:	00000000 3f00fc00 000303f0 03033030     .......?....00..
+    5560:	03303000 c00f00ff 0f000000 00f00000     .00.............
+    5570:	0c03c030 03c03000 c030000c 3f00f000     0....0....0....?
+    5580:	000000ff f000ff3f 03c03000 c030000c     ....?....0....0.
+    5590:	30000c03 00f000c0 0000000f 01000c00     ...0............
+    55a0:	003000c0 30000003 00c00100 ff00000c     ..0....0........
+    55b0:	00f03f00 c0000000 33000c00 00330330     .?.........30.3.
+    55c0:	33033033 03303300 300c00f3 00000000     30.3.30....0....
+    55d0:	000c0000 0303c030 3f303000 c0ff03fc     ....0....00?....
+    55e0:	30000003 00000000 ff033000 00c03f00     ...0.....0...?..
+    55f0:	30000003 00000300 00ff0330 0000c03f     ...0....0...?...
+    5600:	00001c00 800700e0 00001e00 001e00f0     ................
+    5610:	e0008007 00001c00 c03f0000 0000ff03     ..........?.....
+    5620:	001c0030 1c000003 03300000 c03f00ff     0.........0...?.
+	...
+    5638:	ce013030 00800700 80070030 3000ce01     00......0......0
+    5648:	00000030 00000000 03fc3f00 c700f0ff     0........?......
+    5658:	00300c00 f0fc03c7 00000c3f 03303000     ..0.....?....00.
+    5668:	303c00c3 33003303 000f0330 0303f030     ..<0.3.30...0...
+    5678:	00303000 30000300 00030330 00333330     .00....00...033.
+    5688:	c000c0cc 00000c00 00000000 00000000     ................
+	...
+    56a0:	3ff0ff03 000000ff 00000000 00000000     ...?............
+	...
+    56b8:	c0cc00c0 33033333 03033030 00003000     ....33.300...0..
+    56c8:	3f00c003 00300000 c0000007 03003800     ...?..0......8..
+    56d8:	003f0000 0000f000 00000000 00000000     ..?.............
+	...
+    56f8:	c0000000 030c0cc0 03303000 303c0003     .........00...<0
+    5708:	f0c04303 3f00fc0f 00000000 ff033000     .C.....?.....0..
+    5718:	18c0bf01 30000003 80010300 00ff1b30     .......0....0...
+    5728:	0000c03f 00000f00 303301f3 b300331b     ?.........30.3..
+    5738:	00330330 ff033033 00c00f00 f00f0000     0.3.30..........
+    5748:	b300f303 00331330 330330b3 00303300     ....0.3..0.3.30.
+    5758:	c000000c 0f000000 01f31bf0 330330b3     .............0.3
+    5768:	1b303300 30b30133 00000c00 000000c0     .30.3..0........
+    5778:	f303f00f 0b303300 30b30133 33003313     .....30.3..0.3.3
+    5788:	000c0030 0000c000 03f00f00 303303f3     0.............30
+    5798:	b304334b 00333330 0c003033 00c00000     K3..033.30......
+    57a8:	300c0000 3000c300 c0030330 03033430     ...0...00...04..
+    57b8:	03303000 c00f00ff 0f000000 00f30000     .00.............
+    57c8:	330b3033 0b303301 30330033 0f00ff03     30.3.30.3.30....
+    57d8:	000000c0 f300000f 1b30b301 30330033     ..........0.3.30
+    57e8:	b3013303 00ff1b30 0000c00f 00000f00     .3..0...........
+    57f8:	303300f3 b3003303 01331b30 ff033033     ..30.3..0.3.30..
+    5808:	00c00f00 00000000 00030000 00033030     ............00..
+    5818:	ff03f03f 30303003 00000003 00000000     ?....000........
+    5828:	00000000 03003000 13f0bf00 30b000ff     .....0.........0
+    5838:	00000300 00000000 00000000 00300000     ..............0.
+    5848:	f0bf0003 3001ff1b 00030030 00000000     .......00.......
+    5858:	c3f00f00 00f30cff 0303301c 0c301c00     .........0....0.
+    5868:	ffc300f3 00f00f00 f00f0000 f304ff03     ................
+    5878:	0b30bc00 30bc0003 0300f304 f00f00ff     ..0....0........
+    5888:	00030000 0b033030 c3b03000 70300c07     ....00...0....0p
+    5898:	300c03c3 ff03ff3f 000000f0 b303303f     ...0?.......?0..
+    58a8:	03303100 f01f00be 3300f303 003f0330     .10........30.?.
+    58b8:	0000c001 30300c03 f0ff03c3 0303ff3f     ......00....?...
+    58c8:	00301c00 ff0300f3 00f00f00 00000000     ..0.............
+    58d8:	3f00fc00 01030bf0 030b3030 03303000     ...?....00...00.
+    58e8:	c00f00ff 00000000 01fc0000 031bf0bf     ................
+    58f8:	03303000 30b00103 0f00ff1b 000000c0     .00....0........
+    5908:	fc000000 03f03f00 30b00003 3001031b     .....?.....0...0
+    5918:	00ff0330 0000c00f 03300000 c03f00ff     0.........0...?.
+    5928:	00010308 00030830 ff033000 00c03f00     ....0....0...?..
+    5938:	30000000 3f00ff03 010308c0 03103080     ...0...?.....0..
+    5948:	03300000 c03f00ff 00000000 01000000     ..0...?.........
+    5958:	ff1bfcbf 00c700f0 c780310c 3ff0fc1b     .........1.....?
+    5968:	0000000c fc07c07f d870c00d 30800103     ..........p....0
+    5978:	c00d03d8 00fc0770 0000c07f dfc0ff01     ....p...........
+    5988:	30000cfc 00000300 0c03c030 fc1f3000     ...0....0....0..
+    5998:	00c0ff01 00330000 c0003003 070c0cc0     ......3..0......
+    59a8:	0c0cf8de 0fc0c000 003f00fc 00000000     ..........?.....
+    59b8:	01030c30 03303080 38300603 f0ff0163     0....00...08c...
+    59c8:	0600ff0f 02000030 00380000 0340e200     ....0.....8...@.
+    59d8:	f00f00a4 e200a403 02003840 00000000     ........@8......
+    59e8:	0e00e000 30190300 1b039331 03be31f0     .......01....1..
+    59f8:	ff3f0018 00f0ff03 00e00000 8c03001e     ..?.............
+    5a08:	03c03800 fc0f00fc 00fcff00 000cc0cf     .8..............
+    5a18:	0f000000 01f303f0 331b3033 0330b300     ........30.3..0.
+    5a28:	30330033 00000c00 000000c0 00000000     3.30............
+    5a38:	20300000 f03f0303 3000ff13 00030030     ..0 ..?....00...
+	...
+    5a50:	f03f00fc b0010313 00030b30 ff033030     ..?.....0...00..
+    5a60:	00c00f00 30000000 3f00ff03 010310c0     .......0...?....
+    5a70:	03083080 03300000 c03f00ff 0f000000     .0....0...?.....
+    5a80:	01ff08f0 00130030 0b00b000 003c0100     ....0.........<.
+    5a90:	3f00ff00 030000f0 ff3ff0ff 80c00004     ...?......?.....
+    5aa0:	000c0830 c0040043 03ffbf00 0000f0ff     0...C...........
+    5ab0:	00000800 00e80180 a802802a 02802a00     ........*....*..
+    5ac0:	80000068 00000800 00080000 c8018000     h...............
+    5ad0:	02803600 80360028 0000c801 00080080     .6..(.6.........
+    5ae0:	00000000 c0030030 f00c0c00 000ccfc0     ....0...........
+    5af0:	cc00c00c 00000300 00000030 c000000c     ........0.......
+    5b00:	00000c00 000c00c0 0c00c000 00f00000     ................
+    5b10:	0000000f 00000f00 000c00f0 0c00c000     ................
+    5b20:	00c00000 c000000c 00000c00 000c0000     ................
+    5b30:	0d40cc00 47db7ee4 cc009ced 00440cc0     ..@..~.G......D.
+    5b40:	000c00c0 0c000000 00c10000 cf7efe0c     ..............~.
+    5b50:	0010ece7 f00d00c1 0c00df00 00000000     ................
+	...
+    5b68:	fccf0000 00c0ff0c 00000000 00000000     ................
+    5b78:	00000000 80200000 0a001001 00480200     ...... .......H.
+    5b88:	a0000011 00000400 00040000 1100a000     ................
+    5b98:	00480200 1001000a 00802000 00000000     ..H...... ......
+    5ba8:	08220882 88200820 82208220 82088200     ..". . . . .....
+    5bb8:	20082208 20882008 22499282 24492449     .". . . ..I"I$I$
+    5bc8:	24922499 49924492 49224992 99244924     .$.$.D.I.I"I$I$.
+    5bd8:	b66d9224 b6dbb6dd 6ddb66db 6dbb6ddb     $.m......f.m.m.m
+    5be8:	ddb66db6 dbb6dbb6 006ddb66 00000000     .m......f.m.....
+    5bf8:	00000000 0f000000 0000ffff 00000000     ................
+	...
+    5c18:	00ffff0f 00040040 04004000 00000000     ....@....@......
+	...
+    5c30:	ffff0f00 0a00a000 00a00000 0000000a     ................
+	...
+    5c48:	00f0ffff f0ffff00 40000004 00000400     ...........@....
+	...
+    5c60:	f07f0000 7f000004 000004f0 00040040     ............@...
+	...
+    5c7c:	00ff0f00 000a00a0 0a00a000 00000000     ................
+    5c8c:	00000000 ff000000 0000f0ff 0af0bfff     ................
+    5c9c:	00a00000 0000000a 00000000 00000000     ................
+    5cac:	00f0ffff f0ffff00 00000000 00000000     ................
+	...
+    5cc4:	f0ff0000 bf000008 00000af0 000a00a0     ................
+	...
+    5cdc:	e0ff0000 ff000200 000a00a0 0a00a000     ................
+	...
+    5cf4:	ff000000 000400c0 0400c0ff 00400000     ..............@.
+    5d04:	00000004 00000000 00000000 fe0f0000     ................
+    5d14:	00a00000 a000000a 00000a00 00000000     ................
+	...
+    5d2c:	4000ff07 00000400 00040040 04004000     ...@....@....@..
+    5d3c:	00400000 40000004 0000fc0f 00000000     ..@....@........
+    5d4c:	00000000 00400000 40000004 00000400     ......@....@....
+    5d5c:	00fc0f40 04004000 00400000 40000004     @....@....@....@
+    5d6c:	00000400 00040040 07004000 004000ff     ....@....@....@.
+    5d7c:	40000004 00000400 00040040 04004000     ...@....@....@..
+    5d8c:	0f400000 0000ffff 00000000 00000000     ..@.............
+    5d9c:	04004000 00400000 40000004 00000400     .@....@....@....
+    5dac:	00040040 04004000 00400000 40000004     @....@....@....@
+    5dbc:	00000400 ffff0f40 04004000 00400000     ....@....@....@.
+    5dcc:	a0000004 00000a00 000a00a0 ff0fa000     ................
+    5ddc:	000000ff 00000000 00000000 00040040     ............@...
+    5dec:	04004000 f0ffff00 ffff0000 000000f0     .@..............
+    5dfc:	00000000 0a00a000 00a00000 a0ff000a     ................
+    5e0c:	ff000200 000000e0 00000000 00a00000     ................
+    5e1c:	a000000a 00000a00 0008f0bf 00f0ff00     ................
+    5e2c:	00000000 a0000000 00000a00 000a00a0     ................
+    5e3c:	0200a0ff 00a0ff00 a000000a 00000a00     ................
+    5e4c:	000a00a0 0a00a000 f0bf0000 bf000008     ................
+    5e5c:	00000af0 000a00a0 0a00a000 00a00000     ................
+    5e6c:	bfff000a ff0000f0 0000f0ff 00000000     ................
+    5e7c:	00a00000 a000000a 00000a00 000a00a0     ................
+    5e8c:	0a00a000 00a00000 a000000a 00000a00     ................
+    5e9c:	000a00a0 00f0bfff f0bfff00 a000000a     ................
+    5eac:	00000a00 000a00a0 0a00a000 0fa00000     ................
+    5ebc:	a00000fa 00000a00 000a00a0 04004000     .............@..
+    5ecc:	00400000 c0ff0004 ff000400 000400c0     ..@.............
+    5edc:	04004000 00a00000 a000000a 00000a00     .@..............
+    5eec:	ff0b00a0 0a00a000 00a00000 4000000a     ...............@
+    5efc:	00000400 00040040 04f07f00 f07f0000     ....@...........
+    5f0c:	40000004 00000400 00040040 04004000     ...@....@....@..
+    5f1c:	00c0ff00 c0ff0004 00000000 00000000     ................
+    5f2c:	0a00a000 00a00000 a000000a 0000fe0f     ................
+	...
+    5f44:	00a00000 a000000a 00000a00 ff0f00a0     ................
+	...
+    5f5c:	40000000 00000400 00040040 04f07f00     ...@....@.......
+    5f6c:	f07f0000 00000000 00000000 00040040     ............@...
+    5f7c:	04004000 f0ffff00 ffff0004 000004f0     .@..............
+    5f8c:	00040040 0a00a000 00a00000 a000000a     @...............
+    5f9c:	00ffff0f 000a00a0 0a00a000 00000000     ................
+	...
+    5fb4:	00fc0f00 04004000 00400000 40000004     .....@....@....@
+    5fc4:	00000400 00040040 07004000 000000ff     ....@....@......
+    5fd4:	00000000 ff000000 ffffffff ffffffff     ................
+    5fe4:	ffffffff ffffffff ffffffff ffffffff     ................
+    5ff4:	07f07f00 f07f00ff 7f00ff07 00ff07f0     ................
+    6004:	ff07f07f 07f07f00 000000ff 00000000     ................
+    6014:	00000000 ffff0f00 ffffffff ffffffff     ................
+    6024:	ffffffff ffffffff ffffffff ffffffff     ................
+    6034:	000000ff 00000000 ff000000 00fc0fc0     ................
+    6044:	fc0fc0ff 0fc0ff00 c0ff00fc ff00fc0f     ................
+    6054:	00fc0fc0 08000000 00420010 4200c003     ..........B....B
+    6064:	00300c00 300c00c3 03003c00 000000c0     ..0....0.<......
+    6074:	1c000000 0d707300 108c00e3 ff00c108     .....sp.........
+    6084:	00ff07f0 00001000 0f000000 00f80080     ................
+    6094:	c000000c 00010c00 ff0ff0ff 00108000     ................
+    60a4:	10080000 0f00ff00 00c000f0 c000000c     ................
+    60b4:	00f00f00 100800ff 80030000 03033070     ............p0..
+    60c4:	03303000 31300c03 303303e3 c0031b36     .00...01..306...
+    60d4:	000000f0 fc030030 03f03f00 30300003     ....0....?....00
+    60e4:	30000303 00ff0330 0000c00f 03300000     ...00.........0.
+    60f4:	c03f00ff 00000300 00030030 ff033000     ..?.....0....0..
+    6104:	00fe3fe0 000c0000 3800c001 00000300     .?.........8....
+    6114:	ff00f03f 03001c00 00300080 00000000     ?.........0.....
+    6124:	80fc0400 0307e85f 07387080 38708003     ...._....p8...p8
+    6134:	4f80fe05 000000c8 fc0f003f 30f0cc03     ...O....?......0
+    6144:	300c03c3 cc03c330 00fc0ff0 0000003f     ...00.......?...
+    6154:	1f90ff00 f08103ff 00030030 03003000     ........0....0..
+    6164:	ff1ff081 0090ff00 00000300 3f03fc30     ............0..?
+    6174:	030337f0 033b30f0 03303003 c00f00ff     .7...0;..00.....
+    6184:	0f000000 00040180 04012020 01800f00     ........  ......
+    6194:	20200004 0f000401 00000080 0607c05f     ..  ........_...
+    61a4:	06203800 104700c3 20001b06 000703e0     .8 ...G.... ....
+    61b4:	0000d01f 00000000 30000300 0c03c330     ...........00...
+    61c4:	03c33030 fc0ff0cc 00003f00 fc3f0000     00.......?....?.
+    61d4:	c0c0ff03 00000c00 000c00c0 0300c000     ................
+    61e4:	fc3fc0ff 33000000 00330330 33033033     ..?....30.3.30.3
+    61f4:	03303300 30330033 33003303 00000030     .30.3.30.3.30...
+    6204:	c100100c 00100c00 d0ff00c1 0c00c100     ................
+    6214:	00c10010 0000100c 00000000 060c60c0     .............`..
+    6224:	33603003 600c0c06 0330c6c0 00360063     .0`3...`..0.c.6.
+    6234:	00000000 00630330 600c0c36 3003c6c0     ....0.c.6..`...0
+    6244:	00063360 060c60c0 00060000 0800c000     `3...`..........
+    6254:	00c00000 00ffff07 00000000 00000000     ................
+	...
+    6270:	f8ff0f00 00600000 10000001 00000600     ......`.........
+    6280:	00000c00 000c00c0 cc00c000 00cc0cc0     ................
+    6290:	c000000c 00000c00 00330000 19009801     ..........3.....
+    62a0:	00980180 60060033 06006600 00330060     ....3..`.f..`.3.
+	...
+    62b8:	000c0000 12002001 00c00000 00000000     ..... ..........
+	...
+    62d4:	e0000000 00000e00 000000e0 00000000     ................
+	...
+    62f0:	00030030 00000000 10000000 00000100     0...............
+    6300:	00010010 00000e00 3c00001c 00700000     ...........<..p.
+    6310:	00020038 e0010000 06007e00 00600000     8........~....`.
+    6320:	3e000006 00e00700 00000000 00000000     ...>............
+    6330:	80380000 6e00c807 00780680 18028063     ..8....n..x.c...
+	...
+    6350:	0f00ff00 00ff00f0 ff00f00f 00f00f00     ................
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	...
     6378:	ffffffff 677537ff 71312c6a 38ffffff     .....7ugj,1q...8
     6388:	ff6b6869 7aff7732 6f3039ff 65332e6c     ihk.2w.z.90ol.3e
@@ -12204,6 +15737,7 @@ void setupBoard(void)
     63d8:	4f2928ff 45233e4c ffff5841 3f3a505f     .()OL>#EAX.._P:?
     63e8:	43535224 7b2bff20 5425ff22 ff4e5644     $RSC .+{".%TDVN.
     63f8:	7cff7d7e 4246595e ffffff4d 0000ffff     ~}.|^YFBM.......
+<<<<<<< HEAD
 
 00006408 <kb_col>:
     6408:	00010000 00020000 00040000 00080000     ................
@@ -12288,3 +15822,93 @@ void setupBoard(void)
 
 00006668 <__fini_array_start>:
     6668:	000000b5 	.word	0x000000b5
+=======
+    6408:	77617244 2c692509 2c692520 2c692520     Draw.%i, %i, %i,
+    6418:	0a692520 0000000d                        %i.....
+
+00006420 <kb_col>:
+    6420:	00010000 00020000 00040000 00080000     ................
+    6430:	00100000 00200000 08000000              ...... .....
+
+0000643c <kb_col_index>:
+    643c:	00000010 00000011 00000012 00000013     ................
+    644c:	00000014 00000015 0000001b              ............
+
+00006458 <kb_row>:
+    6458:	00000004 00000008 00000010 00000020     ............ ...
+    6468:	00000040 00000080 00000400 00000800     @...............
+    6478:	00001000 00002000                       ..... ..
+
+00006480 <kb_row_index>:
+    6480:	00000002 00000003 00000004 00000005     ................
+    6490:	00000006 00000007 0000000a 0000000b     ................
+    64a0:	0000000c 0000000d 64616552 2c692509     ........Read.%i,
+    64b0:	2c692520 2c692520 0a692520 0000000d      %i, %i, %i.....
+
+000064c0 <beelzebub.12955>:
+    64c0:	2e002d00 44003200 88005300 f300b600     .-...2.D.S......
+    64d0:	64012201 d4019201 08020702 5f023402     .".d.........4._
+    64e0:	94027802 bb02a602 db02ca02 f902e802     .x..............
+    64f0:	7f031f03                                ....
+
+000064f4 <belial.12952>:
+    64f4:	f0f0f0f0 b0b0b0f0 b1b6b6b6 b7b7b1b1     ................
+    6504:	b2b2b2b7 bfb8b8b8 b9b3b3b3 b5b5b9b9     ................
+    6514:	babac2b5 bcbcbcba bebdbdbd f0f0f0be     ................
+    6524:	b1b1f0f0 b8b7b7b6 bcb8b8b8 c9c9bcbc     ................
+    6534:	35c9c9c9 0000363a                       ...5:6..
+
+0000653c <lucifer.12954>:
+    653c:	0852aa55 0d0d0d01 0d343434 34340d0d     U.R.....444...44
+    654c:	00000034 01242424 340f0f0f 08083434     4...$$$....444..
+    655c:	24240308 00780024 00007800 52aa5589     ..$$$.x..x...U.R
+    656c:	00cc0008 01707005 02030303 02d00000     .....pp.........
+    657c:	00505050 00000055                       PPP.U...
+
+00006584 <mulciber.12953>:
+    6584:	03020100 02010004 00020100 01000201     ................
+    6594:	02010002 00020100 01000201 01000002     ................
+    65a4:	02010000 00020100 01000201 03020100     ................
+    65b4:	00000004 01000100 01000302 02010002     ................
+    65c4:	00000403 00000000 6e696c42 6925206b     ........Blink %i
+    65d4:	00000d0a 69726553 4f206c61 3639204b     ....Serial OK 96
+    65e4:	38203030 0d0a314e 00000000              00 8N1......
+
+000065f0 <_global_impure_ptr>:
+    65f0:	2000015c                                \.. 
+
+000065f4 <__sf_fake_stderr>:
+	...
+
+00006614 <__sf_fake_stdin>:
+	...
+
+00006634 <__sf_fake_stdout>:
+	...
+    6654:	2b302d23 6c680020 6665004c 47464567     #-0+ .hlL.efgEFG
+    6664:	32313000 36353433 41393837 45444342     .0123456789ABCDE
+    6674:	31300046 35343332 39383736 64636261     F.0123456789abcd
+    6684:	00006665                                ef..
+
+00006688 <_init>:
+    6688:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    668a:	46c0      	nop			; (mov r8, r8)
+    668c:	bcf8      	pop	{r3, r4, r5, r6, r7}
+    668e:	bc08      	pop	{r3}
+    6690:	469e      	mov	lr, r3
+    6692:	4770      	bx	lr
+
+00006694 <__init_array_start>:
+    6694:	000000dd 	.word	0x000000dd
+
+00006698 <_fini>:
+    6698:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
+    669a:	46c0      	nop			; (mov r8, r8)
+    669c:	bcf8      	pop	{r3, r4, r5, r6, r7}
+    669e:	bc08      	pop	{r3}
+    66a0:	469e      	mov	lr, r3
+    66a2:	4770      	bx	lr
+
+000066a4 <__fini_array_start>:
+    66a4:	000000b5 	.word	0x000000b5
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better

@@ -8,13 +8,13 @@ def post_process_chip(chip, thresh=128):
     garbage,ret_val = cv2.threshold(chip,thresh,255,cv2.THRESH_BINARY_INV)
     return ret_val
 
-def chip_to_int_series(chip,style="row_major"):
+def chip_to_int_series(chip,style="col_major"):
     """
     Take a character chip and pack it into a series
     of ints. Default is col major, approach.
     """
     bits = 8
-    #chip = np.fliplr(chip)
+    chip = np.fliplr(chip)
     #chip = np.flipud(chip)
     #cv2.imwrite("Chip.png",chip)
     chip = chip / 255

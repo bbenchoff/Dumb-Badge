@@ -18,7 +18,11 @@ bool keyDown(int scancode);
 void removeFromKeyDown(int scancode);
 
 void drawCursorBuffer(void);
+<<<<<<< HEAD
 
+=======
+void readCursor(uint8_t x, uint8_t y);
+>>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 void clearCursorBuffer(void);
 void invertCursorBuffer(void);
 void drawBlank(void);
