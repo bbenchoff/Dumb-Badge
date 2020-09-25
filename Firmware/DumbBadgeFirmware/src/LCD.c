@@ -120,23 +120,41 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 	SwapUint16(y1, y2);
 	*/
 	
+	//printf("%i, \t%i, \t%i, \t%i\n\r",x1,y1,x2,y2);
+	
+	uint16_t temp;
+	
+	if(x2 < x1)
+	{
+		temp = x1;
+		x1 = x2;
+		x2 = temp;
+	}
+
+	if(y2 < y1)
+	{
+		temp = y1;
+		y1 = y2;
+		y2 = temp;
+	}
+	
 	LCD_Write_COM16(0x2a,0x00);
 	LCD_Write_DATA8(x1>>8);
 	LCD_Write_COM16(0x2a,0x01);
-	LCD_Write_DATA8(x1);
+	LCD_Write_DATA8(x1&0xFF);
 	LCD_Write_COM16(0x2a,0x02);
 	LCD_Write_DATA8(x2>>8);
 	LCD_Write_COM16(0x2a,0x03);
-	LCD_Write_DATA8(x2);
+	LCD_Write_DATA8(x2&0xFF);
 
 	LCD_Write_COM16(0x2b,0x00);
 	LCD_Write_DATA8(y1>>8);
 	LCD_Write_COM16(0x2b,0x01);
-	LCD_Write_DATA8(y1);
+	LCD_Write_DATA8(y1&0xFF);
 	LCD_Write_COM16(0x2b,0x02);
 	LCD_Write_DATA8(y2>>8);
 	LCD_Write_COM16(0x2b,0x03);
-	LCD_Write_DATA8(y2);
+	LCD_Write_DATA8(y2&0xFF);
 
 	LCD_Write_COM16(0x2c,0x00);
 }

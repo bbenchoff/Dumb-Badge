@@ -46,8 +46,8 @@ int main (void)
 		{
 			funcLock = true;
 			blinkCursor();
-			//invertCursorBuffer();
-			//drawCursorBuffer();
+			invertCursorBuffer();
+			drawCursorBuffer();
 			//printf("Blink %i\n\r",rand());
 			funcLock = false;
 		}
@@ -142,6 +142,7 @@ void setupBoard(void)
 	
 	conf_systick();
 	clearCursorBuffer();
+	clearConsole();
 
 	readCursor(0,0);
 	xCharPos=0;

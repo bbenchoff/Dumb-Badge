@@ -17,6 +17,7 @@
 uint16_t xCharPos = 0;
 uint16_t yCharPos = 0;
 
+char console[80][24];
 
 void drawChar(uint8_t character)
 {
@@ -41,6 +42,18 @@ void drawChar(uint8_t character)
 	}
 	REG_PORT_OUTSET1 = LCD_CS;
 
+}
+
+void clearConsole(void)
+{
+	for(int i = 0 ; i < 80 ; i++)
+	{
+		for(int j = 0 ; j < 24 ; j++)
+		{
+			console[i][j] = 0x00;
+		}
+	}
+	
 }
 
 void newLine(void)
@@ -147,4 +160,84 @@ void writeString(char str[])
 		if(xCharPos <= 80)
 		xCharPos++;
 	}
+}
+
+void readCursor(uint16_t cursorLocationX, uint16_t cursorLocationY)
+{
+	char character = console[cursorLocationX][cursorLocationY];
+	
+	for(uint16_t i=1; i <= 25; i++)
+	{
+		for(uint16_t j=0; j<8; j++)
+		{
+			if((CodePage437[character][i]&(1<<(7-j)))!=0)
+			{
+				cursorBuffer[i*j] = 0xFF;
+			}
+			else
+			{
+				cursorBuffer[i*j] = 0x00;
+			}
+		}
+	}
+	
+	/*
+	
+	This code attempts to read the memory location and stuff that into the cursorbuffer[].
+	I couldn't get this to work, but I'm leaving it here because jesus christ this should work and
+	I don't know what the fuck is going on.
+	
+	
+	//set PB07 to input
+	REG_PORT_DIRCLR1 = PORT_PB07;
+	PORT->Group[1].PINCFG[7].bit.INEN = 1;
+	PORT->Group[1].PINCFG[7].bit.PULLEN = 1;
+	
+	
+	//Per page 40 of datasheet (5.1.2.7, 16-bit
+	//parallel interface for data ram read.
+	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY((uint16_t)cursorLocationX*10,(uint16_t)cursorLocationY*20,((uint16_t)cursorLocationX*10)+9,((uint16_t)cursorLocationY*20)+19);
+	printf("SetXY: \t%i, \t%i, \t%i, \t%i\n\r",(uint16_t)cursorLocationX*10,(uint16_t)cursorLocationY*20,((uint16_t)cursorLocationX*10)+9,((uint16_t)cursorLocationY*20)+19);
+	
+	
+	//Send'Memory read' command 0x2E00, no data bit
+	LCD_Write_COM16(0x2E,0x00);
+	REG_PORT_OUTSET1 = LCD_DC;
+
+	//needs dummy write, per data sheet, page 40
+	REG_PORT_OUTCLR1 = LCD_RD;
+	REG_PORT_OUTSET1 = LCD_RD;
+	
+	for(uint8_t pixel = 0; pixel <= 200 ; pixel++)
+	{
+		REG_PORT_OUTCLR1 = LCD_RD;
+		REG_PORT_OUTSET1 = LCD_RD;
+
+		//get the pin state, stuff into array
+		
+		//This can be expanded with else if for the MSBs
+		//of all the colors; see datasheet page 40.
+		if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
+		{
+			cursorBuffer[pixel] = 0xFF;
+		}
+		else
+		{
+			cursorBuffer[pixel] = 0x00;
+		}
+
+		//dummy read, because pixel data broken up
+		//per datasheet page 40. Everything after
+		//the dummy write is BLUE pixels. Do we ever
+		//need blue? IDK.
+		
+		REG_PORT_OUTCLR1 = LCD_RD;
+		REG_PORT_OUTSET1 = LCD_RD;
+	}
+	
+	REG_PORT_OUTSET1 = LCD_DC;
+	REG_PORT_DIRSET1 = 0x0000FFFF;
+	*/
+	
 }

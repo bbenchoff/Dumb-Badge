@@ -4,6 +4,8 @@
  * Created: 8/25/2020
  *  Author: bench
  */ 
+#ifndef FONTS_H
+#define FONTS_H
 
 const uint8_t CodePage437[256][25] = {
 //Character 0x00 =
@@ -2056,3 +2058,5 @@ const uint8_t CodePage437[256][25] = {
 
 
 };
+
+#endif /*FONTS_H_ */

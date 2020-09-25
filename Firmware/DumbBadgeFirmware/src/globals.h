@@ -58,4 +58,6 @@ extern bool sPoNgEbObCaSe;
 extern bool cursorBlinkState;
 extern uint8_t cursorBuffer[200];
 
+extern char console[80][24];
+
 #endif /* GLOBALS_H_ */
