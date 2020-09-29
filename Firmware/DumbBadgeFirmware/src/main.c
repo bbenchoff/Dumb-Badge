@@ -16,6 +16,7 @@
 /** VARIABLES *****************************************************************/
 
 uint16_t ul_tickcount=0;
+bool funcLock = false;	
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -41,26 +42,22 @@ int main (void)
 		
 		__WFI();
 		
-		if(ul_tickcount % (UINT16_MAX/4) == 0)
+		if((ul_tickcount % (UINT16_MAX/4) == 0) && (funcLock == false))
 		{
-			
+			funcLock = true;
 			blinkCursor();
-<<<<<<< HEAD
-			invertCursorBuffer();
-			drawCursorBuffer();
-			//printf("Blink %i\n\r",rand());
-			funcLock = false;
-=======
-			//invertCursorBuffer();
+			printf("%i\r",sumCursorBuffer());
 			//drawCursorBuffer();
-			printf("Blink %i\n\r",rand());
->>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
+			printf("Blink %i\r",rand());
+			funcLock = false;
 		}
 		
-		if(ul_tickcount % 200 == 0)
+		if((ul_tickcount % 200 == 0) && (funcLock == false))
 		{
+			funcLock = true;
 			readKeyboard();
 			printKeyboardBuffer();
+			funcLock = false;
 		}
 		
 
@@ -122,7 +119,6 @@ void configure_adc(void)
 void setupBoard(void)
 {
 	uint16_t adcResult;
-	
 
 	system_init();
 	
@@ -146,7 +142,6 @@ void setupBoard(void)
 	
 	conf_systick();
 	clearCursorBuffer();
-	clearConsole();
 
 	readCursor(0,0);
 	xCharPos=0;

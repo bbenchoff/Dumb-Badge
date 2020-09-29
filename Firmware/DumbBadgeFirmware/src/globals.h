@@ -35,17 +35,14 @@
 #define LCD_RD		PORT_PB16
 
 
-
-#define SwapUint16(x , y) { uint16_t temp = x; x = y; y = temp; }
-
 extern uint16_t fore_Color_High, fore_Color_Low;
 extern uint16_t back_Color_High, back_Color_Low;
 
 extern uint16_t display_X_size;
 extern uint16_t display_Y_size;
 
-extern uint8_t xCharPos;
-extern uint8_t yCharPos;
+extern uint16_t xCharPos;
+extern uint16_t yCharPos;
 
 extern char scanCodeBuffer[20];
 
@@ -58,14 +55,6 @@ extern bool sPoNgEbObCaSe;
 extern bool cursorBlinkState;
 extern uint8_t cursorBuffer[200];
 
-<<<<<<< HEAD
-extern char console[80][24];
-=======
-
-
-
-
-
->>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
+extern char consoleDisplay[80][24];
 
 #endif /* GLOBALS_H_ */

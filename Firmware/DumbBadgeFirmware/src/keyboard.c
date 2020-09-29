@@ -11,10 +11,11 @@
 #include "keyboard.h"
 #include "LCD.h"
 #include "LCDBus.h"
+#include "fonts.h"
 
 bool capsLock = false;
 bool scrollLock = false;
-bool cursorBlinkState = false;
+bool cursorBlinkState = true;
 
 char scanCodeBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
@@ -28,11 +29,22 @@ int scanCodes[70] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
-		0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
+	0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 						
-uint8_t cursorBuffer[200];
+uint8_t cursorBuffer[200] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
-char console[80][24];
+
+char consoleDisplay[80][24];
 
 #define NUM_ROW 10
 #define NUM_COL 7
@@ -51,7 +63,6 @@ void drawBlank(void)
 void printKeyboardBuffer(void)
 {
 	bool shifted = false;
-	uint16_t xcharposTemp, ycharposTemp;
 	
 	char noCase[] =	  
 		{0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
@@ -118,8 +129,8 @@ void printKeyboardBuffer(void)
 					drawCursorBuffer();
 					readCursor(xCharPos-1,yCharPos);
 					xCharPos--;
-					//drawCursorBuffer();
-					cursorBlinkState = true;
+					drawCursorBuffer();
+					//cursorBlinkState = true;
 					blinkCursor();
 				}
 			}
@@ -130,8 +141,8 @@ void printKeyboardBuffer(void)
 					drawCursorBuffer();
 					readCursor(xCharPos,yCharPos+1);
 					yCharPos++;
-					//drawCursorBuffer();
-					cursorBlinkState = true;
+					drawCursorBuffer();
+					//cursorBlinkState = true;
 					blinkCursor();
 				}
 			}
@@ -142,8 +153,8 @@ void printKeyboardBuffer(void)
 					drawCursorBuffer();
 					readCursor(xCharPos,yCharPos-1);
 					yCharPos--;
-					//drawCursorBuffer();
-					cursorBlinkState = true;
+					drawCursorBuffer();
+					//cursorBlinkState = true;
 					blinkCursor();
 				}
 			}
@@ -152,10 +163,10 @@ void printKeyboardBuffer(void)
 				if(xCharPos < 79)
 				{
 					drawCursorBuffer();
-					readCursor(xCharPos+1,yCharPos);	
+					readCursor(xCharPos+1,yCharPos);
 					xCharPos++;
-					//drawCursorBuffer();
-					cursorBlinkState = true;
+					drawCursorBuffer();
+					//cursorBlinkState = true;
 					blinkCursor();
 				}
 			}
@@ -168,19 +179,20 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos == 23)
 				{
-					drawCursorBuffer();
+					
 					newLine();
 					xCharPos = 0;
 				}
 				else
 				{
-					drawCursorBuffer();
+					
 					yCharPos++;
 					xCharPos = 0;
 				}
 			}
 			else if(scanCodeBuffer[i] == 69) //Line
 			{
+				
 				if(yCharPos == 23)
 				{
 					newLine();
@@ -205,7 +217,8 @@ void printKeyboardBuffer(void)
 				if(shifted)
 				{
 					drawChar(shiftCase[scanCodeBuffer[i]]);
-					console[xCharPos][yCharPos] = shiftCase[scanCodeBuffer[i]];
+					consoleDisplay[xCharPos][yCharPos] = shiftCase[scanCodeBuffer[i]];
+					
 					if(xCharPos < 79)
 					{
 						readCursor(xCharPos++,yCharPos);
@@ -219,7 +232,8 @@ void printKeyboardBuffer(void)
 				else
 				{
 					drawChar(noCase[scanCodeBuffer[i]]);
-					console[xCharPos][yCharPos] = noCase[scanCodeBuffer[i]];
+					consoleDisplay[xCharPos][yCharPos] = noCase[scanCodeBuffer[i]];
+					
 					if(xCharPos < 79)
 					{
 						readCursor(xCharPos++,yCharPos);
@@ -233,7 +247,6 @@ void printKeyboardBuffer(void)
 			}
 		}
 	}
-	
 	
 	//Reset the buffer.
 	for(int i = 0 ; i < 20 ; i++)
@@ -403,14 +416,8 @@ void clearCursorBuffer(void)
 
 void drawCursorBuffer(void)
 {
-<<<<<<< HEAD
 	
 	setXY(xCharPos*10,yCharPos*20,(xCharPos*10)+9,(yCharPos*20)+19);
-=======
-	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
-	printf("Draw\t%i, %i, %i, %i\n\r",xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
->>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
 		if((cursorBuffer[i] == 0xFF))
@@ -422,8 +429,6 @@ void drawCursorBuffer(void)
 			setPixel((back_Color_High<<8)|back_Color_Low);
 		}
 	}
-	REG_PORT_OUTSET1 = LCD_CS;
-
 }
 
 void invertCursorBuffer(void)
@@ -441,17 +446,60 @@ void invertCursorBuffer(void)
 	}	
 }
 
-<<<<<<< HEAD
-=======
-void readCursor(uint8_t x, uint8_t y)
+void readCursor(uint16_t cursorLocationX, uint16_t cursorLocationY)
 {
 	//First, this reads the GRAM memory at the cursor location
 	//x,y. This is saved in a buffer. When the cursor blinks,
 	//it alternates either that buffer, or the *inverse* of that
 	//buffer.
 	
-	//This function does not actually *move* the cursor, this is handled
+	//This function does not actually *move* the cursor
+	/*
+	uint16_t x = cursorLocationX;
+	uint16_t y = cursorLocationY;
+	char character = consoleDisplay[x][y];
+	uint8_t k = 0;
 	
+	uint8_t tempCursor[200] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+		0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
+
+	
+
+	for(uint16_t i=0; i <= 24; i++)
+	{
+		for(uint16_t j=0 ; j<8 ; j++)
+		{
+			if((CodePage437[character][i]&(1<<(7-j)))!=0)
+			{
+				tempCursor[k] = 0xFF;
+			}
+			else
+			{
+				tempCursor[k] = 0x00;
+			}
+			k++;
+		}
+	}
+	
+	for(uint8_t pixel = 0; pixel < 200 ; pixel++)
+	{
+		cursorBuffer[pixel] = tempCursor[pixel];
+	}
+	
+	*/
+
+	
+	uint16_t x = cursorLocationX;
+	uint16_t y = cursorLocationY;
 	
 	//set PB07 to input
 	REG_PORT_DIRCLR1 = PORT_PB07;
@@ -462,8 +510,8 @@ void readCursor(uint8_t x, uint8_t y)
 	//Per page 40 of datasheet (5.1.2.7, 16-bit
 	//parallel interface for data ram read.
 	REG_PORT_OUTCLR1 = LCD_CS;
-	setXY(x*10,y*20,x*10+9,y*20+19);
-	printf("Read\t%i, %i, %i, %i\n\r",x*10,y*20,x*10+9,y*20+19);
+	setXY(cursorLocationX*10,cursorLocationY*20,cursorLocationX*10+9,cursorLocationY*20+19);
+	//printf("Read\t%i, %i, %i, %i\n\r",x*10,y*20,x*10+9,y*20+19);
 	
 	
 	//Send'Memory read' command 0x2E00, no data bit
@@ -478,41 +526,79 @@ void readCursor(uint8_t x, uint8_t y)
 	{
 		REG_PORT_OUTCLR1 = LCD_RD;
 		REG_PORT_OUTSET1 = LCD_RD;
->>>>>>> parent of 2a0fbb8... This doesn't fix the cursor problem, but it's better
 
+		//get the pin state, stuff into array
+		
+		//This can be expanded with else if for the MSBs
+		//of all the colors; see datasheet page 40.
+		if((PORT->Group[1].IN.reg & PORT_PB07) != 0)
+		{
+			cursorBuffer[pixel] = 0xFF;
+		}
+		else
+		{
+			cursorBuffer[pixel] = 0x00;
+		}
+
+		//dummy read, because pixel data broken up
+		//per datasheet page 40. Everything after
+		//the dummy write is BLUE pixels. Do we ever
+		//need blue? IDK.
+		
+		REG_PORT_OUTCLR1 = LCD_RD;
+		REG_PORT_OUTSET1 = LCD_RD;
+	}
+	
+	REG_PORT_OUTSET1 = LCD_DC;
+	REG_PORT_DIRSET1 = PORT_PB07;
+	
+}
+
+uint16_t sumCursorBuffer(void)
+{
+	uint16_t sum = 0;
+	
+	for(uint16_t i = 0 ; i < 200 ; i++)
+	{
+		if((cursorBuffer[i] == 0xFF))
+			sum++;			
+	}
+	return sum;
+}
 
 void blinkCursor(void)
 {
-	if(cursorBlinkState)
+	if(!cursorBlinkState)
 	{
-
 		//Draw the *inverse* of cursorBuffer
 		setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
 		
 		for(uint16_t i = 0 ; i < 200 ; i++)
 		{
-			if((cursorBuffer[i] != 0xFF))
-			setPixel((fore_Color_High<<8)|fore_Color_Low);
-			else
+			if((cursorBuffer[i] == 0xFF))
 			setPixel((back_Color_High<<8)|back_Color_Low);
+			else
+			setPixel((fore_Color_High<<8)|fore_Color_Low);
+			
 		}
 		
-		//finally set cursorBlinkState to false
+		//invert cursorBlinkState
 		cursorBlinkState = !cursorBlinkState;
 	}
 	else
 	{
-
 		setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
 		
 		for(uint16_t i = 0 ; i < 200 ; i++)
 		{
-			if((cursorBuffer[i] == 0xFF))
-			setPixel((fore_Color_High<<8)|fore_Color_Low);
-			else
+			if((cursorBuffer[i] != 0xFF))
 			setPixel((back_Color_High<<8)|back_Color_Low);
+			else
+			setPixel((fore_Color_High<<8)|fore_Color_Low);
+		
+
 		}
-		//set cursorBlinkState to true
+		//invert cursorBlinkState
 		cursorBlinkState = !cursorBlinkState;
 	}
 }

@@ -42,10 +42,21 @@ void setBackColorHex(uint16_t color)
 
 void fillRect(int x1, int y1, int x2, int y2)
 {
+	
+	int temp = 0;
+	
 	if (x1>x2)
-	SwapUint16(x1, x2);
+	{
+		temp = x1;
+		x1 = x2;
+		x2 = temp;
+	}
 	if (y1>y2)
-	SwapUint16(y1, y2);
+	{
+		temp = x1;
+		x1 = x2;
+		x2 = temp;
+	}
 	
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x1, y1, x2, y2);
@@ -57,10 +68,20 @@ void fillRect(int x1, int y1, int x2, int y2)
 
 void fillRectBackColor(int x1, int y1, int x2, int y2)
 {
+	int temp = 0;
+	
 	if (x1>x2)
-	SwapUint16(x1, x2);
+	{
+		temp = x1;
+		x1 = x2;
+		x2 = temp;
+	}
 	if (y1>y2)
-	SwapUint16(y1, y2);
+	{
+		temp = x1;
+		x1 = x2;
+		x2 = temp;
+	}
 	
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x1, y1, x2, y2);
@@ -110,48 +131,33 @@ void clrXY(void)
 void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 {
 	
+	//printf("setxy:\t%i\t%i\t%i\t%i\t\n\r",x1,y1,x2,y2);
+	
+	/*
 	SwapUint16(x1, y1);
 	SwapUint16(x2, y2);
 	y1=display_Y_size-y1;
 	y2=display_Y_size-y2;
 	SwapUint16(y1, y2);
-	
-	
-	//printf("%i, \t%i, \t%i, \t%i\n\r",x1,y1,x2,y2);
-	
-	uint16_t temp;
-	
-	if(x2 < x1)
-	{
-		temp = x1;
-		x1 = x2;
-		x2 = temp;
-	}
-
-	if(y2 < y1)
-	{
-		temp = y1;
-		y1 = y2;
-		y2 = temp;
-	}
+	*/
 	
 	LCD_Write_COM16(0x2a,0x00);
 	LCD_Write_DATA8(x1>>8);
 	LCD_Write_COM16(0x2a,0x01);
-	LCD_Write_DATA8(x1&0xFF);
+	LCD_Write_DATA8(x1);
 	LCD_Write_COM16(0x2a,0x02);
 	LCD_Write_DATA8(x2>>8);
 	LCD_Write_COM16(0x2a,0x03);
-	LCD_Write_DATA8(x2&0xFF);
+	LCD_Write_DATA8(x2);
 
 	LCD_Write_COM16(0x2b,0x00);
 	LCD_Write_DATA8(y1>>8);
 	LCD_Write_COM16(0x2b,0x01);
-	LCD_Write_DATA8(y1&0xFF);
+	LCD_Write_DATA8(y1);
 	LCD_Write_COM16(0x2b,0x02);
 	LCD_Write_DATA8(y2>>8);
 	LCD_Write_COM16(0x2b,0x03);
-	LCD_Write_DATA8(y2&0xFF);
+	LCD_Write_DATA8(y2);
 
 	LCD_Write_COM16(0x2c,0x00);
 }
@@ -162,7 +168,7 @@ void setPixel(uint16_t color)
 	LCD_Write_DATA16((color>>8),(color&0xFF));
 }
 
-void drawPixel(int x, int y)
+void drawPixel(uint16_t x, uint16_t y)
 {
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x,y,x,y);

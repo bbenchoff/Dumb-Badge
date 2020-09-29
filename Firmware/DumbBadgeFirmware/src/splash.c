@@ -9,7 +9,6 @@
 #include <string.h>
 
 #include "globals.h"
-
 #include "splash.h"
 #include "LCD.h"
 #include "console.h"

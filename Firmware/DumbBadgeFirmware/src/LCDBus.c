@@ -165,7 +165,7 @@ static const unsigned char beelzebub[52] = {
 	LCD_Write_COM16(0x35, 0x00);LCD_Write_DATA8(0x00);
 	
 	LCD_Write_COM16(0x3A, 0x00);LCD_Write_DATA8(0x55);
-	LCD_Write_COM16(0x36, 0x00);LCD_Write_DATA8(0x00);
+	LCD_Write_COM16(0x36, 0x00);LCD_Write_DATA8(0xE2);  //This is the MADCTL register
 	
   	LCD_Write_COM16(0x11,0x00);   //Start Up  
   	delay_ms(100);
