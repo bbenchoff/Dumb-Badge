@@ -46,7 +46,7 @@ int main (void)
 		{
 			funcLock = true;
 			
-			//blinkCursor();
+			blinkCursor();
 			
 			funcLock = false;
 		}

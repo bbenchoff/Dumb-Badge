@@ -208,9 +208,11 @@ void printKeyboardBuffer(void)
 				if(shifted)
 				{
 					consoleDisplay[xCharPos][yCharPos] = shiftCase[scanCodeBuffer[i]];
-					drawChar(0x00);
 					drawChar(shiftCase[scanCodeBuffer[i]]);
 					xCharPos++;
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
+					
+					
 					if(xCharPos > 79)
 					{
 						//readCursor(xCharPos++,yCharPos);
@@ -219,14 +221,16 @@ void printKeyboardBuffer(void)
 						//clearCursorBuffer();	
 					}
 					//cursorBlinkState = true;
-					//blinkCursor();
+					blinkCursor();
 				}
 				else
 				{
 					consoleDisplay[xCharPos][yCharPos] = noCase[scanCodeBuffer[i]];
-					drawChar(0x00);
 					drawChar(noCase[scanCodeBuffer[i]]);
 					xCharPos++;
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
+					
+					
 					
 					if(xCharPos > 79)
 					{
@@ -237,7 +241,7 @@ void printKeyboardBuffer(void)
 						//clearCursorBuffer();	
 					}
 					//cursorBlinkState = true;
-					//blinkCursor();
+					blinkCursor();
 
 				}
 			}
@@ -580,11 +584,12 @@ void blinkCursor(void)
 			{
 				if((CodePage437[character][i]&(1<<(7-j)))!=0)
 				{
-					setPixel((fore_Color_High<<8)|fore_Color_Low);
+					
+					setPixel((back_Color_High<<8)|back_Color_Low);
 				}
 				else
 				{
-					setPixel((back_Color_High<<8)|back_Color_Low);
+					setPixel((fore_Color_High<<8)|fore_Color_Low);
 				}
 			}
 		}
@@ -597,11 +602,12 @@ void blinkCursor(void)
 			{
 				if((CodePage437[character][i]&(1<<(7-j)))!=0)
 				{
-					setPixel((back_Color_High<<8)|back_Color_Low);
+					setPixel((fore_Color_High<<8)|fore_Color_Low);
 				}
 				else
 				{
-					setPixel((fore_Color_High<<8)|fore_Color_Low);
+					setPixel((back_Color_High<<8)|back_Color_Low);
+					
 				}
 			}
 		}	
