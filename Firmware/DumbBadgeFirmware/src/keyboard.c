@@ -63,6 +63,7 @@ void drawBlank(void)
 void printKeyboardBuffer(void)
 {
 	bool shifted = false;
+	unsigned char tempCharacter;
 	
 	unsigned char noCase[] =	  
 		{0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
@@ -125,37 +126,44 @@ void printKeyboardBuffer(void)
 			{
 				if(xCharPos > 0) 
 				{
-					
-					cursorBlinkState = true;
-					//blinkCursor();
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					xCharPos--;
+					tempCharacter = consoleDisplay[xCharPos][yCharPos];
+					drawChar(tempCharacter);
+					blinkCursor();
 				}
 			}
 			else if(scanCodeBuffer[i] == 45)	//down
 			{
 				if(yCharPos < 24)
 				{
-					cursorBlinkState = true;
-					//blinkCursor();
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					yCharPos++;
+					tempCharacter = consoleDisplay[xCharPos][yCharPos];
+					drawChar(tempCharacter);
+					blinkCursor();
 				}
 			}
 			else if(scanCodeBuffer[i] == 55)	//up
 			{
 				if(yCharPos > 0)
 				{
-					cursorBlinkState = true;
-					//blinkCursor();
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					yCharPos--;
+					tempCharacter = consoleDisplay[xCharPos][yCharPos];
+					drawChar(tempCharacter);
+					blinkCursor();				
 				}
 			}
 			else if(scanCodeBuffer[i] == 65)	//right
 			{
 				if(xCharPos < 79)
 				{
-					cursorBlinkState = true;
-					//blinkCursor();
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					xCharPos++;
+					tempCharacter = consoleDisplay[xCharPos][yCharPos];
+					drawChar(tempCharacter);
+					blinkCursor();					
 				}
 			}
 			
@@ -167,15 +175,18 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos == 23)
 				{
-					
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					newLine();
 					xCharPos = 0;
 				}
 				else
 				{
-					
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					yCharPos++;
 					xCharPos = 0;
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
+					blinkCursor();
+					
 				}
 			}
 			else if(scanCodeBuffer[i] == 69) //Line
@@ -183,28 +194,39 @@ void printKeyboardBuffer(void)
 				
 				if(yCharPos == 23)
 				{
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					newLine();
 				}
 				else
 				{
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					yCharPos++;
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
+					blinkCursor();
 				}
 			}
 			else if(scanCodeBuffer[i] == 66) //Backspace
 			{
-				drawChar(0x20);
-				xCharPos--;
 				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				readCursor(xCharPos,yCharPos);
+				xCharPos--;
+				drawChar(0x20);
+				
 				
 			}
 			else
 			{
 				if(shifted)
 				{
+					//this line places the key to be printed into the console buffer
 					consoleDisplay[xCharPos][yCharPos] = shiftCase[scanCodeBuffer[i]];
+					
+					//this line _actually prints the character_
 					drawChar(shiftCase[scanCodeBuffer[i]]);
+					
+					//move the cursor one postition forward
 					xCharPos++;
+					
+					//draw the character again, for some reason, idk.
 					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					
 					
