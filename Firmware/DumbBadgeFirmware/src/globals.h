@@ -44,9 +44,9 @@ extern uint16_t display_Y_size;
 extern uint16_t xCharPos;
 extern uint16_t yCharPos;
 
-extern char scanCodeBuffer[20];
+extern unsigned char scanCodeBuffer[20];
 
-extern char keyDownBuffer[20];
+extern unsigned char keyDownBuffer[20];
 
 extern bool capsLock;
 extern bool scrollLock;
@@ -55,6 +55,6 @@ extern bool sPoNgEbObCaSe;
 extern bool cursorBlinkState;
 extern uint8_t cursorBuffer[200];
 
-extern char consoleDisplay[80][24];
+extern unsigned char consoleDisplay[80][24];
 
 #endif /* GLOBALS_H_ */

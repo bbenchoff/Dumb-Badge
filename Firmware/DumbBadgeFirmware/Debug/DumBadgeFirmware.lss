@@ -15,23 +15,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .comment      00000059  00000000  00000000  000201e4  2**0
                   CONTENTS, READONLY
-  6 .debug_info   0003747a  00000000  00000000  0002023d  2**0
+  6 .debug_info   0003746e  00000000  00000000  0002023d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00004fd7  00000000  00000000  000576b7  2**0
+  7 .debug_abbrev 00004fca  00000000  00000000  000576ab  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    0000639e  00000000  00000000  0005c68e  2**0
+  8 .debug_loc    0000639e  00000000  00000000  0005c675  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_aranges 000006f0  00000000  00000000  00062a2c  2**0
+  9 .debug_aranges 000006f0  00000000  00000000  00062a13  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000840  00000000  00000000  0006311c  2**0
+ 10 .debug_ranges 00000840  00000000  00000000  00063103  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  0001e774  00000000  00000000  0006395c  2**0
+ 11 .debug_macro  0001e774  00000000  00000000  00063943  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00012812  00000000  00000000  000820d0  2**0
+ 12 .debug_line   00012812  00000000  00000000  000820b7  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    000900e5  00000000  00000000  000948e2  2**0
+ 13 .debug_str    000900d7  00000000  00000000  000948c9  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  00001850  00000000  00000000  001249c8  2**2
+ 14 .debug_frame  00001850  00000000  00000000  001249a0  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -6806,7 +6806,7 @@ void blinkCursor(void)
 	uint16_t y = yCharPos;
     23b2:	4a47      	ldr	r2, [pc, #284]	; (24d0 <blinkCursor+0x12c>)
     23b4:	8815      	ldrh	r5, [r2, #0]
-	char character = consoleDisplay[x][y];
+	unsigned char character = consoleDisplay[x][y];
     23b6:	005a      	lsls	r2, r3, #1
     23b8:	18d2      	adds	r2, r2, r3
     23ba:	00d2      	lsls	r2, r2, #3
@@ -7004,14 +7004,14 @@ void blinkCursor(void)
     2508:	4645      	mov	r5, r8
     250a:	b5e0      	push	{r5, r6, r7, lr}
     250c:	b0a7      	sub	sp, #156	; 0x9c
-	char noCase[] =	  
+	unsigned char noCase[] =	  
     250e:	4c80      	ldr	r4, [pc, #512]	; (2710 <printKeyboardBuffer+0x210>)
     2510:	2246      	movs	r2, #70	; 0x46
     2512:	0021      	movs	r1, r4
     2514:	a814      	add	r0, sp, #80	; 0x50
     2516:	4d7f      	ldr	r5, [pc, #508]	; (2714 <printKeyboardBuffer+0x214>)
     2518:	47a8      	blx	r5
-	char shiftCase[] = 
+	unsigned char shiftCase[] = 
     251a:	0021      	movs	r1, r4
     251c:	3148      	adds	r1, #72	; 0x48
     251e:	2246      	movs	r2, #70	; 0x46
@@ -7051,7 +7051,7 @@ void blinkCursor(void)
     2556:	4b71      	ldr	r3, [pc, #452]	; (271c <printKeyboardBuffer+0x21c>)
     2558:	4699      	mov	r9, r3
     255a:	e00d      	b.n	2578 <printKeyboardBuffer+0x78>
-				if(xCharPos > 0)  ///I think I need to decouple the reading the next cursor
+				if(xCharPos > 0) 
     255c:	4b70      	ldr	r3, [pc, #448]	; (2720 <printKeyboardBuffer+0x220>)
     255e:	881b      	ldrh	r3, [r3, #0]
     2560:	2b00      	cmp	r3, #0

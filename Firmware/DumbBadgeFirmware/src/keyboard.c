@@ -17,10 +17,10 @@ bool capsLock = false;
 bool scrollLock = false;
 bool cursorBlinkState = true;
 
-char scanCodeBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+char unsigned scanCodeBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 
-char keyDownBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
+char unsigned keyDownBuffer[20] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
 0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF};
 	
 int scanCodes[70] = {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,0xFF,
@@ -44,7 +44,7 @@ uint8_t cursorBuffer[200] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0
 	0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 
-char consoleDisplay[80][24];
+unsigned char consoleDisplay[80][24];
 
 #define NUM_ROW 10
 #define NUM_COL 7
@@ -63,9 +63,8 @@ void drawBlank(void)
 void printKeyboardBuffer(void)
 {
 	bool shifted = false;
-	char tempCharacter;
 	
-	char noCase[] =	  
+	unsigned char noCase[] =	  
 		{0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
 		0x37,0x75,0x67,0x6A,0x2C,	//Col0, Row5-9
 		0x31,0x71,0xFF,0xFF,0xFF,	//Col1, Row0-4
@@ -81,7 +80,7 @@ void printKeyboardBuffer(void)
 		0x36,0x79,0x66,0x62,0x6D,	//Col6, Row0-4
 		0xFF,0xFF,0xFF,0xFF,0xFF};	//Col6, Row5-9
 	
-	char shiftCase[] = 
+	unsigned char shiftCase[] = 
 		{0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
 		0x26,0x55,0x47,0x4A,0x3C,	//Col0, Row5-9
 		0x21,0x51,0xFF,0xFF,0xFF,	//Col1, Row0-4
@@ -124,8 +123,7 @@ void printKeyboardBuffer(void)
 			//Arrow key handling
 			else if(scanCodeBuffer[i] == 35) //left
 			{
-				if(xCharPos > 0)  ///I think I need to decouple the reading the next cursor
-				//and actually moving the thing.
+				if(xCharPos > 0) 
 				{
 					
 					cursorBlinkState = true;
@@ -137,7 +135,6 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos < 24)
 				{
-					
 					cursorBlinkState = true;
 					//blinkCursor();
 					yCharPos++;
@@ -147,7 +144,6 @@ void printKeyboardBuffer(void)
 			{
 				if(yCharPos > 0)
 				{
-					
 					cursorBlinkState = true;
 					//blinkCursor();
 					yCharPos--;
@@ -157,7 +153,6 @@ void printKeyboardBuffer(void)
 			{
 				if(xCharPos < 79)
 				{
-					
 					cursorBlinkState = true;
 					//blinkCursor();
 					xCharPos++;
@@ -573,7 +568,7 @@ void blinkCursor(void)
 {
 	uint16_t x = xCharPos;
 	uint16_t y = yCharPos;
-	char character = consoleDisplay[x][y];
+	unsigned char character = consoleDisplay[x][y];
 	setXY(x*10,y*20,x*10+9,y*20+19);
 	REG_PORT_OUTCLR1 = LCD_CS;
 	if(cursorBlinkState)
