@@ -96,11 +96,11 @@ void splashScreen(void)
 	splashText[6] = "Interest in technology is not a personality";//
 	splashText[7] = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";//
 	splashText[8] = "No gods. No masters. No external libraries.";//
-	splashText[9] = "Spaces!";//
+	splashText[9] = "Kill Nazis";//
 	splashText[10] = "Tiananmen Square 1989";//
 	splashText[11] = "America was founded on slavery";
 	splashText[12] = "There is only capital and labor";//
-	splashText[13] = "Encourage symmetric class warfare";//
+	splashText[13] = "Encourage _symmetric_ class warfare";//
 	splashText[14] = "$CURRENT_MEME";//
 	splashText[15] = "A Nice TTY";//
 	splashText[16] = "Trans rights are human rights";//
@@ -116,7 +116,7 @@ void splashScreen(void)
 	splashText[26] = "Follow World Pog Federation    @WorldPog";//
 	splashText[27] = "Dummy thicc client";//
 	splashText[28] = "A Nice TTY. An OK Computer.";//
-	splashText[29] = "I cAn OpEn A LoCk WiTh A sOdA cAn";//
+	splashText[29] = "Ceci n'est pas une Cyberdeck (because it's not a Pelican Case)";//
 	splashText[30] = "Solidarity is not a new framework";//
 	splashText[31] = "Breadboarding Is Not A Crime";//
 	splashText[32] = "Off by one errors are common";

@@ -63,6 +63,7 @@ void drawBlank(void)
 void printKeyboardBuffer(void)
 {
 	bool shifted = false;
+	char tempCharacter;
 	
 	char noCase[] =	  
 		{0xFF,0xFF,0xFF,0xFF,0xFF,	//Col0, Row0-4
@@ -126,48 +127,40 @@ void printKeyboardBuffer(void)
 				if(xCharPos > 0)  ///I think I need to decouple the reading the next cursor
 				//and actually moving the thing.
 				{
-					drawCursorBuffer();
-					readCursor(xCharPos-1,yCharPos);
+					
+					cursorBlinkState = true;
+					//blinkCursor();
 					xCharPos--;
-					drawCursorBuffer();
-					//cursorBlinkState = true;
-					blinkCursor();
 				}
 			}
 			else if(scanCodeBuffer[i] == 45)	//down
 			{
 				if(yCharPos < 24)
 				{
-					drawCursorBuffer();
-					readCursor(xCharPos,yCharPos+1);
+					
+					cursorBlinkState = true;
+					//blinkCursor();
 					yCharPos++;
-					drawCursorBuffer();
-					//cursorBlinkState = true;
-					blinkCursor();
 				}
 			}
 			else if(scanCodeBuffer[i] == 55)	//up
 			{
 				if(yCharPos > 0)
 				{
-					drawCursorBuffer();
-					readCursor(xCharPos,yCharPos-1);
+					
+					cursorBlinkState = true;
+					//blinkCursor();
 					yCharPos--;
-					drawCursorBuffer();
-					//cursorBlinkState = true;
-					blinkCursor();
 				}
 			}
 			else if(scanCodeBuffer[i] == 65)	//right
 			{
 				if(xCharPos < 79)
 				{
-					drawCursorBuffer();
-					readCursor(xCharPos+1,yCharPos);
+					
+					cursorBlinkState = true;
+					//blinkCursor();
 					xCharPos++;
-					drawCursorBuffer();
-					//cursorBlinkState = true;
-					blinkCursor();
 				}
 			}
 			
@@ -204,11 +197,9 @@ void printKeyboardBuffer(void)
 			}
 			else if(scanCodeBuffer[i] == 66) //Backspace
 			{
-				drawCursorBuffer();
-				xCharPos--;
 				drawChar(0x20);
-				drawCursorBuffer();
-				clearCursorBuffer();
+				xCharPos--;
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
 				readCursor(xCharPos,yCharPos);
 				
 			}
@@ -216,33 +207,38 @@ void printKeyboardBuffer(void)
 			{
 				if(shifted)
 				{
-					drawChar(shiftCase[scanCodeBuffer[i]]);
 					consoleDisplay[xCharPos][yCharPos] = shiftCase[scanCodeBuffer[i]];
-					
-					if(xCharPos < 79)
+					drawChar(0x00);
+					drawChar(shiftCase[scanCodeBuffer[i]]);
+					xCharPos++;
+					if(xCharPos > 79)
 					{
-						readCursor(xCharPos++,yCharPos);
-						//xCharPos++;
-						clearCursorBuffer();
-						
+						//readCursor(xCharPos++,yCharPos);
+						xCharPos--;
+						//drawCursorBuffer();
+						//clearCursorBuffer();	
 					}
-					cursorBlinkState = true;
-					blinkCursor();
+					//cursorBlinkState = true;
+					//blinkCursor();
 				}
 				else
 				{
-					drawChar(noCase[scanCodeBuffer[i]]);
 					consoleDisplay[xCharPos][yCharPos] = noCase[scanCodeBuffer[i]];
+					drawChar(0x00);
+					drawChar(noCase[scanCodeBuffer[i]]);
+					xCharPos++;
 					
-					if(xCharPos < 79)
+					if(xCharPos > 79)
 					{
-						readCursor(xCharPos++,yCharPos);
-						//xCharPos++;
-						clearCursorBuffer();
-						
+
+						//readCursor(xCharPos++,yCharPos);
+						xCharPos--;
+						//drawCursorBuffer();
+						//clearCursorBuffer();	
 					}
-					cursorBlinkState = true;
-					blinkCursor();
+					//cursorBlinkState = true;
+					//blinkCursor();
+
 				}
 			}
 		}
@@ -418,6 +414,7 @@ void drawCursorBuffer(void)
 {
 	
 	setXY(xCharPos*10,yCharPos*20,(xCharPos*10)+9,(yCharPos*20)+19);
+	REG_PORT_OUTCLR1 = LCD_CS;
 	for(uint16_t i = 0 ; i < 200 ; i++)
 	{
 		if((cursorBuffer[i] == 0xFF))
@@ -429,6 +426,7 @@ void drawCursorBuffer(void)
 			setPixel((back_Color_High<<8)|back_Color_Low);
 		}
 	}
+	REG_PORT_OUTSET1 = LCD_CS;
 }
 
 void invertCursorBuffer(void)
@@ -448,13 +446,13 @@ void invertCursorBuffer(void)
 
 void readCursor(uint16_t cursorLocationX, uint16_t cursorLocationY)
 {
+	/*
 	//First, this reads the GRAM memory at the cursor location
 	//x,y. This is saved in a buffer. When the cursor blinks,
 	//it alternates either that buffer, or the *inverse* of that
 	//buffer.
 	
-	//This function does not actually *move* the cursor
-	/*
+	
 	uint16_t x = cursorLocationX;
 	uint16_t y = cursorLocationY;
 	char character = consoleDisplay[x][y];
@@ -495,9 +493,10 @@ void readCursor(uint16_t cursorLocationX, uint16_t cursorLocationY)
 		cursorBuffer[pixel] = tempCursor[pixel];
 	}
 	
-	*/
+	xCharPos = cursorLocationX;
+	yCharPos = cursorLocationY;
 
-	
+
 	uint16_t x = cursorLocationX;
 	uint16_t y = cursorLocationY;
 	
@@ -551,7 +550,7 @@ void readCursor(uint16_t cursorLocationX, uint16_t cursorLocationY)
 	
 	REG_PORT_OUTSET1 = LCD_DC;
 	REG_PORT_DIRSET1 = PORT_PB07;
-	
+	*/
 }
 
 uint16_t sumCursorBuffer(void)
@@ -568,37 +567,49 @@ uint16_t sumCursorBuffer(void)
 
 void blinkCursor(void)
 {
-	if(!cursorBlinkState)
+	uint16_t x = xCharPos;
+	uint16_t y = yCharPos;
+	char character = consoleDisplay[x][y];
+	setXY(x*10,y*20,x*10+9,y*20+19);
+	REG_PORT_OUTCLR1 = LCD_CS;
+	if(cursorBlinkState)
 	{
-		//Draw the *inverse* of cursorBuffer
-		setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
-		
-		for(uint16_t i = 0 ; i < 200 ; i++)
-		{
-			if((cursorBuffer[i] == 0xFF))
-			setPixel((back_Color_High<<8)|back_Color_Low);
-			else
-			setPixel((fore_Color_High<<8)|fore_Color_Low);
-			
+		for(uint16_t i=0; i <= 24; i++)
+		{	
+			for(int j=0;j<8;j++)
+			{
+				if((CodePage437[character][i]&(1<<(7-j)))!=0)
+				{
+					setPixel((fore_Color_High<<8)|fore_Color_Low);
+				}
+				else
+				{
+					setPixel((back_Color_High<<8)|back_Color_Low);
+				}
+			}
 		}
-		
-		//invert cursorBlinkState
-		cursorBlinkState = !cursorBlinkState;
 	}
 	else
 	{
-		setXY(xCharPos*10,yCharPos*20,xCharPos*10+9,yCharPos*20+19);
-		
-		for(uint16_t i = 0 ; i < 200 ; i++)
+		for(uint16_t i=0; i <= 24; i++)
 		{
-			if((cursorBuffer[i] != 0xFF))
-			setPixel((back_Color_High<<8)|back_Color_Low);
-			else
-			setPixel((fore_Color_High<<8)|fore_Color_Low);
-		
-
-		}
-		//invert cursorBlinkState
-		cursorBlinkState = !cursorBlinkState;
+			for(int j=0;j<8;j++)
+			{
+				if((CodePage437[character][i]&(1<<(7-j)))!=0)
+				{
+					setPixel((back_Color_High<<8)|back_Color_Low);
+				}
+				else
+				{
+					setPixel((fore_Color_High<<8)|fore_Color_Low);
+				}
+			}
+		}	
 	}
+
+	REG_PORT_OUTSET1 = LCD_CS;
+	
+	//invert cursorBlinkState
+	cursorBlinkState = !cursorBlinkState;
+	
 }

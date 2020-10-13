@@ -22,6 +22,9 @@ void drawChar(uint8_t character)
 {
 	uint16_t x = xCharPos;
 	uint16_t y = yCharPos;
+	
+	consoleDisplay[xCharPos][yCharPos] = character;
+	
 	REG_PORT_OUTCLR1 = LCD_CS;
 	setXY(x*10,y*20,x*10+9,y*20+19);
 	for(uint16_t i=0; i <= 24; i++)
@@ -30,7 +33,7 @@ void drawChar(uint8_t character)
 		{
 			if((CodePage437[character][i]&(1<<(7-j)))!=0)
 			{
-				setPixel((fore_Color_High<<8)|fore_Color_Low);
+				setPixel((fore_Color_High<<8)|fore_Color_Low);	
 			}
 			else
 			{
@@ -146,5 +149,16 @@ void writeString(char str[])
 		drawChar(str[i]);
 		if(xCharPos <= 80)
 		xCharPos++;
+	}
+}
+
+void fillConsole(void)
+{
+	for(int i = 0 ; i < 80 ; i++)
+	{
+		for(int j = 0 ; j < 24 ; j++)
+		{
+			consoleDisplay[i][j] = 0x00;
+		}
 	}
 }

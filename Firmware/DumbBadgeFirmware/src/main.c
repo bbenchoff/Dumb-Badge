@@ -45,10 +45,9 @@ int main (void)
 		if((ul_tickcount % (UINT16_MAX/4) == 0) && (funcLock == false))
 		{
 			funcLock = true;
-			blinkCursor();
-			printf("%i\r",sumCursorBuffer());
-			//drawCursorBuffer();
-			printf("Blink %i\r",rand());
+			
+			//blinkCursor();
+			
 			funcLock = false;
 		}
 		
@@ -68,16 +67,7 @@ int main (void)
 
 void SysTick_Handler(void)
 {
-
-	
 	ul_tickcount++;
-	
-	/*if(ul_tickcount == (15000+1))
-	{
-		ul_tickcount = 0;
-	}
-	*/
-
 }
 
 void conf_systick(void)
@@ -142,8 +132,10 @@ void setupBoard(void)
 	
 	conf_systick();
 	clearCursorBuffer();
-
-	readCursor(0,0);
+	
+	
+	//readCursor(0,0);
 	xCharPos=0;
 	yCharPos=0;
+	drawChar(0xFF);
 }
