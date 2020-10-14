@@ -135,7 +135,7 @@ void printKeyboardBuffer(void)
 			}
 			else if(scanCodeBuffer[i] == 45)	//down
 			{
-				if(yCharPos < 24)
+				if(yCharPos < 23)
 				{
 					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					yCharPos++;
@@ -178,6 +178,8 @@ void printKeyboardBuffer(void)
 					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					newLine();
 					xCharPos = 0;
+					drawChar(0x00);
+					blinkCursor();
 				}
 				else
 				{
@@ -186,7 +188,6 @@ void printKeyboardBuffer(void)
 					xCharPos = 0;
 					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					blinkCursor();
-					
 				}
 			}
 			else if(scanCodeBuffer[i] == 69) //Line
@@ -196,6 +197,8 @@ void printKeyboardBuffer(void)
 				{
 					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					newLine();
+					drawChar(0x00);
+					blinkCursor();
 				}
 				else
 				{

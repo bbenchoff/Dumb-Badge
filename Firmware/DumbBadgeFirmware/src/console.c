@@ -48,34 +48,58 @@ void drawChar(uint8_t character)
 
 void newLine(void)
 {
+	/*
+	This is split into two parts; the first moves consoledisplay around
+	so the first line is deleted and all other lines are moved up one line
+	*/
+	
+	for(int i = 0 ; i < 80 ; i++)
+	{
+		for(int j = 1 ; j < 24 ; j++)
+		{
+			consoleDisplay[i][j-1] = consoleDisplay[i][j];
+		}
+	}
+	
+	for(int k = 0 ; k < 80 ; k ++)
+	{
+		consoleDisplay[23][k] = 0x00;
+	}
+	
 	/*The 'soft scroll' function moves all pixels on the display up
 	20 pixels, or the height of one char. Algorithm is as follows:
 	
-	0) Set the GRAM window to a row one pixel high (setxy).
+	0) Change the MADCTRL register to 0x00, because that's what
+	I was dealing with when I originally wrote this code.
+	
+	1) Set the GRAM window to a row one pixel high (setxy).
 	example: (0,20,800,21). 
 	
-	1) Set PB07 as input. This is the data bit that will read
+	2) Set PB07 as input. This is the data bit that will read
 	the actual pixel data from GRAM.
 	
-	1a) We use PB07 because it represents the MSB of the green
+	3) We use PB07 because it represents the MSB of the green
 		part of the pixel; this will always be 1 if the pixel
 		is active, because the only colors we use are green,
 		white, and amber.
 		
-	1b) Configuration of pin as input is on "SAMD21/SAMR21
+	4) Configuration of pin as input is on "SAMD21/SAMR21
 		GPIO" Tutorial (Phillip Vallone), page 38.
 		
-	2) Read the pixel data into a 1D array (first as char[800],
+	5) Read the pixel data into a 1D array (first as char[800],
 	can be optimized with bit packing. This information is on 
 	NT35510 datasheet, page 40.
 	
-	3) Set PB07 (and the rest of PB00..15) as output, set GRAM
+	6) Set PB07 (and the rest of PB00..15) as output, set GRAM
 	window and output contents of 1D array. Repeat this
 	460 times, for each line in the display.
+	
+	7) Set the MADCTRL register back to original value
 	*/
 	
 	uint8_t rowPixel[800];
-		
+	
+			
 	for(uint16_t row = 0 ; row < 460 ; row++)
 	{
 		//Per page 40 of datasheet (5.1.2.7, 16-bit
@@ -135,13 +159,15 @@ void newLine(void)
 		}
 	}
 	
-	//finally, clear the last character line of the display
+	//clear the last character line of the display
 	//and fix the console text buffer
 	fillRectBackColor(0, 460, 799, 480);
-
+	
+	
+	
 }
 
-void writeString(char str[])
+void writeString(const char str[])
 {
 	int length = strlen(str);
 	for(int i = 0; i < length; i++)

@@ -87,10 +87,10 @@ void drawKare(int emotion)
 void splashScreen(void)
 {
 	static const char *splashText[32];
-	splashText[0] = "Unix epoch minus 0xFF days";//
+	splashText[0] = "Trans rights are human rights";//
 	splashText[1] = "13^5 + 16^5 = 17^5";//
 	splashText[2] = "Reticulating Splines";//
-	splashText[3] = "Violence works";//
+	splashText[3] = "violence.works";//
 	splashText[4] = "Tabs!";//
 	splashText[5] = "Kill Billionaires (and Trillionaire)";//
 	splashText[6] = "Interest in technology is not a personality";//
@@ -103,7 +103,7 @@ void splashScreen(void)
 	splashText[13] = "Encourage _symmetric_ class warfare";//
 	splashText[14] = "$CURRENT_MEME";//
 	splashText[15] = "A Nice TTY";//
-	splashText[16] = "Trans rights are human rights";//
+	splashText[16] = "Unix epoch minus 0xFF days";//
 	splashText[17] = "i  = 0x5f3759df - ( i >> 1 );";//
 	splashText[18] = "ACAB";//
 	splashText[19] = "Defcon's canceled.";//
@@ -122,7 +122,7 @@ void splashScreen(void)
 	splashText[32] = "Off by one errors are common";
 	
 	const char *textPhrase = splashText[((rand()%32))];
-	
+
 	
 	clearScreen();
 	setColorRGB(255,255,255);
