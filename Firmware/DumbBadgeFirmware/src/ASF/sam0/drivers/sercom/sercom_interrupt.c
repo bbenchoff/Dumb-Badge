@@ -62,11 +62,13 @@ static void _sercom_default_handler(
  * \param[in]  instance           Instance index.
  * \param[in]  interrupt_handler  Pointer to instance callback handler.
  */
+
+
 void _sercom_set_handler(
 		const uint8_t instance,
 		const sercom_handler_t interrupt_handler)
 {
-	/* Initialize handlers with default handler and device instances with 0 */
+	// Initialize handlers with default handler and device instances with 0 
 	if (_handler_table_initialized == false) {
 		for (uint32_t i = 0; i < SERCOM_INST_NUM; i++) {
 			_sercom_interrupt_handlers[i] = &_sercom_default_handler;
@@ -76,9 +78,10 @@ void _sercom_set_handler(
 		_handler_table_initialized = true;
 	}
 
-	/* Save interrupt handler */
+	// Save interrupt handler 
 	_sercom_interrupt_handlers[instance] = interrupt_handler;
 }
+
 
 
 /** \internal

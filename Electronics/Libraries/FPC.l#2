@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.1" altunitdist="mm" altunit="mm"/>
+<grid distance="1" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.5" altunitdist="mm" altunit="mm"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="yes"/>
@@ -126,27 +126,24 @@
 <smd name="A1" x="-12.25" y="0.25" dx="0.3" dy="1.2" layer="1"/>
 <wire x1="14.5" y1="0" x2="0" y2="0" width="0.127" layer="21"/>
 <wire x1="0" y1="0" x2="-14.5" y2="0" width="0.127" layer="21"/>
-<wire x1="-14.5" y1="0" x2="-14.5" y2="-2.1" width="0.127" layer="21"/>
-<wire x1="-14.5" y1="-2.1" x2="-14.4" y2="-2.1" width="0.127" layer="21"/>
-<wire x1="14.5" y1="0" x2="14.5" y2="-2.1" width="0.127" layer="21"/>
-<wire x1="14.5" y1="-2.1" x2="14.4" y2="-2.1" width="0.127" layer="21"/>
-<smd name="S1" x="-14" y="-2.3" dx="1" dy="2" layer="1" rot="R90"/>
-<smd name="S2" x="14" y="-2.3" dx="1" dy="2" layer="1" rot="R90"/>
+<wire x1="-14.5" y1="0" x2="-14.5" y2="-1.3" width="0.127" layer="21"/>
+<wire x1="14.5" y1="0" x2="14.5" y2="-1.3" width="0.127" layer="21"/>
 <wire x1="15.25" y1="-6.5" x2="15.25" y2="-5" width="0.127" layer="21"/>
 <wire x1="15.25" y1="-5" x2="14.5" y2="-5" width="0.127" layer="21"/>
-<wire x1="14.5" y1="-5" x2="14.5" y2="-2.75" width="0.127" layer="21"/>
+<wire x1="14.5" y1="-5" x2="14.5" y2="-3.95" width="0.127" layer="21"/>
 <wire x1="15.25" y1="-6.5" x2="0" y2="-6.5" width="0.127" layer="21"/>
 <wire x1="0" y1="-6.5" x2="-15.25" y2="-6.5" width="0.127" layer="21"/>
 <wire x1="-15.25" y1="-6.5" x2="-15.25" y2="-5" width="0.127" layer="21"/>
 <wire x1="-15.25" y1="-5" x2="-14.5" y2="-5" width="0.127" layer="21"/>
-<wire x1="-14.5" y1="-5" x2="-14.5" y2="-2.75" width="0.127" layer="21"/>
+<wire x1="-14.5" y1="-5" x2="-14.5" y2="-3.95" width="0.127" layer="21"/>
 <wire x1="-13.5" y1="-5" x2="13.5" y2="-5" width="0.127" layer="21"/>
-<text x="-13.5" y="-4.5" size="0.8128" layer="21" font="vector" ratio="13">Amphenol 62684-501100ALF</text>
-<text x="-13.5" y="-4.5" size="0.8128" layer="21" font="vector" ratio="20">Amphenol 62684-50210E9ALF</text>
+<text x="0" y="-4" size="0.8128" layer="21" font="vector" ratio="20" align="center">Amphenol 62684-50210E9ALF</text>
 <text x="-13.5" y="1" size="0.8128" layer="21" font="vector" ratio="13" align="center">1</text>
 <text x="13.5" y="1" size="0.8128" layer="21" font="vector" ratio="13" align="center">50</text>
 <wire x1="0" y1="-6.5" x2="0" y2="-6" width="0.127" layer="21"/>
 <wire x1="0" y1="0" x2="0" y2="-1" width="0.127" layer="21"/>
+<smd name="S2" x="14.3" y="-2.6" dx="2.4" dy="2.4" layer="1"/>
+<smd name="S1" x="-14.3" y="-2.6" dx="2.4" dy="2.4" layer="1"/>
 </package>
 <package name="HLE-120-02-G-DV-BE-A">
 <hole x="1.27" y="1.27" drill="0.9"/>
@@ -350,6 +347,30 @@
 <pad name="P$3" x="6.1214" y="0" drill="0.85" diameter="1.27"/>
 <wire x1="0" y1="-2" x2="8.2" y2="-2" width="0.127" layer="21"/>
 <wire x1="0" y1="2" x2="8.2" y2="2" width="0.127" layer="21"/>
+</package>
+<package name="FC1-20-L2-T-WT">
+<smd name="10" x="-0.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="9" x="-1.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="8" x="-2.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="7" x="-3.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="6" x="-4.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="5" x="-5.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="4" x="-6.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="3" x="-7.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="2" x="-8.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="1" x="-9.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="11" x="0.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="12" x="1.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="13" x="2.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="14" x="3.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="15" x="4.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="16" x="5.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="17" x="6.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="18" x="7.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="19" x="8.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="20" x="9.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="P$1" x="-11.5" y="5" dx="3" dy="4" layer="1"/>
+<smd name="P$2" x="11.5" y="5" dx="3" dy="4" layer="1"/>
 </package>
 </packages>
 <symbols>

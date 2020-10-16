@@ -23,5 +23,4 @@ void serialRead(uint16_t *const buffer){
 	if (usart_read_wait(&usart_instance, buffer) == STATUS_OK) {
 	}
 
-
 }

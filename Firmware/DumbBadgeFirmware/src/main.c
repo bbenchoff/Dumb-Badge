@@ -18,18 +18,22 @@
 uint16_t ul_tickcount=0;
 bool funcLock = false;	
 
+uint8_t ext_rx_data;
+
 /** LOCAL PROTOTYPES **********************************************************/
+
 
 void setupBoard(void);
 
 void configure_usart_USB(void);
 void configure_adc(void);
 
-
 void conf_systick(void);
 
 struct usart_module usart_USB;
 struct adc_module adc_instance;
+
+
 
 
 /** STUFF BEGINS HERE *********************************************************/
@@ -77,7 +81,20 @@ void conf_systick(void)
 	system_interrupt_enable(SYSTEM_INTERRUPT_SYSTICK);
 }
 
+void SERCOM2_Handler()
+{
+	if (sercom->USART.INTFLAG.bit.RXC)
+	{
+		// Got a character
+		uint16_t rxData = sercom->USART.DATA.reg;
+		drawChar(rxData);
+	}
+}
+
 /**************************SERCOM STUFF*******************************/
+
+
+
 void configure_usart_USB(void)
 {
 	struct usart_config config_usart_USB;
@@ -131,10 +148,7 @@ void setupBoard(void)
 	printf("Serial OK 9600 8N1\n\r");
 	
 	conf_systick();
-	clearCursorBuffer();
-	
-	
-	//readCursor(0,0);
+
 	xCharPos=0;
 	yCharPos=0;
 	drawChar(0xFF);

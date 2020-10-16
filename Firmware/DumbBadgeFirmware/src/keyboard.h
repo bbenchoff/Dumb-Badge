@@ -17,13 +17,7 @@ bool scanCodesContains(int scanCode);
 bool keyDown(int scancode);
 void removeFromKeyDown(int scancode);
 
-void drawCursorBuffer(void);
-void readCursor(uint16_t cursorLocationX, uint16_t cursorLocationY);
-void clearCursorBuffer(void);
-void invertCursorBuffer(void);
-void drawBlank(void);
-uint16_t sumCursorBuffer(void);
-void blinkCursor(void);
+
 
 
 #endif /* KEYBOARD_H_ */

@@ -348,6 +348,30 @@
 <wire x1="0" y1="-2" x2="8.2" y2="-2" width="0.127" layer="21"/>
 <wire x1="0" y1="2" x2="8.2" y2="2" width="0.127" layer="21"/>
 </package>
+<package name="FC1-20-L2-T-WT">
+<smd name="10" x="-0.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="9" x="-1.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="8" x="-2.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="7" x="-3.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="6" x="-4.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="5" x="-5.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="4" x="-6.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="3" x="-7.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="2" x="-8.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="1" x="-9.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="11" x="0.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="12" x="1.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="13" x="2.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="14" x="3.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="15" x="4.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="16" x="5.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="17" x="6.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="18" x="7.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="19" x="8.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="20" x="9.5" y="1" dx="2" dy="0.4" layer="1" rot="R90"/>
+<smd name="P$1" x="-11.5" y="5" dx="3" dy="4" layer="1"/>
+<smd name="P$2" x="11.5" y="5" dx="3" dy="4" layer="1"/>
+</package>
 </packages>
 <symbols>
 <symbol name="50PINFPC">
@@ -480,6 +504,28 @@
 <text x="-1.524" y="-3.048" size="1.27" layer="94" font="vector" ratio="17">3</text>
 <text x="0.508" y="-0.508" size="1.27" layer="94" font="vector" ratio="17">2</text>
 <pin name="CASE" x="2.54" y="-2.54" visible="off" length="point" direction="nc"/>
+</symbol>
+<symbol name="20PINFPC">
+<pin name="P$1" x="-24.13" y="0" length="middle" rot="R90"/>
+<pin name="P$2" x="-21.59" y="0" length="middle" rot="R90"/>
+<pin name="P$3" x="-19.05" y="0" length="middle" rot="R90"/>
+<pin name="P$4" x="-16.51" y="0" length="middle" rot="R90"/>
+<pin name="P$5" x="-13.97" y="0" length="middle" rot="R90"/>
+<pin name="P$6" x="-11.43" y="0" length="middle" rot="R90"/>
+<pin name="P$7" x="-8.89" y="0" length="middle" rot="R90"/>
+<pin name="P$8" x="-6.35" y="0" length="middle" rot="R90"/>
+<pin name="P$9" x="-3.81" y="0" length="middle" rot="R90"/>
+<pin name="P$10" x="-1.27" y="0" length="middle" rot="R90"/>
+<pin name="P$11" x="1.27" y="0" length="middle" rot="R90"/>
+<pin name="P$12" x="3.81" y="0" length="middle" rot="R90"/>
+<pin name="P$13" x="6.35" y="0" length="middle" rot="R90"/>
+<pin name="P$14" x="8.89" y="0" length="middle" rot="R90"/>
+<pin name="P$15" x="11.43" y="0" length="middle" rot="R90"/>
+<pin name="P$16" x="13.97" y="0" length="middle" rot="R90"/>
+<pin name="P$17" x="16.51" y="0" length="middle" rot="R90"/>
+<pin name="P$18" x="19.05" y="0" length="middle" rot="R90"/>
+<pin name="P$19" x="21.59" y="0" length="middle" rot="R90"/>
+<pin name="P$20" x="24.13" y="0" length="middle" rot="R90"/>
 </symbol>
 </symbols>
 <devicesets>
@@ -685,6 +731,40 @@
 <connect gate="G$1" pin="P$1" pad="P$1"/>
 <connect gate="G$1" pin="P$2" pad="P$2"/>
 <connect gate="G$1" pin="P$3" pad="P$3"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="FC1-20-L2-T-WT20PIN">
+<gates>
+<gate name="G$1" symbol="20PINFPC" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="FC1-20-L2-T-WT">
+<connects>
+<connect gate="G$1" pin="P$1" pad="1"/>
+<connect gate="G$1" pin="P$10" pad="10"/>
+<connect gate="G$1" pin="P$11" pad="11"/>
+<connect gate="G$1" pin="P$12" pad="12"/>
+<connect gate="G$1" pin="P$13" pad="13"/>
+<connect gate="G$1" pin="P$14" pad="14"/>
+<connect gate="G$1" pin="P$15" pad="15"/>
+<connect gate="G$1" pin="P$16" pad="16"/>
+<connect gate="G$1" pin="P$17" pad="17"/>
+<connect gate="G$1" pin="P$18" pad="18"/>
+<connect gate="G$1" pin="P$19" pad="19"/>
+<connect gate="G$1" pin="P$2" pad="2"/>
+<connect gate="G$1" pin="P$20" pad="20"/>
+<connect gate="G$1" pin="P$3" pad="3"/>
+<connect gate="G$1" pin="P$4" pad="4"/>
+<connect gate="G$1" pin="P$5" pad="5"/>
+<connect gate="G$1" pin="P$6" pad="6"/>
+<connect gate="G$1" pin="P$7" pad="7"/>
+<connect gate="G$1" pin="P$8" pad="8"/>
+<connect gate="G$1" pin="P$9" pad="9"/>
 </connects>
 <technologies>
 <technology name=""/>

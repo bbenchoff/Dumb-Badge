@@ -15,6 +15,6 @@ void fillConsole(void);
 
 void writeString(const char str[]);
 
-
+void blinkCursor(void);
 
 #endif /* CONSOLE_H_ */

@@ -63,14 +63,12 @@ void newLine(void)
 	
 	for(int k = 0 ; k < 80 ; k ++)
 	{
-		consoleDisplay[23][k] = 0x00;
+		consoleDisplay[k][23] = 0x00;
 	}
 	
 	/*The 'soft scroll' function moves all pixels on the display up
 	20 pixels, or the height of one char. Algorithm is as follows:
 	
-	0) Change the MADCTRL register to 0x00, because that's what
-	I was dealing with when I originally wrote this code.
 	
 	1) Set the GRAM window to a row one pixel high (setxy).
 	example: (0,20,800,21). 
@@ -94,7 +92,6 @@ void newLine(void)
 	window and output contents of 1D array. Repeat this
 	460 times, for each line in the display.
 	
-	7) Set the MADCTRL register back to original value
 	*/
 	
 	uint8_t rowPixel[800];
@@ -164,6 +161,56 @@ void newLine(void)
 	fillRectBackColor(0, 460, 799, 480);
 	
 	
+}
+
+void blinkCursor(void)
+{
+	uint16_t x = xCharPos;
+	uint16_t y = yCharPos;
+	unsigned char character = consoleDisplay[x][y];
+	setXY(x*10,y*20,x*10+9,y*20+19);
+	REG_PORT_OUTCLR1 = LCD_CS;
+	if(cursorBlinkState)
+	{
+		for(uint16_t i=0; i <= 24; i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+				if((CodePage437[character][i]&(1<<(7-j)))!=0)
+				{
+					
+					setPixel((back_Color_High<<8)|back_Color_Low);
+				}
+				else
+				{
+					setPixel((fore_Color_High<<8)|fore_Color_Low);
+				}
+			}
+		}
+	}
+	else
+	{
+		for(uint16_t i=0; i <= 24; i++)
+		{
+			for(int j=0;j<8;j++)
+			{
+				if((CodePage437[character][i]&(1<<(7-j)))!=0)
+				{
+					setPixel((fore_Color_High<<8)|fore_Color_Low);
+				}
+				else
+				{
+					setPixel((back_Color_High<<8)|back_Color_Low);
+					
+				}
+			}
+		}
+	}
+
+	REG_PORT_OUTSET1 = LCD_CS;
+	
+	//invert cursorBlinkState
+	cursorBlinkState = !cursorBlinkState;
 	
 }
 
