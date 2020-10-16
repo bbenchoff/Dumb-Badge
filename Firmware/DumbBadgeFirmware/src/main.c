@@ -9,6 +9,8 @@
 #include "keyboard.h"
 #include "console.h"
 #include "splash.h"
+#include "uart.h"
+
 
 #include "config_usart.h"
 #include "conf_clocks.h"
@@ -81,15 +83,6 @@ void conf_systick(void)
 	system_interrupt_enable(SYSTEM_INTERRUPT_SYSTICK);
 }
 
-void SERCOM2_Handler()
-{
-	if (sercom->USART.INTFLAG.bit.RXC)
-	{
-		// Got a character
-		uint16_t rxData = sercom->USART.DATA.reg;
-		drawChar(rxData);
-	}
-}
 
 /**************************SERCOM STUFF*******************************/
 
