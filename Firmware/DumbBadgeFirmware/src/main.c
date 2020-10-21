@@ -22,6 +22,7 @@ bool funcLock = false;
 #define RX_LEN 10
 char rx_buf;
 
+
 void usart_read_callback(struct usart_module *const usart_module);
 void configure_usart(void);
 void configure_usart_callbacks(void);
@@ -52,11 +53,10 @@ int main (void)
 	{			
 		__WFI();
 		
-		if((ul_tickcount % (UINT16_MAX/4) == 0) && (funcLock == false) &&
-			)
+		if((ul_tickcount % (UINT16_MAX/4) == 0) && (funcLock == false))
 		{
 			funcLock = true;
-			
+
 			blinkCursor();
 			
 			funcLock = false;
@@ -65,8 +65,10 @@ int main (void)
 		if((ul_tickcount % 200 == 0) && (funcLock == false))
 		{
 			funcLock = true;
+
 			readKeyboard();
 			printKeyboardBuffer();
+
 			funcLock = false;
 		}
 		
@@ -98,6 +100,7 @@ void usart_read_callback(struct usart_module *const usart_module)
 	drawChar(temp);
 	xCharPos++;
 }
+
 
 
 /**************************SERCOM STUFF*******************************/

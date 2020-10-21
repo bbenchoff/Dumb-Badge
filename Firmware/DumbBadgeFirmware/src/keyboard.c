@@ -237,7 +237,6 @@ void printKeyboardBuffer(void)
 					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					
 					
-					
 					if(xCharPos > 79)
 					{
 

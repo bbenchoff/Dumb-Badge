@@ -5976,6 +5976,8 @@ void drawChar(uint8_t character)
     1e84:	03d2      	lsls	r2, r2, #15
     1e86:	4b0e      	ldr	r3, [pc, #56]	; (1ec0 <drawChar+0xe4>)
     1e88:	601a      	str	r2, [r3, #0]
+	
+	//printf(consoleDisplay[xCharPos][yCharPos]);
 
 }
     1e8a:	bc1c      	pop	{r2, r3, r4}
@@ -9016,6 +9018,9 @@ void setupBoard(void)
     310e:	4814      	ldr	r0, [pc, #80]	; (3160 <setupBoard+0xf0>)
     3110:	4b14      	ldr	r3, [pc, #80]	; (3164 <setupBoard+0xf4>)
     3112:	4798      	blx	r3
+
+
+
 	
 	InitLCD();
     3114:	4b14      	ldr	r3, [pc, #80]	; (3168 <setupBoard+0xf8>)

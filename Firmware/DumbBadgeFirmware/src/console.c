@@ -43,6 +43,8 @@ void drawChar(uint8_t character)
 		}
 	}
 	REG_PORT_OUTSET1 = LCD_CS;
+	
+	//printf(consoleDisplay[xCharPos][yCharPos]);
 
 }
 
