@@ -122,6 +122,10 @@ void splashScreen(void)
 	splashText[32] = "Off by one errors are common";
 	
 	const char *textPhrase = splashText[((rand()%32))];
+	char bootString[40];
+	const uint32_t megaHurtz = system_gclk_gen_get_hz(0);
+	itoa(megaHurtz,bootString,10);
+	//strcpy(bootString, " Hz");
 
 	
 	clearScreen();
@@ -139,17 +143,16 @@ void splashScreen(void)
 	else
 	drawKare(0); //The normal graphic
 	
-	/*
-	setDrawDirection();
-	This is not used since I fixed the way fonts are rendered;
-	Now, pixel(0,0) is in the top *right* corner of the screen.
-	Trust me, this is easier.
-	*/
+
 	
 	xCharPos = 40 - (strlen(textPhrase)/2);
 	yCharPos = 16;
 	
 	writeString(textPhrase);
+	
+	yCharPos = 17;
+	xCharPos = 40 - (strlen(bootString)/2);
+	writeString(bootString);
 	delay_ms(2000);
 	clearScreen();
 	

@@ -161,6 +161,7 @@ void printKeyboardBuffer(void)
 					xCharPos = 0;
 					drawChar(0x00);
 					blinkCursor();
+					printf("\r");
 				}
 				else
 				{
@@ -169,6 +170,7 @@ void printKeyboardBuffer(void)
 					xCharPos = 0;
 					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					blinkCursor();
+					printf("\r");
 				}
 			}
 			else if(scanCodeBuffer[i] == 69) //Line
@@ -180,6 +182,7 @@ void printKeyboardBuffer(void)
 					newLine();
 					drawChar(0x00);
 					blinkCursor();
+					printf("\n");
 				}
 				else
 				{
@@ -187,6 +190,7 @@ void printKeyboardBuffer(void)
 					yCharPos++;
 					drawChar(consoleDisplay[xCharPos][yCharPos]);
 					blinkCursor();
+					printf("\n");
 				}
 			}
 			else if(scanCodeBuffer[i] == 66) //Backspace
