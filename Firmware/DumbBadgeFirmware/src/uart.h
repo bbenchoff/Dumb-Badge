@@ -5,4 +5,11 @@
  *  Author: bench
  */ 
 
+#ifndef UART_H	
+#define UART_H
 
+void parseRXBuffer(void);
+void clearRXBuffer(void);
+
+
+#endif /* UART_H */

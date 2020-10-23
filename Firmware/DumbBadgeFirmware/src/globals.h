@@ -9,6 +9,8 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+
+//Pin Definitions
 #define KB_ROW0		PORT_PA02
 #define KB_ROW1		PORT_PA03
 #define KB_ROW2		PORT_PA04
@@ -34,6 +36,9 @@
 #define LCD_DC		PORT_PB23
 #define LCD_RD		PORT_PB16
 
+//USART Definitions
+#define RX_LEN 10
+extern char rx_buf;
 
 extern uint16_t fore_Color_High, fore_Color_Low;
 extern uint16_t back_Color_High, back_Color_Low;

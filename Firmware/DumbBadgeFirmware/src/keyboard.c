@@ -197,9 +197,9 @@ void printKeyboardBuffer(void)
 			{
 				drawChar(consoleDisplay[xCharPos][yCharPos]);
 				xCharPos--;
-				drawChar(0x20);
-				
-				
+				tempCharacter = consoleDisplay[xCharPos][yCharPos];
+				drawChar(tempCharacter);
+				blinkCursor();
 			}
 			else
 			{

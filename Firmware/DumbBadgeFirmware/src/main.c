@@ -19,7 +19,6 @@
 uint16_t ul_tickcount=0;
 bool funcLock = false;	
 
-#define RX_LEN 10
 char rx_buf;
 
 
@@ -68,6 +67,8 @@ int main (void)
 
 			readKeyboard();
 			printKeyboardBuffer();
+			
+			parseRXBuffer();
 
 			funcLock = false;
 		}
@@ -92,13 +93,9 @@ void conf_systick(void)
 
 void usart_read_callback(struct usart_module *const usart_module)
 {
-	char temp = 0x00;
-	usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
-	
-	temp = rx_buf;
 
-	drawChar(temp);
-	xCharPos++;
+	usart_read_buffer_job(&usart_instance, (char*)&rx_buf, 1);
+	
 }
 
 
