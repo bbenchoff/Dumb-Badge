@@ -140,7 +140,7 @@ src/uart.d src/uart.o: ../src/uart.c ../src/asf.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\xlocale.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\sys\string.h \
  ../src/globals.h ../src/LCDBus.h ../src/LCD.h ../src/keyboard.h \
- ../src/console.h ../src/splash.h ../src/uart.h
+ ../src/console.h ../src/splash.h ../src/uart.h ../src/ouroboros.h
 
 ../src/asf.h:
 
@@ -443,3 +443,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/splash.h:
 
 ../src/uart.h:
+
+../src/ouroboros.h:

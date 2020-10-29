@@ -121,11 +121,9 @@ void splashScreen(void)
 	splashText[31] = "Breadboarding Is Not A Crime";//
 	splashText[32] = "Off by one errors are common";
 	
-	const char *textPhrase = splashText[((rand()%32))];
-	char bootString[40];
 	const uint32_t megaHurtz = system_gclk_gen_get_hz(0);
-	itoa(megaHurtz,bootString,10);
-	//strcpy(bootString, " Hz");
+	const char *textPhrase = splashText[(((rand()+megaHurtz)%32))];
+
 
 	
 	clearScreen();
@@ -149,10 +147,7 @@ void splashScreen(void)
 	yCharPos = 16;
 	
 	writeString(textPhrase);
-	
-	yCharPos = 17;
-	xCharPos = 40 - (strlen(bootString)/2);
-	writeString(bootString);
+
 	delay_ms(2000);
 	clearScreen();
 	

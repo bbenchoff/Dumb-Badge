@@ -2,6 +2,13 @@
 #include <asf.h>
 #include <string.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <assert.h>
+
 #include "globals.h"
 
 #include "LCDBus.h"
@@ -11,20 +18,26 @@
 #include "splash.h"
 #include "uart.h"
 
+#include "ouroboros.h"
+
 //#include "config_usart.h"
 #include "conf_clocks.h"
+
+#define UART_BUFFER_SIZE 2048
 
 /** VARIABLES *****************************************************************/
 
 uint16_t ul_tickcount=0;
 bool funcLock = false;	
 
-char rx_buf;
+
+	
 
 
 void usart_read_callback(struct usart_module *const usart_module);
 void configure_usart(void);
 void configure_usart_callbacks(void);
+void print_buffer_status(cbuf_handle_t cbuf);
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -41,13 +54,17 @@ struct adc_module adc_instance;
 
 struct usart_module usart_instance;
 
-
+#define EXAMPLE_BUFFER_SIZE 2048
+extern cbuf_handle_t cbuf;	
 
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
 {
 	setupBoard();
-	
+	/*
+	uint8_t * buffer  = malloc(EXAMPLE_BUFFER_SIZE * sizeof(uint8_t));
+	cbuf_handle_t cbuf = circular_buf_init(buffer, EXAMPLE_BUFFER_SIZE);
+	*/
 	while(1)
 	{			
 		__WFI();
@@ -73,7 +90,7 @@ int main (void)
 			funcLock = false;
 		}
 		
-
+	
 	}
 }
 
@@ -93,9 +110,16 @@ void conf_systick(void)
 
 void usart_read_callback(struct usart_module *const usart_module)
 {
-
+	char rx_buf;
+	// Read one character from the UART.
+	//We can only use this function because it's non-blocking
+	//and we can only read one character because reading > 1 means
+	//it doesn't complete until _all_ characters are read.
+	
 	usart_read_buffer_job(&usart_instance, (char*)&rx_buf, 1);
 	
+	//stuff that ONE CHARACTER into the circular FIFO buffer
+	//circular_buf_put(cbuf, rx_buf);
 }
 
 
@@ -160,7 +184,6 @@ void configure_adc(void)
 }
 
 
-
 void setupBoard(void)
 {
 	uint16_t adcResult;
@@ -170,20 +193,25 @@ void setupBoard(void)
 	configure_adc();
 	adc_start_conversion(&adc_instance);
 	do {
-		/* Wait for conversion to be done and read out result */
+	/* Wait for conversion to be done and read out result */
 	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
 	
 	delay_init();
 	srand(adcResult);
+	conf_systick();
+    
 	//configure_usart_USB();
 
-	//configure_console();
-	//printf("Serial OK 9600 8N1\n\r");
+
 	configure_usart();
 	configure_usart_callbacks();
 	system_interrupt_enable_global();
+	//usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
+	
+	
 	printf("Serial OK 9600 8N1\n\r");
-	usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
+	
+
 	
 	InitLCD();
 	splashScreen();
@@ -193,4 +221,13 @@ void setupBoard(void)
 	xCharPos=0;
 	yCharPos=0;
 	drawChar(0xFF);
+}
+
+
+void print_buffer_status(cbuf_handle_t cbuf)
+{
+	printf("Full: %d, empty: %d, size: %d\n\r",
+	circular_buf_full(cbuf),
+	circular_buf_empty(cbuf),
+	circular_buf_size(cbuf));
 }

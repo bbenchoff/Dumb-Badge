@@ -2,6 +2,8 @@
 # Automatically-generated file. Do not edit or delete the file
 ################################################################################
 
+src\ouroboros.c
+
 src\splash.c
 
 src\uart.c

@@ -62,4 +62,8 @@ extern uint8_t cursorBuffer[200];
 
 extern unsigned char consoleDisplay[80][24];
 
+
+
+
+
 #endif /* GLOBALS_H_ */
