@@ -30,9 +30,8 @@
 uint16_t ul_tickcount=0;
 bool funcLock = false;	
 
-
+char rx_buf;
 	
-
 
 void usart_read_callback(struct usart_module *const usart_module);
 void configure_usart(void);
@@ -53,18 +52,21 @@ void conf_systick(void);
 struct adc_module adc_instance;
 
 struct usart_module usart_instance;
+cbuf_handle_t cbuf;
 
 #define EXAMPLE_BUFFER_SIZE 2048
-extern cbuf_handle_t cbuf;	
 
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
 {
 	setupBoard();
-	/*
+
 	uint8_t * buffer  = malloc(EXAMPLE_BUFFER_SIZE * sizeof(uint8_t));
-	cbuf_handle_t cbuf = circular_buf_init(buffer, EXAMPLE_BUFFER_SIZE);
-	*/
+	cbuf = circular_buf_init(buffer, EXAMPLE_BUFFER_SIZE);
+	print_buffer_status(cbuf);
+	circular_buf_put(cbuf, 1);
+	print_buffer_status(cbuf);
+
 	while(1)
 	{			
 		__WFI();
@@ -110,7 +112,7 @@ void conf_systick(void)
 
 void usart_read_callback(struct usart_module *const usart_module)
 {
-	char rx_buf;
+
 	// Read one character from the UART.
 	//We can only use this function because it's non-blocking
 	//and we can only read one character because reading > 1 means
@@ -119,8 +121,10 @@ void usart_read_callback(struct usart_module *const usart_module)
 	usart_read_buffer_job(&usart_instance, (char*)&rx_buf, 1);
 	
 	//stuff that ONE CHARACTER into the circular FIFO buffer
-	//circular_buf_put(cbuf, rx_buf);
+	circular_buf_put(cbuf, rx_buf);
 }
+
+
 
 
 
@@ -206,7 +210,7 @@ void setupBoard(void)
 	configure_usart();
 	configure_usart_callbacks();
 	system_interrupt_enable_global();
-	//usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
+	usart_read_buffer_job(&usart_instance, (char*)&rx_buf, 1);
 	
 	
 	printf("Serial OK 9600 8N1\n\r");

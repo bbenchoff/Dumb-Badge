@@ -20,13 +20,16 @@
 
 char rx_buf;
 char tempCharacter;
-uint8_t characterFromRingBuffer;
+
 
 cbuf_handle_t cbuf;	
 
 void parseRXBuffer(void)
 {
-		//circular_buf_get(cbuf, &characterFromRingBuffer);
+		while(!circular_buf_empty(cbuf))
+		{
+			uint8_t characterFromRingBuffer;
+			circular_buf_get(cbuf, &characterFromRingBuffer);
 		
 			if(characterFromRingBuffer == 0x0D)  //Carriage Return  //this returns to xcharpos = 0
 			{
@@ -89,6 +92,7 @@ void parseRXBuffer(void)
 					xCharPos--;
 				}
 			}
+		}
 }
 
 void clearRXBuffer(void)
