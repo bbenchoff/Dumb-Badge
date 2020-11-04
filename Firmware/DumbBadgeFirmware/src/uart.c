@@ -18,18 +18,17 @@
 #include "uart.h"
 #include "ouroboros.h"
 
-char rx_buf;
+//uint8_t rx_buf;
 char tempCharacter;
 
-
-cbuf_handle_t cbuf;	
+cbuf_handle_t ouroboros;	
 
 void parseRXBuffer(void)
 {
-		while(!circular_buf_empty(cbuf))
+		while(!ring_empty(ouroboros))
 		{
 			uint8_t characterFromRingBuffer;
-			circular_buf_get(cbuf, &characterFromRingBuffer);
+			ring_get(ouroboros, &characterFromRingBuffer);
 		
 			if(characterFromRingBuffer == 0x0D)  //Carriage Return  //this returns to xcharpos = 0
 			{
@@ -76,7 +75,7 @@ void parseRXBuffer(void)
 			else if(characterFromRingBuffer != 0x00)
 			{
 				//this line places the key to be printed into the console buffer
-				consoleDisplay[xCharPos][yCharPos] = rx_buf;
+				consoleDisplay[xCharPos][yCharPos] = characterFromRingBuffer;
 				
 				//this line _actually prints the character_
 				drawChar(characterFromRingBuffer);
@@ -93,11 +92,5 @@ void parseRXBuffer(void)
 				}
 			}
 		}
-}
-
-void clearRXBuffer(void)
-{
-
-	rx_buf = 0x00;
-
+		ring_reset(ouroboros);
 }

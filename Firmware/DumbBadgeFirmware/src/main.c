@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <assert.h>
 
+#include "settings.h"
 #include "globals.h"
 
 #include "LCDBus.h"
@@ -17,55 +18,49 @@
 #include "console.h"
 #include "splash.h"
 #include "uart.h"
-
 #include "ouroboros.h"
+
 
 //#include "config_usart.h"
 #include "conf_clocks.h"
 
-#define UART_BUFFER_SIZE 2048
-
 /** VARIABLES *****************************************************************/
+#define UART_BUFFER_SIZE 10
 
 uint16_t ul_tickcount=0;
-bool funcLock = false;	
+bool funcLock = false;
+uint8_t rx_buf;
 
-char rx_buf;
-	
+/** LOCAL PROTOTYPES **********************************************************/
 
 void usart_read_callback(struct usart_module *const usart_module);
 void configure_usart(void);
 void configure_usart_callbacks(void);
-void print_buffer_status(cbuf_handle_t cbuf);
-
-/** LOCAL PROTOTYPES **********************************************************/
 
 
 void setupBoard(void);
-
 //void configure_usart_USB(void);
 void configure_adc(void);
-
 void conf_systick(void);
 
 //struct usart_module usart_USB;
 struct adc_module adc_instance;
-
 struct usart_module usart_instance;
-cbuf_handle_t cbuf;
-
-#define EXAMPLE_BUFFER_SIZE 2048
+cbuf_handle_t ouroboros;
+struct Settings settings;
 
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
 {
 	setupBoard();
 
-	uint8_t * buffer  = malloc(EXAMPLE_BUFFER_SIZE * sizeof(uint8_t));
-	cbuf = circular_buf_init(buffer, EXAMPLE_BUFFER_SIZE);
-	print_buffer_status(cbuf);
-	circular_buf_put(cbuf, 1);
-	print_buffer_status(cbuf);
+	//initalize the settings	
+	settings.localEcho=false;
+
+	//initalize the ring buffer for uart
+	uint8_t * buffer  = malloc(UART_BUFFER_SIZE * sizeof(uint8_t));
+	ouroboros = ring_init(buffer, UART_BUFFER_SIZE);
+
 
 	while(1)
 	{			
@@ -118,14 +113,11 @@ void usart_read_callback(struct usart_module *const usart_module)
 	//and we can only read one character because reading > 1 means
 	//it doesn't complete until _all_ characters are read.
 	
-	usart_read_buffer_job(&usart_instance, (char*)&rx_buf, 1);
+	usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
 	
 	//stuff that ONE CHARACTER into the circular FIFO buffer
-	circular_buf_put(cbuf, rx_buf);
+	ring_put(ouroboros, rx_buf);
 }
-
-
-
 
 
 /**************************SERCOM STUFF*******************************/
@@ -205,17 +197,16 @@ void setupBoard(void)
 	conf_systick();
     
 	//configure_usart_USB();
-
-
+	
 	configure_usart();
 	configure_usart_callbacks();
 	system_interrupt_enable_global();
-	usart_read_buffer_job(&usart_instance, (char*)&rx_buf, 1);
 	
-	
-	printf("Serial OK 9600 8N1\n\r");
-	
+	//I have no idea why I need to call this; it's in the callback and it
+	//doesn't work without this line here. Remove this at your own peril.
+	usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
 
+	printf("\n\rSerial OK 9600 8N1\n\r");
 	
 	InitLCD();
 	splashScreen();
@@ -225,13 +216,4 @@ void setupBoard(void)
 	xCharPos=0;
 	yCharPos=0;
 	drawChar(0xFF);
-}
-
-
-void print_buffer_status(cbuf_handle_t cbuf)
-{
-	printf("Full: %d, empty: %d, size: %d\n\r",
-	circular_buf_full(cbuf),
-	circular_buf_empty(cbuf),
-	circular_buf_size(cbuf));
 }

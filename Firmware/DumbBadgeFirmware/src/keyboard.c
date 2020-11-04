@@ -11,6 +11,7 @@
 #include "keyboard.h"
 #include "LCD.h"
 #include "LCDBus.h"
+#include "settings.h"
 
 bool capsLock = false;
 bool scrollLock = false;

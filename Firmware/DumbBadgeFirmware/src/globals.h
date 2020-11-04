@@ -36,9 +36,7 @@
 #define LCD_DC		PORT_PB23
 #define LCD_RD		PORT_PB16
 
-//USART Definitions
 #define RX_LEN 10
-extern char rx_buf;
 
 extern uint16_t fore_Color_High, fore_Color_Low;
 extern uint16_t back_Color_High, back_Color_Low;
@@ -62,7 +60,7 @@ extern uint8_t cursorBuffer[200];
 
 extern unsigned char consoleDisplay[80][24];
 
-
+extern struct Settings settings;
 
 
 

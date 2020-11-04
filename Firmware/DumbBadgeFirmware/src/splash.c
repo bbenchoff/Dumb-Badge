@@ -113,7 +113,7 @@ void splashScreen(void)
 	splashText[23] = "Compression algorithm based on BBP (1997)";//
 	splashText[24] = "The source of the Mississippi river is in Pennsylvania.";
 	splashText[25] = "Offensive hardware";//
-	splashText[26] = "Follow World Pog Federation    @WorldPog";//
+	splashText[26] = "WiFi is not wireless Ethernet!";//
 	splashText[27] = "Dummy thicc client";//
 	splashText[28] = "A Nice TTY. An OK Computer.";//
 	splashText[29] = "Ceci n'est pas une Cyberdeck (because it's not a Pelican Case)";//
