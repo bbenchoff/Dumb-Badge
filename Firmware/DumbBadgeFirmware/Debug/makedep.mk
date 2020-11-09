@@ -8,6 +8,10 @@ src\splash.c
 
 src\uart.c
 
+src\vtparse.c
+
+src\vtparse_table.c
+
 src\ASF\common2\services\delay\sam0\systick_counter.c
 
 src\ASF\common\utils\interrupt\interrupt_sam_nvic.c

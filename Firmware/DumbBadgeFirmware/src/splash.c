@@ -87,16 +87,16 @@ void drawKare(int emotion)
 void splashScreen(void)
 {
 	static const char *splashText[32];
-	splashText[0] = "Trans rights are human rights";//
-	splashText[1] = "13^5 + 16^5 = 17^5";//
-	splashText[2] = "Reticulating Splines";//
-	splashText[3] = "violence.works";//
-	splashText[4] = "Tabs!";//
-	splashText[5] = "Kill Billionaires (and Trillionaire)";//
-	splashText[6] = "Interest in technology is not a personality";//
-	splashText[7] = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";//
-	splashText[8] = "No gods. No masters. No external libraries.";//
-	splashText[9] = "Kill Nazis";//
+	splashText[0]  = "Trans rights are human rights";//
+	splashText[1]  = "13^5 + 16^5 = 17^5";//
+	splashText[2]  = "Reticulating Splines";//
+	splashText[3]  = "violence.works";//
+	splashText[4]  = "Tabs!";//
+	splashText[5]  = "Kill Billionaires (and Trillionaire)";//
+	splashText[6]  = "Interest in technology is not a personality";//
+	splashText[7]  = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";//
+	splashText[8]  = "No gods. No masters. No external libraries.";//
+	splashText[9]  = "Kill Nazis";//
 	splashText[10] = "Tiananmen Square 1989";//
 	splashText[11] = "America was founded on slavery";
 	splashText[12] = "There is only capital and labor";//

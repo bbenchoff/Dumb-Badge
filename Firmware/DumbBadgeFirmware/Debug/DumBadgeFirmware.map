@@ -543,6 +543,60 @@ Discarded input sections
  .debug_macro   0x00000000       0x57 src/uart.o
  .debug_macro   0x00000000       0x16 src/uart.o
  .debug_macro   0x00000000       0x94 src/uart.o
+ .group         0x00000000        0x8 src/vtparse.o
+ .group         0x00000000        0x8 src/vtparse.o
+ .text          0x00000000        0x0 src/vtparse.o
+ .data          0x00000000        0x0 src/vtparse.o
+ .bss           0x00000000        0x0 src/vtparse.o
+ .text.do_action
+                0x00000000       0x7c src/vtparse.o
+ .rodata.do_action
+                0x00000000       0x3c src/vtparse.o
+ .text.vtparse_init
+                0x00000000       0x10 src/vtparse.o
+ .text.vtparse  0x00000000       0xa8 src/vtparse.o
+ .debug_info    0x00000000      0x4ff src/vtparse.o
+ .debug_abbrev  0x00000000      0x219 src/vtparse.o
+ .debug_loc     0x00000000      0x416 src/vtparse.o
+ .debug_aranges
+                0x00000000       0x30 src/vtparse.o
+ .debug_ranges  0x00000000       0x68 src/vtparse.o
+ .debug_macro   0x00000000       0x24 src/vtparse.o
+ .debug_macro   0x00000000      0x8c2 src/vtparse.o
+ .debug_macro   0x00000000       0x16 src/vtparse.o
+ .debug_line    0x00000000       0xd8 src/vtparse.o
+ .debug_str     0x00000000     0x2a2e src/vtparse.o
+ .comment       0x00000000       0x5a src/vtparse.o
+ .debug_frame   0x00000000       0x64 src/vtparse.o
+ .ARM.attributes
+                0x00000000       0x32 src/vtparse.o
+ .group         0x00000000        0x8 src/vtparse_table.o
+ .text          0x00000000        0x0 src/vtparse_table.o
+ .data          0x00000000        0x0 src/vtparse_table.o
+ .bss           0x00000000        0x0 src/vtparse_table.o
+ .data.ACTION_NAMES
+                0x00000000       0x40 src/vtparse_table.o
+ .data.ENTRY_ACTIONS
+                0x00000000        0xe src/vtparse_table.o
+ .data.EXIT_ACTIONS
+                0x00000000        0xe src/vtparse_table.o
+ .data.STATE_NAMES
+                0x00000000       0x3c src/vtparse_table.o
+ .data.STATE_TABLE
+                0x00000000      0xe00 src/vtparse_table.o
+ .rodata.str1.4
+                0x00000000      0x162 src/vtparse_table.o
+ .debug_info    0x00000000      0x1e5 src/vtparse_table.o
+ .debug_abbrev  0x00000000       0x89 src/vtparse_table.o
+ .debug_aranges
+                0x00000000       0x18 src/vtparse_table.o
+ .debug_macro   0x00000000       0x15 src/vtparse_table.o
+ .debug_macro   0x00000000      0x8c2 src/vtparse_table.o
+ .debug_line    0x00000000       0x4a src/vtparse_table.o
+ .debug_str     0x00000000     0x28b7 src/vtparse_table.o
+ .comment       0x00000000       0x5a src/vtparse_table.o
+ .ARM.attributes
+                0x00000000       0x32 src/vtparse_table.o
  .group         0x00000000        0x8 src/ASF/common2/services/delay/sam0/systick_counter.o
  .group         0x00000000        0x8 src/ASF/common2/services/delay/sam0/systick_counter.o
  .group         0x00000000        0x8 src/ASF/common2/services/delay/sam0/systick_counter.o
@@ -6588,6 +6642,8 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
 LOAD src/ouroboros.o
 LOAD src/splash.o
 LOAD src/uart.o
+LOAD src/vtparse.o
+LOAD src/vtparse_table.o
 LOAD src/ASF/common2/services/delay/sam0/systick_counter.o
 LOAD src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
 LOAD src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
@@ -8020,13 +8076,18 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
 Cross Reference Table
 
 Symbol                                            File
+ACTION_NAMES                                      src/vtparse_table.o
 AC_Handler                                        src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
 ADC_Handler                                       src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
 DAC_Handler                                       src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
 DMAC_Handler                                      src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
 Dummy_Handler                                     src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
 EIC_Handler                                       src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ENTRY_ACTIONS                                     src/vtparse_table.o
+                                                  src/vtparse.o
 EVSYS_Handler                                     src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+EXIT_ACTIONS                                      src/vtparse_table.o
+                                                  src/vtparse.o
 HardFault_Handler                                 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
 I2S_Handler                                       src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
 InitLCD                                           src/LCDBus.o
@@ -8054,6 +8115,9 @@ SERCOM2_Handler                                   src/ASF/sam0/drivers/sercom/se
 SERCOM3_Handler                                   src/ASF/sam0/drivers/sercom/sercom_interrupt.o
 SERCOM4_Handler                                   src/ASF/sam0/drivers/sercom/sercom_interrupt.o
 SERCOM5_Handler                                   src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+STATE_NAMES                                       src/vtparse_table.o
+STATE_TABLE                                       src/vtparse_table.o
+                                                  src/vtparse.o
 SVC_Handler                                       src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
 SYSCTRL_Handler                                   src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
 SysTick_Handler                                   src/main.o
@@ -8600,6 +8664,8 @@ usart_write_wait                                  src/ASF/sam0/drivers/sercom/us
                                                   src/config/config_usart.o
 vfiprintf                                         c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-vfprintf.o)
 vfprintf                                          c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-nano-vfprintf.o)
+vtparse                                           src/vtparse.o
+vtparse_init                                      src/vtparse.o
 writeString                                       src/console.o
                                                   src/splash.o
 xCharPos                                          src/console.o
