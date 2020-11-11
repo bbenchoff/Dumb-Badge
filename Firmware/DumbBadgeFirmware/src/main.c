@@ -19,6 +19,7 @@
 #include "splash.h"
 #include "uart.h"
 #include "ouroboros.h"
+#include "vtparse.h"
 
 
 //#include "config_usart.h"
@@ -37,7 +38,6 @@ void usart_read_callback(struct usart_module *const usart_module);
 void configure_usart(void);
 void configure_usart_callbacks(void);
 
-
 void setupBoard(void);
 //void configure_usart_USB(void);
 void configure_adc(void);
@@ -48,6 +48,8 @@ struct adc_module adc_instance;
 struct usart_module usart_instance;
 cbuf_handle_t ouroboros;
 struct Settings settings;
+
+vtparse_t parser;
 
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)

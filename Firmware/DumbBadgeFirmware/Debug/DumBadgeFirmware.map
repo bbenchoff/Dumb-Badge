@@ -89,6 +89,7 @@ Allocating common symbols
 Common symbol       size              file
 
 tempCharacter       0x1               src/uart.o
+parser              0x5c              src/main.o
 usart_instance      0x34              src/config/config_usart.o
 errno               0x4               c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-reent.o)
 settings            0x1               src/main.o
@@ -6305,6 +6306,7 @@ Discarded input sections
  .group         0x00000000        0x8 src/main.o
  .group         0x00000000        0x8 src/main.o
  .group         0x00000000        0x8 src/main.o
+ .group         0x00000000        0x8 src/main.o
  .text          0x00000000        0x0 src/main.o
  .data          0x00000000        0x0 src/main.o
  .bss           0x00000000        0x0 src/main.o
@@ -6434,6 +6436,7 @@ Discarded input sections
  .debug_macro   0x00000000       0x57 src/main.o
  .debug_macro   0x00000000       0x16 src/main.o
  .debug_macro   0x00000000       0x94 src/main.o
+ .debug_macro   0x00000000       0x16 src/main.o
  .debug_macro   0x00000000      0x298 src/main.o
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(_udivsi3.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(_udivsi3.o)
@@ -7316,7 +7319,7 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
                 0x200001bc                . = ALIGN (0x4)
                 0x200001bc                _erelocate = .
 
-.bss            0x200001bc      0x904 load address 0x00006d98
+.bss            0x200001bc      0x960 load address 0x00006d98
                 0x200001bc                . = ALIGN (0x4)
                 0x200001bc                _sbss = .
                 0x200001bc                _szero = .
@@ -7380,25 +7383,27 @@ LOAD c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin
                 0x20000a92                fore_Color_High
                 0x20000a94                fore_Color_Low
                 0x20000a96                back_Color_High
- COMMON         0x20000a98       0x24 src/main.o
-                0x20000a98                settings
-                0x20000a99                rx_buf
-                0x20000a9c                adc_instance
- COMMON         0x20000abc        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-reent.o)
-                0x20000abc                errno
-                0x20000ac0                . = ALIGN (0x4)
-                0x20000ac0                _ebss = .
-                0x20000ac0                _ezero = .
+ COMMON         0x20000a98       0x80 src/main.o
+                0x20000a98                parser
+                0x20000af4                settings
+                0x20000af5                rx_buf
+                0x20000af8                adc_instance
+ COMMON         0x20000b18        0x4 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/../../../../arm-none-eabi/lib/thumb/v6-m\libc_nano.a(lib_a-reent.o)
+                0x20000b18                errno
+                0x20000b1c                . = ALIGN (0x4)
+                0x20000b1c                _ebss = .
+                0x20000b1c                _ezero = .
 
-.stack          0x20000ac0     0x2000 load address 0x0000769c
-                0x20000ac0                . = ALIGN (0x8)
-                0x20000ac0                _sstack = .
-                0x20002ac0                . = (. + STACK_SIZE)
- *fill*         0x20000ac0     0x2000 
-                0x20002ac0                . = ALIGN (0x8)
-                0x20002ac0                _estack = .
-                0x20002ac0                . = ALIGN (0x4)
-                0x20002ac0                _end = .
+.stack          0x20000b1c     0x2004 load address 0x000076f8
+                0x20000b20                . = ALIGN (0x8)
+ *fill*         0x20000b1c        0x4 
+                0x20000b20                _sstack = .
+                0x20002b20                . = (. + STACK_SIZE)
+ *fill*         0x20000b20     0x2000 
+                0x20002b20                . = ALIGN (0x8)
+                0x20002b20                _estack = .
+                0x20002b20                . = ALIGN (0x4)
+                0x20002b20                _end = .
 OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
 
 .ARM.attributes
@@ -7571,7 +7576,7 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .comment       0x00000059       0x5a src/LCDBus.o
  .comment       0x00000059       0x5a src/main.o
 
-.debug_info     0x00000000    0x3a072
+.debug_info     0x00000000    0x3a2b8
  .debug_info    0x00000000      0xc57 src/ouroboros.o
  .debug_info    0x00000c57     0x20fd src/splash.o
  .debug_info    0x00002d54     0x1afa src/uart.o
@@ -7599,9 +7604,9 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .debug_info    0x0002eb79     0x2511 src/keyboard.o
  .debug_info    0x0003108a     0x1fa2 src/LCD.o
  .debug_info    0x0003302c     0x2016 src/LCDBus.o
- .debug_info    0x00035042     0x5030 src/main.o
+ .debug_info    0x00035042     0x5276 src/main.o
 
-.debug_abbrev   0x00000000     0x55a6
+.debug_abbrev   0x00000000     0x55b5
  .debug_abbrev  0x00000000      0x29f src/ouroboros.o
  .debug_abbrev  0x0000029f      0x322 src/splash.o
  .debug_abbrev  0x000005c1      0x28f src/uart.o
@@ -7629,7 +7634,7 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .debug_abbrev  0x00004764      0x38e src/keyboard.o
  .debug_abbrev  0x00004af2      0x357 src/LCD.o
  .debug_abbrev  0x00004e49      0x298 src/LCDBus.o
- .debug_abbrev  0x000050e1      0x4c5 src/main.o
+ .debug_abbrev  0x000050e1      0x4d4 src/main.o
 
 .debug_loc      0x00000000     0x6809
  .debug_loc     0x00000000      0x1ec src/ouroboros.o
@@ -7747,7 +7752,7 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .debug_ranges  0x00000808       0x38 src/LCDBus.o
  .debug_ranges  0x00000840       0x70 src/main.o
 
-.debug_macro    0x00000000    0x1f156
+.debug_macro    0x00000000    0x1f16b
  .debug_macro   0x00000000      0x135 src/ouroboros.o
  .debug_macro   0x00000135      0x8c2 src/ouroboros.o
  .debug_macro   0x000009f7       0x22 src/ouroboros.o
@@ -7918,10 +7923,10 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .debug_macro   0x0001d6b4      0x6a4 src/keyboard.o
  .debug_macro   0x0001dd58      0x676 src/LCD.o
  .debug_macro   0x0001e3ce      0x677 src/LCDBus.o
- .debug_macro   0x0001ea45      0x6fb src/main.o
- .debug_macro   0x0001f140       0x16 src/main.o
+ .debug_macro   0x0001ea45      0x710 src/main.o
+ .debug_macro   0x0001f155       0x16 src/main.o
 
-.debug_line     0x00000000    0x13a40
+.debug_line     0x00000000    0x13a5e
  .debug_line    0x00000000      0x387 src/ouroboros.o
  .debug_line    0x00000387      0xe9b src/splash.o
  .debug_line    0x00001222      0xe30 src/uart.o
@@ -7949,65 +7954,65 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .debug_line    0x0000fd08      0xfac src/keyboard.o
  .debug_line    0x00010cb4      0xee0 src/LCD.o
  .debug_line    0x00011b94      0xe62 src/LCDBus.o
- .debug_line    0x000129f6     0x104a src/main.o
+ .debug_line    0x000129f6     0x1068 src/main.o
 
-.debug_str      0x00000000    0x9028d
+.debug_str      0x00000000    0x90694
  .debug_str     0x00000000     0x6383 src/ouroboros.o
                                0x6621 (size before relaxing)
- .debug_str     0x00006383    0x82208 src/splash.o
+ .debug_str     0x00006383    0x82202 src/splash.o
                               0x88e3b (size before relaxing)
- .debug_str     0x0008858b      0x40a src/uart.o
+ .debug_str     0x00088585      0x40a src/uart.o
                               0x89012 (size before relaxing)
- .debug_str     0x00088995       0x8f src/ASF/common2/services/delay/sam0/systick_counter.o
+ .debug_str     0x0008898f       0x8f src/ASF/common2/services/delay/sam0/systick_counter.o
                               0x83f05 (size before relaxing)
- .debug_str     0x00088a24       0x94 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_str     0x00088a1e       0x94 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
                               0x83cf5 (size before relaxing)
- .debug_str     0x00088ab8      0x1c9 src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
+ .debug_str     0x00088ab2      0x1c9 src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
                               0x87a47 (size before relaxing)
- .debug_str     0x00088c81     0x1354 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
+ .debug_str     0x00088c7b     0x1354 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
                               0x85c80 (size before relaxing)
- .debug_str     0x00089fd5      0x189 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
+ .debug_str     0x00089fcf      0x189 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
                               0x84a4b (size before relaxing)
- .debug_str     0x0008a15e       0x5e src/ASF/sam0/drivers/port/port.o
+ .debug_str     0x0008a158       0x5e src/ASF/sam0/drivers/port/port.o
                               0x84121 (size before relaxing)
- .debug_str     0x0008a1bc      0x98e src/ASF/sam0/drivers/sercom/sercom.o
+ .debug_str     0x0008a1b6      0x98e src/ASF/sam0/drivers/sercom/sercom.o
                               0x853e8 (size before relaxing)
- .debug_str     0x0008ab4a      0x56b src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+ .debug_str     0x0008ab44      0x56b src/ASF/sam0/drivers/sercom/sercom_interrupt.o
                               0x85283 (size before relaxing)
- .debug_str     0x0008b0b5      0xa20 src/ASF/sam0/drivers/sercom/usart/usart.o
+ .debug_str     0x0008b0af      0xa1a src/ASF/sam0/drivers/sercom/usart/usart.o
                               0x861a1 (size before relaxing)
- .debug_str     0x0008bad5      0x1cc src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
+ .debug_str     0x0008bac9      0x1cc src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
                               0x853e7 (size before relaxing)
- .debug_str     0x0008bca1     0x24a2 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+ .debug_str     0x0008bc95     0x249c src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
                               0x86f86 (size before relaxing)
- .debug_str     0x0008e143      0x1db src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
+ .debug_str     0x0008e131      0x1db src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
                               0x849b8 (size before relaxing)
- .debug_str     0x0008e31e      0x179 src/ASF/sam0/drivers/system/pinmux/pinmux.o
+ .debug_str     0x0008e30c      0x179 src/ASF/sam0/drivers/system/pinmux/pinmux.o
                               0x84197 (size before relaxing)
- .debug_str     0x0008e497       0x47 src/ASF/sam0/drivers/system/system.o
+ .debug_str     0x0008e485       0x47 src/ASF/sam0/drivers/system/system.o
                               0x83dd2 (size before relaxing)
- .debug_str     0x0008e4de      0xf17 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ .debug_str     0x0008e4cc      0xf17 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
                               0x6edf9 (size before relaxing)
- .debug_str     0x0008f3f5       0x74 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
+ .debug_str     0x0008f3e3       0x74 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
                               0x6dc7c (size before relaxing)
- .debug_str     0x0008f469       0x2a src/ASF/sam0/utils/stdio/read.o
+ .debug_str     0x0008f457       0x2a src/ASF/sam0/utils/stdio/read.o
                               0x83c9c (size before relaxing)
- .debug_str     0x0008f493       0x24 src/ASF/sam0/utils/stdio/write.o
+ .debug_str     0x0008f481       0x24 src/ASF/sam0/utils/stdio/write.o
                               0x83c9d (size before relaxing)
- .debug_str     0x0008f4b7      0x75b src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_str     0x0008f4a5      0x75b src/ASF/sam0/utils/syscalls/gcc/syscalls.o
                                0x73b0 (size before relaxing)
- .debug_str     0x0008fc12      0x215 src/config/config_usart.o
+ .debug_str     0x0008fc00      0x215 src/config/config_usart.o
                               0x8a0a8 (size before relaxing)
- .debug_str     0x0008fe27       0x8a src/console.o
+ .debug_str     0x0008fe15       0x8a src/console.o
                               0x89191 (size before relaxing)
- .debug_str     0x0008feb1      0x116 src/keyboard.o
+ .debug_str     0x0008fe9f      0x116 src/keyboard.o
                               0x89203 (size before relaxing)
- .debug_str     0x0008ffc7       0x75 src/LCD.o
+ .debug_str     0x0008ffb5       0x75 src/LCD.o
                               0x89008 (size before relaxing)
- .debug_str     0x0009003c       0x57 src/LCDBus.o
+ .debug_str     0x0009002a       0x57 src/LCDBus.o
                               0x88c59 (size before relaxing)
- .debug_str     0x00090093      0x1fa src/main.o
-                              0x8c192 (size before relaxing)
+ .debug_str     0x00090081      0x613 src/main.o
+                              0x8c5cb (size before relaxing)
 
 .debug_frame    0x00000000     0x19b4
  .debug_frame   0x00000000       0x90 src/ouroboros.o
@@ -8507,6 +8512,7 @@ ouroboros                                         src/main.o
                                                   src/uart.o
 parseRXBuffer                                     src/uart.o
                                                   src/main.o
+parser                                            src/main.o
 port_group_set_config                             src/ASF/sam0/drivers/port/port.o
 port_pin_set_config                               src/ASF/sam0/drivers/port/port.o
                                                   src/ASF/sam0/boards/samd21_xplained_pro/board_init.o

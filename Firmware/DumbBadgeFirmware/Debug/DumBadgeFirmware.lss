@@ -7,31 +7,31 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
   1 .relocate     000001bc  20000000  00006bdc  00020000  2**2
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          00000904  200001bc  00006d98  000201bc  2**2
+  2 .bss          00000960  200001bc  00006d98  000201bc  2**2
                   ALLOC
-  3 .stack        00002000  20000ac0  0000769c  000201bc  2**0
+  3 .stack        00002004  20000b1c  000076f8  000201bc  2**0
                   ALLOC
   4 .ARM.attributes 00000028  00000000  00000000  000201bc  2**0
                   CONTENTS, READONLY
   5 .comment      00000059  00000000  00000000  000201e4  2**0
                   CONTENTS, READONLY
-  6 .debug_info   0003a072  00000000  00000000  0002023d  2**0
+  6 .debug_info   0003a2b8  00000000  00000000  0002023d  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 000055a6  00000000  00000000  0005a2af  2**0
+  7 .debug_abbrev 000055b5  00000000  00000000  0005a4f5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    00006809  00000000  00000000  0005f855  2**0
+  8 .debug_loc    00006809  00000000  00000000  0005faaa  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_aranges 00000748  00000000  00000000  0006605e  2**0
+  9 .debug_aranges 00000748  00000000  00000000  000662b3  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 000008b0  00000000  00000000  000667a6  2**0
+ 10 .debug_ranges 000008b0  00000000  00000000  000669fb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  0001f156  00000000  00000000  00067056  2**0
+ 11 .debug_macro  0001f16b  00000000  00000000  000672ab  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00013a40  00000000  00000000  000861ac  2**0
+ 12 .debug_line   00013a5e  00000000  00000000  00086416  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    0009028d  00000000  00000000  00099bec  2**0
+ 13 .debug_str    00090694  00000000  00000000  00099e74  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  000019b4  00000000  00000000  00129e7c  2**2
+ 14 .debug_frame  000019b4  00000000  00000000  0012a508  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -43,7 +43,7 @@ void SystemInit(void)
 {
 	// Keep the default device state after reset
 	SystemCoreClock = __SYSTEM_CLOCK;
-       0:	c0 2a 00 20 71 1e 00 00 6d 1e 00 00 6d 1e 00 00     .*. q...m...m...
+       0:	20 2b 00 20 71 1e 00 00 6d 1e 00 00 6d 1e 00 00      +. q...m...m...
 	...
 	config->stopbits         = USART_STOPBITS_1;
 	config->character_size   = USART_CHARACTER_SIZE_8BIT;
@@ -6063,7 +6063,7 @@ void Dummy_Handler(void)
     1f24:	200001bc 	.word	0x200001bc
     1f28:	20000004 	.word	0x20000004
     1f2c:	200001bc 	.word	0x200001bc
-    1f30:	20000ac0 	.word	0x20000ac0
+    1f30:	20000b1c 	.word	0x20000b1c
     1f34:	e000ed00 	.word	0xe000ed00
     1f38:	00000000 	.word	0x00000000
     1f3c:	41007000 	.word	0x41007000
@@ -6228,7 +6228,7 @@ extern caddr_t _sbrk(int incr)
     2000:	6011      	str	r1, [r2, #0]
     2002:	e7f6      	b.n	1ff2 <_sbrk+0xa>
     2004:	20000294 	.word	0x20000294
-    2008:	20002ac0 	.word	0x20002ac0
+    2008:	20002b20 	.word	0x20002b20
 
 0000200c <_close>:
 }
@@ -8917,7 +8917,7 @@ void usart_read_callback(struct usart_module *const usart_module)
 }
     307c:	bd10      	pop	{r4, pc}
     307e:	46c0      	nop			; (mov r8, r8)
-    3080:	20000a99 	.word	0x20000a99
+    3080:	20000af5 	.word	0x20000af5
     3084:	200002d8 	.word	0x200002d8
     3088:	0000151d 	.word	0x0000151d
     308c:	200002ac 	.word	0x200002ac
@@ -9307,7 +9307,7 @@ void configure_adc(void)
     32b4:	bd10      	pop	{r4, pc}
     32b6:	46c0      	nop			; (mov r8, r8)
     32b8:	00000751 	.word	0x00000751
-    32bc:	20000a9c 	.word	0x20000a9c
+    32bc:	20000af8 	.word	0x20000af8
     32c0:	42004000 	.word	0x42004000
     32c4:	00000795 	.word	0x00000795
     32c8:	e000e100 	.word	0xe000e100
@@ -9479,14 +9479,14 @@ void setupBoard(void)
     338e:	46c0      	nop			; (mov r8, r8)
     3390:	00001e41 	.word	0x00001e41
     3394:	0000326d 	.word	0x0000326d
-    3398:	20000a9c 	.word	0x20000a9c
+    3398:	20000af8 	.word	0x20000af8
     339c:	0000063d 	.word	0x0000063d
     33a0:	00003a05 	.word	0x00003a05
     33a4:	000030e9 	.word	0x000030e9
     33a8:	0000313d 	.word	0x0000313d
     33ac:	00003245 	.word	0x00003245
     33b0:	20000008 	.word	0x20000008
-    33b4:	20000a99 	.word	0x20000a99
+    33b4:	20000af5 	.word	0x20000af5
     33b8:	200002d8 	.word	0x200002d8
     33bc:	0000151d 	.word	0x0000151d
     33c0:	00006b0c 	.word	0x00006b0c
@@ -9585,7 +9585,7 @@ void setupBoard(void)
     3460:	d0d9      	beq.n	3416 <main+0x3a>
     3462:	e7e3      	b.n	342c <main+0x50>
     3464:	000032cd 	.word	0x000032cd
-    3468:	20000a98 	.word	0x20000a98
+    3468:	20000af4 	.word	0x20000af4
     346c:	00003821 	.word	0x00003821
     3470:	00000115 	.word	0x00000115
     3474:	200002ac 	.word	0x200002ac
@@ -10403,7 +10403,7 @@ void setupBoard(void)
     3af2:	602b      	str	r3, [r5, #0]
     3af4:	bd70      	pop	{r4, r5, r6, pc}
     3af6:	46c0      	nop			; (mov r8, r8)
-    3af8:	20000abc 	.word	0x20000abc
+    3af8:	20000b18 	.word	0x20000b18
 
 00003afc <setbuf>:
     3afc:	424a      	negs	r2, r1
@@ -12014,7 +12014,7 @@ void setupBoard(void)
     47d6:	602b      	str	r3, [r5, #0]
     47d8:	bd70      	pop	{r4, r5, r6, pc}
     47da:	46c0      	nop			; (mov r8, r8)
-    47dc:	20000abc 	.word	0x20000abc
+    47dc:	20000b18 	.word	0x20000b18
 
 000047e0 <__swsetup_r>:
     47e0:	4b36      	ldr	r3, [pc, #216]	; (48bc <__swsetup_r+0xdc>)
@@ -12145,7 +12145,7 @@ void setupBoard(void)
     48e6:	602b      	str	r3, [r5, #0]
     48e8:	bd70      	pop	{r4, r5, r6, pc}
     48ea:	46c0      	nop			; (mov r8, r8)
-    48ec:	20000abc 	.word	0x20000abc
+    48ec:	20000b18 	.word	0x20000b18
 
 000048f0 <_fstat_r>:
     48f0:	2300      	movs	r3, #0
@@ -12163,7 +12163,7 @@ void setupBoard(void)
     490a:	d000      	beq.n	490e <_fstat_r+0x1e>
     490c:	602b      	str	r3, [r5, #0]
     490e:	bd70      	pop	{r4, r5, r6, pc}
-    4910:	20000abc 	.word	0x20000abc
+    4910:	20000b18 	.word	0x20000b18
 
 00004914 <_isatty_r>:
     4914:	2300      	movs	r3, #0
@@ -12181,7 +12181,7 @@ void setupBoard(void)
     492e:	602b      	str	r3, [r5, #0]
     4930:	bd70      	pop	{r4, r5, r6, pc}
     4932:	46c0      	nop			; (mov r8, r8)
-    4934:	20000abc 	.word	0x20000abc
+    4934:	20000b18 	.word	0x20000b18
 
 00004938 <_lseek_r>:
     4938:	b570      	push	{r4, r5, r6, lr}
@@ -12201,7 +12201,7 @@ void setupBoard(void)
     4956:	602b      	str	r3, [r5, #0]
     4958:	bd70      	pop	{r4, r5, r6, pc}
     495a:	46c0      	nop			; (mov r8, r8)
-    495c:	20000abc 	.word	0x20000abc
+    495c:	20000b18 	.word	0x20000b18
 
 00004960 <memchr>:
     4960:	b2c9      	uxtb	r1, r1
@@ -12235,7 +12235,7 @@ void setupBoard(void)
     4996:	602b      	str	r3, [r5, #0]
     4998:	bd70      	pop	{r4, r5, r6, pc}
     499a:	46c0      	nop			; (mov r8, r8)
-    499c:	20000abc 	.word	0x20000abc
+    499c:	20000b18 	.word	0x20000b18
     49a0:	000a000a 	.word	0x000a000a
     49a4:	00140014 	.word	0x00140014
     49a8:	00000014 	.word	0x00000014
