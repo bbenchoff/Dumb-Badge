@@ -21,5 +21,11 @@ Features include:
   * DE-9 RS-232 serial connector, provided with MAX3232
   * USB 2.0 over USB-C connector
   * Internal UART connectors allow for internal connection to Raspberry Pi Zero (a la VT-180) or any other board that presents UART over the usual raspi pins.
+* Completely Open Source
+  * Source files are available only via Zip disk. Each Zip disk of source costs $2 + shipping
+  * This source distribution is compliant with GPL-3.0, Section 4, Conveying Verbatim Copies:
+   * You may convey verbatim copies of the Program's source code as you receive it, *in any medium*
+   * *You may charge any price or no price for each copy that you convey*
+ 
 
 ![Front View Image](https://github.com/bbenchoff/Dumb-Badge/blob/master/Web-Assets/FullFrontal.png)
