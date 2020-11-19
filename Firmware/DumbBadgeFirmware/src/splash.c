@@ -111,7 +111,7 @@ void splashScreen(void)
 	splashText[21] = "It has 69 keys.";//
 	splashText[22] = "Because VT-420 was already taken";//
 	splashText[23] = "Compression algorithm based on BBP (1997)";//
-	splashText[24] = "The source of the Mississippi river is in Pennsylvania.";
+	splashText[24] = "Teach health insurance providers to code.";
 	splashText[25] = "Offensive hardware";//
 	splashText[26] = "WiFi is not wireless Ethernet!";//
 	splashText[27] = "Dummy thicc client";//

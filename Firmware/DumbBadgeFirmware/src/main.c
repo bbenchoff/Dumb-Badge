@@ -20,6 +20,7 @@
 #include "uart.h"
 #include "ouroboros.h"
 #include "vtparse.h"
+#include "settings.h"
 
 
 //#include "config_usart.h"
@@ -31,6 +32,11 @@
 uint16_t ul_tickcount=0;
 bool funcLock = false;
 uint8_t rx_buf;
+/** GLOBAL SETTINGS ***********************************************************/
+
+bool localEcho = false;
+bool breakEnable = true;
+
 
 /** LOCAL PROTOTYPES **********************************************************/
 
@@ -47,7 +53,7 @@ void conf_systick(void);
 struct adc_module adc_instance;
 struct usart_module usart_instance;
 cbuf_handle_t ouroboros;
-struct Settings settings;
+//struct Settings settings;
 
 vtparse_t parser;
 
@@ -57,7 +63,7 @@ int main (void)
 	setupBoard();
 
 	//initalize the settings	
-	settings.localEcho=false;
+	//settings.localEcho=false;
 
 	//initalize the ring buffer for uart
 	uint8_t * buffer  = malloc(UART_BUFFER_SIZE * sizeof(uint8_t));

@@ -9,10 +9,18 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+/*
 struct Settings {
 	
 	bool localEcho;
 	
 };
+*/
+
+
+
+bool localEcho;
+bool breakEnable;
+ 
 
 #endif

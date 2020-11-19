@@ -17,6 +17,8 @@ bool scanCodesContains(int scanCode);
 bool keyDown(int scancode);
 void removeFromKeyDown(int scancode);
 
+void arrowKey(int scancode);
+
 
 
 

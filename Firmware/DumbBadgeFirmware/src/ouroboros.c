@@ -10,7 +10,6 @@
 #include <stdlib.h>
 #include <stdint.h>
 
-
 #include "ouroboros.h"
 
 extern struct circular_buf_t {
