@@ -9,6 +9,8 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+#include <stdbool.h>
+
 
 //Pin Definitions
 #define KB_ROW0		PORT_PA02
@@ -51,9 +53,6 @@ extern unsigned char scanCodeBuffer[20];
 
 extern unsigned char keyDownBuffer[20];
 
-extern bool capsLock;
-extern bool scrollLock;
-extern bool sPoNgEbObCaSe;
 
 extern bool cursorBlinkState;
 extern uint8_t cursorBuffer[200];

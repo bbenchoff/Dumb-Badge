@@ -10,7 +10,7 @@
 #ifndef OUROBOROS_H	
 #define OUROBOROS_H	
 
-#include <stdbool.h>
+
 
 typedef struct circular_buf_t circular_buf_t;
 

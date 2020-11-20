@@ -137,7 +137,7 @@ src/keyboard.d src/keyboard.o: ../src/keyboard.c ../src/asf.h \
  ../src/ASF/common/services/serial/serial.h \
  ../src/ASF/common/services/serial/sam0_usart/usart_serial.h \
  ../src/globals.h ../src/console.h ../src/keyboard.h ../src/LCD.h \
- ../src/LCDBus.h ../src/settings.h ../src/ouroboros.h
+ ../src/LCDBus.h ../src/settings.h ../src/ouroboros.h ../src/parser.h
 
 ../src/asf.h:
 
@@ -434,3 +434,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/settings.h:
 
 ../src/ouroboros.h:
+
+../src/parser.h:

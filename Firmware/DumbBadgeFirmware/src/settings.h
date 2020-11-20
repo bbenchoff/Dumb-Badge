@@ -9,6 +9,8 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include <stdbool.h>
+
 /*
 struct Settings {
 	
@@ -18,9 +20,15 @@ struct Settings {
 */
 
 
+extern bool localEcho;
+extern bool breakEnable;
 
-bool localEcho;
-bool breakEnable;
+
+bool autoWrap;	
+
+bool capsLock;
+bool scrollLock;
+bool sPoNgEbObCaSe;
  
 
 #endif

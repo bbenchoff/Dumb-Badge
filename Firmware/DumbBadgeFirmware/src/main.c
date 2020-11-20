@@ -9,6 +9,7 @@
 #include <stdbool.h>
 #include <assert.h>
 
+
 #include "settings.h"
 #include "globals.h"
 
@@ -19,8 +20,8 @@
 #include "splash.h"
 #include "uart.h"
 #include "ouroboros.h"
-#include "vtparse.h"
 #include "settings.h"
+//#include "parser.h"
 
 
 //#include "config_usart.h"
@@ -32,10 +33,11 @@
 uint16_t ul_tickcount=0;
 bool funcLock = false;
 uint8_t rx_buf;
+
 /** GLOBAL SETTINGS ***********************************************************/
 
-bool localEcho = false;
-bool breakEnable = true;
+bool localEcho = true;
+bool breakEnable = false;
 
 
 /** LOCAL PROTOTYPES **********************************************************/
@@ -55,7 +57,6 @@ struct usart_module usart_instance;
 cbuf_handle_t ouroboros;
 //struct Settings settings;
 
-vtparse_t parser;
 
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
