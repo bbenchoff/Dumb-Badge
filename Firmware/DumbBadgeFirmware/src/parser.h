@@ -8,6 +8,7 @@
 #define PARSER_H
 
 void parseChar(uint8_t character);
+int nextTab(int a);
 
 #endif
 

@@ -17,6 +17,7 @@
 #include "LCDBus.h"
 #include "settings.h"
 #include "ouroboros.h"
+#include "uart.h"
 #include "parser.h"
 
 bool cursorBlinkState = true;
@@ -158,11 +159,36 @@ void printKeyboardBuffer(void)
 			{
 				if(breakEnable)
 				{
-					ring_put(ouroboros, 0x00);
+					sendChar(0x00);
 				}
 				//if breakEnable false, do nothing. 
 			}
-			else if(scanCodeBuffer[i] == 12)			//caps lock
+			else if(scanCodeBuffer[i] == 58)   //Return key
+			{
+				if(lineFeedNewLine == 1)  //This is Windows; CRLF
+				{
+					sendChar(0x0D);
+					sendChar(0x0A);
+					if(localEcho)
+					{
+						ring_put(ouroboros, 0x0D);
+						ring_put(ouroboros, 0x0A);
+					}
+				}
+				if(lineFeedNewLine == 2)  //This is Unix, sends LF
+				{
+					sendChar(0x0A);
+					if(localEcho)
+						ring_put(ouroboros, 0x0A);
+				}
+				if(lineFeedNewLine == 3)  //This is classic mac, sends CR
+				{
+					sendChar(0x0D);
+					if(localEcho)
+						ring_put(ouroboros, 0x0D);
+				}
+			}
+			else if(scanCodeBuffer[i] == 12)		//caps lock
 			{
 				capsLock = !capsLock;
 			}
@@ -172,34 +198,35 @@ void printKeyboardBuffer(void)
 			}
 			else if(scanCodeBuffer[i] == 35) //left
 			{
-				ring_put(ouroboros, 0x1B);
-				ring_put(ouroboros, 0x5B);
-				ring_put(ouroboros, 0x44);
+				sendChar(0x1B);
+				sendChar(0x5B);
+				sendChar(0x44);
+				
 				if(localEcho)
 					arrowKey(scanCodeBuffer[i]);
 			}
 			else if(scanCodeBuffer[i]  == 45)	//down
 			{
 
-				ring_put(ouroboros, 0x1B);
-				ring_put(ouroboros, 0x5B);
-				ring_put(ouroboros, 0x42);
+				sendChar(0x1B);
+				sendChar(0x5B);
+				sendChar(0x42);
 				if(localEcho)
 					arrowKey(scanCodeBuffer[i]);
 			}
 			else if(scanCodeBuffer[i]  == 55)	//up
 			{
-				ring_put(ouroboros, 0x1B);
-				ring_put(ouroboros, 0x5B);
-				ring_put(ouroboros, 0x41);
+				sendChar(0x1B);
+				sendChar(0x5B);
+				sendChar(0x41);
 				if(localEcho)
 					arrowKey(scanCodeBuffer[i]);
 			}
 			else if(scanCodeBuffer[i]  == 65)	//right
 			{
-				ring_put(ouroboros, 0x1B);
-				ring_put(ouroboros, 0x5B);
-				ring_put(ouroboros, 0x43);
+				sendChar(0x1B);
+				sendChar(0x5B);
+				sendChar(0x43);
 				if(localEcho)
 					arrowKey(scanCodeBuffer[i]);
 			}
@@ -207,23 +234,25 @@ void printKeyboardBuffer(void)
 			{
 				if(controled)
 				{
-					ring_put(ouroboros, controlCase[scanCodeBuffer[i]]);
+					sendChar(controlCase[scanCodeBuffer[i]]);
+					if(localEcho)
+						ring_put(ouroboros, controlCase[scanCodeBuffer[i]]);
 				}
 				else if(capsLock)
 				{
-					ring_put(ouroboros, capsLockCase[scanCodeBuffer[i]]);
+					sendChar(capsLockCase[scanCodeBuffer[i]]);
 					if(localEcho)
 						parseChar(capsLockCase[scanCodeBuffer[i]]);
 				}
 				else if(shifted)
 				{
-					ring_put(ouroboros, shiftCase[scanCodeBuffer[i]]);
+					sendChar(shiftCase[scanCodeBuffer[i]]);
 					if(localEcho)
 						parseChar(shiftCase[scanCodeBuffer[i]]);
 				}
 				else
 				{
-					ring_put(ouroboros, noCase[scanCodeBuffer[i]]);
+					sendChar(noCase[scanCodeBuffer[i]]);
 					if(localEcho)
 						parseChar(noCase[scanCodeBuffer[i]]);
 				}
@@ -389,220 +418,7 @@ void removeFromKeyDown(int scancode)
 	}
 }
 
-void arrowKey(int scancode)
-{
-	unsigned char tempCharacter;
-	//Arrow key handling
-	if(scancode == 35) //left
-	{
-		if(xCharPos > 0)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			xCharPos--;
-			tempCharacter = consoleDisplay[xCharPos][yCharPos];
-			drawChar(tempCharacter);
-			blinkCursor();
-		}
-	}
-	else if(scancode  == 45)	//down
-	{
-		if(yCharPos < 23)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			yCharPos++;
-			tempCharacter = consoleDisplay[xCharPos][yCharPos];
-			drawChar(tempCharacter);
-			blinkCursor();
-		}
-	}
-	else if(scancode  == 55)	//up
-	{
-		if(yCharPos > 0)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			yCharPos--;
-			tempCharacter = consoleDisplay[xCharPos][yCharPos];
-			drawChar(tempCharacter);
-			blinkCursor();
-		}
-	}
-	else if(scancode  == 65)	//right
-	{
-		if(xCharPos < 79)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			xCharPos++;
-			tempCharacter = consoleDisplay[xCharPos][yCharPos];
-			drawChar(tempCharacter);
-			blinkCursor();
-		}
-	}
-}
 
 
-	/*
-	for(int i=0; i<20; i++)
-	{
 
-		//if a key is not in the keydown buffer, continue
-		if(!keyDown(scanCodeBuffer[i]))
-		{
-			
-			//add the scancode to the keycode buffer
-			keyDownBuffer[i] = scanCodeBuffer[i];
-			
-			//The actual scancode handling goes here
-			if(scanCodeBuffer[i] == 0xFF)
-			{
-				//do nothing, blank key
-			}
-			
-			//Arrow key handling
-			else if(scanCodeBuffer[i] == 35) //left
-			{
-				if(xCharPos > 0) 
-				{
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					xCharPos--;
-					tempCharacter = consoleDisplay[xCharPos][yCharPos];
-					drawChar(tempCharacter);
-					blinkCursor();
-				}
-			}
-			else if(scanCodeBuffer[i] == 45)	//down
-			{
-				if(yCharPos < 23)
-				{
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					yCharPos++;
-					tempCharacter = consoleDisplay[xCharPos][yCharPos];
-					drawChar(tempCharacter);
-					blinkCursor();
-				}
-			}
-			else if(scanCodeBuffer[i] == 55)	//up
-			{
-				if(yCharPos > 0)
-				{
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					yCharPos--;
-					tempCharacter = consoleDisplay[xCharPos][yCharPos];
-					drawChar(tempCharacter);
-					blinkCursor();				
-				}
-			}
-			else if(scanCodeBuffer[i] == 65)	//right
-			{
-				if(xCharPos < 79)
-				{
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					xCharPos++;
-					tempCharacter = consoleDisplay[xCharPos][yCharPos];
-					drawChar(tempCharacter);
-					blinkCursor();					
-				}
-			}
-			
-			else if((scanCodeBuffer[i] == 49) | (scanCodeBuffer[i] == 13))
-			{
-				//SHIFT - do nothing
-			}
-			else if(scanCodeBuffer[i] == 58) //Return
-			{
-				if(yCharPos == 23)
-				{
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					newLine();
-					xCharPos = 0;
-					drawChar(0x00);
-					blinkCursor();
-					printf("\r");
-				}
-				else
-				{
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					yCharPos++;
-					xCharPos = 0;
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					blinkCursor();
-					printf("\r");
-				}
-			}
-			else if(scanCodeBuffer[i] == 69) //Line
-			{
-				
-				if(yCharPos == 23)
-				{
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					newLine();
-					drawChar(0x00);
-					blinkCursor();
-					printf("\n");
-				}
-				else
-				{
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					yCharPos++;
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					blinkCursor();
-					printf("\n");
-				}
-			}
-			else if(scanCodeBuffer[i] == 66) //Backspace
-			{
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				xCharPos--;
-				tempCharacter = consoleDisplay[xCharPos][yCharPos];
-				drawChar(tempCharacter);
-				blinkCursor();
-			}
-			else
-			{
-				if(shifted)
-				{
-					//this line places the key to be printed into the console buffer
-					consoleDisplay[xCharPos][yCharPos] = shiftCase[scanCodeBuffer[i]];
-					printf("%c",consoleDisplay[xCharPos][yCharPos]);
-					//this line _actually prints the character_
-					drawChar(shiftCase[scanCodeBuffer[i]]);
-					
-					//move the cursor one postition forward
-					xCharPos++;
-					
-					//draw the character again, for some reason, idk.
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-				
-					if(xCharPos > 79)
-					{
-						//readCursor(xCharPos++,yCharPos);
-						xCharPos--;
-						//drawCursorBuffer();
-						//clearCursorBuffer();
-					}
-					//cursorBlinkState = true;
-					blinkCursor();
-				}
-				else
-				{
-					consoleDisplay[xCharPos][yCharPos] = noCase[scanCodeBuffer[i]];
-					printf("%c",consoleDisplay[xCharPos][yCharPos]);
-					drawChar(noCase[scanCodeBuffer[i]]);
-					xCharPos++;
-					drawChar(consoleDisplay[xCharPos][yCharPos]);
-					
-					
-					if(xCharPos > 79)
-					{
 
-						//readCursor(xCharPos++,yCharPos);
-						xCharPos--;
-						//drawCursorBuffer();
-						//clearCursorBuffer();
-					}
-					//cursorBlinkState = true;
-					blinkCursor();
-
-				}
-			}
-		}
-	}*/

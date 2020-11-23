@@ -13,6 +13,7 @@
 #include "console.h"
 #include "fonts.h"
 #include "globals.h"
+#include "parser.h"
 
 uint16_t xCharPos = 0;
 uint16_t yCharPos = 0;
@@ -44,7 +45,6 @@ void drawChar(uint8_t character)
 	}
 	REG_PORT_OUTSET1 = LCD_CS;
 	
-	//printf(consoleDisplay[xCharPos][yCharPos]);
 
 }
 
@@ -234,6 +234,56 @@ void fillConsole(void)
 		for(int j = 0 ; j < 24 ; j++)
 		{
 			consoleDisplay[i][j] = 0x00;
+		}
+	}
+}
+
+void arrowKey(int scancode)
+{
+	unsigned char tempCharacter;
+	//Arrow key handling
+	if(scancode == 35) //left
+	{
+		if(xCharPos > 0)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			xCharPos--;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			blinkCursor();
+		}
+	}
+	else if(scancode  == 45)	//down
+	{
+		if(yCharPos < 23)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos++;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			blinkCursor();
+		}
+	}
+	else if(scancode  == 55)	//up
+	{
+		if(yCharPos > 0)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos--;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			blinkCursor();
+		}
+	}
+	else if(scancode  == 65)	//right
+	{
+		if(xCharPos < 79)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			xCharPos++;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			blinkCursor();
 		}
 	}
 }

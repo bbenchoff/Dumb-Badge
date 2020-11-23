@@ -17,4 +17,6 @@ void writeString(const char str[]);
 
 void blinkCursor(void);
 
+void arrowKey(int scancode);
+
 #endif /* CONSOLE_H_ */

@@ -21,7 +21,7 @@
 #include "uart.h"
 #include "ouroboros.h"
 #include "settings.h"
-//#include "parser.h"
+#include "parser.h"
 
 
 //#include "config_usart.h"
@@ -38,6 +38,7 @@ uint8_t rx_buf;
 
 bool localEcho = true;
 bool breakEnable = false;
+int lineFeedNewLine = 1;
 
 
 /** LOCAL PROTOTYPES **********************************************************/

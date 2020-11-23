@@ -35,3 +35,8 @@ void parseRXBuffer(void)
 		}
 		ring_reset(ouroboros);
 }
+
+void sendChar(char character)
+{
+	printf("%c", character);
+}

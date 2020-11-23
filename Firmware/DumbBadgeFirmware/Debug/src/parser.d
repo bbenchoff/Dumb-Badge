@@ -9,7 +9,8 @@ src/parser.d src/parser.o: ../src/parser.c \
  ../src/globals.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdbool.h \
  ../src/LCDBus.h ../src/LCD.h ../src/keyboard.h ../src/console.h \
- ../src/splash.h ../src/uart.h ../src/ouroboros.h ../src/settings.h
+ ../src/splash.h ../src/uart.h ../src/ouroboros.h ../src/settings.h \
+ ../src/parser.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gcc\arm-none-eabi\6.3.1\include\stdint.h:
 
@@ -44,3 +45,5 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\lib\gc
 ../src/ouroboros.h:
 
 ../src/settings.h:
+
+../src/parser.h:

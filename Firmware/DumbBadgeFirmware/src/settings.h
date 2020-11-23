@@ -23,6 +23,7 @@ struct Settings {
 extern bool localEcho;
 extern bool breakEnable;
 
+extern int lineFeedNewLine;
 
 bool autoWrap;	
 

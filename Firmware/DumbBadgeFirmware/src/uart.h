@@ -11,5 +11,7 @@
 void parseRXBuffer(void);
 void clearRXBuffer(void);
 
+void sendChar(char character);
+
 
 #endif /* UART_H */
