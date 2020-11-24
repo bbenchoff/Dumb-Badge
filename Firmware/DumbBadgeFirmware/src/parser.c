@@ -28,7 +28,7 @@ void parseChar(uint8_t character)
 
 	if(character == 0x00)							//NUL 0x00 DO NOTHING
 	{
-		
+		//always ignore
 	}
 	else if(character == 0x01)						//SOH 0x01 Start of Heading
 	{
@@ -60,11 +60,15 @@ void parseChar(uint8_t character)
 	}
 	else if(character == 0x08)						//BS 0x08 Backspace
 	{
-		drawChar(consoleDisplay[xCharPos][yCharPos]);
-		xCharPos--;
-		tempCharacter = consoleDisplay[xCharPos][yCharPos];
-		drawChar(tempCharacter);
-		blinkCursor();
+		if(xCharPos > 0)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			xCharPos--;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			blinkCursor();	
+		}
+
 	}
 	else if(character == 0x09)						//TAB 0x09 Horizontal Tab
 	{
@@ -91,11 +95,58 @@ void parseChar(uint8_t character)
 			yCharPos++;
 			drawChar(consoleDisplay[xCharPos][yCharPos]);
 			blinkCursor();
-		}	
+		}
+		if(lineFeed)
+		{
+			if(yCharPos == 23)
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(0x00);
+				blinkCursor();
+			}
+			else
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				blinkCursor();
+			}	
+		}
 	}
 	else if(character == 0x0B)						//VT 0x0B Vertical Tab
 	{
-		
+		if(yCharPos == 23)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			newLine();
+			drawChar(0x00);
+			blinkCursor();
+		}
+		else
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos++;
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			blinkCursor();
+		}
+		if(lineFeed)
+		{
+			if(yCharPos == 23)
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(0x00);
+				blinkCursor();
+			}
+			else
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				blinkCursor();
+			}
+		}
 	}
 	else if(character == 0x0C)						//FF 0x0C Form Feed
 	{
@@ -189,6 +240,10 @@ void parseChar(uint8_t character)
 	else if(character == 0x1F)						//US 0x1F Unit Separator
 	{
 		
+	}
+	else if(character == 0x7F)						//DEL 0x7F Delete
+	{
+		///Ignored by terminal
 	}
 	else
 	{

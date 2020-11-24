@@ -28,6 +28,8 @@
 #include "conf_clocks.h"
 
 /** VARIABLES *****************************************************************/
+
+
 #define UART_BUFFER_SIZE 10
 
 uint16_t ul_tickcount=0;
@@ -38,6 +40,7 @@ uint8_t rx_buf;
 
 bool localEcho = true;
 bool breakEnable = false;
+bool lineFeed = true;
 int lineFeedNewLine = 1;
 
 
@@ -83,6 +86,9 @@ int main (void)
 			blinkCursor();
 			
 			funcLock = false;
+			
+			printf("%i\n",rand());
+
 		}
 		
 		if((ul_tickcount % 200 == 0) && (funcLock == false))
@@ -184,7 +190,11 @@ void configure_adc(void)
 {
 	struct adc_config config_adc;
 	adc_get_config_defaults(&config_adc);
-	config_adc.positive_input = ADC_POSITIVE_INPUT_DAC;
+	config_adc.clock_source = GCLK_GENERATOR_1;
+	config_adc.clock_prescaler = ADC_CLOCK_PRESCALER_DIV16;
+	config_adc.reference = ADC_REFERENCE_INT1V;
+	config_adc.positive_input = ADC_POSITIVE_INPUT_TEMP;
+	config_adc.negative_input = ADC_NEGATIVE_INPUT_GND;
 	adc_init(&adc_instance, ADC, &config_adc);
 	adc_enable(&adc_instance);
 }
@@ -193,6 +203,7 @@ void configure_adc(void)
 void setupBoard(void)
 {
 	uint16_t adcResult;
+	uint16_t megaHurtz = system_gclk_gen_get_hz(0);
 
 	system_init();
 	
@@ -202,10 +213,12 @@ void setupBoard(void)
 	/* Wait for conversion to be done and read out result */
 	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
 	
+	srand((adcResult ^ megaHurtz));
+	
 	delay_init();
-	srand(adcResult);
+	
 	conf_systick();
-    
+
 	//configure_usart_USB();
 	
 	configure_usart();
@@ -217,6 +230,7 @@ void setupBoard(void)
 	usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
 
 	printf("\n\rSerial OK 9600 8N1\n\r");
+
 	
 	InitLCD();
 	splashScreen();

@@ -13,6 +13,7 @@
 #include "LCD.h"
 #include "console.h"
 
+char versionLabel[] = "Beach Taco Bell";
 
 /***********drawKare ** It's the boot graphic*************************/
 //	drawKare(int emotion) is the boot animation displayed on startup
@@ -116,7 +117,7 @@ void splashScreen(void)
 	splashText[26] = "WiFi is not wireless Ethernet!";//
 	splashText[27] = "Dummy thicc client";//
 	splashText[28] = "A Nice TTY. An OK Computer.";//
-	splashText[29] = "Ceci n'est pas une Cyberdeck (because it's not a Pelican Case)";//
+	splashText[29] = "USTeledildonics";//
 	splashText[30] = "Solidarity is not a new framework";//
 	splashText[31] = "Breadboarding Is Not A Crime";//
 	splashText[32] = "Off by one errors are common";
@@ -147,7 +148,12 @@ void splashScreen(void)
 	yCharPos = 16;
 	
 	writeString(textPhrase);
-
+	/*
+	xCharPos = 40 - (strlen(versionLabel)/2);
+	yCharPos = 18;
+	
+	writeString(versionLabel);
+	*/
 	delay_ms(2000);
 	clearScreen();
 	
