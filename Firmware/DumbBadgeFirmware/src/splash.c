@@ -101,7 +101,7 @@ void splashScreen(void)
 	splashText[10] = "Tiananmen Square 1989";//
 	splashText[11] = "America was founded on slavery";
 	splashText[12] = "There is only capital and labor";//
-	splashText[13] = "Encourage _symmetric_ class warfare";//
+	splashText[13] = "Encourage SYMMETRIC class warfare";//
 	splashText[14] = "$CURRENT_MEME";//
 	splashText[15] = "A Nice TTY";//
 	splashText[16] = "Unix epoch minus 0xFF days";//
@@ -122,8 +122,7 @@ void splashScreen(void)
 	splashText[31] = "Breadboarding Is Not A Crime";//
 	splashText[32] = "Off by one errors are common";
 	
-	const uint32_t megaHurtz = system_gclk_gen_get_hz(0);
-	const char *textPhrase = splashText[(((rand()+megaHurtz)%32))];
+	const char *textPhrase = splashText[(((rand())%32))];
 
 
 	

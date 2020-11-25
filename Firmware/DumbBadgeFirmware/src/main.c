@@ -87,8 +87,6 @@ int main (void)
 			
 			funcLock = false;
 			
-			printf("%i\n",rand());
-
 		}
 		
 		if((ul_tickcount % 200 == 0) && (funcLock == false))
@@ -203,7 +201,8 @@ void configure_adc(void)
 void setupBoard(void)
 {
 	uint16_t adcResult;
-	uint16_t megaHurtz = system_gclk_gen_get_hz(0);
+	uint16_t megaHurtz = (uint16_t)system_gclk_gen_get_hz(0);
+	uint32_t randomSeed = 0;
 
 	system_init();
 	
@@ -212,6 +211,7 @@ void setupBoard(void)
 	do {
 	/* Wait for conversion to be done and read out result */
 	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
+	
 	
 	srand((adcResult ^ megaHurtz));
 	
