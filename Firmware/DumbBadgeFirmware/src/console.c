@@ -51,10 +51,28 @@ void drawChar(uint8_t character)
 void newLine(void)
 {
 	/*
-	This is split into two parts; the first moves consoledisplay around
-	so the first line is deleted and all other lines are moved up one line
+	The original intention of this function was to move all the characters
+	on the display up one line; originally, this was done with a 'software
+	scroll' function, where the microcontroller reads GRAM data from the 
+	display. THIS IS A NOVEL APPROACH FOR THE NT35510 DISPLAY DRIVER.
+	
+	Unfortunately, just because something is cool doesn't mean it's
+	efficient. This function has been refactored to scroll to a new line
+	the sane way -- by moving characters in consoleDisplay around, then
+	redrawing the display. Emperical testing has shown this is the faster
+	way to do it.
+	
+	Additionally, this method is more extensible in that character colors
+	may be preserved with an additional array indexing foreground and
+	background colors. This method is simply the better way to do it. But
+	it's not the coolest.
+	
+	I have retained the 'GRAM scroll' function in a comment below; this
+	may be of use if you ever want to make a giant Conway's Game of Life
+	or some chomping bits or something.
 	*/
 	
+	//First, move the characters in consoleDisplay up one line
 	for(int i = 0 ; i < 80 ; i++)
 	{
 		for(int j = 1 ; j < 24 ; j++)
@@ -62,10 +80,20 @@ void newLine(void)
 			consoleDisplay[i][j-1] = consoleDisplay[i][j];
 		}
 	}
-	
+	//Initalize the new row as 0x00
 	for(int k = 0 ; k < 80 ; k ++)
 	{
 		consoleDisplay[k][23] = 0x00;
+	}
+	//Draw the display again
+	for(int j = 0 ; j < 24 ; j++)
+	{
+		for(int i = 0 ; i < 80 ; i++)
+		{
+			xCharPos = i;
+			yCharPos = j;
+			drawChar(consoleDisplay[i][j]);
+		}
 	}
 	
 	/*The 'soft scroll' function moves all pixels on the display up
@@ -83,8 +111,7 @@ void newLine(void)
 		is active, because the only colors we use are green,
 		white, and amber.
 		
-	4) Configuration of pin as input is on "SAMD21/SAMR21
-		GPIO" Tutorial (Phillip Vallone), page 38.
+	4) Configuration of pin as input
 		
 	5) Read the pixel data into a 1D array (first as char[800],
 	can be optimized with bit packing. This information is on 
@@ -93,9 +120,8 @@ void newLine(void)
 	6) Set PB07 (and the rest of PB00..15) as output, set GRAM
 	window and output contents of 1D array. Repeat this
 	460 times, for each line in the display.
-	
 	*/
-	
+	/*
 	uint8_t rowPixel[800];
 	
 			
@@ -161,7 +187,7 @@ void newLine(void)
 	//clear the last character line of the display
 	//and fix the console text buffer
 	fillRectBackColor(0, 460, 799, 480);
-	
+	*/
 	
 }
 
