@@ -154,7 +154,9 @@ void splashScreen(void)
 	writeString(versionLabel);
 	*/
 	delay_ms(2000);
+		
 	clearScreen();
+	nullifyConsole();
 	
 	setColorRGB(0,255,0);
 	setBackColorRGB(0,0,0);

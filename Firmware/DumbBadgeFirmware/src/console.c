@@ -59,7 +59,7 @@ void newLine(void)
 	Unfortunately, just because something is cool doesn't mean it's
 	efficient. This function has been refactored to scroll to a new line
 	the sane way -- by moving characters in consoleDisplay around, then
-	redrawing the display. Emperical testing has shown this is the faster
+	redrawing the display. Empirical testing has shown this is the faster
 	way to do it.
 	
 	Additionally, this method is more extensible in that character colors
@@ -72,21 +72,27 @@ void newLine(void)
 	or some chomping bits or something.
 	*/
 	
+	int tempCursorx = xCharPos;
+	int tempCursory = yCharPos;
+	
+	
 	//First, move the characters in consoleDisplay up one line
-	for(int i = 0 ; i < 80 ; i++)
+	for(int j = 1 ; j < 24 ; j++)
 	{
-		for(int j = 1 ; j < 24 ; j++)
+		for(int i = 0 ; i < 80 ; i++)
 		{
 			consoleDisplay[i][j-1] = consoleDisplay[i][j];
 		}
 	}
-	//Initalize the new row as 0x00
+
+	//Initalize the new row as 0x20, 'space'
 	for(int k = 0 ; k < 80 ; k ++)
 	{
-		consoleDisplay[k][23] = 0x00;
+		consoleDisplay[k][23] = 0x20;
 	}
+	
 	//Draw the display again
-	for(int j = 0 ; j < 24 ; j++)
+	for(int j = 0 ; j < 23 ; j++)
 	{
 		for(int i = 0 ; i < 80 ; i++)
 		{
@@ -95,6 +101,9 @@ void newLine(void)
 			drawChar(consoleDisplay[i][j]);
 		}
 	}
+	
+	xCharPos = tempCursorx;
+	yCharPos = tempCursory;
 	
 	/*The 'soft scroll' function moves all pixels on the display up
 	20 pixels, or the height of one char. Algorithm is as follows:
@@ -253,7 +262,7 @@ void writeString(const char str[])
 	}
 }
 
-void fillConsole(void)
+void nullifyConsole(void)
 {
 	for(int i = 0 ; i < 80 ; i++)
 	{
