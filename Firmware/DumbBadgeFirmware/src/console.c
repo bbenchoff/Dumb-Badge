@@ -75,9 +75,12 @@ void newLine(void)
 	int tempCursorx = xCharPos;
 	int tempCursory = yCharPos;
 	
+	cursorBlinkState = true;
+	blinkCursor();
 	
 	//First, move the characters in consoleDisplay up one line
-	for(int j = 1 ; j < 24 ; j++)
+	//we do not care about the zeroth line
+	for(int j = 1 ; j <= 24 ; j++)
 	{
 		for(int i = 0 ; i < 80 ; i++)
 		{
@@ -91,8 +94,8 @@ void newLine(void)
 		consoleDisplay[k][23] = 0x20;
 	}
 	
-	//Draw the display again
-	for(int j = 0 ; j < 23 ; j++)
+	//Redraw the display
+	for(int j = 0 ; j < 24 ; j++)
 	{
 		for(int i = 0 ; i < 80 ; i++)
 		{
@@ -101,7 +104,7 @@ void newLine(void)
 			drawChar(consoleDisplay[i][j]);
 		}
 	}
-	
+		
 	xCharPos = tempCursorx;
 	yCharPos = tempCursory;
 	

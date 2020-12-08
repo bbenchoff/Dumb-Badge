@@ -84,6 +84,7 @@ void parseChar(uint8_t character)
 	{
 		if(yCharPos == 23)
 		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
 			newLine();
 			//drawChar(consoleDisplay[xCharPos][yCharPos]);
 			//drawChar(0x00);
@@ -118,6 +119,7 @@ void parseChar(uint8_t character)
 	{
 		if(yCharPos == 23)
 		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
 			newLine();
 			//drawChar(consoleDisplay[xCharPos][yCharPos]);
 			
