@@ -171,8 +171,8 @@ void printKeyboardBuffer(void)
 					sendChar(0x0A);
 					if(localEcho)
 					{
-						ring_put(ouroboros, 0x0A);
 						ring_put(ouroboros, 0x0D);
+						ring_put(ouroboros, 0x0A);
 					}
 				}
 				if(lineFeedNewLine == 2)  //This is Unix, sends LF

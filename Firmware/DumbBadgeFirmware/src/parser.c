@@ -161,7 +161,6 @@ void parseChar(uint8_t character)
 		{
 			drawChar(consoleDisplay[xCharPos][yCharPos]);
 			xCharPos = 0;
-			drawChar(0x00);
 			blinkCursor();
 		}
 		else
