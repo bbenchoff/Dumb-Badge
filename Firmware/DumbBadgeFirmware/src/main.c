@@ -24,17 +24,19 @@
 #include "parser.h"
 
 
+
 //#include "config_usart.h"
 #include "conf_clocks.h"
 
 /** VARIABLES *****************************************************************/
-
 
 #define UART_BUFFER_SIZE 10
 
 uint16_t ul_tickcount=0;
 bool funcLock = false;
 uint8_t rx_buf;
+
+
 
 /** GLOBAL SETTINGS ***********************************************************/
 
@@ -205,7 +207,7 @@ void setupBoard(void)
 {
 	uint16_t adcResult;
 	uint16_t megaHurtz = (uint16_t)system_gclk_gen_get_hz(0);
-	uint32_t randomSeed = 0;
+	
 
 	system_init();
 	

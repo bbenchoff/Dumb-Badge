@@ -53,8 +53,8 @@ cbuf_handle_t ouroboros;
 	printKeyboardBuffer()
 	
 	This function will _only_ take keyboard input and convert that
-	to either a single byte to send, or an escape code to send
-	all depending on (bool localEcho) in settings.
+	to either a single byte to send, or a code to send, depending
+	depending on (bool localEcho) in settings.
 	
 *************************************************************************/
 void printKeyboardBuffer(void)
@@ -147,9 +147,13 @@ void printKeyboardBuffer(void)
 		{
 			keyDownBuffer[i] = scanCodeBuffer[i];
 			
-			if(scanCodeBuffer[i] == 0x00)  //do nothing
+			if(scanCodeBuffer[i] == 0x00)  //this is escape
 			{
-				//do nothing
+				sendChar(0x1B);
+				if(localEcho)
+				{
+					ring_put(ouroboros,0x1B);
+				}
 			}
 			else if(scanCodeBuffer[i] == 0x01)	//setup button, do something weird here
 			{

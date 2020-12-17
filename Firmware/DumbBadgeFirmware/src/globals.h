@@ -63,4 +63,6 @@ extern struct Settings settings;
 
 
 
+
+
 #endif /* GLOBALS_H_ */

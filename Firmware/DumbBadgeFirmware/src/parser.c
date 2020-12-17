@@ -3,10 +3,11 @@
  *
  * Created: 11/19/2020 4:47:05 PM
  *  Author: bench
+ *
  */ 
 
 #include <stdint.h>
-
+#include <stdio.h>
 
 #include "globals.h"
 
@@ -20,11 +21,121 @@
 #include "settings.h"
 #include "parser.h"
 
+typedef enum
+{
+	stateGround,
+	stateESC,
+	stateESCinter,
+	stateCSIentry,
+	stateCSIparam,
+	stateCSIinter,
+	stateCSIignore,
+	
+} parserState;
+
+parserState currentState = stateGround;
+
+
 void parseChar(uint8_t character)
 {
+	switch(currentState)
+	{
+		case stateGround:
+		{
+			groundState(character);
+		}
+		break;
+		
+		case stateESC:
+		{
+			escState(character);
+		}
+		break;
+		
+		case stateESCinter:
+		{
+			
+		}
+		break;
+		
+		case stateCSIentry:
+		{
+			
+		}
+		break;
+		
+		case stateCSIparam:
+		{
+			
+		}
+		break;
+		
+		case stateCSIinter:
+		{
+			
+		}
+		break;
+		
+		case stateCSIignore:
+		{
+			
+		}
+		break;
+	}
 	
+}
+
+void escState(uint8_t character)
+{
 	char tempCharacter;
+	int xTemp = 0;
 	
+	if(character == 0x44)		//ESC + D - (IND) - 
+	{
+		//Moves cursor down one line in column
+		//performs newline() if row = 24
+		if(yCharPos < 23)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos++;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			blinkCursor();
+		}
+		else
+		{	
+			xTemp = xCharPos;
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			newLine();
+			drawChar(0x00);
+			xCharPos = xTemp;
+			blinkCursor();
+		}		
+	}
+	else if(character == 0x45)		//ESC + E - (NEL) -
+	{
+		//new line, moves down one line and to the
+		//first column (CR,LF) scrolls if row = 24
+		if(yCharPos < 23)
+		{
+
+		}
+		else
+		{
+
+		}		
+	}
+	else  // do nothing, set state top Ground
+	{
+		currentState = stateGround;
+	}
+	
+
+}
+
+void groundState(uint8_t character)
+{
+	char tempCharacter;
 
 	if(character == 0x00)							//NUL 0x00 DO NOTHING
 	{
@@ -56,7 +167,7 @@ void parseChar(uint8_t character)
 	}
 	else if(character == 0x07)						//BEL 0x07 Bell
 	{
-		//Beep	
+		//Beep
 	}
 	else if(character == 0x08)						//BS 0x08 Backspace
 	{
@@ -66,7 +177,7 @@ void parseChar(uint8_t character)
 			xCharPos--;
 			tempCharacter = consoleDisplay[xCharPos][yCharPos];
 			drawChar(tempCharacter);
-			blinkCursor();	
+			blinkCursor();
 		}
 
 	}
@@ -112,7 +223,7 @@ void parseChar(uint8_t character)
 				xCharPos = 0;
 				drawChar(consoleDisplay[xCharPos][yCharPos]);
 				blinkCursor();
-			}	
+			}
 		}
 	}
 	else if(character == 0x0B)						//VT 0x0B Vertical Tab
@@ -225,7 +336,7 @@ void parseChar(uint8_t character)
 	}
 	else if(character == 0x1B)						//ESC 0x1B Escape
 	{
-		///Real Shit Happens Here
+		currentState = stateESC;
 	}
 	else if(character == 0x1C)						//FS 0x1C File Separator
 	{
