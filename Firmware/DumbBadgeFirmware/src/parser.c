@@ -9,7 +9,9 @@
 #include <stdint.h>
 #include <stdio.h>
 
+
 #include "globals.h"
+#include "parserState.h"
 
 #include "LCDBus.h"
 #include "LCD.h"
@@ -21,17 +23,7 @@
 #include "settings.h"
 #include "parser.h"
 
-typedef enum
-{
-	stateGround,
-	stateESC,
-	stateESCinter,
-	stateCSIentry,
-	stateCSIparam,
-	stateCSIinter,
-	stateCSIignore,
-	
-} parserState;
+
 
 parserState currentState = stateGround;
 

@@ -181,7 +181,6 @@ Discarded input sections
  .group         0x00000000        0x8 src/parser.o
  .group         0x00000000        0x8 src/parser.o
  .group         0x00000000        0x8 src/parser.o
- .group         0x00000000        0x8 src/parser.o
  .text          0x00000000        0x0 src/parser.o
  .data          0x00000000        0x0 src/parser.o
  .bss           0x00000000        0x0 src/parser.o
@@ -482,7 +481,6 @@ Discarded input sections
  .group         0x00000000        0x8 src/uart.o
  .group         0x00000000        0x8 src/uart.o
  .group         0x00000000        0x8 src/uart.o
- .group         0x00000000        0x8 src/uart.o
  .text          0x00000000        0x0 src/uart.o
  .data          0x00000000        0x0 src/uart.o
  .bss           0x00000000        0x0 src/uart.o
@@ -612,7 +610,6 @@ Discarded input sections
  .debug_macro   0x00000000       0x57 src/uart.o
  .debug_macro   0x00000000       0x16 src/uart.o
  .debug_macro   0x00000000       0x94 src/uart.o
- .debug_macro   0x00000000       0x10 src/uart.o
  .group         0x00000000        0x8 src/ASF/common2/services/delay/sam0/systick_counter.o
  .group         0x00000000        0x8 src/ASF/common2/services/delay/sam0/systick_counter.o
  .group         0x00000000        0x8 src/ASF/common2/services/delay/sam0/systick_counter.o
@@ -5308,7 +5305,6 @@ Discarded input sections
  .group         0x00000000        0x8 src/console.o
  .group         0x00000000        0x8 src/console.o
  .group         0x00000000        0x8 src/console.o
- .group         0x00000000        0x8 src/console.o
  .text          0x00000000        0x0 src/console.o
  .data          0x00000000        0x0 src/console.o
  .bss           0x00000000        0x0 src/console.o
@@ -5438,8 +5434,6 @@ Discarded input sections
  .debug_macro   0x00000000       0x57 src/console.o
  .debug_macro   0x00000000       0x16 src/console.o
  .debug_macro   0x00000000       0x94 src/console.o
- .debug_macro   0x00000000       0x10 src/console.o
- .group         0x00000000        0x8 src/keyboard.o
  .group         0x00000000        0x8 src/keyboard.o
  .group         0x00000000        0x8 src/keyboard.o
  .group         0x00000000        0x8 src/keyboard.o
@@ -5691,7 +5685,6 @@ Discarded input sections
  .debug_macro   0x00000000       0x10 src/keyboard.o
  .debug_macro   0x00000000       0x57 src/keyboard.o
  .debug_macro   0x00000000       0x94 src/keyboard.o
- .debug_macro   0x00000000       0x10 src/keyboard.o
  .group         0x00000000        0x8 src/LCD.o
  .group         0x00000000        0x8 src/LCD.o
  .group         0x00000000        0x8 src/LCD.o
@@ -6324,7 +6317,6 @@ Discarded input sections
  .group         0x00000000        0x8 src/main.o
  .group         0x00000000        0x8 src/main.o
  .group         0x00000000        0x8 src/main.o
- .group         0x00000000        0x8 src/main.o
  .text          0x00000000        0x0 src/main.o
  .data          0x00000000        0x0 src/main.o
  .bss           0x00000000        0x0 src/main.o
@@ -6454,7 +6446,6 @@ Discarded input sections
  .debug_macro   0x00000000       0x57 src/main.o
  .debug_macro   0x00000000       0x16 src/main.o
  .debug_macro   0x00000000       0x94 src/main.o
- .debug_macro   0x00000000       0x10 src/main.o
  .debug_macro   0x00000000      0x298 src/main.o
  .data          0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(_udivsi3.o)
  .bss           0x00000000        0x0 c:/program files (x86)/atmel/studio/7.0/toolchain/arm/arm-gnu-toolchain/bin/../lib/gcc/arm-none-eabi/6.3.1/thumb/v6-m\libgcc.a(_udivsi3.o)
@@ -7634,67 +7625,67 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .comment       0x00000059       0x5a src/LCDBus.o
  .comment       0x00000059       0x5a src/main.o
 
-.debug_info     0x00000000    0x3aaa3
+.debug_info     0x00000000    0x3aaab
  .debug_info    0x00000000      0xc57 src/ouroboros.o
- .debug_info    0x00000c57      0xe7a src/parser.o
- .debug_info    0x00001ad1     0x2261 src/splash.o
- .debug_info    0x00003d32     0x1a50 src/uart.o
- .debug_info    0x00005782      0xb8d src/ASF/common2/services/delay/sam0/systick_counter.o
- .debug_info    0x0000630f      0xb05 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
- .debug_info    0x00006e14     0x12ad src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
- .debug_info    0x000080c1     0x3e46 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
- .debug_info    0x0000bf07     0x1c06 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
- .debug_info    0x0000db0d     0x12b6 src/ASF/sam0/drivers/port/port.o
- .debug_info    0x0000edc3     0x2ddf src/ASF/sam0/drivers/sercom/sercom.o
- .debug_info    0x00011ba2     0x2be7 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
- .debug_info    0x00014789     0x499e src/ASF/sam0/drivers/sercom/usart/usart.o
- .debug_info    0x00019127     0x3048 src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
- .debug_info    0x0001c16f     0x39d4 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
- .debug_info    0x0001fb43     0x1ec7 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
- .debug_info    0x00021a0a     0x13f3 src/ASF/sam0/drivers/system/pinmux/pinmux.o
- .debug_info    0x00022dfd      0xa73 src/ASF/sam0/drivers/system/system.o
- .debug_info    0x00023870     0x3a3f src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
- .debug_info    0x000272af       0xd5 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
- .debug_info    0x00027384      0xacf src/ASF/sam0/utils/stdio/read.o
- .debug_info    0x00027e53      0xacc src/ASF/sam0/utils/stdio/write.o
- .debug_info    0x0002891f      0xd98 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_info    0x000296b7     0x406f src/config/config_usart.o
- .debug_info    0x0002d726     0x1d1d src/console.o
- .debug_info    0x0002f443     0x263a src/keyboard.o
- .debug_info    0x00031a7d     0x1f7b src/LCD.o
- .debug_info    0x000339f8     0x1fef src/LCDBus.o
- .debug_info    0x000359e7     0x50bc src/main.o
+ .debug_info    0x00000c57      0xe82 src/parser.o
+ .debug_info    0x00001ad9     0x2261 src/splash.o
+ .debug_info    0x00003d3a     0x1a50 src/uart.o
+ .debug_info    0x0000578a      0xb8d src/ASF/common2/services/delay/sam0/systick_counter.o
+ .debug_info    0x00006317      0xb05 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_info    0x00006e1c     0x12ad src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
+ .debug_info    0x000080c9     0x3e46 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
+ .debug_info    0x0000bf0f     0x1c06 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
+ .debug_info    0x0000db15     0x12b6 src/ASF/sam0/drivers/port/port.o
+ .debug_info    0x0000edcb     0x2ddf src/ASF/sam0/drivers/sercom/sercom.o
+ .debug_info    0x00011baa     0x2be7 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+ .debug_info    0x00014791     0x499e src/ASF/sam0/drivers/sercom/usart/usart.o
+ .debug_info    0x0001912f     0x3048 src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
+ .debug_info    0x0001c177     0x39d4 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+ .debug_info    0x0001fb4b     0x1ec7 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
+ .debug_info    0x00021a12     0x13f3 src/ASF/sam0/drivers/system/pinmux/pinmux.o
+ .debug_info    0x00022e05      0xa73 src/ASF/sam0/drivers/system/system.o
+ .debug_info    0x00023878     0x3a3f src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ .debug_info    0x000272b7       0xd5 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
+ .debug_info    0x0002738c      0xacf src/ASF/sam0/utils/stdio/read.o
+ .debug_info    0x00027e5b      0xacc src/ASF/sam0/utils/stdio/write.o
+ .debug_info    0x00028927      0xd98 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_info    0x000296bf     0x406f src/config/config_usart.o
+ .debug_info    0x0002d72e     0x1d1d src/console.o
+ .debug_info    0x0002f44b     0x263a src/keyboard.o
+ .debug_info    0x00031a85     0x1f7b src/LCD.o
+ .debug_info    0x00033a00     0x1fef src/LCDBus.o
+ .debug_info    0x000359ef     0x50bc src/main.o
 
-.debug_abbrev   0x00000000     0x5857
+.debug_abbrev   0x00000000     0x5864
  .debug_abbrev  0x00000000      0x29f src/ouroboros.o
- .debug_abbrev  0x0000029f      0x26d src/parser.o
- .debug_abbrev  0x0000050c      0x33b src/splash.o
- .debug_abbrev  0x00000847      0x2b3 src/uart.o
- .debug_abbrev  0x00000afa      0x24b src/ASF/common2/services/delay/sam0/systick_counter.o
- .debug_abbrev  0x00000d45      0x23b src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
- .debug_abbrev  0x00000f80      0x2dc src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
- .debug_abbrev  0x0000125c      0x45c src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
- .debug_abbrev  0x000016b8      0x3b8 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
- .debug_abbrev  0x00001a70      0x298 src/ASF/sam0/drivers/port/port.o
- .debug_abbrev  0x00001d08      0x378 src/ASF/sam0/drivers/sercom/sercom.o
- .debug_abbrev  0x00002080      0x2d8 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
- .debug_abbrev  0x00002358      0x467 src/ASF/sam0/drivers/sercom/usart/usart.o
- .debug_abbrev  0x000027bf      0x416 src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
- .debug_abbrev  0x00002bd5      0x493 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
- .debug_abbrev  0x00003068      0x40d src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
- .debug_abbrev  0x00003475      0x361 src/ASF/sam0/drivers/system/pinmux/pinmux.o
- .debug_abbrev  0x000037d6      0x1e1 src/ASF/sam0/drivers/system/system.o
- .debug_abbrev  0x000039b7      0x234 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
- .debug_abbrev  0x00003beb       0x72 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
- .debug_abbrev  0x00003c5d      0x218 src/ASF/sam0/utils/stdio/read.o
- .debug_abbrev  0x00003e75      0x203 src/ASF/sam0/utils/stdio/write.o
- .debug_abbrev  0x00004078      0x257 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_abbrev  0x000042cf      0x3eb src/config/config_usart.o
- .debug_abbrev  0x000046ba      0x370 src/console.o
- .debug_abbrev  0x00004a2a      0x379 src/keyboard.o
- .debug_abbrev  0x00004da3      0x357 src/LCD.o
- .debug_abbrev  0x000050fa      0x298 src/LCDBus.o
- .debug_abbrev  0x00005392      0x4c5 src/main.o
+ .debug_abbrev  0x0000029f      0x27a src/parser.o
+ .debug_abbrev  0x00000519      0x33b src/splash.o
+ .debug_abbrev  0x00000854      0x2b3 src/uart.o
+ .debug_abbrev  0x00000b07      0x24b src/ASF/common2/services/delay/sam0/systick_counter.o
+ .debug_abbrev  0x00000d52      0x23b src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_abbrev  0x00000f8d      0x2dc src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
+ .debug_abbrev  0x00001269      0x45c src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
+ .debug_abbrev  0x000016c5      0x3b8 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
+ .debug_abbrev  0x00001a7d      0x298 src/ASF/sam0/drivers/port/port.o
+ .debug_abbrev  0x00001d15      0x378 src/ASF/sam0/drivers/sercom/sercom.o
+ .debug_abbrev  0x0000208d      0x2d8 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+ .debug_abbrev  0x00002365      0x467 src/ASF/sam0/drivers/sercom/usart/usart.o
+ .debug_abbrev  0x000027cc      0x416 src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
+ .debug_abbrev  0x00002be2      0x493 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+ .debug_abbrev  0x00003075      0x40d src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
+ .debug_abbrev  0x00003482      0x361 src/ASF/sam0/drivers/system/pinmux/pinmux.o
+ .debug_abbrev  0x000037e3      0x1e1 src/ASF/sam0/drivers/system/system.o
+ .debug_abbrev  0x000039c4      0x234 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ .debug_abbrev  0x00003bf8       0x72 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
+ .debug_abbrev  0x00003c6a      0x218 src/ASF/sam0/utils/stdio/read.o
+ .debug_abbrev  0x00003e82      0x203 src/ASF/sam0/utils/stdio/write.o
+ .debug_abbrev  0x00004085      0x257 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_abbrev  0x000042dc      0x3eb src/config/config_usart.o
+ .debug_abbrev  0x000046c7      0x370 src/console.o
+ .debug_abbrev  0x00004a37      0x379 src/keyboard.o
+ .debug_abbrev  0x00004db0      0x357 src/LCD.o
+ .debug_abbrev  0x00005107      0x298 src/LCDBus.o
+ .debug_abbrev  0x0000539f      0x4c5 src/main.o
 
 .debug_loc      0x00000000     0x6a2c
  .debug_loc     0x00000000      0x1ec src/ouroboros.o
@@ -7816,7 +7807,7 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .debug_ranges  0x00000838       0x38 src/LCDBus.o
  .debug_ranges  0x00000870       0x70 src/main.o
 
-.debug_macro    0x00000000    0x1f453
+.debug_macro    0x00000000    0x1f452
  .debug_macro   0x00000000      0x135 src/ouroboros.o
  .debug_macro   0x00000135      0x8c2 src/ouroboros.o
  .debug_macro   0x000009f7       0x22 src/ouroboros.o
@@ -7840,249 +7831,248 @@ OUTPUT(DumBadgeFirmware.elf elf32-littlearm)
  .debug_macro   0x000014ac       0x6a src/ouroboros.o
  .debug_macro   0x00001516      0x1df src/ouroboros.o
  .debug_macro   0x000016f5       0x22 src/ouroboros.o
- .debug_macro   0x00001717      0x222 src/parser.o
- .debug_macro   0x00001939       0x87 src/parser.o
- .debug_macro   0x000019c0       0x51 src/parser.o
- .debug_macro   0x00001a11       0x58 src/parser.o
- .debug_macro   0x00001a69       0x16 src/parser.o
- .debug_macro   0x00001a7f       0x97 src/parser.o
- .debug_macro   0x00001b16       0xf6 src/parser.o
- .debug_macro   0x00001c0c       0x10 src/parser.o
- .debug_macro   0x00001c1c       0x10 src/parser.o
- .debug_macro   0x00001c2c       0x1c src/parser.o
- .debug_macro   0x00001c48       0x52 src/parser.o
- .debug_macro   0x00001c9a       0x40 src/parser.o
- .debug_macro   0x00001cda       0x10 src/parser.o
- .debug_macro   0x00001cea       0x40 src/parser.o
- .debug_macro   0x00001d2a       0xd7 src/parser.o
- .debug_macro   0x00001e01       0x16 src/parser.o
- .debug_macro   0x00001e17      0x18b src/parser.o
- .debug_macro   0x00001fa2       0x8e src/parser.o
- .debug_macro   0x00002030       0x10 src/parser.o
- .debug_macro   0x00002040      0x6a6 src/splash.o
- .debug_macro   0x000026e6      0x16d src/splash.o
- .debug_macro   0x00002853      0x708 src/splash.o
- .debug_macro   0x00002f5b       0x10 src/splash.o
- .debug_macro   0x00002f6b       0x76 src/splash.o
- .debug_macro   0x00002fe1       0x16 src/splash.o
- .debug_macro   0x00002ff7      0x6db src/splash.o
- .debug_macro   0x000036d2      0xdd8 src/splash.o
- .debug_macro   0x000044aa       0x40 src/splash.o
- .debug_macro   0x000044ea       0x1c src/splash.o
- .debug_macro   0x00004506       0x22 src/splash.o
- .debug_macro   0x00004528       0xb5 src/splash.o
- .debug_macro   0x000045dd      0x3ad src/splash.o
- .debug_macro   0x0000498a      0x681 src/splash.o
- .debug_macro   0x0000500b      0x8b5 src/splash.o
- .debug_macro   0x000058c0      0x230 src/splash.o
- .debug_macro   0x00005af0      0xd60 src/splash.o
- .debug_macro   0x00006850      0x4cb src/splash.o
- .debug_macro   0x00006d1b      0x9f8 src/splash.o
- .debug_macro   0x00007713      0x82b src/splash.o
- .debug_macro   0x00007f3e      0x455 src/splash.o
- .debug_macro   0x00008393       0x5e src/splash.o
- .debug_macro   0x000083f1      0x8fd src/splash.o
- .debug_macro   0x00008cee      0x21c src/splash.o
- .debug_macro   0x00008f0a      0x95b src/splash.o
- .debug_macro   0x00009865       0x5e src/splash.o
- .debug_macro   0x000098c3      0x667 src/splash.o
- .debug_macro   0x00009f2a      0x3af src/splash.o
- .debug_macro   0x0000a2d9      0xc7a src/splash.o
- .debug_macro   0x0000af53     0x1092 src/splash.o
- .debug_macro   0x0000bfe5      0xc4a src/splash.o
- .debug_macro   0x0000cc2f      0x6ba src/splash.o
- .debug_macro   0x0000d2e9     0x1bbf src/splash.o
- .debug_macro   0x0000eea8     0x1440 src/splash.o
- .debug_macro   0x000102e8      0x344 src/splash.o
- .debug_macro   0x0001062c       0x7c src/splash.o
- .debug_macro   0x000106a8       0xa0 src/splash.o
- .debug_macro   0x00010748       0x4c src/splash.o
- .debug_macro   0x00010794       0xca src/splash.o
- .debug_macro   0x0001085e       0x94 src/splash.o
- .debug_macro   0x000108f2       0x58 src/splash.o
- .debug_macro   0x0001094a      0x37d src/splash.o
- .debug_macro   0x00010cc7       0x82 src/splash.o
- .debug_macro   0x00010d49      0x18d src/splash.o
- .debug_macro   0x00010ed6       0xb8 src/splash.o
- .debug_macro   0x00010f8e       0xa0 src/splash.o
- .debug_macro   0x0001102e       0xb8 src/splash.o
- .debug_macro   0x000110e6       0x1c src/splash.o
- .debug_macro   0x00011102       0x1c src/splash.o
- .debug_macro   0x0001111e       0x1c src/splash.o
- .debug_macro   0x0001113a       0x82 src/splash.o
- .debug_macro   0x000111bc      0x15a src/splash.o
- .debug_macro   0x00011316       0xdc src/splash.o
- .debug_macro   0x000113f2      0x128 src/splash.o
- .debug_macro   0x0001151a      0x128 src/splash.o
- .debug_macro   0x00011642      0x128 src/splash.o
- .debug_macro   0x0001176a      0x128 src/splash.o
- .debug_macro   0x00011892      0x128 src/splash.o
- .debug_macro   0x000119ba      0x128 src/splash.o
- .debug_macro   0x00011ae2      0x124 src/splash.o
- .debug_macro   0x00011c06       0xe2 src/splash.o
- .debug_macro   0x00011ce8       0xe2 src/splash.o
- .debug_macro   0x00011dca       0xe2 src/splash.o
- .debug_macro   0x00011eac       0xe2 src/splash.o
- .debug_macro   0x00011f8e       0xe2 src/splash.o
- .debug_macro   0x00012070      0x130 src/splash.o
- .debug_macro   0x000121a0      0x106 src/splash.o
- .debug_macro   0x000122a6       0xfa src/splash.o
- .debug_macro   0x000123a0      0x40f src/splash.o
- .debug_macro   0x000127af       0x40 src/splash.o
- .debug_macro   0x000127ef      0x37d src/splash.o
- .debug_macro   0x00012b6c     0x1e52 src/splash.o
- .debug_macro   0x000149be       0x6d src/splash.o
- .debug_macro   0x00014a2b       0x35 src/splash.o
- .debug_macro   0x00014a60      0x34d src/splash.o
- .debug_macro   0x00014dad       0x51 src/splash.o
- .debug_macro   0x00014dfe       0x3e src/splash.o
- .debug_macro   0x00014e3c      0x3df src/splash.o
- .debug_macro   0x0001521b       0x11 src/splash.o
- .debug_macro   0x0001522c       0x18 src/splash.o
- .debug_macro   0x00015244       0x16 src/splash.o
- .debug_macro   0x0001525a       0x2e src/splash.o
- .debug_macro   0x00015288       0x19 src/splash.o
- .debug_macro   0x000152a1       0x1c src/splash.o
- .debug_macro   0x000152bd       0x16 src/splash.o
- .debug_macro   0x000152d3      0x2d8 src/splash.o
- .debug_macro   0x000155ab      0x9f4 src/splash.o
- .debug_macro   0x00015f9f       0x18 src/splash.o
- .debug_macro   0x00015fb7       0x9a src/splash.o
- .debug_macro   0x00016051       0x10 src/splash.o
- .debug_macro   0x00016061       0x57 src/splash.o
- .debug_macro   0x000160b8       0x16 src/splash.o
- .debug_macro   0x000160ce       0x94 src/splash.o
- .debug_macro   0x00016162      0x6dc src/uart.o
- .debug_macro   0x0001683e      0x55a src/ASF/common2/services/delay/sam0/systick_counter.o
- .debug_macro   0x00016d98       0x16 src/ASF/common2/services/delay/sam0/systick_counter.o
- .debug_macro   0x00016dae      0x51f src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
- .debug_macro   0x000172cd      0x55b src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
- .debug_macro   0x00017828       0x12 src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
- .debug_macro   0x0001783a      0x59e src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
- .debug_macro   0x00017dd8      0x5a1 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
- .debug_macro   0x00018379      0x539 src/ASF/sam0/drivers/port/port.o
- .debug_macro   0x000188b2      0x5ac src/ASF/sam0/drivers/sercom/sercom.o
- .debug_macro   0x00018e5e      0x5a9 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
- .debug_macro   0x00019407      0x5bd src/ASF/sam0/drivers/sercom/usart/usart.o
- .debug_macro   0x000199c4       0x51 src/ASF/sam0/drivers/sercom/usart/usart.o
- .debug_macro   0x00019a15      0x5bd src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
- .debug_macro   0x00019fd2      0x59e src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
- .debug_macro   0x0001a570      0x298 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
- .debug_macro   0x0001a808      0x555 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
- .debug_macro   0x0001ad5d      0x52f src/ASF/sam0/drivers/system/pinmux/pinmux.o
- .debug_macro   0x0001b28c       0x12 src/ASF/sam0/drivers/system/pinmux/pinmux.o
- .debug_macro   0x0001b29e      0x562 src/ASF/sam0/drivers/system/system.o
- .debug_macro   0x0001b800      0x306 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
- .debug_macro   0x0001bb06       0x3a src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
- .debug_macro   0x0001bb40      0x30c src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
- .debug_macro   0x0001be4c      0x51f src/ASF/sam0/utils/stdio/read.o
- .debug_macro   0x0001c36b      0x51f src/ASF/sam0/utils/stdio/write.o
- .debug_macro   0x0001c88a      0x1d6 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_macro   0x0001ca60       0x4c src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_macro   0x0001caac       0x16 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_macro   0x0001cac2       0x10 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_macro   0x0001cad2       0x10 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_macro   0x0001cae2       0x35 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_macro   0x0001cb17      0x122 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_macro   0x0001cc39      0x660 src/config/config_usart.o
- .debug_macro   0x0001d299       0x34 src/config/config_usart.o
- .debug_macro   0x0001d2cd      0x6bb src/console.o
- .debug_macro   0x0001d988      0x6c3 src/keyboard.o
- .debug_macro   0x0001e04b      0x676 src/LCD.o
- .debug_macro   0x0001e6c1      0x677 src/LCDBus.o
- .debug_macro   0x0001ed38      0x705 src/main.o
- .debug_macro   0x0001f43d       0x16 src/main.o
+ .debug_macro   0x00001717      0x22d src/parser.o
+ .debug_macro   0x00001944       0x87 src/parser.o
+ .debug_macro   0x000019cb       0x51 src/parser.o
+ .debug_macro   0x00001a1c       0x58 src/parser.o
+ .debug_macro   0x00001a74       0x16 src/parser.o
+ .debug_macro   0x00001a8a       0x97 src/parser.o
+ .debug_macro   0x00001b21       0xf6 src/parser.o
+ .debug_macro   0x00001c17       0x10 src/parser.o
+ .debug_macro   0x00001c27       0x10 src/parser.o
+ .debug_macro   0x00001c37       0x1c src/parser.o
+ .debug_macro   0x00001c53       0x52 src/parser.o
+ .debug_macro   0x00001ca5       0x40 src/parser.o
+ .debug_macro   0x00001ce5       0x10 src/parser.o
+ .debug_macro   0x00001cf5       0x40 src/parser.o
+ .debug_macro   0x00001d35       0xd7 src/parser.o
+ .debug_macro   0x00001e0c       0x16 src/parser.o
+ .debug_macro   0x00001e22      0x18b src/parser.o
+ .debug_macro   0x00001fad       0x8e src/parser.o
+ .debug_macro   0x0000203b      0x6a6 src/splash.o
+ .debug_macro   0x000026e1      0x16d src/splash.o
+ .debug_macro   0x0000284e      0x708 src/splash.o
+ .debug_macro   0x00002f56       0x10 src/splash.o
+ .debug_macro   0x00002f66       0x76 src/splash.o
+ .debug_macro   0x00002fdc       0x16 src/splash.o
+ .debug_macro   0x00002ff2      0x6db src/splash.o
+ .debug_macro   0x000036cd      0xdd8 src/splash.o
+ .debug_macro   0x000044a5       0x40 src/splash.o
+ .debug_macro   0x000044e5       0x1c src/splash.o
+ .debug_macro   0x00004501       0x22 src/splash.o
+ .debug_macro   0x00004523       0xb5 src/splash.o
+ .debug_macro   0x000045d8      0x3ad src/splash.o
+ .debug_macro   0x00004985      0x681 src/splash.o
+ .debug_macro   0x00005006      0x8b5 src/splash.o
+ .debug_macro   0x000058bb      0x230 src/splash.o
+ .debug_macro   0x00005aeb      0xd60 src/splash.o
+ .debug_macro   0x0000684b      0x4cb src/splash.o
+ .debug_macro   0x00006d16      0x9f8 src/splash.o
+ .debug_macro   0x0000770e      0x82b src/splash.o
+ .debug_macro   0x00007f39      0x455 src/splash.o
+ .debug_macro   0x0000838e       0x5e src/splash.o
+ .debug_macro   0x000083ec      0x8fd src/splash.o
+ .debug_macro   0x00008ce9      0x21c src/splash.o
+ .debug_macro   0x00008f05      0x95b src/splash.o
+ .debug_macro   0x00009860       0x5e src/splash.o
+ .debug_macro   0x000098be      0x667 src/splash.o
+ .debug_macro   0x00009f25      0x3af src/splash.o
+ .debug_macro   0x0000a2d4      0xc7a src/splash.o
+ .debug_macro   0x0000af4e     0x1092 src/splash.o
+ .debug_macro   0x0000bfe0      0xc4a src/splash.o
+ .debug_macro   0x0000cc2a      0x6ba src/splash.o
+ .debug_macro   0x0000d2e4     0x1bbf src/splash.o
+ .debug_macro   0x0000eea3     0x1440 src/splash.o
+ .debug_macro   0x000102e3      0x344 src/splash.o
+ .debug_macro   0x00010627       0x7c src/splash.o
+ .debug_macro   0x000106a3       0xa0 src/splash.o
+ .debug_macro   0x00010743       0x4c src/splash.o
+ .debug_macro   0x0001078f       0xca src/splash.o
+ .debug_macro   0x00010859       0x94 src/splash.o
+ .debug_macro   0x000108ed       0x58 src/splash.o
+ .debug_macro   0x00010945      0x37d src/splash.o
+ .debug_macro   0x00010cc2       0x82 src/splash.o
+ .debug_macro   0x00010d44      0x18d src/splash.o
+ .debug_macro   0x00010ed1       0xb8 src/splash.o
+ .debug_macro   0x00010f89       0xa0 src/splash.o
+ .debug_macro   0x00011029       0xb8 src/splash.o
+ .debug_macro   0x000110e1       0x1c src/splash.o
+ .debug_macro   0x000110fd       0x1c src/splash.o
+ .debug_macro   0x00011119       0x1c src/splash.o
+ .debug_macro   0x00011135       0x82 src/splash.o
+ .debug_macro   0x000111b7      0x15a src/splash.o
+ .debug_macro   0x00011311       0xdc src/splash.o
+ .debug_macro   0x000113ed      0x128 src/splash.o
+ .debug_macro   0x00011515      0x128 src/splash.o
+ .debug_macro   0x0001163d      0x128 src/splash.o
+ .debug_macro   0x00011765      0x128 src/splash.o
+ .debug_macro   0x0001188d      0x128 src/splash.o
+ .debug_macro   0x000119b5      0x128 src/splash.o
+ .debug_macro   0x00011add      0x124 src/splash.o
+ .debug_macro   0x00011c01       0xe2 src/splash.o
+ .debug_macro   0x00011ce3       0xe2 src/splash.o
+ .debug_macro   0x00011dc5       0xe2 src/splash.o
+ .debug_macro   0x00011ea7       0xe2 src/splash.o
+ .debug_macro   0x00011f89       0xe2 src/splash.o
+ .debug_macro   0x0001206b      0x130 src/splash.o
+ .debug_macro   0x0001219b      0x106 src/splash.o
+ .debug_macro   0x000122a1       0xfa src/splash.o
+ .debug_macro   0x0001239b      0x40f src/splash.o
+ .debug_macro   0x000127aa       0x40 src/splash.o
+ .debug_macro   0x000127ea      0x37d src/splash.o
+ .debug_macro   0x00012b67     0x1e52 src/splash.o
+ .debug_macro   0x000149b9       0x6d src/splash.o
+ .debug_macro   0x00014a26       0x35 src/splash.o
+ .debug_macro   0x00014a5b      0x34d src/splash.o
+ .debug_macro   0x00014da8       0x51 src/splash.o
+ .debug_macro   0x00014df9       0x3e src/splash.o
+ .debug_macro   0x00014e37      0x3df src/splash.o
+ .debug_macro   0x00015216       0x11 src/splash.o
+ .debug_macro   0x00015227       0x18 src/splash.o
+ .debug_macro   0x0001523f       0x16 src/splash.o
+ .debug_macro   0x00015255       0x2e src/splash.o
+ .debug_macro   0x00015283       0x19 src/splash.o
+ .debug_macro   0x0001529c       0x1c src/splash.o
+ .debug_macro   0x000152b8       0x16 src/splash.o
+ .debug_macro   0x000152ce      0x2d8 src/splash.o
+ .debug_macro   0x000155a6      0x9f4 src/splash.o
+ .debug_macro   0x00015f9a       0x18 src/splash.o
+ .debug_macro   0x00015fb2       0x9a src/splash.o
+ .debug_macro   0x0001604c       0x10 src/splash.o
+ .debug_macro   0x0001605c       0x57 src/splash.o
+ .debug_macro   0x000160b3       0x16 src/splash.o
+ .debug_macro   0x000160c9       0x94 src/splash.o
+ .debug_macro   0x0001615d      0x6dd src/uart.o
+ .debug_macro   0x0001683a      0x55a src/ASF/common2/services/delay/sam0/systick_counter.o
+ .debug_macro   0x00016d94       0x16 src/ASF/common2/services/delay/sam0/systick_counter.o
+ .debug_macro   0x00016daa      0x51f src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_macro   0x000172c9      0x55b src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
+ .debug_macro   0x00017824       0x12 src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
+ .debug_macro   0x00017836      0x59e src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
+ .debug_macro   0x00017dd4      0x5a1 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
+ .debug_macro   0x00018375      0x539 src/ASF/sam0/drivers/port/port.o
+ .debug_macro   0x000188ae      0x5ac src/ASF/sam0/drivers/sercom/sercom.o
+ .debug_macro   0x00018e5a      0x5a9 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+ .debug_macro   0x00019403      0x5bd src/ASF/sam0/drivers/sercom/usart/usart.o
+ .debug_macro   0x000199c0       0x51 src/ASF/sam0/drivers/sercom/usart/usart.o
+ .debug_macro   0x00019a11      0x5bd src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
+ .debug_macro   0x00019fce      0x59e src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+ .debug_macro   0x0001a56c      0x298 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+ .debug_macro   0x0001a804      0x555 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
+ .debug_macro   0x0001ad59      0x52f src/ASF/sam0/drivers/system/pinmux/pinmux.o
+ .debug_macro   0x0001b288       0x12 src/ASF/sam0/drivers/system/pinmux/pinmux.o
+ .debug_macro   0x0001b29a      0x562 src/ASF/sam0/drivers/system/system.o
+ .debug_macro   0x0001b7fc      0x306 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ .debug_macro   0x0001bb02       0x3a src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ .debug_macro   0x0001bb3c      0x30c src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
+ .debug_macro   0x0001be48      0x51f src/ASF/sam0/utils/stdio/read.o
+ .debug_macro   0x0001c367      0x51f src/ASF/sam0/utils/stdio/write.o
+ .debug_macro   0x0001c886      0x1d6 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_macro   0x0001ca5c       0x4c src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_macro   0x0001caa8       0x16 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_macro   0x0001cabe       0x10 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_macro   0x0001cace       0x10 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_macro   0x0001cade       0x35 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_macro   0x0001cb13      0x122 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_macro   0x0001cc35      0x660 src/config/config_usart.o
+ .debug_macro   0x0001d295       0x34 src/config/config_usart.o
+ .debug_macro   0x0001d2c9      0x6bc src/console.o
+ .debug_macro   0x0001d985      0x6c4 src/keyboard.o
+ .debug_macro   0x0001e049      0x676 src/LCD.o
+ .debug_macro   0x0001e6bf      0x677 src/LCDBus.o
+ .debug_macro   0x0001ed36      0x706 src/main.o
+ .debug_macro   0x0001f43c       0x16 src/main.o
 
-.debug_line     0x00000000    0x13f3c
+.debug_line     0x00000000    0x13f4d
  .debug_line    0x00000000      0x387 src/ouroboros.o
- .debug_line    0x00000387      0x4b1 src/parser.o
- .debug_line    0x00000838      0xe9b src/splash.o
- .debug_line    0x000016d3      0xe27 src/uart.o
- .debug_line    0x000024fa      0x9e1 src/ASF/common2/services/delay/sam0/systick_counter.o
- .debug_line    0x00002edb      0x8e5 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
- .debug_line    0x000037c0      0x992 src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
- .debug_line    0x00004152      0xd57 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
- .debug_line    0x00004ea9      0xc1b src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
- .debug_line    0x00005ac4      0x917 src/ASF/sam0/drivers/port/port.o
- .debug_line    0x000063db      0xbf0 src/ASF/sam0/drivers/sercom/sercom.o
- .debug_line    0x00006fcb      0xb94 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
- .debug_line    0x00007b5f      0xd27 src/ASF/sam0/drivers/sercom/usart/usart.o
- .debug_line    0x00008886      0xcea src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
- .debug_line    0x00009570      0xcda src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
- .debug_line    0x0000a24a      0xc93 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
- .debug_line    0x0000aedd      0x964 src/ASF/sam0/drivers/system/pinmux/pinmux.o
- .debug_line    0x0000b841      0xa0e src/ASF/sam0/drivers/system/system.o
- .debug_line    0x0000c24f      0x669 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
- .debug_line    0x0000c8b8      0x627 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
- .debug_line    0x0000cedf      0x8c8 src/ASF/sam0/utils/stdio/read.o
- .debug_line    0x0000d7a7      0x8bc src/ASF/sam0/utils/stdio/write.o
- .debug_line    0x0000e063      0x409 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
- .debug_line    0x0000e46c      0xe32 src/config/config_usart.o
- .debug_line    0x0000f29e      0xf4b src/console.o
- .debug_line    0x000101e9      0xfb1 src/keyboard.o
- .debug_line    0x0001119a      0xee0 src/LCD.o
- .debug_line    0x0001207a      0xe62 src/LCDBus.o
- .debug_line    0x00012edc     0x1060 src/main.o
+ .debug_line    0x00000387      0x4c2 src/parser.o
+ .debug_line    0x00000849      0xe9b src/splash.o
+ .debug_line    0x000016e4      0xe27 src/uart.o
+ .debug_line    0x0000250b      0x9e1 src/ASF/common2/services/delay/sam0/systick_counter.o
+ .debug_line    0x00002eec      0x8e5 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_line    0x000037d1      0x992 src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
+ .debug_line    0x00004163      0xd57 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
+ .debug_line    0x00004eba      0xc1b src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
+ .debug_line    0x00005ad5      0x917 src/ASF/sam0/drivers/port/port.o
+ .debug_line    0x000063ec      0xbf0 src/ASF/sam0/drivers/sercom/sercom.o
+ .debug_line    0x00006fdc      0xb94 src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+ .debug_line    0x00007b70      0xd27 src/ASF/sam0/drivers/sercom/usart/usart.o
+ .debug_line    0x00008897      0xcea src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
+ .debug_line    0x00009581      0xcda src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+ .debug_line    0x0000a25b      0xc93 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
+ .debug_line    0x0000aeee      0x964 src/ASF/sam0/drivers/system/pinmux/pinmux.o
+ .debug_line    0x0000b852      0xa0e src/ASF/sam0/drivers/system/system.o
+ .debug_line    0x0000c260      0x669 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ .debug_line    0x0000c8c9      0x627 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
+ .debug_line    0x0000cef0      0x8c8 src/ASF/sam0/utils/stdio/read.o
+ .debug_line    0x0000d7b8      0x8bc src/ASF/sam0/utils/stdio/write.o
+ .debug_line    0x0000e074      0x409 src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_line    0x0000e47d      0xe32 src/config/config_usart.o
+ .debug_line    0x0000f2af      0xf4b src/console.o
+ .debug_line    0x000101fa      0xfb1 src/keyboard.o
+ .debug_line    0x000111ab      0xee0 src/LCD.o
+ .debug_line    0x0001208b      0xe62 src/LCDBus.o
+ .debug_line    0x00012eed     0x1060 src/main.o
 
-.debug_str      0x00000000    0x903cd
+.debug_str      0x00000000    0x903cf
  .debug_str     0x00000000     0x6383 src/ouroboros.o
                                0x6621 (size before relaxing)
- .debug_str     0x00006383     0x1590 src/parser.o
-                               0x7a0c (size before relaxing)
- .debug_str     0x00007913    0x8115f src/splash.o
+ .debug_str     0x00006383     0x1592 src/parser.o
+                               0x7a0e (size before relaxing)
+ .debug_str     0x00007915    0x8115f src/splash.o
                               0x891a4 (size before relaxing)
- .debug_str     0x00088a72       0x59 src/uart.o
-                              0x89021 (size before relaxing)
- .debug_str     0x00088acb       0xa6 src/ASF/common2/services/delay/sam0/systick_counter.o
+ .debug_str     0x00088a74       0x59 src/uart.o
+                              0x89014 (size before relaxing)
+ .debug_str     0x00088acd       0xa6 src/ASF/common2/services/delay/sam0/systick_counter.o
                               0x83f05 (size before relaxing)
- .debug_str     0x00088b71       0x94 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
+ .debug_str     0x00088b73       0x94 src/ASF/common/utils/interrupt/interrupt_sam_nvic.o
                               0x83cf5 (size before relaxing)
- .debug_str     0x00088c05      0x1c9 src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
+ .debug_str     0x00088c07      0x1c9 src/ASF/sam0/boards/samd21_xplained_pro/board_init.o
                               0x87a47 (size before relaxing)
- .debug_str     0x00088dce     0x1354 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
+ .debug_str     0x00088dd0     0x1354 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc.o
                               0x85c80 (size before relaxing)
- .debug_str     0x0008a122      0x189 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
+ .debug_str     0x0008a124      0x189 src/ASF/sam0/drivers/adc/adc_sam_d_r_h/adc_callback.o
                               0x84a4b (size before relaxing)
- .debug_str     0x0008a2ab       0x5e src/ASF/sam0/drivers/port/port.o
+ .debug_str     0x0008a2ad       0x5e src/ASF/sam0/drivers/port/port.o
                               0x84121 (size before relaxing)
- .debug_str     0x0008a309      0x98e src/ASF/sam0/drivers/sercom/sercom.o
+ .debug_str     0x0008a30b      0x98e src/ASF/sam0/drivers/sercom/sercom.o
                               0x853e8 (size before relaxing)
- .debug_str     0x0008ac97      0x56b src/ASF/sam0/drivers/sercom/sercom_interrupt.o
+ .debug_str     0x0008ac99      0x56b src/ASF/sam0/drivers/sercom/sercom_interrupt.o
                               0x85283 (size before relaxing)
- .debug_str     0x0008b202      0xa20 src/ASF/sam0/drivers/sercom/usart/usart.o
+ .debug_str     0x0008b204      0xa20 src/ASF/sam0/drivers/sercom/usart/usart.o
                               0x861a1 (size before relaxing)
- .debug_str     0x0008bc22      0x1cc src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
+ .debug_str     0x0008bc24      0x1cc src/ASF/sam0/drivers/sercom/usart/usart_interrupt.o
                               0x853e7 (size before relaxing)
- .debug_str     0x0008bdee     0x24a2 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
+ .debug_str     0x0008bdf0     0x24a2 src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/clock.o
                               0x86f86 (size before relaxing)
- .debug_str     0x0008e290      0x1db src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
+ .debug_str     0x0008e292      0x1db src/ASF/sam0/drivers/system/clock/clock_samd21_r21_da_ha1/gclk.o
                               0x849b8 (size before relaxing)
- .debug_str     0x0008e46b      0x179 src/ASF/sam0/drivers/system/pinmux/pinmux.o
+ .debug_str     0x0008e46d      0x179 src/ASF/sam0/drivers/system/pinmux/pinmux.o
                               0x84197 (size before relaxing)
- .debug_str     0x0008e5e4       0x47 src/ASF/sam0/drivers/system/system.o
+ .debug_str     0x0008e5e6       0x47 src/ASF/sam0/drivers/system/system.o
                               0x83dd2 (size before relaxing)
- .debug_str     0x0008e62b      0xf17 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
+ .debug_str     0x0008e62d      0xf17 src/ASF/sam0/utils/cmsis/samd21/source/gcc/startup_samd21.o
                               0x6edf9 (size before relaxing)
- .debug_str     0x0008f542       0x74 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
+ .debug_str     0x0008f544       0x74 src/ASF/sam0/utils/cmsis/samd21/source/system_samd21.o
                               0x6dc7c (size before relaxing)
- .debug_str     0x0008f5b6       0x2a src/ASF/sam0/utils/stdio/read.o
+ .debug_str     0x0008f5b8       0x2a src/ASF/sam0/utils/stdio/read.o
                               0x83c9c (size before relaxing)
- .debug_str     0x0008f5e0       0x24 src/ASF/sam0/utils/stdio/write.o
+ .debug_str     0x0008f5e2       0x24 src/ASF/sam0/utils/stdio/write.o
                               0x83c9d (size before relaxing)
- .debug_str     0x0008f604      0x75b src/ASF/sam0/utils/syscalls/gcc/syscalls.o
+ .debug_str     0x0008f606      0x75b src/ASF/sam0/utils/syscalls/gcc/syscalls.o
                                0x73b0 (size before relaxing)
- .debug_str     0x0008fd5f      0x215 src/config/config_usart.o
+ .debug_str     0x0008fd61      0x215 src/config/config_usart.o
                               0x8a0a8 (size before relaxing)
- .debug_str     0x0008ff74       0x5f src/console.o
-                              0x8900b (size before relaxing)
- .debug_str     0x0008ffd3      0x108 src/keyboard.o
-                              0x89287 (size before relaxing)
- .debug_str     0x000900db       0x97 src/LCD.o
+ .debug_str     0x0008ff76       0x5f src/console.o
+                              0x88ffe (size before relaxing)
+ .debug_str     0x0008ffd5      0x108 src/keyboard.o
+                              0x8927a (size before relaxing)
+ .debug_str     0x000900dd       0x97 src/LCD.o
                               0x88fe6 (size before relaxing)
- .debug_str     0x00090172       0x57 src/LCDBus.o
+ .debug_str     0x00090174       0x57 src/LCDBus.o
                               0x88c37 (size before relaxing)
- .debug_str     0x000901c9      0x204 src/main.o
-                              0x8c1f8 (size before relaxing)
+ .debug_str     0x000901cb      0x204 src/main.o
+                              0x8c1eb (size before relaxing)
 
 .debug_frame    0x00000000     0x1a64
  .debug_frame   0x00000000       0x90 src/ouroboros.o

@@ -7,7 +7,6 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#define gnd_state 0;
 
 void parseChar(uint8_t character);
 

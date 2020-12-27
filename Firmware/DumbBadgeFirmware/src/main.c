@@ -154,6 +154,8 @@ void configure_usart(void)
 	config_usart.pinmux_pad2 = PINMUX_UNUSED;
 	config_usart.pinmux_pad3 = PINMUX_UNUSED;
 	
+	
+	
 	while (usart_init(&usart_instance, SERCOM2, &config_usart) != STATUS_OK) {
 	}
 	stdio_serial_init(&usart_instance, SERCOM2, &config_usart);

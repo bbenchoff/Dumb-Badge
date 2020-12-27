@@ -15,23 +15,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
   5 .comment      00000059  00000000  00000000  000201f0  2**0
                   CONTENTS, READONLY
-  6 .debug_info   0003aaa3  00000000  00000000  00020249  2**0
+  6 .debug_info   0003aaab  00000000  00000000  00020249  2**0
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00005857  00000000  00000000  0005acec  2**0
+  7 .debug_abbrev 00005864  00000000  00000000  0005acf4  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    00006a2c  00000000  00000000  00060543  2**0
+  8 .debug_loc    00006a2c  00000000  00000000  00060558  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_aranges 00000790  00000000  00000000  00066f6f  2**0
+  9 .debug_aranges 00000790  00000000  00000000  00066f84  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 000008e0  00000000  00000000  000676ff  2**0
+ 10 .debug_ranges 000008e0  00000000  00000000  00067714  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  0001f453  00000000  00000000  00067fdf  2**0
+ 11 .debug_macro  0001f452  00000000  00000000  00067ff4  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00013f3c  00000000  00000000  00087432  2**0
+ 12 .debug_line   00013f4d  00000000  00000000  00087446  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    000903cd  00000000  00000000  0009b36e  2**0
+ 13 .debug_str    000903cf  00000000  00000000  0009b393  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  00001a64  00000000  00000000  0012b73c  2**2
+ 14 .debug_frame  00001a64  00000000  00000000  0012b764  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -9342,6 +9342,8 @@ void configure_usart(void)
     32c2:	930e      	str	r3, [sp, #56]	; 0x38
 	config_usart.pinmux_pad3 = PINMUX_UNUSED;
     32c4:	930f      	str	r3, [sp, #60]	; 0x3c
+	
+	
 	
 	while (usart_init(&usart_instance, SERCOM2, &config_usart) != STATUS_OK) {
     32c6:	4d1c      	ldr	r5, [pc, #112]	; (3338 <configure_usart+0xd8>)
