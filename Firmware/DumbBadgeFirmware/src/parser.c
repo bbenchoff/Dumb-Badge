@@ -25,12 +25,12 @@
 
 
 
-parserState currentState = stateGround;
-
-
 void parseChar(uint8_t character)
 {
-	switch(currentState)
+	
+	parserState state = currentState;
+	
+	switch(state)
 	{
 		case stateGround:
 		{
@@ -102,7 +102,10 @@ void escState(uint8_t character)
 			drawChar(0x00);
 			xCharPos = xTemp;
 			blinkCursor();
-		}		
+		}
+		
+		currentState = stateGround;	
+			
 	}
 	else if(character == 0x45)		//ESC + E - (NEL) -
 	{
@@ -117,12 +120,7 @@ void escState(uint8_t character)
 
 		}		
 	}
-	else  // do nothing, set state top Ground
-	{
-		currentState = stateGround;
-	}
 	
-
 }
 
 void groundState(uint8_t character)

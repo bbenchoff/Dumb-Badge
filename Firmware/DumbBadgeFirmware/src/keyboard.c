@@ -19,6 +19,7 @@
 #include "ouroboros.h"
 #include "uart.h"
 #include "parser.h"
+#include "parserState.h"
 
 bool cursorBlinkState = true;
 
@@ -244,18 +245,21 @@ void printKeyboardBuffer(void)
 				}
 				else if(capsLock)
 				{
+					
 					sendChar(capsLockCase[scanCodeBuffer[i]]);
 					if(localEcho)
 						parseChar(capsLockCase[scanCodeBuffer[i]]);
 				}
 				else if(shifted)
 				{
+				
 					sendChar(shiftCase[scanCodeBuffer[i]]);
 					if(localEcho)
 						parseChar(shiftCase[scanCodeBuffer[i]]);
 				}
 				else
 				{
+		
 					sendChar(noCase[scanCodeBuffer[i]]);
 					if(localEcho)
 						parseChar(noCase[scanCodeBuffer[i]]);

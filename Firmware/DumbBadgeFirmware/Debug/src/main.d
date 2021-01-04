@@ -142,7 +142,8 @@ src/main.d src/main.o: ../src/main.c ../src/asf.h \
  c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\assert.h \
  ../src/settings.h ../src/globals.h ../src/LCDBus.h ../src/LCD.h \
  ../src/keyboard.h ../src/console.h ../src/splash.h ../src/uart.h \
- ../src/ouroboros.h ../src/parser.h ../src/config/conf_clocks.h
+ ../src/ouroboros.h ../src/parser.h ../src/parserState.h \
+ ../src/config/conf_clocks.h
 
 ../src/asf.h:
 
@@ -453,5 +454,7 @@ c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-no
 ../src/ouroboros.h:
 
 ../src/parser.h:
+
+../src/parserState.h:
 
 ../src/config/conf_clocks.h:

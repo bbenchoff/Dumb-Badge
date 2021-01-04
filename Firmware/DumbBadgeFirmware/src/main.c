@@ -22,6 +22,7 @@
 #include "ouroboros.h"
 #include "settings.h"
 #include "parser.h"
+#include "parserState.h"
 
 
 
@@ -35,6 +36,8 @@
 uint16_t ul_tickcount=0;
 bool funcLock = false;
 uint8_t rx_buf;
+
+parserState currentState = stateGround;
 
 
 

@@ -21,6 +21,8 @@ typedef enum
 	
 } parserState;
 
+
+
 extern parserState currentState;
 
 

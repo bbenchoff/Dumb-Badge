@@ -8,6 +8,7 @@
 #define PARSER_H
 
 
+
 void parseChar(uint8_t character);
 
 void groundState(uint8_t character);
