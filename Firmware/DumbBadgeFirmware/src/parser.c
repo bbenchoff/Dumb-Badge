@@ -23,7 +23,8 @@
 #include "settings.h"
 #include "parser.h"
 
-
+uint8_t DECSCX = 0;
+uint8_t DECSCY = 0;
 
 void parseChar(uint8_t character)
 {
@@ -46,13 +47,13 @@ void parseChar(uint8_t character)
 		
 		case stateESCinter:
 		{
-			
+			escIntState(character);
 		}
 		break;
 		
 		case stateCSIentry:
 		{
-			
+			CSIentryState(character);
 		}
 		break;
 		
@@ -113,13 +114,182 @@ void escState(uint8_t character)
 		//first column (CR,LF) scrolls if row = 24
 		if(yCharPos < 23)
 		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos++;
+			xCharPos = 0;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			blinkCursor();
 
 		}
 		else
 		{
-
-		}		
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			newLine();
+			drawChar(0x00);
+			xCharPos = 0;
+			blinkCursor();
+		}	
+		
+		currentState = stateGround;	
+		
 	}
+	else if(character == 0x37)		//ESC + 7 - (DECSC) -
+	{
+		//Save cursor position
+		DECSCX = xCharPos;
+		DECSCY = yCharPos;
+		currentState = stateGround;
+	} 
+	else if(character == 0x38)		//ESC + 8 - (DECRC) -
+	{
+		//Restore cursor to saved position
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		xCharPos = DECSCX;
+		yCharPos = DECSCY;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+		blinkCursor();
+		currentState = stateGround;
+	}
+	else if(character == 0x23 || character == 0x28)
+	{
+		stateEnterBuffer = character;
+		currentState = stateESCinter;
+	}
+	else if(character == 0x5B)
+	{
+		currentState = stateCSIentry;
+	}
+	else
+	{
+		currentState = stateGround;
+	}
+}
+
+void CSIentryState(uint8_t character)
+{
+	
+}
+
+void escIntState(uint8_t character)
+{
+	/*
+	ESC Intermediate is entered when an intermediate character arrives in an
+	escape sequence; there are no paramaters, and the contro function is 
+	determined by the intermediate and final characters.
+	
+	In effect, this state is for double-height lines, double width lines,
+	different character sets, and so forth. the majority of VT100 ESC_INT
+	escape codes leading in with '#' are not implemented. Codes leading in with
+	'(' are implemented, because this will determine the character set (e.x.
+	Code Page 347, katakana, ISO/IEC 8859-1).
+	
+	This state should probably just be part of the ESCAPE state, but whatever
+	I'm writing it now.
+	*/
+		
+	if(character == 0x1B)
+	{
+		currentState = stateGround;
+	}
+	
+	switch(stateEnterBuffer)
+	{
+		case '#':
+			if(character == 0x30) //'0'		
+			{
+				//do nothing
+			}
+			else if(character == 0x31) //'1'
+			{
+				//do nothing
+			}
+			else if(character == 0x32) //'2'
+			{
+				//do nothing
+			}
+			else if(character == 0x33) //'3'
+			{
+				//do nothing
+				//should be double height line, top
+			}
+			else if(character == 0x34) //'4'
+			{
+				//do nothing
+				//should be double height line, bottom
+			}
+			else if(character == 0x35) //'5'
+			{
+				//do nothing
+				//should single width line
+			}
+			else if(character == 0x36) //'6'
+			{
+				//do nothing
+				//should be double width line
+			}
+			else if(character == 0x37) //'7'
+			{
+				//do nothing
+				//should bve make a hardcopy of screen, not imp
+			}
+			else if(character == 0x38) //'8'
+			{
+				//do nothing
+				//alignment display, fill screen with 'E'
+				//but this is an LCD, so fuck it
+			}
+			else if(character == 0x39) //'9'
+			{
+				//do nothing
+			}
+			break;
+		case '(':
+			if(character == 0x30) //'0'		
+			{
+				//Code Page 437
+			}
+			else if(character == 0x31) //'1'
+			{
+				//ISO/IEC8859-2
+			}
+			else if(character == 0x32) //'2'
+			{
+				//Katakana?
+			}
+			else if(character == 0x33) //'3'
+			{
+				//Windows-1252
+			}
+			else if(character == 0x34) //'4'
+			{
+				//do nothing
+			}
+			else if(character == 0x35) //'5'
+			{
+				//do nothing
+			}
+			else if(character == 0x36) //'6'
+			{
+				//do nothing
+			}
+			else if(character == 0x37) //'7'
+			{
+				//do nothing
+			}
+			else if(character == 0x38) //'8'
+			{
+				//do nothing
+			}
+			else if(character == 0x39) //'9'
+			{
+				//do nothing
+			}
+			break;
+	}
+	stateEnterBuffer = 0x00;
+	currentState = stateGround;
 	
 }
 

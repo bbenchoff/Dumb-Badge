@@ -80,9 +80,6 @@ int main (void)
 	ouroboros = ring_init(buffer, UART_BUFFER_SIZE);
 	
 
-	
-
-
 	while(1)
 	{			
 		__WFI();

@@ -61,7 +61,8 @@ extern unsigned char consoleDisplay[80][24];
 
 extern struct Settings settings;
 
-
+extern uint8_t DECSCX;
+extern uint8_t DECSCY;
 
 
 #endif /* GLOBALS_H_ */
