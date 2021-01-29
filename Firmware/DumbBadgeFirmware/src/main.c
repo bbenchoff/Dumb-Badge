@@ -79,6 +79,7 @@ int main (void)
 	uint8_t * buffer  = malloc(UART_BUFFER_SIZE * sizeof(uint8_t));
 	ouroboros = ring_init(buffer, UART_BUFFER_SIZE);
 	
+	parserInit();
 
 	while(1)
 	{			

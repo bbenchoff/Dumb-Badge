@@ -9,6 +9,12 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include <stdlib.h>
+
+#include <stddef.h>
+#include <stdbool.h>
+#include <assert.h>
+
 
 #include "globals.h"
 #include "parserState.h"
@@ -23,8 +29,18 @@
 #include "settings.h"
 #include "parser.h"
 
+#define PARSER_BUFFER_SIZE 20
+
+cbuf_handle_t parserBuffer;
+
 uint8_t DECSCX = 0;
 uint8_t DECSCY = 0;
+
+void parserInit()
+{
+	uint8_t * buffer  = malloc(PARSER_BUFFER_SIZE * sizeof(uint8_t));
+	parserBuffer = ring_init(buffer, PARSER_BUFFER_SIZE);
+}
 
 void parseChar(uint8_t character)
 {
@@ -71,7 +87,7 @@ void parseChar(uint8_t character)
 		
 		case stateCSIignore:
 		{
-			
+			CSIignoreState(character);
 		}
 		break;
 	}
@@ -169,7 +185,22 @@ void escState(uint8_t character)
 
 void CSIentryState(uint8_t character)
 {
-	
+	if(character == 0x3A)
+	{
+		currentState = stateCSIignore;
+	}
+	else
+	{
+		currentState = stateGround;
+	}
+}
+
+void CSIignoreState(uint8_t character)
+{
+	if(character >= 0x40 && character <= 0x7E)
+	{
+		currentState = stateGround;
+	}
 }
 
 void escIntState(uint8_t character)
