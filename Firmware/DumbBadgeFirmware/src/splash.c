@@ -92,7 +92,7 @@ void splashScreen(void)
 	splashText[1]  = "13^5 + 16^5 = 17^5";//
 	splashText[2]  = "Reticulating Splines";//
 	splashText[3]  = "violence.works";//
-	splashText[4]  = "Tabs!";//
+	splashText[4]  = "Si + PB";//
 	splashText[5]  = "Kill Billionaires (and Trillionaire)";//
 	splashText[6]  = "Interest in technology is not a personality";//
 	splashText[7]  = "10 PRINT CHR$(205.5+RND(1)); : GOTO 10";//

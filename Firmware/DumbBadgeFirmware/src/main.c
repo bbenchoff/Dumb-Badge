@@ -100,10 +100,10 @@ int main (void)
 			funcLock = true;
 
 			readKeyboard();
-			printKeyboardBuffer();
 			
-			parseRXBuffer();
+			printKeyboardBuffer();
 
+			parseRXBuffer();
 			funcLock = false;
 		}
 		

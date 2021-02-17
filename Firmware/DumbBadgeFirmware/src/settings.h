@@ -24,6 +24,9 @@ struct Settings {
 extern bool localEcho;
 extern bool breakEnable;
 
+
+//Line Feed / New Line is defined in VT100 Series Video Terminal
+//Technical Manual Appendix A Page A-26
 extern bool lineFeed;
 extern int lineFeedNewLine;
 

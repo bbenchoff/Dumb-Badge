@@ -19,6 +19,15 @@ void escIntState(uint8_t character);
 void CSIentryState(uint8_t character);
 void CSIignoreState(uint8_t character);
 
+///These are the mnemonic functions
+void SC(void);
+void RC(void);
+void IND(void);
+void NEL(void);
+void RI(void);
+void RIS(void);
+
+
 int nextTab(int a);
 
 #endif

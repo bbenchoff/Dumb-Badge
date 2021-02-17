@@ -14,6 +14,7 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include <assert.h>
+#include <asf.h>
 
 
 #include "globals.h"
@@ -96,77 +97,29 @@ void parseChar(uint8_t character)
 
 void escState(uint8_t character)
 {
-	char tempCharacter;
-	int xTemp = 0;
-	
-	if(character == 0x44)		//ESC + D - (IND) - 
+	if(character == 0x37)		//ESC + 7 - (DECSC) -
 	{
-		//Moves cursor down one line in column
-		//performs newline() if row = 24
-		if(yCharPos < 23)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			yCharPos++;
-			tempCharacter = consoleDisplay[xCharPos][yCharPos];
-			drawChar(tempCharacter);
-			blinkCursor();
-		}
-		else
-		{	
-			xTemp = xCharPos;
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			newLine();
-			drawChar(0x00);
-			xCharPos = xTemp;
-			blinkCursor();
-		}
-		
-		currentState = stateGround;	
-			
+		SC();
+	}
+	else if(character == 0x38)		//ESC + 8 - (DECRC) -
+	{
+		RC();
+	}
+	else if(character == 0x44)		//ESC + D - (IND) - 
+	{
+		IND();			
 	}
 	else if(character == 0x45)		//ESC + E - (NEL) -
 	{
-		//new line, moves down one line and to the
-		//first column (CR,LF) scrolls if row = 24
-		if(yCharPos < 23)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			yCharPos++;
-			xCharPos = 0;
-			tempCharacter = consoleDisplay[xCharPos][yCharPos];
-			drawChar(tempCharacter);
-			blinkCursor();
-
-		}
-		else
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			newLine();
-			drawChar(0x00);
-			xCharPos = 0;
-			blinkCursor();
-		}	
-		
-		currentState = stateGround;	
-		
+		NEL();
 	}
-	else if(character == 0x37)		//ESC + 7 - (DECSC) -
+	else if(character == 0x4D)		//ESC + M - (RI)
 	{
-		//Save cursor position
-		DECSCX = xCharPos;
-		DECSCY = yCharPos;
-		currentState = stateGround;
-	} 
-	else if(character == 0x38)		//ESC + 8 - (DECRC) -
+		RI();
+	}
+	else if(character == 0x63)		//ESC + c - (RIS)
 	{
-		//Restore cursor to saved position
-		drawChar(consoleDisplay[xCharPos][yCharPos]);
-		xCharPos = DECSCX;
-		yCharPos = DECSCY;
-		tempCharacter = consoleDisplay[xCharPos][yCharPos];
-		drawChar(tempCharacter);
-		blinkCursor();
-		currentState = stateGround;
+		RIS();
 	}
 	else if(character == 0x23 || character == 0x28)
 	{
@@ -177,15 +130,15 @@ void escState(uint8_t character)
 	{
 		currentState = stateCSIentry;
 	}
-	else
-	{
-		currentState = stateGround;
-	}
 }
 
 void CSIentryState(uint8_t character)
 {
-	if(character == 0x3A)
+	if(character == 0x1B)
+	{
+		currentState = stateGround;
+	}
+	else if(character == 0x3A)
 	{
 		currentState = stateCSIignore;
 	}
@@ -197,7 +150,11 @@ void CSIentryState(uint8_t character)
 
 void CSIignoreState(uint8_t character)
 {
-	if(character >= 0x40 && character <= 0x7E)
+	if(character == 0x1B)
+	{
+		currentState = stateGround;
+	}
+	else if(character >= 0x40 && character <= 0x7E)
 	{
 		currentState = stateGround;
 	}
@@ -568,6 +525,117 @@ void groundState(uint8_t character)
 			xCharPos--;
 		}
 	}
+}
+
+void SC()
+{
+	//Save cursor position
+	DECSCX = xCharPos;
+	DECSCY = yCharPos;
+	currentState = stateGround;
+}
+
+void RC()
+{
+	//Restore cursor to saved position
+	
+	char tempCharacter;
+	
+	drawChar(consoleDisplay[xCharPos][yCharPos]);
+	xCharPos = DECSCX;
+	yCharPos = DECSCY;
+	tempCharacter = consoleDisplay[xCharPos][yCharPos];
+	drawChar(tempCharacter);
+	blinkCursor();
+	currentState = stateGround;
+}
+
+void IND()
+{
+	//Moves cursor down one line in column
+	//performs newline() if row = 24
+	
+	char tempCharacter;
+	int xTemp = 0;
+	
+	if(yCharPos < 23)
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos++;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+		blinkCursor();
+	}
+	else
+	{
+		xTemp = xCharPos;
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		newLine();
+		drawChar(0x00);
+		xCharPos = xTemp;
+		blinkCursor();
+	}
+		
+		currentState = stateGround;	
+}
+
+void NEL()
+{
+	//new line, moves down one line and to the
+	//first column (CR,LF) scrolls if row = 24
+	
+	char tempCharacter;
+	
+	if(yCharPos < 23)
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos++;
+		xCharPos = 0;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+		blinkCursor();
+	}
+	else
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		newLine();
+		drawChar(0x00);
+		xCharPos = 0;
+		blinkCursor();
+	}
+		
+	currentState = stateGround;
+}
+
+void RI()
+{
+	//Reverse Index
+	//Moves the cursor to the same horizontal position on the preceding line
+	
+	char tempCharacter;
+	
+	if(yCharPos == 0)
+	{
+		//do nothing, scrolling the screen 'reverse' is not mentioned in
+		//ANSI X3.64-1979
+	}
+	else
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos--;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+		blinkCursor();
+	}
+	currentState = stateGround;
+}
+
+void RIS()
+{
+	//soft reset of system with ESC + c 
+	//this might be sloppy, could replace this with an overflowing WDT
+	//but this seems to work so /shrug
+	NVIC_SystemReset();
 }
 
 int nextTab(int a) 
