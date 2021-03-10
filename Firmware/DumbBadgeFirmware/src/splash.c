@@ -106,14 +106,14 @@ void splashScreen(void)
 	splashText[15] = "A Nice TTY";//
 	splashText[16] = "Unix epoch minus 0xFF days";//
 	splashText[17] = "i  = 0x5f3759df - ( i >> 1 );";//
-	splashText[18] = "ACAB";//
-	splashText[19] = "Defcon's canceled.";//
+	splashText[18] = "Speak truth to power; I'm sure they'll listen this time.";//
+	splashText[19] = "Defcon's canceled (2020)";//
 	splashText[20] = "Ratsnest: Nothing To Do!";//
 	splashText[21] = "It has 69 keys.";//
 	splashText[22] = "Because VT-420 was already taken";//
 	splashText[23] = "Compression algorithm based on BBP (1997)";//
 	splashText[24] = "Teach health insurance providers to code.";
-	splashText[25] = "Offensive hardware";//
+	splashText[25] = "Grand Central Hack The Planet";//
 	splashText[26] = "WiFi is not wireless Ethernet!";//
 	splashText[27] = "Dummy thicc client";//
 	splashText[28] = "A Nice TTY. An OK Computer.";//

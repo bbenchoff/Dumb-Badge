@@ -208,7 +208,11 @@ void printKeyboardBuffer(void)
 				sendChar(0x44);
 				
 				if(localEcho)
-					arrowKey(scanCodeBuffer[i]);
+				{
+					ring_put(ouroboros, 0x1B);
+					ring_put(ouroboros, 0x5B);
+					ring_put(ouroboros, 0x44);
+				}
 			}
 			else if(scanCodeBuffer[i]  == 45)	//down
 			{
@@ -217,7 +221,11 @@ void printKeyboardBuffer(void)
 				sendChar(0x5B);
 				sendChar(0x42);
 				if(localEcho)
-					arrowKey(scanCodeBuffer[i]);
+				{
+					ring_put(ouroboros, 0x1B);
+					ring_put(ouroboros, 0x5B);
+					ring_put(ouroboros, 0x42);
+				}
 			}
 			else if(scanCodeBuffer[i]  == 55)	//up
 			{
@@ -225,7 +233,11 @@ void printKeyboardBuffer(void)
 				sendChar(0x5B);
 				sendChar(0x41);
 				if(localEcho)
-					arrowKey(scanCodeBuffer[i]);
+				{
+					ring_put(ouroboros, 0x1B);
+					ring_put(ouroboros, 0x5B);
+					ring_put(ouroboros, 0x41);
+				}
 			}
 			else if(scanCodeBuffer[i]  == 65)	//right
 			{
@@ -233,7 +245,11 @@ void printKeyboardBuffer(void)
 				sendChar(0x5B);
 				sendChar(0x43);
 				if(localEcho)
-					arrowKey(scanCodeBuffer[i]);
+				{
+					ring_put(ouroboros, 0x1B);
+					ring_put(ouroboros, 0x5B);
+					ring_put(ouroboros, 0x43);
+				}
 			}
 			else
 			{

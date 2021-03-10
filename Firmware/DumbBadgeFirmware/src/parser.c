@@ -10,6 +10,7 @@
 #include <stdio.h>
 
 #include <stdlib.h>
+#include <string.h>
 
 #include <stddef.h>
 #include <stdbool.h>
@@ -29,23 +30,20 @@
 #include "ouroboros.h"
 #include "settings.h"
 #include "parser.h"
+#include "overflow.h"
 
-#define PARSER_BUFFER_SIZE 20
+static const char csiEscCodes[] = "ABCDEFGHIJKmPQWXZ";
 
-cbuf_handle_t parserBuffer;
+uint8_t parserBuffer[10];
+int paramBuffer[4];
 
 uint8_t DECSCX = 0;
 uint8_t DECSCY = 0;
 
-void parserInit()
-{
-	uint8_t * buffer  = malloc(PARSER_BUFFER_SIZE * sizeof(uint8_t));
-	parserBuffer = ring_init(buffer, PARSER_BUFFER_SIZE);
-}
 
 void parseChar(uint8_t character)
 {
-	
+		
 	parserState state = currentState;
 	
 	switch(state)
@@ -76,7 +74,7 @@ void parseChar(uint8_t character)
 		
 		case stateCSIparam:
 		{
-			
+			CSIparamState(character);
 		}
 		break;
 		
@@ -134,13 +132,139 @@ void escState(uint8_t character)
 
 void CSIentryState(uint8_t character)
 {
-	if(character == 0x1B)
+	if(character == 0x41)		//ESC [ A	Cursor Up
+	{
+		CUU();
+	}
+	else if(character == 0x42)	//ESC [ B	Cursor Down
+	{
+		CUD();
+	}
+	else if(character == 0x43)	//ESC [ C	Cursor Forward
+	{
+		CUF();
+	}
+	else if(character == 0x44)	//ESC [ D	Cursor Backward
+	{
+		CUB();
+	}
+	else if(character == 0x45)	//ESC [ E	Cursor Next Line
+	{
+		CNL();
+	}
+	else if(character == 0x46)	//ESC [ F	Cursor Preceding Line
+	{
+		CPL();
+	}
+	else if(character == 0x47)	//ESC [ G	Cursor Horizontal Absolute
+	{
+		CHA();
+	}
+	else if(character == 0x48)	//ESC [ H	Cursor Position
+	{
+		CUP();
+	}
+	else if(character == 0x49)	//ESC [ I	Cursor Horizontal Tab
+	{
+		CHT();
+	}
+	else if(character == 0x4A)	//ESC [ J	Erase In Display
+	{
+		ED();
+	}
+	else if(character == 0x4B)	//ESC [ K	Erase In Line
+	{
+		EL();
+	}
+	else if(character == 0x6D)	//ESC [ m	Select Graphic Rendition
+	{
+		SGR();
+	}
+	else if(character == 0x50)	//ESC [ P	Delete Character
+	{
+		DCH();
+	}
+	else if(character == 0x51)	//ESC [ Q	Select Edit Extent Mode
+	{
+		SEM();
+	}
+	else if(character == 0x57)	//ESC [ W	Cursor Tabulation Control
+	{
+		CTC();
+	}
+	else if(character == 0x58)	//ESC [ X	Erase Character
+	{
+		ECH();
+	}
+	else if(character == 0x5A)	//ESC [ Z	Cursor Backwards Tab
+	{
+		CBT();	
+	}
+	else if(character >= 0x30 && character <= 0x39) // if the character is a digit 0-9
+	{
+		CSIparamState(character);
+	}
+	else if(character == 0x3B)	//Semicolon ; parameter deliminator
+	{
+		CSIparamState(character);
+	}
+	else if(character == 0x1B)
 	{
 		currentState = stateGround;
+		
 	}
 	else if(character == 0x3A)
 	{
 		currentState = stateCSIignore;
+	}
+	else
+	{
+		currentState = stateCSIignore;
+	}
+}
+
+void CSIparamState(uint8_t character)
+{
+	/*alright this is where it gets real, bucko.
+	
+	An incoming character may be digit 0-9, characters
+	{ABCDEFGHIJKmPQWXZ}, or character ';'.
+	If not, we go to state GROUND.
+	
+	The parser enters the CSI state with an empty parambuffer
+	and parserbuffer. When a parameter is added, it goes into the
+	parserbuffer. parambuffer and parserbuffer are implemented as queues,
+	having the type char for parserbuffer and the type int for parambuffer.
+	
+	if a ';' is received, the items in the parserbuffer are concatenated
+	and atoi()'d, then stuffed into the parambuffer. incoming digits 0x30-39
+	are then also added to the parserbuffer
+	
+	when a character used for an escape code is seen incoming, we jump to
+	*that*, then deal with the concatenation and options of each individual
+	escape code.
+	
+	This is probably way harder than it sounds in my head.*/
+	
+	if(character >= 0x30 && character <= 0x39)		//character is a digit, put it in the buffer
+	{
+		enqueueParser(character);
+	}
+	else if(character == 0x3B)					//character is ';', now we take items out of 
+	{											//the parserbuffer and concatenate them into
+		enqueueParser(';');						//parambuffer 			
+	}
+	else if(isValidCSIEscapeCode(character))		//character matches a supported escape code
+	{												//here, "ABCDEFGHIJKmPQWXZ"
+		//concatenateBuffer();
+		char temp = dequeueParser();
+		printf("%c",temp);
+		while(!isEmptyParser())
+		{
+			printf("%c\n",dequeueParser());
+		}
+		currentState = stateCSIentry;
+		CSIentryState(character);
 	}
 	else
 	{
@@ -154,7 +278,7 @@ void CSIignoreState(uint8_t character)
 	{
 		currentState = stateGround;
 	}
-	else if(character >= 0x40 && character <= 0x7E)
+	else
 	{
 		currentState = stateGround;
 	}
@@ -283,6 +407,9 @@ void escIntState(uint8_t character)
 
 void groundState(uint8_t character)
 {
+	
+	clearQueues();									//parser and paramQueues cleared
+	
 	char tempCharacter;
 
 	if(character == 0x00)							//NUL 0x00 DO NOTHING
@@ -527,6 +654,10 @@ void groundState(uint8_t character)
 	}
 }
 
+/************************************************************************/
+/*    ESC mnemonic functions                                            */
+/************************************************************************/
+
 void SC()
 {
 	//Save cursor position
@@ -637,6 +768,143 @@ void RIS()
 	//but this seems to work so /shrug
 	NVIC_SystemReset();
 }
+
+/************************************************************************/
+/*    CSI mnemonic functions                                            */
+/************************************************************************/
+void CUU() // Cursor Up
+{
+	unsigned char tempCharacter;
+	uint8_t parameter = 1;
+	/*
+	if(!ring_empty(paramBuffer))
+	{
+		ring_get(paramBuffer, (int)parameter);
+	}
+	*/
+	
+	while(!isEmptyParser())
+	{
+		printf("%c\n",dequeueParser());
+	}
+	
+	if(yCharPos > 0)
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos = yCharPos - parameter;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+		blinkCursor();
+	}
+	currentState = stateGround;
+}
+void CUD() //Cursor Down
+{
+	unsigned char tempCharacter;
+	if(yCharPos < 23)
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos++;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+		blinkCursor();
+	}
+	currentState = stateGround;
+}
+void CUF() //Cursor Forward
+{
+	unsigned char tempCharacter;
+	if(xCharPos < 79)
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		xCharPos++;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+		blinkCursor();
+	}
+	currentState = stateGround;
+}
+void CUB() //Cursor Backward
+{
+	unsigned char tempCharacter;
+	if(xCharPos > 0)
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		xCharPos--;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+		blinkCursor();
+	}
+	currentState = stateGround;
+}
+void CNL() //Cursor Next Line
+{
+	
+}
+void CPL() //Cursor Preceding Line
+{
+	
+}
+void CHA() //Cursor Horizontal Absolute
+{
+	
+}
+void CUP() //Cursor Position
+{
+	
+}
+void CHT() //Cursor Horizontal Tab
+{
+	
+}
+void ED() //Edit In Display
+{
+	
+}
+void EL() //Edit In Line
+{
+	
+}
+void SGR() //Select Graphic Rendition
+{
+	
+}
+void DCH() //Delete Character
+{
+	
+}
+void SEM() //Select Edit Extent Mode
+{
+	
+}
+void CTC() //Cursor Tabulation Control
+{
+	
+}
+void ECH() //Erase Character
+{
+	
+}
+void CBT() //Cursor Backwards Tab
+{
+	
+}
+
+
+bool isValidCSIEscapeCode(uint8_t character)
+{
+	int sizeCsiEscCodes = sizeof(csiEscCodes)/sizeof(csiEscCodes[0]);
+	
+	for(int i = 0; i <= sizeCsiEscCodes ; i++)
+	{
+		if(csiEscCodes[i] == character)
+		{
+			return true;	
+		}
+	}
+	return false;
+}
+
 
 int nextTab(int a) 
 {

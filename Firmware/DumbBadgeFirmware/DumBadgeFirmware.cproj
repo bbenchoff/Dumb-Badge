@@ -532,6 +532,7 @@
     </ListValues>
   </armgcc.linker.libraries.LibrarySearchPaths>
   <armgcc.linker.optimization.GarbageCollectUnusedSections>True</armgcc.linker.optimization.GarbageCollectUnusedSections>
+  <armgcc.linker.memorysettings.ExternalRAM />
   <armgcc.linker.miscellaneous.LinkerFlags>-Wl,--entry=Reset_Handler -Wl,--cref -mthumb -T../src/ASF/sam0/utils/linker_scripts/samd21/gcc/samd21j18a_flash.ld</armgcc.linker.miscellaneous.LinkerFlags>
   <armgcc.assembler.general.IncludePaths>
     <ListValues>
@@ -687,6 +688,12 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\ouroboros.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\overflow.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\overflow.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\parser.c">

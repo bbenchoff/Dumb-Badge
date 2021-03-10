@@ -79,7 +79,7 @@ int main (void)
 	uint8_t * buffer  = malloc(UART_BUFFER_SIZE * sizeof(uint8_t));
 	ouroboros = ring_init(buffer, UART_BUFFER_SIZE);
 	
-	parserInit();
+
 
 	while(1)
 	{			
@@ -236,6 +236,8 @@ void setupBoard(void)
 	//I have no idea why I need to call this; it's in the callback and it
 	//doesn't work without this line here. Remove this at your own peril.
 	usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
+	
+
 
 	printf("\n\rSerial OK 9600 8N1\n\r");
 

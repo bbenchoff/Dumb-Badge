@@ -4,6 +4,8 @@
 
 src\ouroboros.c
 
+src\overflow.c
+
 src\parser.c
 
 src\splash.c

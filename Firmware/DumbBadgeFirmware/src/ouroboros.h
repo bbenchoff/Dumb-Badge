@@ -29,7 +29,7 @@ void ring_put(cbuf_handle_t cbuf, uint8_t data);
 /// Returns 0 on success, -1 if the buffer is empty
 int ring_get(cbuf_handle_t cbuf, uint8_t * data);
 
-/// CHecks if the buffer is empty
+/// Checks if the buffer is empty
 /// Returns true if the buffer is empty
 bool ring_empty(cbuf_handle_t cbuf);
 

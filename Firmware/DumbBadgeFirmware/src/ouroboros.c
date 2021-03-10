@@ -1,7 +1,7 @@
 /*
  * ouroborous.c
  *
- * It's a ring buffer you uncultured swine
+ * It's a ring buffer
  *
  * Created: 10/27/2020 3:17:25 PM
  *  Author: bench

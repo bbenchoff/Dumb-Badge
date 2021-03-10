@@ -15,9 +15,10 @@
 The following is a list of Escape and Command codes supported by the VT-69. This
 list is taken (or influenced) by VT100 Series Video Terminal Technical Manual 
 (EK-VT100-TM-003) appendix A and D, ANSI Code Extension (ANSI Standard 
-X3.64-1974, X3.64-1979 (ISO 2022 and 6429)), and "Towards Standardized Video
-Terminals: ANSI X3.64 Device Control" Mark L. Siegel, BYTE Magazine April 1984,
-pp365-374.
+X3.64-1974, X3.64-1979 (ISO 2022 and 6429)), "A parser for DEC’s ANSI-
+compatible video terminals" by Paul Flow Williams (vt100.net/emu/dec_ansi_parser)
+and "Towards Standardized Video Terminals: ANSI X3.64 Device Control" Mark L. 
+Siegel, BYTE Magazine April 1984, pp365-374.
 
 Note VT-52 modes _are not supported_, as the VT-69 is an ANSI terminal.
 
@@ -43,27 +44,27 @@ Mnemonic	Name						Sequence			Default Value
 -------------------------------------------------------------------------
 SC			Save Cursor Position		Esc 7						*
 RC			Recall Cursor Position		Esc 8						*
-CUU			Cursor up					Esc [ Pn A			1		*
-CUD			Cursor down					Esc [ Pn B			1		*
+CUU			Cursor up			Esc [ Pn A			1		*
+CUD			Cursor down			Esc [ Pn B			1		*
 CUF			Cursor forward (right)		Esc [ Pn C			1		*
 RIS			Reset to Initial State		Esc c						*
-IND			Index						Esc D						*
+IND			Index				Esc D						*
 CUB			Cursor backward (left)		Esc [ Pn D			1		*
-NEL			Next Line					Esc E						*
-CNL			Cursor Next Line			Esc [ Pn E			1		*
+NEL			Next Line			Esc E						*
+CNL			Cursor Next Line		Esc [ Pn E			1		*
 CPL			Cursor Preceding Line		Esc [ Pn F			1		*
 CHA			Cursor Horizontal Absolute	Esc [ Pn G			1		*
-HTS			Horizontal Tab Set			Esc H						*
-CUP			Cursor Position				Esc [ Pn ; Pn H		1, 1	*
+HTS			Horizontal Tab Set		Esc H						*
+CUP			Cursor Position			Esc [ Pn ; Pn H			1, 1		*
 CHT			Cursor Horizontal Tab		Esc [ Pn I			1		*
-ED			Erase In Display			Esc [ Ps J			0		*
-EL			Erase In Line				Esc [ Ps K			0		*
-RI			Reverse Index				Esc M						*
+ED			Erase In Display		Esc [ Ps J			0		*
+EL			Erase In Line			Esc [ Ps K			0		*
+RI			Reverse Index			Esc M						*
 SGR			Select Grapic Rendition		Esc [ Ps m					*
-DCH			Delete Character			Esc [ Pn P			1		*
+DCH			Delete Character		Esc [ Pn P			1		*
 SEM			Select Edit Extent Mode		Esc [ Pn Q			0		*
 CTC			Cursor Tabulation Control	Esc [ Ps W			0		*
-ECH			Erase Character				Esc [ Pn X			1		*
+ECH			Erase Character			Esc [ Pn X			1		*
 CBT			Cursor Backwards Tab		Esc [ Ps Z			1		*
 
 
@@ -106,7 +107,7 @@ CTC	- Cursor Tabulation Control
 	Stop Mode):
 
 	0 or none	Set a horizontal tabulation stop at the active position
-	2			Clear the horizontal tabulation stop at the active position
+	2			Clear horizontal tabulation at the active position
 	5			Clear all horizontal tabulation stops in the device
 
 	All other parameters are ignored.
