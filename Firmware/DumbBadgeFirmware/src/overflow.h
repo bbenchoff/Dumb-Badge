@@ -19,3 +19,5 @@ uint8_t dequeueParam(void);
 void enqueueParam(uint8_t);
 
 void clearQueues(void);
+
+void queueTransmogrifier(void);

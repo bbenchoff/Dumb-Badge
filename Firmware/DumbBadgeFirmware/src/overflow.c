@@ -1,4 +1,4 @@
-/*
+﻿/*
  * overflow.c
  *
  * Created: 3/8/2021 9:40:47 PM
@@ -10,9 +10,31 @@
 
 #include "overflow.h"
 
-int MAXSIZE = 20;
-char queueParser[20];
-uint8_t queueParam[20];
+/*
+	These are two naively-implemented queues, using arrays. One queue is
+	implemented as a char array, the other is implemented as a uint8_t.
+	
+	The different types are important for reasons.
+	
+	When in a CSI state, the parser throws intermediate characters into
+	queueParser. When an ending character is found in the incoming stream,
+	(i.e. {ABCDEFGHIJKmPQWXZ}), everything is reassembled into queueParam.
+		
+		see queueTransmogrifier for this.
+	
+	queueTransmogrifier takes the intermediate characters and transforms them
+	into paramaters for the escape code. The contents of queueParam will be
+	an array of ints, where the 0th position is the first paramater, the 1st
+	position is the second, and soforth.
+	
+	These paramaters are then acted upon by various escape code functions.
+*/
+
+int MAXSIZE = 50;		//50 should be enough for everything ¯\_(ツ)_/¯
+
+char queueParser[50];
+uint8_t queueParam[50];
+
 int frontParser = -1;
 int frontParam = -1;
 int rearParam = -1;
@@ -101,6 +123,21 @@ void enqueueParam(uint8_t data)
 }
 
 void clearQueues(void)
+{
+
+	for(int i = 0 ; i < (MAXSIZE - 1) ; i++)
+	{
+		queueParam[i] = 0;
+		queueParser[i] = 0;
+	}
+	
+	frontParser = -1;
+	frontParam = -1;
+	rearParam = -1;
+	rearParser = -1;
+}
+
+void queueTransmogrifier(void)
 {
 	
 }

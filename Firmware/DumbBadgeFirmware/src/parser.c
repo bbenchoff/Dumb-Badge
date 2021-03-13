@@ -408,9 +408,9 @@ void escIntState(uint8_t character)
 void groundState(uint8_t character)
 {
 	
-	clearQueues();									//parser and paramQueues cleared
-	
+
 	char tempCharacter;
+	clearQueues();									//parser and paramQueues cleared
 
 	if(character == 0x00)							//NUL 0x00 DO NOTHING
 	{
