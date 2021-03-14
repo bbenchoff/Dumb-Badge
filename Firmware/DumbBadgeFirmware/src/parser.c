@@ -132,6 +132,7 @@ void escState(uint8_t character)
 
 void CSIentryState(uint8_t character)
 {
+	
 	if(character == 0x41)		//ESC [ A	Cursor Up
 	{
 		CUU();
@@ -202,10 +203,12 @@ void CSIentryState(uint8_t character)
 	}
 	else if(character >= 0x30 && character <= 0x39) // if the character is a digit 0-9
 	{
+		currentState = stateCSIparam;
 		CSIparamState(character);
 	}
 	else if(character == 0x3B)	//Semicolon ; parameter deliminator
 	{
+		currentState = stateCSIparam;
 		CSIparamState(character);
 	}
 	else if(character == 0x1B)
@@ -221,6 +224,7 @@ void CSIentryState(uint8_t character)
 	{
 		currentState = stateCSIignore;
 	}
+
 }
 
 void CSIparamState(uint8_t character)
@@ -256,13 +260,13 @@ void CSIparamState(uint8_t character)
 	}
 	else if(isValidCSIEscapeCode(character))		//character matches a supported escape code
 	{												//here, "ABCDEFGHIJKmPQWXZ"
-		//concatenateBuffer();
-		char temp = dequeueParser();
-		printf("%c",temp);
-		while(!isEmptyParser())
+		queueTransmogrifier();
+		printf("param: ");
+		while(!isEmptyParam())
 		{
-			printf("%c\n",dequeueParser());
-		}
+
+			printf("%i ",dequeueParam());
+		}												
 		currentState = stateCSIentry;
 		CSIentryState(character);
 	}
@@ -402,7 +406,6 @@ void escIntState(uint8_t character)
 	}
 	stateEnterBuffer = 0x00;
 	currentState = stateGround;
-	
 }
 
 void groundState(uint8_t character)
@@ -782,12 +785,7 @@ void CUU() // Cursor Up
 		ring_get(paramBuffer, (int)parameter);
 	}
 	*/
-	
-	while(!isEmptyParser())
-	{
-		printf("%c\n",dequeueParser());
-	}
-	
+		
 	if(yCharPos > 0)
 	{
 		drawChar(consoleDisplay[xCharPos][yCharPos]);
@@ -890,14 +888,12 @@ void CBT() //Cursor Backwards Tab
 	
 }
 
-
 bool isValidCSIEscapeCode(uint8_t character)
 {
-	int sizeCsiEscCodes = sizeof(csiEscCodes)/sizeof(csiEscCodes[0]);
 	
-	for(int i = 0; i <= sizeCsiEscCodes ; i++)
+	for(int i = 0; i <= sizeof(csiEscCodes)/sizeof(csiEscCodes[0]) ; i++)
 	{
-		if(csiEscCodes[i] == character)
+		if(character == csiEscCodes[i])
 		{
 			return true;	
 		}

@@ -23,11 +23,11 @@
 		see queueTransmogrifier for this.
 	
 	queueTransmogrifier takes the intermediate characters and transforms them
-	into paramaters for the escape code. The contents of queueParam will be
-	an array of ints, where the 0th position is the first paramater, the 1st
-	position is the second, and soforth.
+	into parameters for the escape code. The contents of queueParam will be
+	an array of ints, where the 0th position is the first parameter, the 1st
+	position is the second, and so forth.
 	
-	These paramaters are then acted upon by various escape code functions.
+	These parameters are then acted upon by various escape code functions.
 */
 
 int MAXSIZE = 50;		//50 should be enough for everything ¯\_(ツ)_/¯
@@ -77,9 +77,6 @@ void enqueueParser(char data)
 	rearParser++;
 	queueParser[rearParser] = data;
 }
-
-
-
 bool isEmptyParam(void)
 {
 	if(frontParam == -1)
@@ -96,7 +93,6 @@ bool isFullParam(void)
 	}
 	return false;
 }
-
 uint8_t dequeueParam(void)
 {
 	uint8_t temp;
@@ -139,5 +135,36 @@ void clearQueues(void)
 
 void queueTransmogrifier(void)
 {
+	/*
+	This function converts queueParser into queueParam.
 	
+	The contents of queueParser are only chars 0-9 and ';'.
+	This is converted to ints.
+	Therefore if contents of queueParser are:
+	[2],[4],[;],[8],[0]
+	the contents of queueParser are:
+	[24],[80]
+	
+	It's like reimplementing atoi() but it's not an interview question.
+	*/
+	
+	int param = 0;
+	char currentByte;
+	
+	while(!isEmptyParser())
+	{
+		
+		currentByte = dequeueParser();		//deque from parser
+
+		if(currentByte != 0x3B)
+		{
+			param = (10 * param) + (int)(currentByte-48);
+		}
+		else
+		{
+			enqueueParam(param);
+			param = 0;	
+		}
+	}
+	enqueueParam(param);
 }
