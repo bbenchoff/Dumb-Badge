@@ -1087,15 +1087,143 @@ void CUP() //Cursor Position
 }
 void CHT() //Cursor Horizontal Tab
 {
-	
+	//do this later
+	currentState = stateGround;
 }
 void ED() //Edit In Display
 {
+	uint8_t parameter;
 	
+	uint8_t xTemp = xCharPos;
+	uint8_t yTemp = yCharPos;
+	
+	cursorBlinkState = false;  //need to turn the blinking off; ugly kludge
+	
+	if(isEmptyParam())
+	{
+		parameter = 0;
+	}
+	else
+	{
+		parameter = dequeueParam();
+	}
+		
+	switch(parameter)
+	{
+		case 0:			//Erases from cursor to end of display
+			//first step, erase rest of current line
+			for(int i = xTemp ;  i <= 78 ;  i++)
+			{
+				xCharPos = i;
+				drawChar(0x00);
+			}
+			//second step, erase the rest of the lines
+			for(int j = yTemp+1 ; j < 24 ; j++)
+			{
+				for(int i = 0 ; i < 80 ; i++)
+				{
+					xCharPos = i;
+					yCharPos = j;
+					drawChar(0x00);
+				}
+			}
+		break;
+		
+		case 1:			//Erases from beginning of display to cursor
+			//first step, erase beginning of current line
+			for(int i = 0 ;  i <= xTemp ;  i++)
+			{
+				xCharPos = i;
+				drawChar(0x00);
+			}
+			//second step, erase previous lines
+			for(int j = 0 ; j < yTemp ; j++)
+			{
+				for(int i = 0 ; i < 80 ; i++)
+				{
+					xCharPos = i;
+					yCharPos = j;
+					drawChar(0x00);
+				}
+			}
+		break;
+		
+		case 2:			//Erases entire display
+			for(int j = 0 ; j < 24 ; j++)
+			{
+				for(int i = 0 ; i < 80 ; i++)
+				{
+					xCharPos = i;
+					yCharPos = j;
+					drawChar(0x00);
+				}
+			}
+		break;
+	}
+	
+	blinkCursor();
+	xCharPos = xTemp;
+	yCharPos = yTemp;
+	drawChar(0x00);
+	
+	currentState = stateGround;	
+
+
 }
 void EL() //Edit In Line
 {
+	unsigned char tempCharacter;
+	uint8_t parameter;
 	
+	uint8_t xTemp = xCharPos;
+	uint8_t yTemp = yCharPos;
+	
+	cursorBlinkState = false;  //need to turn the blinking off; ugly kludge
+	
+	if(isEmptyParam())
+	{
+		parameter = 0;
+	}
+	else
+	{
+		parameter = dequeueParam();
+	}
+	
+	tempCharacter = consoleDisplay[xCharPos][yCharPos];
+	
+	switch(parameter)
+	{
+		case 0:			//Erases from cursor to end of line
+			for(int i = xTemp ;  i <= 78 ;  i++)
+			{
+				xCharPos = i;
+				drawChar(0x00);
+			}
+		break;
+		
+		case 1:			//Erases from beginning of line to cursor
+			for(int i = 0 ;  i <= xTemp+1 ;  i++)
+			{
+				xCharPos = i;
+				drawChar(0x00);
+			}
+		break;
+		
+		case 2:			//Erases entire line containing cursor
+			for(int i = 0 ;  i <= 78 ;  i++)
+			{
+				xCharPos = i;
+				drawChar(0x00);
+			}
+		break;
+	}
+	
+	blinkCursor();
+	xCharPos = xTemp;
+	yCharPos = yTemp;
+	drawChar(tempCharacter);
+	
+	currentState = stateGround;	
 }
 void SGR() //Select Graphic Rendition
 {
