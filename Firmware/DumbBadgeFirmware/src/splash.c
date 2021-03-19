@@ -107,7 +107,7 @@ void splashScreen(void)
 	splashText[16] = "Unix epoch minus 0xFF days";//
 	splashText[17] = "i  = 0x5f3759df - ( i >> 1 );";//
 	splashText[18] = "Speak truth to power; I'm sure they'll listen this time.";//
-	splashText[19] = "Defcon's canceled (2020) (2021)";//
+	splashText[19] = "Defcon's canceled (2020)";//
 	splashText[20] = "Ratsnest: Nothing To Do!";//
 	splashText[21] = "It has 69 keys.";//
 	splashText[22] = "Because VT-420 was already taken";//

@@ -31,7 +31,8 @@ limited number of contiguous characters. The CSI for the VT-69 is ESC [
 (0x1B, 0x5B).
 
 Parameter -- A string of one or more decimal character that represent a single
-value.
+value. Parameter values are are locked to the range {0 .. 255}; parameter values
+above 255 will default to 1.
 
 Numeric Parameter -- A string of characters that represent a number, designated
 by Pn. Pn has a range of 0 to 9.
@@ -40,32 +41,34 @@ Mnemonic -- Code as described in ANSI X3.64-1979 and DEC VT100 Series Video
 Terminal Technical Manual. These mnemonics will are used as internal codes or
 functions for the VT-69 where applicable.
 
-Mnemonic	Name						Sequence			Default Value
+Mnemonic	Name				Sequence		
 -------------------------------------------------------------------------
-SC			Save Cursor Position		Esc 7						*
-RC			Recall Cursor Position		Esc 8						*
-CUU			Cursor up			Esc [ Pn A			1		*
-CUD			Cursor down			Esc [ Pn B			1		*
-CUF			Cursor forward (right)		Esc [ Pn C			1		*
-RIS			Reset to Initial State		Esc c						*
-IND			Index				Esc D						*
-CUB			Cursor backward (left)		Esc [ Pn D			1		*
-NEL			Next Line			Esc E						*
-CNL			Cursor Next Line		Esc [ Pn E			1		*
-CPL			Cursor Preceding Line		Esc [ Pn F			1		*
-CHA			Cursor Horizontal Absolute	Esc [ Pn G			1		*
-HTS			Horizontal Tab Set		Esc H						*
-CUP			Cursor Position			Esc [ Pn ; Pn H			1, 1		*
-CHT			Cursor Horizontal Tab		Esc [ Pn I			1		*
-ED			Erase In Display		Esc [ Ps J			0		*
-EL			Erase In Line			Esc [ Ps K			0		*
-RI			Reverse Index			Esc M						*
-SGR			Select Grapic Rendition		Esc [ Ps m					*
-DCH			Delete Character		Esc [ Pn P			1		*
-SEM			Select Edit Extent Mode		Esc [ Pn Q			0		*
-CTC			Cursor Tabulation Control	Esc [ Ps W			0		*
-ECH			Erase Character			Esc [ Pn X			1		*
-CBT			Cursor Backwards Tab		Esc [ Ps Z			1		*
+SC		Save Cursor Position		Esc 7
+RC		Recall Cursor Position		Esc 8
+CUU		Cursor up			Esc [ Pn A		1
+CUD		Cursor down			Esc [ Pn B		1
+CUF		Cursor forward (right)		Esc [ Pn C		1
+RIS		Reset to Initial State		Esc c
+IND		Index				Esc D
+CUB		Cursor backward (left)		Esc [ Pn D		1
+NEL		Next Line			Esc E
+CNL		Cursor Next Line		Esc [ Pn E		1
+CPL		Cursor Preceding Line		Esc [ Pn F		1
+CHA		Cursor Horizontal Absolute	Esc [ Pn G		1
+HTS		Horizontal Tab Set		Esc H
+CUP		Cursor Position			Esc [ Pn ; Pn H		1, 1
+CHT		Cursor Horizontal Tab		Esc [ Pn I		1
+ED		Erase In Display		Esc [ Ps J		0
+EL		Erase In Line			Esc [ Ps K		0
+RI		Reverse Index			Esc M
+SGR		Select Grapic Rendition		Esc [ Ps m
+DCH		Delete Character		Esc [ Pn P		1
+SEM		Select Edit Extent Mode		Esc [ Pn Q		0
+RCP		Restore Cursor Position		Esc [ r	
+SCP		Save Cursor Position		Esc [ s		
+CTC		Cursor Tabulation Control	Esc [ Ps W		0
+ECH		Erase Character			Esc [ Pn X		1
+CBT		Cursor Backwards Tab		Esc [ Ps Z		1
 
 
 -------------------------------------------------------------------------
@@ -189,6 +192,11 @@ RC - Restore Cursor Position
 	Restores the cursor to the position saved with SC. If no cursor position has
 	been saved, the default is the first character position of the first line.
 
+RCP - Restore Cursor Position
+	Mirror of RC, included for ANSI.SYS compatability.
+
+	All parameters are ignored.
+
 RI - Reverse Index
 	Moves the cursor to the same horizontal position on the preceding line.
 
@@ -201,7 +209,13 @@ RIS - Reset to Initial State
 SC - Save Cursor Position
 	Saves cursor position.
 
-SEM	- Select Edit Extent Mode
+SCP - Save Cursor Position
+	Mirror of SC, included for ANSI.SYS compatability.
+
+	All parameters are ignored.
+
+
+SEM - Select Edit Extent Mode
 	Selects the extent of the display to be affected by the Insert Character 
 	(ICH) and Delete Character (DCH) actions according to th parameter:
 

@@ -32,7 +32,7 @@
 #include "parser.h"
 #include "overflow.h"
 
-static const char csiEscCodes[] = "ABCDEFGHIJKmPQWXZ";
+static const char csiEscCodes[] = "ABCDEFGHIJKmPQrsWXZ";
 
 uint8_t parserBuffer[10];
 int paramBuffer[4];
@@ -75,12 +75,6 @@ void parseChar(uint8_t character)
 		case stateCSIparam:
 		{
 			CSIparamState(character);
-		}
-		break;
-		
-		case stateCSIinter:
-		{
-			
 		}
 		break;
 		
@@ -127,6 +121,10 @@ void escState(uint8_t character)
 	else if(character == 0x5B)
 	{
 		currentState = stateCSIentry;
+	}
+	else
+	{
+		currentState = stateGround;
 	}
 }
 
@@ -188,6 +186,14 @@ void CSIentryState(uint8_t character)
 	else if(character == 0x51)	//ESC [ Q	Select Edit Extent Mode
 	{
 		SEM();
+	}
+	else if(character == 0x72)	//ESC [ r	Restore Cursor Position
+	{
+		RC();
+	}
+	else if(character == 0x73)	//ESC [ s	Save Cursor Position
+	{
+		SC();
 	}
 	else if(character == 0x57)	//ESC [ W	Cursor Tabulation Control
 	{
@@ -260,29 +266,19 @@ void CSIparamState(uint8_t character)
 	}
 	else if(isValidCSIEscapeCode(character))		//character matches a supported escape code
 	{												//here, "ABCDEFGHIJKmPQWXZ"
-		queueTransmogrifier();
-		printf("param: ");
-		while(!isEmptyParam())
-		{
-
-			printf("%i ",dequeueParam());
-		}												
+		queueTransmogrifier();											
 		currentState = stateCSIentry;
 		CSIentryState(character);
 	}
 	else
 	{
-		currentState = stateGround;
+		currentState = stateCSIignore;
 	}
 }
 
 void CSIignoreState(uint8_t character)
 {
 	if(character == 0x1B)
-	{
-		currentState = stateGround;
-	}
-	else
 	{
 		currentState = stateGround;
 	}
@@ -778,78 +774,316 @@ void RIS()
 void CUU() // Cursor Up
 {
 	unsigned char tempCharacter;
-	uint8_t parameter = 1;
-	/*
-	if(!ring_empty(paramBuffer))
+	uint8_t parameter = 0;
+	
+	if(isEmptyParam())
 	{
-		ring_get(paramBuffer, (int)parameter);
+		parameter = 1;
 	}
-	*/
+	else
+	{
+		parameter = dequeueParam();
 		
-	if(yCharPos > 0)
+		if(parameter == 0)
+		{
+			parameter = 1;
+		}
+	}
+	
+	if((yCharPos - parameter) >= 0 && (yCharPos - parameter) <= 24)
 	{
 		drawChar(consoleDisplay[xCharPos][yCharPos]);
 		yCharPos = yCharPos - parameter;
 		tempCharacter = consoleDisplay[xCharPos][yCharPos];
 		drawChar(tempCharacter);
-		blinkCursor();
 	}
+	else
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos = 0;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+	}
+	
+	blinkCursor();
 	currentState = stateGround;
 }
 void CUD() //Cursor Down
 {
 	unsigned char tempCharacter;
-	if(yCharPos < 23)
+	uint8_t parameter = 0;
+	
+	if(isEmptyParam())
+	{
+		parameter = 1;
+	}
+	else
+	{
+		parameter = dequeueParam();
+		
+		if(parameter == 0)
+		{
+			parameter = 1;
+		}
+	}
+	if((yCharPos + parameter) <= 23)
 	{
 		drawChar(consoleDisplay[xCharPos][yCharPos]);
-		yCharPos++;
+		yCharPos = yCharPos + parameter;
 		tempCharacter = consoleDisplay[xCharPos][yCharPos];
 		drawChar(tempCharacter);
-		blinkCursor();
 	}
+	else
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos = 23;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+	}
+
+	blinkCursor();
 	currentState = stateGround;
 }
 void CUF() //Cursor Forward
 {
 	unsigned char tempCharacter;
-	if(xCharPos < 79)
+	uint8_t parameter = 0;
+	
+	if(isEmptyParam())
+	{
+		parameter = 1;
+	}
+	else
+	{
+		parameter = dequeueParam();
+		
+		if(parameter == 0)
+		{
+			parameter = 1;
+		}
+	}
+	
+	if(xCharPos + parameter <= 79)
 	{
 		drawChar(consoleDisplay[xCharPos][yCharPos]);
-		xCharPos++;
+		xCharPos = xCharPos + parameter;
 		tempCharacter = consoleDisplay[xCharPos][yCharPos];
 		drawChar(tempCharacter);
-		blinkCursor();
 	}
+	else
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		xCharPos = 79;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);	
+	}
+	blinkCursor();
 	currentState = stateGround;
 }
 void CUB() //Cursor Backward
 {
 	unsigned char tempCharacter;
-	if(xCharPos > 0)
+	uint8_t parameter = 0;
+	
+	if(isEmptyParam())
+	{
+		parameter = 1;
+	}
+	else
+	{
+		parameter = dequeueParam();
+		
+		if(parameter == 0)
+		{
+			parameter = 1;
+		}
+	}
+	
+	if(xCharPos - parameter >= 0)
 	{
 		drawChar(consoleDisplay[xCharPos][yCharPos]);
-		xCharPos--;
+		xCharPos = xCharPos - parameter;
 		tempCharacter = consoleDisplay[xCharPos][yCharPos];
 		drawChar(tempCharacter);
-		blinkCursor();
 	}
+	else
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		xCharPos = 0;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+	}
+	blinkCursor();
 	currentState = stateGround;
 }
 void CNL() //Cursor Next Line
 {
+	unsigned char tempCharacter;
+	uint8_t parameter = 0;
 	
+	if(isEmptyParam())
+	{
+		parameter = 1;
+	}
+	else
+	{
+		parameter = dequeueParam();
+		
+		if(parameter == 0)
+		{
+			parameter = 1;
+		}
+	}
+	
+	xCharPos = 0;
+	
+	if((yCharPos + parameter) <= 23)
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos = yCharPos + parameter;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+	}
+	else
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos = 23;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+	}
+
+	blinkCursor();
+	currentState = stateGround;	
 }
 void CPL() //Cursor Preceding Line
 {
+	unsigned char tempCharacter;
+	uint8_t parameter = 0;
+	
+	if(isEmptyParam())
+	{
+		parameter = 1;
+	}
+	else
+	{
+		parameter = dequeueParam();
+		
+		if(parameter == 0)
+		{
+			parameter = 1;
+		}
+	}
+	
+	xCharPos = 0;
+	
+	if((yCharPos - parameter) >= 0 && (yCharPos - parameter) <= 24)
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos = yCharPos - parameter;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+	}
+	else
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		yCharPos = 0;
+		tempCharacter = consoleDisplay[xCharPos][yCharPos];
+		drawChar(tempCharacter);
+	}
+	
+	blinkCursor();
+	currentState = stateGround;
 	
 }
 void CHA() //Cursor Horizontal Absolute
 {
+	unsigned char tempCharacter;
+	uint8_t parameter = 0;
 	
+	if(isEmptyParam())
+	{
+		parameter = 1;
+	}
+	else
+	{
+		parameter = dequeueParam();
+		
+		if(parameter > 0)
+		{
+			parameter--;  //need to decrement, because display is indexed at 0,0.
+		}
+		
+		if(parameter >= 80)
+		{
+			parameter = 79;
+		}
+	}
+	
+	drawChar(consoleDisplay[xCharPos][yCharPos]);
+	xCharPos = parameter;
+	tempCharacter = consoleDisplay[xCharPos][yCharPos];
+	drawChar(tempCharacter);
+	
+	blinkCursor();
+	currentState = stateGround;
 }
 void CUP() //Cursor Position
 {
+	unsigned char tempCharacter;
+	uint8_t parameter = 0;
+	uint8_t xTemp = 0;
+	uint8_t yTemp = 0;
 	
+	if(isEmptyParam())
+	{
+		parameter = 0;
+	}
+	else
+	{
+		parameter = dequeueParam();
+		
+		if(parameter > 0)
+		{
+			parameter--;  //need to decrement, because display is indexed at 0,0.
+		}
+		
+		if(parameter >= 80)
+		{
+			parameter = 79;
+		}
+	}
+	
+	xTemp = parameter;
+
+	if(isEmptyParam())
+	{
+		parameter = 0;
+	}
+	else
+	{
+		parameter = dequeueParam();
+		
+		if(parameter > 0)
+		{
+			parameter--;  //need to decrement, because display is indexed at 0,0.
+		}
+		
+		if(parameter >= 24)
+		{
+			parameter = 23;
+		}
+	}
+	
+	yTemp = parameter;
+	
+	drawChar(consoleDisplay[xCharPos][yCharPos]);
+	xCharPos = xTemp;
+	yCharPos = yTemp;
+	tempCharacter = consoleDisplay[xCharPos][yCharPos];
+	drawChar(tempCharacter);
+	
+	blinkCursor();
+	currentState = stateGround;
 }
 void CHT() //Cursor Horizontal Tab
 {
@@ -891,7 +1125,7 @@ void CBT() //Cursor Backwards Tab
 bool isValidCSIEscapeCode(uint8_t character)
 {
 	
-	for(int i = 0; i <= sizeof(csiEscCodes)/sizeof(csiEscCodes[0]) ; i++)
+	for(uint8_t i = 0; i <= sizeof(csiEscCodes)/sizeof(csiEscCodes[0]) ; i++)
 	{
 		if(character == csiEscCodes[i])
 		{

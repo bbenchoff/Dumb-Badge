@@ -16,7 +16,6 @@ typedef enum
 	stateESCinter,
 	stateCSIentry,
 	stateCSIparam,
-	stateCSIinter,
 	stateCSIignore,
 	
 } parserState;

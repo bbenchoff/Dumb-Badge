@@ -115,9 +115,7 @@ void enqueueParam(uint8_t data)
 	}
 	rearParam++;
 	queueParam[rearParam] = data;
-
 }
-
 void clearQueues(void)
 {
 
@@ -132,7 +130,6 @@ void clearQueues(void)
 	rearParam = -1;
 	rearParser = -1;
 }
-
 void queueTransmogrifier(void)
 {
 	/*
@@ -142,7 +139,7 @@ void queueTransmogrifier(void)
 	This is converted to ints.
 	Therefore if contents of queueParser are:
 	[2],[4],[;],[8],[0]
-	the contents of queueParser are:
+	the contents of queueParser on function return are:
 	[24],[80]
 	
 	It's like reimplementing atoi() but it's not an interview question.
