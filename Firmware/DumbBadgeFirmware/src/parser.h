@@ -29,6 +29,7 @@ void IND(void);
 void NEL(void);
 void RI(void);
 void RIS(void);
+void HTS(void);
 
 //These are CSI mnemonic functions
 void CUU(void);
@@ -48,6 +49,9 @@ void SEM(void);
 void CTC(void);
 void ECH(void);
 void CBT(void);
+void ICH(void);
+void DSR(void);
+
 
 int nextTab(int a);
 

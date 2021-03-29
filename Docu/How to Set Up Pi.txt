@@ -1,0 +1,16 @@
+1) first enable serial in raspi-update
+
+blah blah blah just pick the option
+
+2) edit the serial-getty service
+
+sudo nano /lib/systemd/system/serial-getty@.service
+
+change to this:
+
+[Serivce]
+ExecStart=-/sbin/agetty 9600 %I vt100
+
+3) restart the systemctl
+
+systemctl daemon-reload

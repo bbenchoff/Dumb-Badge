@@ -14,6 +14,7 @@
 #include "fonts.h"
 #include "globals.h"
 #include "parser.h"
+#include "settings.h"
 
 uint16_t xCharPos = 0;
 uint16_t yCharPos = 0;
@@ -23,6 +24,8 @@ void drawChar(uint8_t character)
 {
 	uint16_t x = xCharPos;
 	uint16_t y = yCharPos;
+	
+
 	
 	consoleDisplay[xCharPos][yCharPos] = character;
 	

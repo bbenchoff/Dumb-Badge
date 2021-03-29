@@ -18,7 +18,8 @@ list is taken (or influenced) by VT100 Series Video Terminal Technical Manual
 X3.64-1974, X3.64-1979 (ISO 2022 and 6429)), "A parser for DEC’s ANSI-
 compatible video terminals" by Paul Flow Williams (vt100.net/emu/dec_ansi_parser)
 and "Towards Standardized Video Terminals: ANSI X3.64 Device Control" Mark L. 
-Siegel, BYTE Magazine April 1984, pp365-374.
+Siegel, BYTE Magazine April 1984, pp365-374., and the Linux man page for
+console_codes.
 
 Note VT-52 modes _are not supported_, as the VT-69 is an ANSI terminal.
 
@@ -65,7 +66,8 @@ SGR		Select Grapic Rendition		Esc [ Ps m
 DCH		Delete Character		Esc [ Pn P		1
 SEM		Select Edit Extent Mode		Esc [ Pn Q		0
 RCP		Restore Cursor Position		Esc [ r	
-SCP		Save Cursor Position		Esc [ s		
+SCP		Save Cursor Position		Esc [ s
+RCP		Restore Cursor Position		Esc [ u	
 CTC		Cursor Tabulation Control	Esc [ Ps W		0
 ECH		Erase Character			Esc [ Pn X		1
 CBT		Cursor Backwards Tab		Esc [ Ps Z		1
@@ -163,18 +165,18 @@ ECH	- Erase Character
 EL	- Erase In Line
 	Erases line, depending on parameter:
 
-	0 or none	Erase from cursor to end of line
+	0 			Erase from cursor to end of line
 	1			Erase from beginning of line to cursor
-	2			Erase entire line containing cursor
+	2 or none		Erase entire line containing cursor
 
 	Any other parameters are ignored.
 
 ED	- Erase In Display
 	Erases display, depending on parameter:
 
-	0 or none	Erase from cursor to end of screen
+	0 			Erase from cursor to end of screen
 	1			Erase from beginning of screen to cursor
-	2			Erase entire screen
+	2 or none		Erase entire screen
 
 	Any other parameters are ignored.
 

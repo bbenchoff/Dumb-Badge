@@ -30,7 +30,7 @@ extern bool breakEnable;
 extern bool lineFeed;
 extern int lineFeedNewLine;
 
-bool autoWrap;	
+extern bool autoWrap;	
 
 bool capsLock;
 bool scrollLock;

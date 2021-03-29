@@ -153,14 +153,14 @@ void queueTransmogrifier(void)
 		
 		currentByte = dequeueParser();		//deque from parser
 
-		if(currentByte != 0x3B)
+		if(currentByte == 0x3B || currentByte == 0x3F) //if it's ';' or '?'
 		{
-			param = (10 * param) + (int)(currentByte-48);
+			enqueueParam(param);
+			param = 0;
 		}
 		else
 		{
-			enqueueParam(param);
-			param = 0;	
+			param = (10 * param) + (int)(currentByte-48);
 		}
 	}
 	enqueueParam(param);

@@ -32,7 +32,8 @@
 #include "parser.h"
 #include "overflow.h"
 
-static const char csiEscCodes[] = "ABCDEFGHIJKmPQrsWXZ";
+static const char csiEscCodes[] = "@ABCDEFGHJKLMPXacdefghlmnqrsu`";
+static const char DECIDreturn[] = {0x1B,0x5B,0x3F,0x36,0x63};
 
 uint8_t parserBuffer[10];
 int paramBuffer[4];
@@ -105,15 +106,48 @@ void escState(uint8_t character)
 	{
 		NEL();
 	}
+	else if(character == 0x48)		//ESC + H - (HTS) - 
+	{
+		HTS(); ///not supported now
+	}
 	else if(character == 0x4D)		//ESC + M - (RI)
 	{
 		RI();
+	}
+	else if(character == 0x59)		//ESC + Z (DECID)
+	{
+		//This returns ESC [ ? 6 c, which is apparently a VT102
+		printf("%s",DECIDreturn);
+		currentState = stateGround;
 	}
 	else if(character == 0x63)		//ESC + c - (RIS)
 	{
 		RIS();
 	}
-	else if(character == 0x23 || character == 0x28)
+	else if(character == 0x3E)		//ESC >
+	{
+		//set DECPNM set numeric keypad mode
+		currentState = stateGround;
+	}
+	else if(character == 0x3D)		//ESC =
+	{
+		//set DECPAM set application keypad mode
+		currentState = stateGround;
+	}
+	else if(character == 0x5D)		//ESC ]
+	{
+		/*
+		this is OSC Operating System Command
+		and this is a fucking mess look at Linux man page
+		for console_codes I don't know if I have to
+		implement this god I hope not
+		*/
+		currentState = stateGround;
+	}
+	//# 0x23, % 0x25, ( 0x28, ) 0x29, ] 0x5D
+	//I'm doing it this way because fuck it
+	else if(character == 0x23 || character == 0x25 || character == 0x28 ||
+		character == 0x29 || character == 0x5D)
 	{
 		stateEnterBuffer = character;
 		currentState = stateESCinter;
@@ -131,9 +165,19 @@ void escState(uint8_t character)
 void CSIentryState(uint8_t character)
 {
 	
-	if(character == 0x41)		//ESC [ A	Cursor Up
+	//"@ABCDEFGHJKLMPXacdefghlmnqrsu`";
+	if(character == 0x40)		//ESC [ @ ICH insert indicated # of blank chars
+	{
+		//ICH insert indicated # of blank chars
+		ICH();
+	}
+	else if(character == 0x41)	//ESC [ A	Cursor Up
 	{
 		CUU();
+	}
+	else if(character == 0x61)	//ESC [ a HPR
+	{
+		CUF();
 	}
 	else if(character == 0x42)	//ESC [ B	Cursor Down
 	{
@@ -143,25 +187,54 @@ void CSIentryState(uint8_t character)
 	{
 		CUF();
 	}
+	else if(character == 0x63)	//ESC [ c DA
+	{
+		//This returns ESC [ ? 6 c, which is apparently a VT102
+		printf("%s",DECIDreturn);
+	}
 	else if(character == 0x44)	//ESC [ D	Cursor Backward
 	{
 		CUB();
+	}
+	else if(character == 0x64)	//ESC [ d	VPA
+	{
+		//moves cursor to the indicated row, current column
+		
 	}
 	else if(character == 0x45)	//ESC [ E	Cursor Next Line
 	{
 		CNL();
 	}
+	else if(character == 0x65)	//ESC [ e VPR
+	{
+		//moves cursor down the indicated number of rows
+		CUD();
+	}
 	else if(character == 0x46)	//ESC [ F	Cursor Preceding Line
 	{
 		CPL();
+	}
+	else if(character == 0x66)	//ESC [ f HVP
+	{
+		//move cursor to indicated row, column.
+		CUP();
 	}
 	else if(character == 0x47)	//ESC [ G	Cursor Horizontal Absolute
 	{
 		CHA();
 	}
+	else if(character == 0x67)	//ESC [ g TBC
+	{
+		//clear tab stop at current position
+	}
 	else if(character == 0x48)	//ESC [ H	Cursor Position
 	{
 		CUP();
+	}
+	else if(character == 0x68)	//ESC [ h Set Mode
+	{
+		//TO DO HOLY SHIT THIS IS A BIG ONE
+		currentState = stateGround;
 	}
 	else if(character == 0x49)	//ESC [ I	Cursor Horizontal Tab
 	{
@@ -175,9 +248,27 @@ void CSIentryState(uint8_t character)
 	{
 		EL();
 	}
+	else if(character == 0x4C)	//ESC [ L 
+	{
+		//insert indicated # of blank lines
+		//IL()
+	}
+	else if(character == 0x6C)	//ESC [ l	Reset mode
+	{
+		///TO DO 
+	}
+	else if(character == 0x4D)	//ESC [ M
+	{
+		//DL
+		//Delet indicated number of lines
+	}
 	else if(character == 0x6D)	//ESC [ m	Select Graphic Rendition
 	{
 		SGR();
+	}
+	else if(character == 0x6E)	//ESC [ n Device Status Report
+	{
+		DSR();
 	}
 	else if(character == 0x50)	//ESC [ P	Delete Character
 	{
@@ -187,13 +278,27 @@ void CSIentryState(uint8_t character)
 	{
 		SEM();
 	}
-	else if(character == 0x72)	//ESC [ r	Restore Cursor Position
+	else if(character == 0x71)	//ESC [ q	Set Keyboard LEDs
 	{
-		RC();
+		//<Blink>
+	}
+	else if(character == 0x72)	//ESC [ r	DECSTBM
+	{
+		/*
+		Set top and bottmo margins for scroll region
+		*/
 	}
 	else if(character == 0x73)	//ESC [ s	Save Cursor Position
 	{
 		SC();
+	}
+	else if(character == 0x75)	//ESC [ u	Restore Cursor Position
+	{
+		RC();
+	}
+	else if(character == 0x58)	//ESC [ X
+	{
+		//Erases indicated number of characters on the current line
 	}
 	else if(character == 0x57)	//ESC [ W	Cursor Tabulation Control
 	{
@@ -207,6 +312,10 @@ void CSIentryState(uint8_t character)
 	{
 		CBT();	
 	}
+	else if(character == 0x60)	//ESC [ ` HPA
+	{
+		//move cursor to indicated column in current row
+	}
 	else if(character >= 0x30 && character <= 0x39) // if the character is a digit 0-9
 	{
 		currentState = stateCSIparam;
@@ -217,9 +326,14 @@ void CSIentryState(uint8_t character)
 		currentState = stateCSIparam;
 		CSIparamState(character);
 	}
-	else if(character == 0x1B)
+	else if(character == 0x3F)	//Question '?'; this is a param
 	{
-		currentState = stateGround;
+		currentState = stateCSIparam;
+		CSIparamState(character);
+	}
+	else if(character == 0x1B)		//ESC, send back to stateESC
+	{
+		currentState = stateESC;
 		
 	}
 	else if(character == 0x3A)
@@ -228,7 +342,7 @@ void CSIentryState(uint8_t character)
 	}
 	else
 	{
-		currentState = stateCSIignore;
+		currentState = stateGround;
 	}
 
 }
@@ -264,8 +378,12 @@ void CSIparamState(uint8_t character)
 	{											//the parserbuffer and concatenate them into
 		enqueueParser(';');						//parambuffer 			
 	}
+	else if(character == 0x3F)					//character is '?', this is used for DECCKM
+	{											//and basically everything with 'h' as
+		enqueueParser('?');						//the terminating character
+	}
 	else if(isValidCSIEscapeCode(character))		//character matches a supported escape code
-	{												//here, "ABCDEFGHIJKmPQWXZ"
+	{											
 		queueTransmogrifier();											
 		currentState = stateCSIentry;
 		CSIentryState(character);
@@ -306,6 +424,7 @@ void escIntState(uint8_t character)
 		currentState = stateGround;
 	}
 	
+	//# 0x23, % 0x25, ( 0x28, ) 0x29, ] 0x5D
 	switch(stateEnterBuffer)
 	{
 		case '#':
@@ -356,6 +475,10 @@ void escIntState(uint8_t character)
 			{
 				//do nothing
 			}
+			else
+			{
+				//do nothing
+			}
 			break;
 		case '(':
 			if(character == 0x30) //'0'		
@@ -395,6 +518,62 @@ void escIntState(uint8_t character)
 				//do nothing
 			}
 			else if(character == 0x39) //'9'
+			{
+				//do nothing
+			}
+			else if(character == 0x42)
+			{
+				//Select default latin-1 mapping
+			}
+			else if(character == 0x30)
+			{
+				//select VT100 graphics mapping
+			}
+			else if(character == 0x55)
+			{
+				//select null mapping -- strait to character rom
+			}
+			else if(character == 0x4B)
+			{
+				//select user mapping
+			}
+			else
+			{
+				//do nothing
+			}
+			break;
+		case '%':		//Start sequence selecting character set
+			if(character == 0x40)
+			{
+				//Select Latin-1 character set
+			}
+			else if(character == 0x47)
+			{
+				//select UTF-8 character set
+			}
+			else
+			{
+				
+			}
+			break;
+		case ')':		//Start sequence defining G1 character set
+			if(character == 0x42)
+			{
+				//Select default latin-1 mapping
+			}
+			else if(character == 0x30)
+			{
+				//select VT100 graphics mapping
+			}
+			else if(character == 0x55)
+			{
+				//select null mapping -- strait to character rom
+			}
+			else if(character == 0x4B)
+			{
+				//select user mapping
+			}
+			else
 			{
 				//do nothing
 			}
@@ -453,6 +632,7 @@ void groundState(uint8_t character)
 			drawChar(tempCharacter);
 			blinkCursor();
 		}
+		
 
 	}
 	else if(character == 0x09)						//TAB 0x09 Horizontal Tab
@@ -638,7 +818,7 @@ void groundState(uint8_t character)
 		consoleDisplay[xCharPos][yCharPos] = character;
 		
 		//this line _actually prints the character_
-		drawChar(character);
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
 
 		//move the cursor one position forward
 		xCharPos++;
@@ -766,6 +946,12 @@ void RIS()
 	//this might be sloppy, could replace this with an overflowing WDT
 	//but this seems to work so /shrug
 	NVIC_SystemReset();
+}
+
+void HTS()
+{
+	//set tab stop at current column, unsupported now
+	currentState = stateGround;
 }
 
 /************************************************************************/
@@ -1101,7 +1287,7 @@ void ED() //Edit In Display
 	
 	if(isEmptyParam())
 	{
-		parameter = 0;
+		parameter = 2;
 	}
 	else
 	{
@@ -1194,7 +1380,7 @@ void EL() //Edit In Line
 	switch(parameter)
 	{
 		case 0:			//Erases from cursor to end of line
-			for(int i = xTemp ;  i <= 78 ;  i++)
+			for(int i = xTemp ;  i <= 79 ;  i++)
 			{
 				xCharPos = i;
 				drawChar(0x00);
@@ -1227,27 +1413,101 @@ void EL() //Edit In Line
 }
 void SGR() //Select Graphic Rendition
 {
+	//we are not implementing these now
 	
+	currentState = stateGround;
 }
 void DCH() //Delete Character
 {
-	
+	currentState = stateGround;
 }
 void SEM() //Select Edit Extent Mode
 {
-	
+	currentState = stateGround;
 }
 void CTC() //Cursor Tabulation Control
 {
-	
+	currentState = stateGround;
 }
 void ECH() //Erase Character
 {
-	
+	currentState = stateGround;
 }
 void CBT() //Cursor Backwards Tab
 {
+	currentState = stateGround;
+}
+void ICH(void) //Insert indicated # of blank chars
+{
+	currentState = stateGround;
+}
+void DSR(void)
+{
+	/* DEVICE STATUS REPORT
 	
+	The Status Report provides the host with operating staus of many features
+	including Operating status, keyboard language, user-defined keys, and even
+	the amount of memory assigned to macro definitions. Most of these are unused
+	by Linux console_codes; the only ones supported by Linux are DSR-CPR, or
+	cursor position report, and DSR-OS, or operating status.
+	
+	See the following page for information on unsupported DSRs.
+	https://vt100.net/docs/vt510-rm/DSR.html
+	
+	This state is entered in two ways:
+	
+	ANSI format:	ESC [ ps n
+	DEC format:		ESC [ ? ps n
+	
+	where ps is a parameter
+	
+	The following paramaters are supported:
+	
+	5	Device status report; answer is ESC [ 0 n (terminal OK)
+	6	Cursor position report; Answer is ESC [ y ; x R, where x,y is the cursor
+	
+	This function will support both ANSI and DEC formats
+	*/
+	unsigned char tempCharacter;
+		
+	uint8_t xTemp = xCharPos;
+	uint8_t yTemp = yCharPos;
+	
+	char DSROSResponse[] = {0x1b, 0x5b, 0x30, 0x6e};
+	
+	char stringResponse[10];
+	char tempbuffer[5];
+		
+	cursorBlinkState = false;  //need to turn the blinking off; ugly kludge
+		
+	tempCharacter = dequeueParser();
+	
+	if(!isEmptyParam()) //We are in DEC format
+	{
+		tempCharacter = dequeueParam();  //this now contains either a 5 or 6
+	}
+	
+	switch(tempCharacter){
+		case 5:		//this is a DSR, we send Terminal OKAY
+			printf("%s",DSROSResponse);
+		break;
+		
+		case 6:		//This is CPR
+			strcat(stringResponse,"\x1B");
+			strcat(stringResponse,"\x5B");
+			strcat(stringResponse,itoa(yTemp,tempbuffer,10));
+			strcat(stringResponse,";");
+			strcat(stringResponse,itoa(xTemp,tempbuffer,10));
+			strcat(stringResponse,"R");
+		
+			printf("%s",stringResponse);
+		break;
+	}
+	
+	blinkCursor();
+	xCharPos = xTemp;
+	yCharPos = yTemp;
+	currentState = stateGround;
 }
 
 bool isValidCSIEscapeCode(uint8_t character)

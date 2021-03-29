@@ -43,9 +43,10 @@ parserState currentState = stateGround;
 
 /** GLOBAL SETTINGS ***********************************************************/
 
-bool localEcho = true;
+bool localEcho = false;
 bool breakEnable = false;
 bool lineFeed = true;
+bool autoWrap = true;
 int lineFeedNewLine = 1;
 
 
