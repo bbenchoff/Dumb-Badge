@@ -125,7 +125,7 @@ void splashScreen(void)
 	const char *textPhrase = splashText[(((rand())%32))];
 	
 	clearScreen();
-	setColorRGB(255,255,255);
+	setColorRGB(0xff, 0xaa,0xff);
 	
 	REG_PORT_DIRTGL1 = PORT_PB31;
 	PORT->Group[1].PINCFG[31].bit.PULLEN = 1;

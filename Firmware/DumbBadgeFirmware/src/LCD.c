@@ -165,7 +165,7 @@ void setXY(uint16_t x1, uint16_t y1, uint16_t x2, uint16_t y2)
 void setPixel(uint16_t color)
 {
 	//it sets it to a 16-bit color.
-	LCD_Write_DATA16((color>>8),(color&0xFF));
+	LCD_Write_DATA16((color<<8),(color&0xFF));
 }
 
 void drawPixel(uint16_t x, uint16_t y)

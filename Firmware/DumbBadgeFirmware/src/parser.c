@@ -191,6 +191,7 @@ void CSIentryState(uint8_t character)
 	{
 		//This returns ESC [ ? 6 c, which is apparently a VT102
 		printf("%s",DECIDreturn);
+		currentState = stateGround;
 	}
 	else if(character == 0x44)	//ESC [ D	Cursor Backward
 	{
@@ -226,6 +227,7 @@ void CSIentryState(uint8_t character)
 	else if(character == 0x67)	//ESC [ g TBC
 	{
 		//clear tab stop at current position
+		currentState = stateGround;
 	}
 	else if(character == 0x48)	//ESC [ H	Cursor Position
 	{
@@ -252,15 +254,18 @@ void CSIentryState(uint8_t character)
 	{
 		//insert indicated # of blank lines
 		//IL()
+		currentState = stateGround;
 	}
 	else if(character == 0x6C)	//ESC [ l	Reset mode
 	{
-		///TO DO 
+		///TO DO
+		currentState = stateGround;
 	}
 	else if(character == 0x4D)	//ESC [ M
 	{
 		//DL
 		//Delet indicated number of lines
+		currentState = stateGround;
 	}
 	else if(character == 0x6D)	//ESC [ m	Select Graphic Rendition
 	{
@@ -281,12 +286,14 @@ void CSIentryState(uint8_t character)
 	else if(character == 0x71)	//ESC [ q	Set Keyboard LEDs
 	{
 		//<Blink>
+		currentState = stateGround;
 	}
 	else if(character == 0x72)	//ESC [ r	DECSTBM
 	{
 		/*
-		Set top and bottmo margins for scroll region
+		Set top and bottom margins for scroll region
 		*/
+		currentState = stateGround;
 	}
 	else if(character == 0x73)	//ESC [ s	Save Cursor Position
 	{
@@ -299,6 +306,7 @@ void CSIentryState(uint8_t character)
 	else if(character == 0x58)	//ESC [ X
 	{
 		//Erases indicated number of characters on the current line
+		currentState = stateGround;
 	}
 	else if(character == 0x57)	//ESC [ W	Cursor Tabulation Control
 	{
@@ -315,6 +323,7 @@ void CSIentryState(uint8_t character)
 	else if(character == 0x60)	//ESC [ ` HPA
 	{
 		//move cursor to indicated column in current row
+		currentState = stateGround;
 	}
 	else if(character >= 0x30 && character <= 0x39) // if the character is a digit 0-9
 	{
@@ -521,19 +530,19 @@ void escIntState(uint8_t character)
 			{
 				//do nothing
 			}
-			else if(character == 0x42)
+			else if(character == 0x42) //B
 			{
 				//Select default latin-1 mapping
 			}
-			else if(character == 0x30)
+			else if(character == 0x30) //0
 			{
 				//select VT100 graphics mapping
 			}
-			else if(character == 0x55)
+			else if(character == 0x55) //U
 			{
 				//select null mapping -- strait to character rom
 			}
-			else if(character == 0x4B)
+			else if(character == 0x4B) //K
 			{
 				//select user mapping
 			}
@@ -543,13 +552,17 @@ void escIntState(uint8_t character)
 			}
 			break;
 		case '%':		//Start sequence selecting character set
-			if(character == 0x40)
+			if(character == 0x40) //@
 			{
 				//Select Latin-1 character set
 			}
-			else if(character == 0x47)
+			else if(character == 0x47) //G
 			{
 				//select UTF-8 character set
+			}
+			else if(character == 0x38) //8
+			{
+				
 			}
 			else
 			{
@@ -557,19 +570,19 @@ void escIntState(uint8_t character)
 			}
 			break;
 		case ')':		//Start sequence defining G1 character set
-			if(character == 0x42)
+			if(character == 0x42) //B
 			{
 				//Select default latin-1 mapping
 			}
-			else if(character == 0x30)
+			else if(character == 0x30) //0
 			{
 				//select VT100 graphics mapping
 			}
-			else if(character == 0x55)
+			else if(character == 0x55) //U
 			{
 				//select null mapping -- strait to character rom
 			}
-			else if(character == 0x4B)
+			else if(character == 0x4B) //K
 			{
 				//select user mapping
 			}
@@ -718,6 +731,39 @@ void groundState(uint8_t character)
 	}
 	else if(character == 0x0C)						//FF 0x0C Form Feed
 	{
+		if(yCharPos == 23)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			newLine();
+			//drawChar(consoleDisplay[xCharPos][yCharPos]);
+			
+			//drawChar(0x00);
+			blinkCursor();
+		}
+		else
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos++;
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			blinkCursor();
+		}
+		if(lineFeed)
+		{
+			if(yCharPos == 23)
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(0x00);
+				blinkCursor();
+			}
+			else
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				blinkCursor();
+			}
+		}
 		
 	}
 	else if(character == 0x0D)						//CR 0x0D Carriage Return
@@ -1504,6 +1550,9 @@ void DSR(void)
 		break;
 	}
 	
+	stringResponse[0] = '\0';
+	tempbuffer[0] = '\0';
+		
 	blinkCursor();
 	xCharPos = xTemp;
 	yCharPos = yTemp;
