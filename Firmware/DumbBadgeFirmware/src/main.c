@@ -156,7 +156,15 @@ void configure_usart(void)
 	config_usart.pinmux_pad2 = PINMUX_UNUSED;
 	config_usart.pinmux_pad3 = PINMUX_UNUSED;
 	
+	/*
+	The SamD51 version will be using CTS and RTS flow control;
+	see this for more information:
 	
+	https://www.avrfreaks.net/forum/no-asf-samd21-sercom-usart-rxc-interrupt-not-triggering
+	
+	RTS on PAD2 and CTS on PAD3
+	
+	*/
 	
 	while (usart_init(&usart_instance, SERCOM2, &config_usart) != STATUS_OK) {
 	}
@@ -230,6 +238,14 @@ void setupBoard(void)
 
 	//configure_usart_USB();
 	
+	/*
+	The Pi is connected to a different SERCOM in the SAMD51 version;
+	The Pi is now connected to SERCOM2, with PAD0 (PI_TX) on pin 46,
+	and PAD1 (PI_RX) on pin 47.
+	
+	Also, this gives us the ability to bridge UARTs. THIS IS COOL
+	
+	*/
 	configure_usart();
 	configure_usart_callbacks();
 	system_interrupt_enable_global();

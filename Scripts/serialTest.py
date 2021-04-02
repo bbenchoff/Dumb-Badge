@@ -14,7 +14,6 @@ stdscr.addstr(" Open ")
 stdscr.addstr(ser.name)
 stdscr.refresh()
 
-
 byte=file.read(1)
 
 while byte:
@@ -23,7 +22,7 @@ while byte:
     stdscr.addstr(1,0, "Next Byte: ")
     stdscr.addstr(c)
     stdscr.addstr("  ")
-    stdscr.addstr(2,0, "Press any key to transmit, Q to quit")
+    stdscr.addstr(2,0, "Press any key to transmit next byte, Q to quit")
     stdscr.refresh()
 
     c = stdscr.getch()
