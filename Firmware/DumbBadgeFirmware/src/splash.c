@@ -8,12 +8,13 @@
 #include <asf.h>
 #include <string.h>
 
+
 #include "globals.h"
 #include "splash.h"
 #include "LCD.h"
 #include "console.h"
+#include "settings.h"
 
-char versionLabel[] = "Beach Taco Bell";
 
 /***********drawKare ** It's the boot graphic*************************/
 //	drawKare(int emotion) is the boot animation displayed on startup
@@ -102,7 +103,7 @@ void splashScreen(void)
 	splashText[11] = "America was founded on slavery";
 	splashText[12] = "There is only capital and labor";//
 	splashText[13] = "Encourage SYMMETRIC class warfare";//
-	splashText[14] = "$CURRENT_MEME";//
+	splashText[14] = "Vogon Poetry";//
 	splashText[15] = "A Nice TTY";//
 	splashText[16] = "Unix epoch minus 0xFF days";//
 	splashText[17] = "i  = 0x5f3759df - ( i >> 1 );";//
@@ -125,7 +126,7 @@ void splashScreen(void)
 	const char *textPhrase = splashText[(((rand())%32))];
 	
 	clearScreen();
-	setColorRGB(0xff, 0xaa,0xff);
+	setColorRGB(255,255,255);
 	
 	REG_PORT_DIRTGL1 = PORT_PB31;
 	PORT->Group[1].PINCFG[31].bit.PULLEN = 1;
@@ -143,21 +144,29 @@ void splashScreen(void)
 	
 	xCharPos = 40 - (strlen(textPhrase)/2);
 	yCharPos = 16;
-	
 	writeString(textPhrase);
-	/*
+	
+	
 	xCharPos = 40 - (strlen(versionLabel)/2);
 	yCharPos = 18;
-	
 	writeString(versionLabel);
-	*/
-	delay_ms(2000);
+	
+	xCharPos = 40 - (strlen(compileTime)/2);
+	yCharPos = 19;
+	writeString(compileTime);
+	
+	
+	delay_ms(1500);
 		
 	clearScreen();
 	nullifyConsole();
 	
-	setColorRGB(0,255,0);
-	setBackColorRGB(0,0,0);
+	setColorHex(defaultForegroundColor);
+	setBackColorHex(defaultBackgroundColor);
+	
+	
+	//setColorRGB(0,255,0);
+	//setBackColorRGB(0,0,0);
 	
 	//Setting the xChar and yChar position has to come
 	//after splashScreen() and InitLCD();

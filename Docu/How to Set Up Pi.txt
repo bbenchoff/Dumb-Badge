@@ -14,3 +14,33 @@ ExecStart=-/sbin/agetty 9600 %I vt100
 3) restart the systemctl
 
 systemctl daemon-reload
+
+
+---------------------------------------------------
+ENABLE Shell messages on the serial console
+
+from the console, type:
+>sudo raspi-config
+
+Select option P6, Serial Port
+
+Select Yes. You would like a login shell to be accessible over serial.
+
+2) edit the serial-getty service
+
+> sudo nano /lib/systemd/system/serial-getty@.service
+
+Change the line
+> ExecStart=-/sbin/agetty -o '-p -- \\u' --keep-baud 115200,38400,9600 %I $TERM
+
+to the following:
+
+> ExecStart=-/sbin/agetty 9600 %I vt100
+
+3) restart systemctl
+
+> systemctl daemon-reload
+
+4) reboot the system.
+
+On reboot, you should see a stream of serial bits coming out of the GPIO pins. Eventually, you will be able to login

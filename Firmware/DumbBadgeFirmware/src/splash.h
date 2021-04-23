@@ -13,5 +13,4 @@ void drawKare(int emotion);
 void splashScreen(void);
 
 
-
 #endif /* SPLASH_H_ */

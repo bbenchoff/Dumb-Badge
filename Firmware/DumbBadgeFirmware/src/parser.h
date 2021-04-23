@@ -7,6 +7,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+
 uint8_t stateEnterBuffer;
 
 void parserInit(void);
@@ -51,7 +52,6 @@ void ECH(void);
 void CBT(void);
 void ICH(void);
 void DSR(void);
-
 
 int nextTab(int a);
 

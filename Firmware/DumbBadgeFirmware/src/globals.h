@@ -11,6 +11,13 @@
 
 #include <stdbool.h>
 
+//Bit Manipulation
+#define BitVal(data,y) ( (data>>y) & 1)      /** Return Data.Y value   **/
+#define SetBit(data,y)    data |= (1 << y)    /** Set Data.Y   to 1    **/
+#define ClearBit(data,y)  data &= ~(1 << y)   /** Clear Data.Y to 0    **/
+
+extern char versionLabel[];
+extern char compileTime[];
 
 //Pin Definitions
 #define KB_ROW0		PORT_PA02
@@ -40,6 +47,16 @@
 
 #define RX_LEN 10
 
+//Color Definitions
+#define BLACK	0x0000
+#define RED		0xF800
+#define GREEN	0x07E0
+#define BROWN	0x8408
+#define BLUE	0x001F
+#define MAGENTA	0xF81F
+#define CYAN	0x07FF
+#define WHITE	0xFFFF
+
 extern uint16_t fore_Color_High, fore_Color_Low;
 extern uint16_t back_Color_High, back_Color_Low;
 
@@ -53,11 +70,13 @@ extern unsigned char scanCodeBuffer[20];
 
 extern unsigned char keyDownBuffer[20];
 
-
 extern bool cursorBlinkState;
 extern uint8_t cursorBuffer[200];
 
 extern unsigned char consoleDisplay[80][24];
+extern uint32_t consoleColors[80][24];
+extern uint8_t consoleSGR[80][24];
+
 
 extern struct Settings settings;
 

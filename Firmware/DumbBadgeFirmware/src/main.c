@@ -25,11 +25,14 @@
 #include "parserState.h"
 
 
-
 //#include "config_usart.h"
 #include "conf_clocks.h"
 
 /** VARIABLES *****************************************************************/
+
+//Version Label
+char compileTime[] =  __TIMESTAMP__;
+char versionLabel[] = "Beach Taco Bell";
 
 #define UART_BUFFER_SIZE 10
 
@@ -40,14 +43,16 @@ uint8_t rx_buf;
 parserState currentState = stateGround;
 
 
-
 /** GLOBAL SETTINGS ***********************************************************/
 
-bool localEcho = false;
+bool localEcho = true;
 bool breakEnable = false;
 bool lineFeed = true;
 bool autoWrap = true;
 int lineFeedNewLine = 1;
+
+uint16_t defaultForegroundColor = 0xFFFF;
+uint16_t defaultBackgroundColor = 0x0000;
 
 
 /** LOCAL PROTOTYPES **********************************************************/

@@ -20,7 +20,6 @@
 
 #include "globals.h"
 #include "parserState.h"
-
 #include "LCDBus.h"
 #include "LCD.h"
 #include "keyboard.h"
@@ -41,6 +40,14 @@ int paramBuffer[4];
 uint8_t DECSCX = 0;
 uint8_t DECSCY = 0;
 
+bool textBold;
+bool textUnderscore;
+bool textBlink;
+bool textReverseVideo;
+
+uint16_t textForeground;
+uint16_t textBackground;
+
 
 void parseChar(uint8_t character)
 {
@@ -50,42 +57,357 @@ void parseChar(uint8_t character)
 	switch(state)
 	{
 		case stateGround:
-		{
 			groundState(character);
-		}
-		break;
+			break;
 		
 		case stateESC:
-		{
 			escState(character);
-		}
-		break;
+			break;
 		
 		case stateESCinter:
-		{
 			escIntState(character);
-		}
-		break;
+			break;
 		
 		case stateCSIentry:
-		{
 			CSIentryState(character);
-		}
-		break;
+			break;
 		
 		case stateCSIparam:
-		{
 			CSIparamState(character);
-		}
-		break;
+			break;
 		
 		case stateCSIignore:
-		{
 			CSIignoreState(character);
-		}
-		break;
+			break;
 	}
 	
+}
+
+void groundState(uint8_t character)
+{
+	char tempCharacter;
+	clearQueues();									//parser and paramQueues cleared
+
+	if(character == 0x00)							//NUL 0x00 DO NOTHING
+	{
+		//always ignore
+	}
+	else if(character == 0x01)						//SOH 0x01 Start of Heading
+	{
+		
+	}
+	else if(character == 0x02)						//STX 0x02 Start of Text
+	{
+		
+	}
+	else if(character == 0x03)						//ETX 0x03 End of text
+	{
+		
+	}
+	else if(character == 0x04)						//EOT 0x04 End of Transmission
+	{
+		
+	}
+	else if(character == 0x05)						//ENQ 0x05 Enquiry
+	{
+		
+	}
+	else if(character == 0x06)						//ACK 0x06 Acknowledge
+	{
+		
+	}
+	else if(character == 0x07)						//BEL 0x07 Bell
+	{
+		//Beep
+	}
+	else if(character == 0x08)						//BS 0x08 Backspace
+	{
+		if(xCharPos > 0)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			xCharPos--;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			blinkCursor();
+		}
+		
+
+	}
+	else if(character == 0x09)						//TAB 0x09 Horizontal Tab
+	{
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		if(xCharPos <= 79)
+		{
+			xCharPos = nextTab(xCharPos);
+		}
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		blinkCursor();
+	}
+	else if(character == 0x0A)						//LF 0x0A Line Feed
+	{
+		if(yCharPos == 23)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			newLine();
+			//drawChar(consoleDisplay[xCharPos][yCharPos]);
+			//drawChar(0x00);
+			blinkCursor();
+		}
+		else
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos++;
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			blinkCursor();
+		}
+		if(lineFeed)
+		{
+			if(yCharPos == 23)
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(0x00);
+				blinkCursor();
+			}
+			else
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				blinkCursor();
+			}
+		}
+	}
+	else if(character == 0x0B)						//VT 0x0B Vertical Tab
+	{
+		if(yCharPos == 23)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			newLine();
+			//drawChar(consoleDisplay[xCharPos][yCharPos]);
+			
+			//drawChar(0x00);
+			blinkCursor();
+		}
+		else
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos++;
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			blinkCursor();
+		}
+		if(lineFeed)
+		{
+			if(yCharPos == 23)
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(0x00);
+				blinkCursor();
+			}
+			else
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				blinkCursor();
+			}
+		}
+	}
+	else if(character == 0x0C)						//FF 0x0C Form Feed
+	{
+		if(yCharPos == 23)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			newLine();
+			//drawChar(consoleDisplay[xCharPos][yCharPos]);
+			
+			//drawChar(0x00);
+			blinkCursor();
+		}
+		else
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos++;
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			blinkCursor();
+		}
+		if(lineFeed)
+		{
+			if(yCharPos == 23)
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(0x00);
+				blinkCursor();
+			}
+			else
+			{
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				xCharPos = 0;
+				drawChar(consoleDisplay[xCharPos][yCharPos]);
+				blinkCursor();
+			}
+		}
+		
+	}
+	else if(character == 0x0D)						//CR 0x0D Carriage Return
+	{
+		if(yCharPos == 23)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			xCharPos = 0;
+			blinkCursor();
+		}
+		else
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			xCharPos = 0;
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			blinkCursor();
+		}
+	}
+	else if(character == 0x0E)						//SO 0x0E Shift Out
+	{
+		
+	}
+	else if(character == 0x0F)						//SI 0x0F Shift In
+	{
+		
+	}
+	else if(character == 0x10)						//DLE 0x10 Data Link Escape
+	{
+		
+	}
+	else if(character == 0x11)						//DC1 0x11 Data Control 1
+	{
+		
+	}
+	else if(character == 0x12)						//DC2 0x12 Data Control 2
+	{
+		
+	}
+	else if(character == 0x13)						//DC3 0x13 Data Control 3
+	{
+		
+	}
+	else if(character == 0x14)						//DC4 0x14 Data Control 4
+	{
+		
+	}
+	else if(character == 0x15)						//NAK 0x15 Negative Acknowledge
+	{
+		
+	}
+	else if(character == 0x16)						//SYN 0x16 Synchronous Idle
+	{
+		
+	}
+	else if(character == 0x17)						//ETB 0x17 End of Transmission Block
+	{
+		
+	}
+	else if(character == 0x18)						//CAN 0x18 Cancel
+	{
+		
+	}
+	else if(character == 0x19)						//EM 0x19 End of Medium
+	{
+		
+	}
+	else if(character == 0x1A)						//SUB 0x1A Substitution
+	{
+		
+	}
+	else if(character == 0x1B)						//ESC 0x1B Escape
+	{
+		currentState = stateESC;
+	}
+	else if(character == 0x1C)						//FS 0x1C File Separator
+	{
+		
+	}
+	else if(character == 0x1D)						//GS 0x1D Group Separator
+	{
+		
+	}
+	else if(character == 0x1E)						//RS 0x1E Record Separator
+	{
+		
+	}
+	else if(character == 0x1F)						//US 0x1F Unit Separator
+	{
+		
+	}
+	else if(character == 0x7F)						//DEL 0x7F Delete
+	{
+		///Ignored by terminal
+	}
+	else
+	{
+		//this line places the key to be printed into the console buffer
+		consoleDisplay[xCharPos][yCharPos] = character;
+		
+		
+		//set reverse video
+		if(textReverseVideo == true)  //If this is reverse Text
+		{
+			SetBit(consoleSGR[xCharPos][yCharPos],7);
+		}
+		else
+		{
+			ClearBit(consoleSGR[xCharPos][yCharPos],7);
+		}
+		
+		//set bold
+		if(textBold == true)
+		{
+			SetBit(consoleSGR[xCharPos][yCharPos],1);
+		}
+		else
+		{
+			ClearBit(consoleSGR[xCharPos][yCharPos],1);
+		}
+		
+		//set underscore
+		if(textUnderscore == true)
+		{
+			SetBit(consoleSGR[xCharPos][yCharPos],4);
+		}
+		else
+		{
+			ClearBit(consoleSGR[xCharPos][yCharPos],4);
+		}
+		
+		//set blink
+		if(textBlink == true)
+		{
+			SetBit(consoleSGR[xCharPos][yCharPos],5);
+		}
+		else
+		{
+			ClearBit(consoleSGR[xCharPos][yCharPos],5);
+		}
+
+
+		//set textForeground		textForeground;
+		//set textBackground		textBackground;
+
+		
+		//this line _actually prints the character_
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+
+		//move the cursor one position forward
+		xCharPos++;
+
+		//draw the character again, for some reason, idk.
+		drawChar(consoleDisplay[xCharPos][yCharPos]);
+		
+		if(xCharPos > 79)		//END OF LINE
+		{
+			xCharPos--;
+		}
+	}
 }
 
 void escState(uint8_t character)
@@ -407,6 +729,10 @@ void CSIignoreState(uint8_t character)
 {
 	if(character == 0x1B)
 	{
+		currentState = stateESC;
+	}
+	else if(character >= 0x40 && character <= 0x7E)
+	{
 		currentState = stateGround;
 	}
 }
@@ -596,289 +922,6 @@ void escIntState(uint8_t character)
 	currentState = stateGround;
 }
 
-void groundState(uint8_t character)
-{
-	
-
-	char tempCharacter;
-	clearQueues();									//parser and paramQueues cleared
-
-	if(character == 0x00)							//NUL 0x00 DO NOTHING
-	{
-		//always ignore
-	}
-	else if(character == 0x01)						//SOH 0x01 Start of Heading
-	{
-		
-	}
-	else if(character == 0x02)						//STX 0x02 Start of Text
-	{
-		
-	}
-	else if(character == 0x03)						//ETX 0x03 End of text
-	{
-		
-	}
-	else if(character == 0x04)						//EOT 0x04 End of Transmission
-	{
-		
-	}
-	else if(character == 0x05)						//ENQ 0x05 Enquiry
-	{
-		
-	}
-	else if(character == 0x06)						//ACK 0x06 Acknowledge
-	{
-		
-	}
-	else if(character == 0x07)						//BEL 0x07 Bell
-	{
-		//Beep
-	}
-	else if(character == 0x08)						//BS 0x08 Backspace
-	{
-		if(xCharPos > 0)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			xCharPos--;
-			tempCharacter = consoleDisplay[xCharPos][yCharPos];
-			drawChar(tempCharacter);
-			blinkCursor();
-		}
-		
-
-	}
-	else if(character == 0x09)						//TAB 0x09 Horizontal Tab
-	{
-		drawChar(consoleDisplay[xCharPos][yCharPos]);
-		if(xCharPos <= 79)
-		{
-			xCharPos = nextTab(xCharPos);
-		}
-		drawChar(consoleDisplay[xCharPos][yCharPos]);
-		blinkCursor();
-	}
-	else if(character == 0x0A)						//LF 0x0A Line Feed
-	{
-		if(yCharPos == 23)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			newLine();
-			//drawChar(consoleDisplay[xCharPos][yCharPos]);
-			//drawChar(0x00);
-			blinkCursor();
-		}
-		else
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			yCharPos++;
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			blinkCursor();
-		}
-		if(lineFeed)
-		{
-			if(yCharPos == 23)
-			{
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				xCharPos = 0;
-				drawChar(0x00);
-				blinkCursor();
-			}
-			else
-			{
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				xCharPos = 0;
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				blinkCursor();
-			}
-		}
-	}
-	else if(character == 0x0B)						//VT 0x0B Vertical Tab
-	{
-		if(yCharPos == 23)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			newLine();
-			//drawChar(consoleDisplay[xCharPos][yCharPos]);
-			
-			//drawChar(0x00);
-			blinkCursor();
-		}
-		else
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			yCharPos++;
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			blinkCursor();
-		}
-		if(lineFeed)
-		{
-			if(yCharPos == 23)
-			{
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				xCharPos = 0;
-				drawChar(0x00);
-				blinkCursor();
-			}
-			else
-			{
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				xCharPos = 0;
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				blinkCursor();
-			}
-		}
-	}
-	else if(character == 0x0C)						//FF 0x0C Form Feed
-	{
-		if(yCharPos == 23)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			newLine();
-			//drawChar(consoleDisplay[xCharPos][yCharPos]);
-			
-			//drawChar(0x00);
-			blinkCursor();
-		}
-		else
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			yCharPos++;
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			blinkCursor();
-		}
-		if(lineFeed)
-		{
-			if(yCharPos == 23)
-			{
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				xCharPos = 0;
-				drawChar(0x00);
-				blinkCursor();
-			}
-			else
-			{
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				xCharPos = 0;
-				drawChar(consoleDisplay[xCharPos][yCharPos]);
-				blinkCursor();
-			}
-		}
-		
-	}
-	else if(character == 0x0D)						//CR 0x0D Carriage Return
-	{
-		if(yCharPos == 23)
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			xCharPos = 0;
-			blinkCursor();
-		}
-		else
-		{
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			xCharPos = 0;
-			drawChar(consoleDisplay[xCharPos][yCharPos]);
-			blinkCursor();
-		}
-	}
-	else if(character == 0x0E)						//SO 0x0E Shift Out
-	{
-		
-	}
-	else if(character == 0x0F)						//SI 0x0F Shift In
-	{
-		
-	}
-	else if(character == 0x10)						//DLE 0x10 Data Link Escape
-	{
-		
-	}
-	else if(character == 0x11)						//DC1 0x11 Data Control 1
-	{
-		
-	}
-	else if(character == 0x12)						//DC2 0x12 Data Control 2
-	{
-		
-	}
-	else if(character == 0x13)						//DC3 0x13 Data Control 3
-	{
-		
-	}
-	else if(character == 0x14)						//DC4 0x14 Data Control 4
-	{
-		
-	}
-	else if(character == 0x15)						//NAK 0x15 Negative Acknowledge
-	{
-		
-	}
-	else if(character == 0x16)						//SYN 0x16 Synchronous Idle
-	{
-		
-	}
-	else if(character == 0x17)						//ETB 0x17 End of Transmission Block
-	{
-		
-	}
-	else if(character == 0x18)						//CAN 0x18 Cancel
-	{
-		
-	}
-	else if(character == 0x19)						//EM 0x19 End of Medium
-	{
-		
-	}
-	else if(character == 0x1A)						//SUB 0x1A Substitution
-	{
-		
-	}
-	else if(character == 0x1B)						//ESC 0x1B Escape
-	{
-		currentState = stateESC;
-	}
-	else if(character == 0x1C)						//FS 0x1C File Separator
-	{
-		
-	}
-	else if(character == 0x1D)						//GS 0x1D Group Separator
-	{
-		
-	}
-	else if(character == 0x1E)						//RS 0x1E Record Separator
-	{
-		
-	}
-	else if(character == 0x1F)						//US 0x1F Unit Separator
-	{
-		
-	}
-	else if(character == 0x7F)						//DEL 0x7F Delete
-	{
-		///Ignored by terminal
-	}
-	else
-	{
-		//this line places the key to be printed into the console buffer
-		consoleDisplay[xCharPos][yCharPos] = character;
-		
-		//this line _actually prints the character_
-		drawChar(consoleDisplay[xCharPos][yCharPos]);
-
-		//move the cursor one position forward
-		xCharPos++;
-
-		//draw the character again, for some reason, idk.
-		drawChar(consoleDisplay[xCharPos][yCharPos]);
-		
-		if(xCharPos > 79)		//END OF LINE
-		{
-			xCharPos--;
-		}
-	}
-}
-
 /************************************************************************/
 /*    ESC mnemonic functions                                            */
 /************************************************************************/
@@ -1040,6 +1083,7 @@ void CUU() // Cursor Up
 	blinkCursor();
 	currentState = stateGround;
 }
+
 void CUD() //Cursor Down
 {
 	unsigned char tempCharacter;
@@ -1076,6 +1120,7 @@ void CUD() //Cursor Down
 	blinkCursor();
 	currentState = stateGround;
 }
+
 void CUF() //Cursor Forward
 {
 	unsigned char tempCharacter;
@@ -1112,6 +1157,7 @@ void CUF() //Cursor Forward
 	blinkCursor();
 	currentState = stateGround;
 }
+
 void CUB() //Cursor Backward
 {
 	unsigned char tempCharacter;
@@ -1148,6 +1194,7 @@ void CUB() //Cursor Backward
 	blinkCursor();
 	currentState = stateGround;
 }
+
 void CNL() //Cursor Next Line
 {
 	unsigned char tempCharacter;
@@ -1187,6 +1234,7 @@ void CNL() //Cursor Next Line
 	blinkCursor();
 	currentState = stateGround;	
 }
+
 void CPL() //Cursor Preceding Line
 {
 	unsigned char tempCharacter;
@@ -1227,6 +1275,7 @@ void CPL() //Cursor Preceding Line
 	currentState = stateGround;
 	
 }
+
 void CHA() //Cursor Horizontal Absolute
 {
 	unsigned char tempCharacter;
@@ -1259,6 +1308,7 @@ void CHA() //Cursor Horizontal Absolute
 	blinkCursor();
 	currentState = stateGround;
 }
+
 void CUP() //Cursor Position
 {
 	unsigned char tempCharacter;
@@ -1317,11 +1367,13 @@ void CUP() //Cursor Position
 	blinkCursor();
 	currentState = stateGround;
 }
+
 void CHT() //Cursor Horizontal Tab
 {
 	//do this later
 	currentState = stateGround;
 }
+
 void ED() //Edit In Display
 {
 	uint8_t parameter;
@@ -1402,6 +1454,7 @@ void ED() //Edit In Display
 
 
 }
+
 void EL() //Edit In Line
 {
 	unsigned char tempCharacter;
@@ -1431,7 +1484,7 @@ void EL() //Edit In Line
 				xCharPos = i;
 				drawChar(0x00);
 			}
-		break;
+			break;
 		
 		case 1:			//Erases from beginning of line to cursor
 			for(int i = 0 ;  i <= xTemp+1 ;  i++)
@@ -1439,7 +1492,7 @@ void EL() //Edit In Line
 				xCharPos = i;
 				drawChar(0x00);
 			}
-		break;
+			break;
 		
 		case 2:			//Erases entire line containing cursor
 			for(int i = 0 ;  i <= 78 ;  i++)
@@ -1447,7 +1500,7 @@ void EL() //Edit In Line
 				xCharPos = i;
 				drawChar(0x00);
 			}
-		break;
+			break;
 	}
 	
 	blinkCursor();
@@ -1457,12 +1510,182 @@ void EL() //Edit In Line
 	
 	currentState = stateGround;	
 }
+
 void SGR() //Select Graphic Rendition
 {
-	//we are not implementing these now
+	//Oh boy here we go
+	uint8_t parameter;
+		
+	cursorBlinkState = false;  //need to turn the blinking off; ugly kludge
+		
+	if(isEmptyParam())
+	{
+		parameter = 0;
+		
+		textBold = false;
+		textUnderscore = false;
+		textBlink = false;
+		textReverseVideo = false;
+
+		textForeground = defaultForegroundColor;
+		textBackground = defaultBackgroundColor;
+							
+	}
+	else
+	{
+		while(!isEmptyParam())
+		{
+			parameter = dequeueParam();
+			switch(parameter)
+			{
+				case 0:		// all attributes off
+				
+					textBold = false;
+					textUnderscore = false;
+					textBlink = false;
+					textReverseVideo = false;
+
+					textForeground = defaultForegroundColor;
+					textBackground = defaultBackgroundColor;
+				
+					break;
+				
+				case 1:		// bold on
+				
+					break;
+				
+				case 2:		// set half-bright
+				
+					break;
+					
+				case 4:		// set underscore
+				
+					break;
+					
+				case 5:		//set blink
+				
+					break;
+					
+				case 7:		//set reverse video on
+				
+					textReverseVideo = true;
+				
+					break;
+					
+				case 21:	//set underline
+				
+					break;
+					
+				case 22:	//bold off
+				
+					textBold = false;
+				
+					break;
+					
+				case 24:	//underline off
+				
+					break;
+					
+				case 25:	//blink off
+				
+					break;
+					
+				case 27:	//reverse video off
+				
+					textReverseVideo = false;
+				
+					break;
+					
+				case 30:	//black foreground
+				
+					break;
+					
+				case 31:	//red foreground
+				
+					break;
+					
+				case 32:	//green foreground
+				
+					break;
+					
+				case 33:	//brown foreground
+				
+					break;
+					
+				case 34:	//blue foreground
+				
+					break;
+					
+				case 35:	//magenta foreground
+				
+					break;
+					
+				case 36:	//cyan foreground
+				
+					break;
+					
+				case 37:	//white
+				
+					break;
+					
+				case 38:	//256/24-bit foreground color
+				
+					break;
+					
+				case 39:	//default foreground color (white)
+				
+					break;
+					
+				case 40:	//set black background
+				
+					break;
+				
+				case 41:	//set red background
+				
+					break;
+					
+				case 42:	//green background
+				
+					break;
+					
+				case 43:	//brown background
+				
+					break;
+					
+				case 44:	//blue background
+				
+					break;
+					
+				case 45:	//magenta background
+				
+					break;
+					
+				case 46:	//cyan background
+				
+					break;
+					
+				case 47:	//white background
+				
+					break;
+					
+				case 48:	//256/24-bit background color
+				
+					break;
+					
+				case 49:	//default background color (black)
+					
+					break;
+				
+			}
+		}	
+	}
 	
+	blinkCursor();
 	currentState = stateGround;
 }
+
+
+
 void DCH() //Delete Character
 {
 	currentState = stateGround;
