@@ -140,7 +140,16 @@ void splashScreen(void)
 	else
 	drawKare(0); //The normal graphic
 	
-
+	for(int i = 0 ; i < 80 ; i++)
+	{
+		for(int j = 0 ; j < 24 ; j++)
+		{
+			consoleColors[i][j] = 0xFFFF0000;
+		}
+	}
+	
+	//setColorHex(defaultForegroundColor);
+	//setBackColorHex(defaultBackgroundColor);
 	
 	xCharPos = 40 - (strlen(textPhrase)/2);
 	yCharPos = 16;
@@ -160,10 +169,7 @@ void splashScreen(void)
 		
 	clearScreen();
 	nullifyConsole();
-	
-	setColorHex(defaultForegroundColor);
-	setBackColorHex(defaultBackgroundColor);
-	
+
 	
 	//setColorRGB(0,255,0);
 	//setBackColorRGB(0,0,0);

@@ -35,8 +35,6 @@ bool capsLock;
 bool scrollLock;
 bool sPoNgEbObCaSe;
 
-extern uint16_t defaultForegroundColor;
-extern uint16_t defaultBackgroundColor;
 
 
 

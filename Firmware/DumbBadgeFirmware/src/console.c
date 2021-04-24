@@ -20,7 +20,6 @@ uint16_t xCharPos = 0;
 uint16_t yCharPos = 0;
 
 unsigned char consoleDisplay[80][24];
-
 uint32_t consoleColors[80][24];
 uint8_t consoleSGR[80][24];
 
@@ -31,8 +30,15 @@ void drawChar(uint8_t character)
 	uint16_t x = xCharPos;
 	uint16_t y = yCharPos;
 	
+	uint16_t tempForeground;
+	uint16_t tempBackground;
 	
-	consoleDisplay[xCharPos][yCharPos] = character;
+	uint32_t tempColor = consoleColors[x][y];
+	
+	tempForeground = tempColor >> 16;
+	tempBackground = consoleColors[x][y] & 0xFFFF;
+	
+	consoleDisplay[x][y] = character;
 	
 	REG_PORT_OUTCLR1 = LCD_CS;
 	if(BitVal(consoleSGR[xCharPos][yCharPos],7) == 0)
@@ -44,11 +50,11 @@ void drawChar(uint8_t character)
 			{
 				if((CodePage437[character][i]&(1<<(7-j)))!=0)
 				{
-					setPixel((fore_Color_High<<8)|fore_Color_Low);
+					setPixel(tempForeground);
 				}
 				else
 				{
-					setPixel((back_Color_High<<8)|back_Color_Low);
+					setPixel(tempBackground);
 				}
 
 			}
@@ -63,11 +69,11 @@ void drawChar(uint8_t character)
 			{
 				if((CodePage437[character][i]&(1<<(7-j)))!=0)
 				{
-					setPixel((back_Color_High<<8)|back_Color_Low);
+					setPixel(tempBackground);
 				}
 				else
 				{	
-					setPixel((fore_Color_High<<8)|fore_Color_Low);
+					setPixel(tempForeground);
 				}
 
 			}
@@ -123,6 +129,7 @@ void newLine(void)
 	for(int k = 0 ; k < 80 ; k ++)
 	{
 		consoleDisplay[k][23] = 0x20;
+		
 	}
 	
 	//Redraw the display
@@ -237,6 +244,15 @@ void blinkCursor(void)
 {
 	uint16_t x = xCharPos;
 	uint16_t y = yCharPos;
+	
+	uint16_t tempForeground;
+	uint16_t tempBackground;
+		
+	uint32_t tempColor = consoleColors[x][y];
+		
+	tempForeground = tempColor >> 16;
+	tempBackground = consoleColors[x][y] & 0xFFFF;
+	
 	unsigned char character = consoleDisplay[x][y];
 	setXY(x*10,y*20,x*10+9,y*20+19);
 	REG_PORT_OUTCLR1 = LCD_CS;
@@ -249,11 +265,11 @@ void blinkCursor(void)
 				if((CodePage437[character][i]&(1<<(7-j)))!=0)
 				{
 					
-					setPixel((back_Color_High<<8)|back_Color_Low);
+					setPixel(tempBackground);
 				}
 				else
 				{
-					setPixel((fore_Color_High<<8)|fore_Color_Low);
+					setPixel(tempForeground);
 				}
 			}
 		}
@@ -266,11 +282,11 @@ void blinkCursor(void)
 			{
 				if((CodePage437[character][i]&(1<<(7-j)))!=0)
 				{
-					setPixel((fore_Color_High<<8)|fore_Color_Low);
+					setPixel(tempForeground);
 				}
 				else
 				{
-					setPixel((back_Color_High<<8)|back_Color_Low);
+					setPixel(tempBackground);
 					
 				}
 			}
@@ -303,6 +319,7 @@ void nullifyConsole(void)
 		{
 			consoleDisplay[i][j] = 0x00;
 			consoleSGR[i][j] = 0x00;
+			consoleColors[i][j] = 0xFFFF0000;
 		}
 	}	
 }

@@ -45,8 +45,8 @@ bool textUnderscore;
 bool textBlink;
 bool textReverseVideo;
 
-uint16_t textForeground;
-uint16_t textBackground;
+uint16_t textForeground = 0xFFFF;
+uint16_t textBackground = 0x0000;
 
 
 void parseChar(uint8_t character)
@@ -388,11 +388,8 @@ void groundState(uint8_t character)
 		{
 			ClearBit(consoleSGR[xCharPos][yCharPos],5);
 		}
-
-
-		//set textForeground		textForeground;
-		//set textBackground		textBackground;
-
+		
+		consoleColors[xCharPos][yCharPos] |= (textForeground << 16) | textBackground;
 		
 		//this line _actually prints the character_
 		drawChar(consoleDisplay[xCharPos][yCharPos]);
@@ -1547,85 +1544,78 @@ void SGR() //Select Graphic Rendition
 
 					textForeground = defaultForegroundColor;
 					textBackground = defaultBackgroundColor;
-				
 					break;
 				
 				case 1:		// bold on
-				
+					textBold = true;
 					break;
 				
 				case 2:		// set half-bright
-				
+					//this gets weird do this later
 					break;
 					
 				case 4:		// set underscore
-				
+					textUnderscore = true;
 					break;
 					
 				case 5:		//set blink
-				
+					textBlink = true;
 					break;
 					
 				case 7:		//set reverse video on
-				
 					textReverseVideo = true;
-				
 					break;
 					
 				case 21:	//set underline
-				
+					textUnderscore = true;
 					break;
 					
 				case 22:	//bold off
-				
 					textBold = false;
-				
 					break;
 					
 				case 24:	//underline off
-				
+					textUnderscore = false;
 					break;
 					
 				case 25:	//blink off
-				
+					textBlink = false;
 					break;
 					
 				case 27:	//reverse video off
-				
 					textReverseVideo = false;
-				
 					break;
 					
 				case 30:	//black foreground
-				
+					textForeground = BLACK;
 					break;
 					
 				case 31:	//red foreground
-				
+					textForeground = RED;
 					break;
 					
 				case 32:	//green foreground
-				
+					textForeground = GREEN;
 					break;
 					
 				case 33:	//brown foreground
-				
+					textForeground = BROWN;
 					break;
 					
 				case 34:	//blue foreground
-				
+					textForeground = BLUE;
 					break;
 					
 				case 35:	//magenta foreground
-				
+					textForeground = MAGENTA;
 					break;
 					
 				case 36:	//cyan foreground
-				
+					textForeground = CYAN;
 					break;
 					
 				case 37:	//white
-				
+					textForeground = WHITE;
 					break;
 					
 				case 38:	//256/24-bit foreground color
@@ -1633,39 +1623,39 @@ void SGR() //Select Graphic Rendition
 					break;
 					
 				case 39:	//default foreground color (white)
-				
+					textForeground = defaultForegroundColor;
 					break;
 					
 				case 40:	//set black background
-				
+					textBackground = BLACK;
 					break;
 				
 				case 41:	//set red background
-				
+					textBackground = RED;
 					break;
 					
 				case 42:	//green background
-				
+					textBackground = GREEN;
 					break;
 					
 				case 43:	//brown background
-				
+					textBackground = BROWN;
 					break;
 					
 				case 44:	//blue background
-				
+					textBackground = BLUE;
 					break;
 					
 				case 45:	//magenta background
-				
+					textBackground = MAGENTA;
 					break;
 					
 				case 46:	//cyan background
-				
+					textBackground = CYAN;
 					break;
 					
 				case 47:	//white background
-				
+					textBackground = WHITE;
 					break;
 					
 				case 48:	//256/24-bit background color
@@ -1673,7 +1663,7 @@ void SGR() //Select Graphic Rendition
 					break;
 					
 				case 49:	//default background color (black)
-					
+					textBackground = defaultBackgroundColor;
 					break;
 				
 			}
