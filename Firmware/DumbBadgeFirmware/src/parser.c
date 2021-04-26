@@ -1543,7 +1543,10 @@ void SGR() //Select Graphic Rendition
 	
 	uint8_t parameter;	
 	cursorBlinkState = false;  //need to turn the blinking off; ugly kludge
-		
+	uint8_t r = 0;
+	uint8_t g = 0;
+	uint8_t b = 0;	
+	
 	if(isEmptyParam())
 	{
 		parameter = 0;
@@ -1656,7 +1659,11 @@ void SGR() //Select Graphic Rendition
 					}
 					if(parameter == 2) //RGB color, 3 parameter r/g/b
 					{
+						r = dequeueParam();
+						g = dequeueParam();
+						b = dequeueParam();
 						
+						textForeground = ((r & 0xf8) << 8) | ((g & 0xfc) << 3) | (b >> 3);
 					}
 					break;
 					
@@ -1705,7 +1712,11 @@ void SGR() //Select Graphic Rendition
 					}
 					if(parameter == 2) //RGB color, 3 parameter r/g/b
 					{
-											
+						r = dequeueParam();
+						g = dequeueParam();
+						b = dequeueParam();
+						
+						textBackground = ((r & 0xf8) << 8) | ((g & 0xfc) << 3) | (b >> 3);				
 					}
 					break;
 					
