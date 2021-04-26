@@ -35,7 +35,7 @@ void drawChar(uint8_t character)
 	
 	uint32_t tempColor = consoleColors[x][y];
 	
-	tempForeground = tempColor >> 16;
+	tempForeground = (tempColor >> 16);
 	tempBackground = consoleColors[x][y] & 0xFFFF;
 	
 	consoleDisplay[x][y] = character;

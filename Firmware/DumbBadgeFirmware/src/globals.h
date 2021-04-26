@@ -49,12 +49,12 @@ extern char compileTime[];
 
 //Color Definitions
 #define BLACK	0x0000
-#define RED		0xC28A
-#define GREEN	0x74A6
-#define BROWN	0xBC46
-#define BLUE	0x4C77
+#define RED		0xF800
+#define GREEN	0x0400
+#define BROWN	0xFFE0
+#define BLUE	0x001F
 #define MAGENTA	0xF81F
-#define CYAN	0x4CD2
+#define CYAN	0x07FF
 #define WHITE	0xFFFF
 
 extern uint16_t fore_Color_High, fore_Color_Low;
