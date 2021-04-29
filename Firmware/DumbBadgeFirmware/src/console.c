@@ -40,15 +40,80 @@ void drawChar(uint8_t character)
 	
 	consoleDisplay[x][y] = character;
 	
+	uint8_t displayFont[10][20];
+	uint8_t tempFontStorage[200];
+	uint8_t k = 0;
+	
 	REG_PORT_OUTCLR1 = LCD_CS;
+	setXY(x*10,y*20,x*10+9,y*20+19);
+	
+	//reformat the character into a 10x20 array:
+	//first transmute it into tempFontStorage
+	for(uint16_t i=0; i <= 24; i++)
+	{
+		for(int j=0;j<8;j++)
+		{
+			if((CodePage437[character][i]&(1<<(7-j)))!=0)
+			{
+				tempFontStorage[k] = 0xFF;
+			}
+			else
+			{
+				tempFontStorage[k] = 0x00;
+			}
+			k++;
+		}
+	}
+	k = 0;
+	//now reform into displayFont
+	for(uint8_t i = 0; i <= 9 ; i++)
+	{
+		for(uint8_t j = 0; j <= 19 ; j++)
+		{
+			if(tempFontStorage[k] == 0xFF)
+			{
+				displayFont[i][j] = 0xFF;	
+			}
+			else
+			{
+				displayFont[i][j] = 0x00;
+			}
+			k++;
+		}
+	}
+	
+	//process displayFont if it is bold, first bit of consoleSGR
+	if(BitVal(consoleSGR[xCharPos][yCharPos],1) == 1)
+	{
+		for(uint8_t i = 10; i >= 1 ; i--)
+		{
+			for(uint8_t j = 0; j <= 19 ; j++)
+			{
+				if(displayFont[i-1][j] == 0xFF)
+				{
+					displayFont[i][j] = 0xFF;
+				}
+			}
+		}
+	}
+	
+	//process displayfont if underscore, fourth bit of consoleSGR
+	if(BitVal(consoleSGR[xCharPos][yCharPos],4) == 1)
+	{
+		for(int i = 0 ; i <= 9 ; i++)
+		{
+			displayFont[9][i] = 0xFF;
+		}
+	}
+	
+	//Process inverse video, compare 7th bit of consoleSGR
 	if(BitVal(consoleSGR[xCharPos][yCharPos],7) == 0)
 	{
-		setXY(x*10,y*20,x*10+9,y*20+19);
-		for(uint16_t i=0; i <= 24; i++)
+		for(uint8_t i = 0; i <= 9 ; i++)
 		{
-			for(int j=0;j<8;j++)
+			for(uint8_t j = 0; j <= 19 ; j++)
 			{
-				if((CodePage437[character][i]&(1<<(7-j)))!=0)
+				if(displayFont[i][j] == 0xFF)
 				{
 					setPixel(tempForeground);
 				}
@@ -56,29 +121,27 @@ void drawChar(uint8_t character)
 				{
 					setPixel(tempBackground);
 				}
-
 			}
 		}
 	}
 	else
 	{
-		setXY(x*10,y*20,x*10+9,y*20+19);
-		for(uint16_t i=0; i <= 24; i++)
+		for(uint8_t i = 0; i <= 9 ; i++)
 		{
-			for(int j=0;j<8;j++)
+			for(uint8_t j = 0; j <= 19 ; j++)
 			{
-				if((CodePage437[character][i]&(1<<(7-j)))!=0)
+				if(displayFont[i][j] != 0xFF)
+				{
+					setPixel(tempForeground);
+				}
+				else
 				{
 					setPixel(tempBackground);
 				}
-				else
-				{	
-					setPixel(tempForeground);
-				}
-
 			}
 		}		
 	}
+	
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
@@ -129,7 +192,8 @@ void newLine(void)
 	for(int k = 0 ; k < 80 ; k ++)
 	{
 		consoleDisplay[k][23] = 0x20;
-		
+		consoleColors[k][23] = 0x0000;
+		consoleSGR[k][23] = 0x00;
 	}
 	
 	//Redraw the display

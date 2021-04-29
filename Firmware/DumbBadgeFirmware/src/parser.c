@@ -1581,11 +1581,7 @@ void SGR() //Select Graphic Rendition
 				case 1:		// bold on
 					textBold = true;
 					break;
-				
-				case 2:		// set half-bright
-					//this gets weird do this later
-					break;
-					
+									
 				case 4:		// set underscore
 					textUnderscore = true;
 					break;
@@ -1722,6 +1718,11 @@ void SGR() //Select Graphic Rendition
 					
 				case 49:	//default background color (black)
 					textBackground = defaultBackgroundColor;
+					break;
+					
+				case 2:		// set half-bright
+					textForeground &= 0x7BEF;	// what the fuck?
+					textBackground &= 0x7BEF;
 					break;
 				
 			}

@@ -165,7 +165,7 @@ void splashScreen(void)
 	writeString(compileTime);
 	
 	
-	delay_ms(1500);
+	delay_ms(3000);
 		
 	clearScreen();
 	nullifyConsole();
