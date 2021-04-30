@@ -51,7 +51,8 @@ bool lineFeed = true;
 bool autoWrap = true;
 int lineFeedNewLine = 1;
 
-uint16_t defaultForegroundColor = 0xFFFF;
+//This device is for gamers because all the characters are white by default.
+uint16_t defaultForegroundColor = 0xFFFF; 
 uint16_t defaultBackgroundColor = 0x0000;
 
 

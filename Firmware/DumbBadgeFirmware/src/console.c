@@ -27,6 +27,7 @@ uint8_t consoleSGR[80][24];
 
 void drawChar(uint8_t character)
 {
+
 	uint16_t x = xCharPos;
 	uint16_t y = yCharPos;
 	
@@ -37,6 +38,7 @@ void drawChar(uint8_t character)
 	
 	tempForeground = (tempColor >> 16);
 	tempBackground = consoleColors[x][y] & 0xFFFF;
+	
 	
 	consoleDisplay[x][y] = character;
 	
@@ -311,52 +313,116 @@ void blinkCursor(void)
 	
 	uint16_t tempForeground;
 	uint16_t tempBackground;
-		
+	
 	uint32_t tempColor = consoleColors[x][y];
-		
-	tempForeground = tempColor >> 16;
+	
+	tempForeground = (tempColor >> 16);
 	tempBackground = consoleColors[x][y] & 0xFFFF;
 	
-	unsigned char character = consoleDisplay[x][y];
-	setXY(x*10,y*20,x*10+9,y*20+19);
+	uint8_t character = consoleDisplay[xCharPos][yCharPos];
+	
+	
+	uint8_t displayFont[10][20];
+	uint8_t tempFontStorage[200];
+	uint8_t k = 0;
+	
 	REG_PORT_OUTCLR1 = LCD_CS;
-	if(cursorBlinkState)
+	setXY(x*10,y*20,x*10+9,y*20+19);
+	
+	//reformat the character into a 10x20 array:
+	//first transmute it into tempFontStorage
+	for(uint16_t i=0; i <= 24; i++)
 	{
-		for(uint16_t i=0; i <= 24; i++)
+		for(int j=0;j<8;j++)
 		{
-			for(int j=0;j<8;j++)
+			if((CodePage437[character][i]&(1<<(7-j)))!=0)
 			{
-				if((CodePage437[character][i]&(1<<(7-j)))!=0)
+				tempFontStorage[k] = 0xFF;
+			}
+			else
+			{
+				tempFontStorage[k] = 0x00;
+			}
+			k++;
+		}
+	}
+	k = 0;
+	//now reform into displayFont
+	for(uint8_t i = 0; i <= 9 ; i++)
+	{
+		for(uint8_t j = 0; j <= 19 ; j++)
+		{
+			if(tempFontStorage[k] == 0xFF)
+			{
+				displayFont[i][j] = 0xFF;
+			}
+			else
+			{
+				displayFont[i][j] = 0x00;
+			}
+			k++;
+		}
+	}
+	
+	//process displayFont if it is bold, first bit of consoleSGR
+	if(BitVal(consoleSGR[xCharPos][yCharPos],1) == 1)
+	{
+		for(uint8_t i = 10; i >= 1 ; i--)
+		{
+			for(uint8_t j = 0; j <= 19 ; j++)
+			{
+				if(displayFont[i-1][j] == 0xFF)
 				{
-					
-					setPixel(tempBackground);
+					displayFont[i][j] = 0xFF;
+				}
+			}
+		}
+	}
+	
+	//process displayfont if underscore, fourth bit of consoleSGR
+	if(BitVal(consoleSGR[xCharPos][yCharPos],4) == 1)
+	{
+		for(int i = 0 ; i <= 9 ; i++)
+		{
+			displayFont[9][i] = 0xFF;
+		}
+	}
+	
+	if(!cursorBlinkState)
+	{
+		for(uint8_t i = 0; i <= 9 ; i++)
+		{
+			for(uint8_t j = 0; j <= 19 ; j++)
+			{
+				if(displayFont[i][j] == 0xFF)
+				{
+					setPixel(tempForeground);
 				}
 				else
 				{
-					setPixel(tempForeground);
+					setPixel(tempBackground);
 				}
 			}
 		}
 	}
 	else
 	{
-		for(uint16_t i=0; i <= 24; i++)
+		for(uint8_t i = 0; i <= 9 ; i++)
 		{
-			for(int j=0;j<8;j++)
+			for(uint8_t j = 0; j <= 19 ; j++)
 			{
-				if((CodePage437[character][i]&(1<<(7-j)))!=0)
+				if(displayFont[i][j] != 0xFF)
 				{
 					setPixel(tempForeground);
 				}
 				else
 				{
 					setPixel(tempBackground);
-					
 				}
 			}
 		}
 	}
-
+	
 	REG_PORT_OUTSET1 = LCD_CS;
 	
 	//invert cursorBlinkState
