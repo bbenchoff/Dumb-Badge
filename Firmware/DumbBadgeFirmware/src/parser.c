@@ -1043,7 +1043,7 @@ void HTS()
 /************************************************************************/
 /*    CSI mnemonic functions                                            */
 /************************************************************************/
-void CUU() // Cursor Up
+void CUU() // Cursor Up*
 {
 	unsigned char tempCharacter;
 	uint8_t parameter = 0;
@@ -1081,7 +1081,7 @@ void CUU() // Cursor Up
 	currentState = stateGround;
 }
 
-void CUD() //Cursor Down
+void CUD() //Cursor Down *
 {
 	unsigned char tempCharacter;
 	uint8_t parameter = 0;
@@ -1118,7 +1118,7 @@ void CUD() //Cursor Down
 	currentState = stateGround;
 }
 
-void CUF() //Cursor Forward
+void CUF() //Cursor Forward *
 {
 	unsigned char tempCharacter;
 	uint8_t parameter = 0;
@@ -1155,7 +1155,7 @@ void CUF() //Cursor Forward
 	currentState = stateGround;
 }
 
-void CUB() //Cursor Backward
+void CUB() //Cursor Backward *
 {
 	unsigned char tempCharacter;
 	uint8_t parameter = 0;
@@ -1192,7 +1192,7 @@ void CUB() //Cursor Backward
 	currentState = stateGround;
 }
 
-void CNL() //Cursor Next Line
+void CNL() //Cursor Next Line *
 {
 	unsigned char tempCharacter;
 	uint8_t parameter = 0;
@@ -1232,7 +1232,7 @@ void CNL() //Cursor Next Line
 	currentState = stateGround;	
 }
 
-void CPL() //Cursor Preceding Line
+void CPL() //Cursor Preceding Line *
 {
 	unsigned char tempCharacter;
 	uint8_t parameter = 0;
@@ -1273,7 +1273,7 @@ void CPL() //Cursor Preceding Line
 	
 }
 
-void CHA() //Cursor Horizontal Absolute
+void CHA() //Cursor Horizontal Absolute *
 {
 	unsigned char tempCharacter;
 	uint8_t parameter = 0;
@@ -1291,7 +1291,7 @@ void CHA() //Cursor Horizontal Absolute
 			parameter--;  //need to decrement, because display is indexed at 0,0.
 		}
 		
-		if(parameter >= 80)
+		if(parameter >= 80) //clamp it to column 79
 		{
 			parameter = 79;
 		}
@@ -1306,7 +1306,7 @@ void CHA() //Cursor Horizontal Absolute
 	currentState = stateGround;
 }
 
-void CUP() //Cursor Position
+void CUP() //Cursor Position *
 {
 	unsigned char tempCharacter;
 	uint8_t parameter = 0;
@@ -1371,7 +1371,7 @@ void CHT() //Cursor Horizontal Tab
 	currentState = stateGround;
 }
 
-void ED() //Edit In Display
+void ED() //Edit In Display *
 {
 	uint8_t parameter;
 	
@@ -1452,7 +1452,7 @@ void ED() //Edit In Display
 
 }
 
-void EL() //Edit In Line
+void EL() //Edit In Line *
 {
 	unsigned char tempCharacter;
 	uint8_t parameter;
@@ -1508,7 +1508,7 @@ void EL() //Edit In Line
 	currentState = stateGround;	
 }
 
-void SGR() //Select Graphic Rendition
+void SGR() //Select Graphic Rendition *
 {
 	
 	uint16_t eightBitColor[256] = 
@@ -1734,7 +1734,6 @@ void SGR() //Select Graphic Rendition
 }
 
 
-
 void DCH() //Delete Character
 {
 	currentState = stateGround;
@@ -1759,11 +1758,11 @@ void ICH(void) //Insert indicated # of blank chars
 {
 	currentState = stateGround;
 }
-void DSR(void)
+void DSR(void) 
 {
 	/* DEVICE STATUS REPORT
 	
-	The Status Report provides the host with operating staus of many features
+	The Status Report provides the host with operating status of many features
 	including Operating status, keyboard language, user-defined keys, and even
 	the amount of memory assigned to macro definitions. Most of these are unused
 	by Linux console_codes; the only ones supported by Linux are DSR-CPR, or

@@ -1147,7 +1147,7 @@ void HTS()
 /************************************************************************/
 /*    CSI mnemonic functions                                            */
 /************************************************************************/
-void CUU() // Cursor Up
+void CUU() // Cursor Up*
 {
      650:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
 	unsigned char tempCharacter;
@@ -1260,7 +1260,7 @@ void CUU() // Cursor Up
 
 000006f4 <CUD>:
 
-void CUD() //Cursor Down
+void CUD() //Cursor Down *
 {
      6f4:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
 	unsigned char tempCharacter;
@@ -1373,7 +1373,7 @@ void CUD() //Cursor Down
 
 00000798 <CUF>:
 
-void CUF() //Cursor Forward
+void CUF() //Cursor Forward *
 {
      798:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
 	unsigned char tempCharacter;
@@ -1487,7 +1487,7 @@ void CUF() //Cursor Forward
 
 00000840 <CUB>:
 
-void CUB() //Cursor Backward
+void CUB() //Cursor Backward *
 {
      840:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
 	unsigned char tempCharacter;
@@ -1595,7 +1595,7 @@ void CUB() //Cursor Backward
 
 000008dc <CNL>:
 
-void CNL() //Cursor Next Line
+void CNL() //Cursor Next Line *
 {
      8dc:	b570      	push	{r4, r5, r6, lr}
 	unsigned char tempCharacter;
@@ -1704,7 +1704,7 @@ void CNL() //Cursor Next Line
 
 00000974 <CPL>:
 
-void CPL() //Cursor Preceding Line
+void CPL() //Cursor Preceding Line *
 {
      974:	b570      	push	{r4, r5, r6, lr}
 	unsigned char tempCharacter;
@@ -1812,7 +1812,7 @@ void CPL() //Cursor Preceding Line
 
 00000a08 <CHA>:
 
-void CHA() //Cursor Horizontal Absolute
+void CHA() //Cursor Horizontal Absolute *
 {
      a08:	b5f0      	push	{r4, r5, r6, r7, lr}
      a0a:	46c6      	mov	lr, r8
@@ -1898,7 +1898,7 @@ void CHA() //Cursor Horizontal Absolute
 
 00000a8c <CUP>:
 
-void CUP() //Cursor Position
+void CUP() //Cursor Position *
 {
      a8c:	b5f8      	push	{r3, r4, r5, r6, r7, lr}
      a8e:	46ce      	mov	lr, r9
@@ -2022,7 +2022,7 @@ void CUP() //Cursor Position
 	currentState = stateGround;
 }
 
-void ED() //Edit In Display
+void ED() //Edit In Display *
 {
      b38:	b5f0      	push	{r4, r5, r6, r7, lr}
      b3a:	46de      	mov	lr, fp
@@ -2255,7 +2255,7 @@ void ED() //Edit In Display
 
 00000c74 <EL>:
 
-void EL() //Edit In Line
+void EL() //Edit In Line *
 {
      c74:	b5f0      	push	{r4, r5, r6, r7, lr}
      c76:	46d6      	mov	lr, sl
@@ -2429,7 +2429,7 @@ void EL() //Edit In Line
 
 00000d68 <SGR>:
 
-void SGR() //Select Graphic Rendition
+void SGR() //Select Graphic Rendition *
 {
      d68:	b5f0      	push	{r4, r5, r6, r7, lr}
      d6a:	46d6      	mov	lr, sl
@@ -2866,7 +2866,7 @@ void ICH(void) //Insert indicated # of blank chars
 {
 	currentState = stateGround;
 }
-void DSR(void)
+void DSR(void) 
 {
      ff0:	b5f0      	push	{r4, r5, r6, r7, lr}
      ff2:	46ce      	mov	lr, r9

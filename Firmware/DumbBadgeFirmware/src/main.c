@@ -56,6 +56,9 @@ uint16_t defaultForegroundColor = 0xFFFF;
 uint16_t defaultBackgroundColor = 0x0000;
 
 
+
+
+
 /** LOCAL PROTOTYPES **********************************************************/
 
 void usart_read_callback(struct usart_module *const usart_module);
