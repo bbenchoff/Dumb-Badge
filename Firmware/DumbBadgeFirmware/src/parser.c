@@ -1846,6 +1846,11 @@ bool isValidCSIEscapeCode(uint8_t character)
 
 int nextTab(int a) 
 {
+	/*
+	what data structures for tabs are most performant and is is big-o of 
+	number of column or big-o of number of tabs shut the fuck up
+	*/
+	
 	int tabArray[] =
 		{
 		 8 ,8 ,8 ,8 ,8 ,8 ,8 ,8 ,
