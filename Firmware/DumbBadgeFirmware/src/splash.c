@@ -116,7 +116,7 @@ void splashScreen(void)
 	splashText[24] = "Teach health insurance providers to code.";
 	splashText[25] = "Grand Central Hack The Planet";//
 	splashText[26] = "WiFi is not wireless Ethernet!";//
-	splashText[27] = "Dummy thicc client";//
+	splashText[27] = "Save the planet, torch a gas station";//
 	splashText[28] = "A Nice TTY. An OK Computer.";//
 	splashText[29] = "USTeledildonics";//
 	splashText[30] = "Solidarity is not a new framework";//

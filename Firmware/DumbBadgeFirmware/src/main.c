@@ -56,9 +56,6 @@ uint16_t defaultForegroundColor = 0xFFFF;
 uint16_t defaultBackgroundColor = 0x0000;
 
 
-
-
-
 /** LOCAL PROTOTYPES **********************************************************/
 
 void usart_read_callback(struct usart_module *const usart_module);
@@ -70,6 +67,7 @@ void setupBoard(void);
 void configure_adc(void);
 void conf_systick(void);
 
+
 //struct usart_module usart_USB;
 struct adc_module adc_instance;
 struct usart_module usart_instance;
@@ -77,15 +75,16 @@ cbuf_handle_t ouroboros;
 //struct Settings settings;
 
 
+
 /** STUFF BEGINS HERE *********************************************************/
 int main (void)
 {
 	setupBoard();
 
-	//initalize the settings	
+	//initialize the settings	
 	//settings.localEcho=false;
 
-	//initalize the ring buffer for uart
+	//initialize the ring buffer for uart
 	uint8_t * buffer  = malloc(UART_BUFFER_SIZE * sizeof(uint8_t));
 	ouroboros = ring_init(buffer, UART_BUFFER_SIZE);
 	
@@ -130,6 +129,7 @@ void SysTick_Handler(void)
 
 void conf_systick(void)
 {
+	
 	//system_core_clk=48Mhz / 1000=48kHz systic clk if 48Mhz  is used
 	SysTick_Config(SystemCoreClock/1000);
 	system_interrupt_enable(SYSTEM_INTERRUPT_SYSTICK);
@@ -229,8 +229,10 @@ void setupBoard(void)
 	uint16_t adcResult;
 	uint16_t megaHurtz = (uint16_t)system_gclk_gen_get_hz(0);
 	
-
+	
 	system_init();
+	
+	
 	
 	configure_adc();
 	adc_start_conversion(&adc_instance);
@@ -277,3 +279,4 @@ void setupBoard(void)
 	yCharPos=0;
 	drawChar(0xFF);
 }
+

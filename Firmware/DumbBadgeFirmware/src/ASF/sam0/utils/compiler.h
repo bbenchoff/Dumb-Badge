@@ -354,8 +354,8 @@ typedef struct
 
 /** \name Usual Constants
  * @{ */
-#define DISABLE   0
-#define ENABLE    1
+//#define DISABLE   0
+//#define ENABLE    1
 
 #ifndef __cplusplus
 #  if !defined(__bool_true_false_are_defined)
