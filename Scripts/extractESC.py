@@ -27,8 +27,12 @@ regex = re.compile(br'''
 with file:
     for line in file:
         result = regex.findall(line)
-        esc_codes.add(result)
+        esc_codes.append(result)
 
-esc_codes.sort()
 
-print(esc_codes)
+
+for i in esc_codes:
+    print(i)
+  
+
+

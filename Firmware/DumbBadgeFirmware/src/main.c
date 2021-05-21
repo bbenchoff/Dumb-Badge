@@ -232,7 +232,12 @@ void setupBoard(void)
 	
 	system_init();
 	
+	delay_init();
+		
+	conf_systick();
 	
+	InitLCD();
+	splashScreen();
 	
 	configure_adc();
 	adc_start_conversion(&adc_instance);
@@ -243,10 +248,11 @@ void setupBoard(void)
 	
 	srand((adcResult ^ megaHurtz));
 	
-	delay_init();
-	
-	conf_systick();
 
+	
+	//InitLCD();
+	//splashScreen();
+	
 	//configure_usart_USB();
 	
 	/*
@@ -265,14 +271,8 @@ void setupBoard(void)
 	//doesn't work without this line here. Remove this at your own peril.
 	usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
 	
-
-
 	printf("\n\rSerial OK 9600 8N1\n\r");
-
 	
-	InitLCD();
-	splashScreen();
-			
 	conf_systick();
 
 	xCharPos=0;

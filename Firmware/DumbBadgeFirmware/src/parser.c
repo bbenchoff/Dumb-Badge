@@ -124,6 +124,7 @@ void groundState(uint8_t character)
 	{
 		if(xCharPos > 0)
 		{
+			
 			drawChar(consoleDisplay[xCharPos][yCharPos]);
 			xCharPos--;
 			tempCharacter = consoleDisplay[xCharPos][yCharPos];
@@ -1332,7 +1333,7 @@ void CUP() //Cursor Position *
 		}
 	}
 	
-	xTemp = parameter;
+	yTemp = parameter;
 
 	if(isEmptyParam())
 	{
@@ -1353,7 +1354,7 @@ void CUP() //Cursor Position *
 		}
 	}
 	
-	yTemp = parameter;
+	xTemp = parameter;
 	
 	drawChar(consoleDisplay[xCharPos][yCharPos]);
 	xCharPos = xTemp;

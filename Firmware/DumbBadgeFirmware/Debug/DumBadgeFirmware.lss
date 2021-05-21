@@ -19,19 +19,19 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
   7 .debug_abbrev 00005d8b  00000000  00000000  0005e525  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    00007a57  00000000  00000000  000642b0  2**0
+  8 .debug_loc    00007a4b  00000000  00000000  000642b0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_aranges 000008f0  00000000  00000000  0006bd07  2**0
+  9 .debug_aranges 000008f0  00000000  00000000  0006bcfb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_ranges 00000ba8  00000000  00000000  0006c5f7  2**0
+ 10 .debug_ranges 00000ba8  00000000  00000000  0006c5eb  2**0
                   CONTENTS, READONLY, DEBUGGING
- 11 .debug_macro  0001fb8b  00000000  00000000  0006d19f  2**0
+ 11 .debug_macro  0001fb8b  00000000  00000000  0006d193  2**0
                   CONTENTS, READONLY, DEBUGGING
- 12 .debug_line   00015519  00000000  00000000  0008cd2a  2**0
+ 12 .debug_line   00015519  00000000  00000000  0008cd1e  2**0
                   CONTENTS, READONLY, DEBUGGING
- 13 .debug_str    00090729  00000000  00000000  000a2243  2**0
+ 13 .debug_str    00090729  00000000  00000000  000a2237  2**0
                   CONTENTS, READONLY, DEBUGGING
- 14 .debug_frame  00001f10  00000000  00000000  0013296c  2**2
+ 14 .debug_frame  00001f10  00000000  00000000  00132960  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1914,28 +1914,28 @@ void CUP() //Cursor Position *
      a96:	4798      	blx	r3
 	{
 		parameter = 0;
-     a98:	2400      	movs	r4, #0
+     a98:	2600      	movs	r6, #0
 	if(isEmptyParam())
      a9a:	2800      	cmp	r0, #0
      a9c:	d024      	beq.n	ae8 <CUP+0x5c>
 		}
 	}
 	
-	xTemp = parameter;
+	yTemp = parameter;
 
 	if(isEmptyParam())
      a9e:	4b1e      	ldr	r3, [pc, #120]	; (b18 <CUP+0x8c>)
      aa0:	4798      	blx	r3
 	{
 		parameter = 0;
-     aa2:	2600      	movs	r6, #0
+     aa2:	2400      	movs	r4, #0
 	if(isEmptyParam())
      aa4:	2800      	cmp	r0, #0
      aa6:	d02b      	beq.n	b00 <CUP+0x74>
 		}
 	}
 	
-	yTemp = parameter;
+	xTemp = parameter;
 	
 	drawChar(consoleDisplay[xCharPos][yCharPos]);
      aa8:	4d1c      	ldr	r5, [pc, #112]	; (b1c <CUP+0x90>)
@@ -1987,11 +1987,11 @@ void CUP() //Cursor Position *
 			parameter--;  //need to decrement, because display is indexed at 0,0.
      af0:	3801      	subs	r0, #1
      af2:	b2c3      	uxtb	r3, r0
-     af4:	1c1c      	adds	r4, r3, #0
+     af4:	1c1e      	adds	r6, r3, #0
      af6:	2b4f      	cmp	r3, #79	; 0x4f
      af8:	d900      	bls.n	afc <CUP+0x70>
-     afa:	244f      	movs	r4, #79	; 0x4f
-     afc:	b2e4      	uxtb	r4, r4
+     afa:	264f      	movs	r6, #79	; 0x4f
+     afc:	b2f6      	uxtb	r6, r6
      afe:	e7ce      	b.n	a9e <CUP+0x12>
 		parameter = dequeueParam();
      b00:	4b0c      	ldr	r3, [pc, #48]	; (b34 <CUP+0xa8>)
@@ -2002,11 +2002,11 @@ void CUP() //Cursor Position *
 			parameter--;  //need to decrement, because display is indexed at 0,0.
      b08:	3801      	subs	r0, #1
      b0a:	b2c3      	uxtb	r3, r0
-     b0c:	1c1e      	adds	r6, r3, #0
+     b0c:	1c1c      	adds	r4, r3, #0
      b0e:	2b17      	cmp	r3, #23
      b10:	d900      	bls.n	b14 <CUP+0x88>
-     b12:	2617      	movs	r6, #23
-     b14:	b2f6      	uxtb	r6, r6
+     b12:	2417      	movs	r4, #23
+     b14:	b2e4      	uxtb	r4, r4
      b16:	e7c7      	b.n	aa8 <CUP+0x1c>
      b18:	00000241 	.word	0x00000241
      b1c:	200003f4 	.word	0x200003f4
@@ -13223,185 +13223,180 @@ void setupBoard(void)
     48f6:	4b31      	ldr	r3, [pc, #196]	; (49bc <setupBoard+0xd0>)
     48f8:	4798      	blx	r3
 	
-	
-	
-	configure_adc();
+	delay_init();
     48fa:	4b31      	ldr	r3, [pc, #196]	; (49c0 <setupBoard+0xd4>)
     48fc:	4798      	blx	r3
-	Adc *const adc_module = module_inst->hw;
+		
+	conf_systick();
     48fe:	4b31      	ldr	r3, [pc, #196]	; (49c4 <setupBoard+0xd8>)
-    4900:	6819      	ldr	r1, [r3, #0]
-    4902:	7e4b      	ldrb	r3, [r1, #25]
-	while (adc_is_syncing(module_inst)) {
-    4904:	b25b      	sxtb	r3, r3
-    4906:	2b00      	cmp	r3, #0
-    4908:	dbfb      	blt.n	4902 <setupBoard+0x16>
-	adc_module->SWTRIG.reg |= ADC_SWTRIG_START;
-    490a:	7b0b      	ldrb	r3, [r1, #12]
-    490c:	2202      	movs	r2, #2
-    490e:	4313      	orrs	r3, r2
-    4910:	730b      	strb	r3, [r1, #12]
+    4900:	4798      	blx	r3
+	
+	InitLCD();
+    4902:	4b31      	ldr	r3, [pc, #196]	; (49c8 <setupBoard+0xdc>)
+    4904:	4798      	blx	r3
+	splashScreen();
+    4906:	4b31      	ldr	r3, [pc, #196]	; (49cc <setupBoard+0xe0>)
+    4908:	4798      	blx	r3
+	
+	configure_adc();
+    490a:	4b31      	ldr	r3, [pc, #196]	; (49d0 <setupBoard+0xe4>)
+    490c:	4798      	blx	r3
+	Adc *const adc_module = module_inst->hw;
+    490e:	4b31      	ldr	r3, [pc, #196]	; (49d4 <setupBoard+0xe8>)
+    4910:	6819      	ldr	r1, [r3, #0]
     4912:	7e4b      	ldrb	r3, [r1, #25]
 	while (adc_is_syncing(module_inst)) {
     4914:	b25b      	sxtb	r3, r3
     4916:	2b00      	cmp	r3, #0
     4918:	dbfb      	blt.n	4912 <setupBoard+0x26>
-	if (int_flags & ADC_INTFLAG_RESRDY) {
-    491a:	2401      	movs	r4, #1
-	if (int_flags & ADC_INTFLAG_WINMON) {
-    491c:	2604      	movs	r6, #4
-		status_flags |= ADC_STATUS_WINDOW;
-    491e:	2502      	movs	r5, #2
-    4920:	e001      	b.n	4926 <setupBoard+0x3a>
-	if (!(adc_get_status(module_inst) & ADC_STATUS_RESULT_READY)) {
-    4922:	4214      	tst	r4, r2
-    4924:	d10a      	bne.n	493c <setupBoard+0x50>
-	uint32_t int_flags = adc_module->INTFLAG.reg;
-    4926:	7e0b      	ldrb	r3, [r1, #24]
-    4928:	b2db      	uxtb	r3, r3
-	if (int_flags & ADC_INTFLAG_RESRDY) {
-    492a:	0022      	movs	r2, r4
-    492c:	401a      	ands	r2, r3
-	if (int_flags & ADC_INTFLAG_WINMON) {
-    492e:	421e      	tst	r6, r3
-    4930:	d000      	beq.n	4934 <setupBoard+0x48>
-		status_flags |= ADC_STATUS_WINDOW;
-    4932:	432a      	orrs	r2, r5
-	if (int_flags & ADC_INTFLAG_OVERRUN) {
-    4934:	421d      	tst	r5, r3
-    4936:	d0f4      	beq.n	4922 <setupBoard+0x36>
-		status_flags |= ADC_STATUS_OVERRUN;
-    4938:	4332      	orrs	r2, r6
-    493a:	e7f2      	b.n	4922 <setupBoard+0x36>
-    493c:	7e4b      	ldrb	r3, [r1, #25]
+	adc_module->SWTRIG.reg |= ADC_SWTRIG_START;
+    491a:	7b0b      	ldrb	r3, [r1, #12]
+    491c:	2202      	movs	r2, #2
+    491e:	4313      	orrs	r3, r2
+    4920:	730b      	strb	r3, [r1, #12]
+    4922:	7e4b      	ldrb	r3, [r1, #25]
 	while (adc_is_syncing(module_inst)) {
-    493e:	b25b      	sxtb	r3, r3
-    4940:	2b00      	cmp	r3, #0
-    4942:	dbfb      	blt.n	493c <setupBoard+0x50>
-	*result = adc_module->RESULT.reg;
-    4944:	8b48      	ldrh	r0, [r1, #26]
-    4946:	b280      	uxth	r0, r0
-	adc_module->INTFLAG.reg = int_flags;
-    4948:	2301      	movs	r3, #1
-    494a:	760b      	strb	r3, [r1, #24]
-	uint32_t int_flags = adc_module->INTFLAG.reg;
-    494c:	7e0a      	ldrb	r2, [r1, #24]
-    494e:	b2d2      	uxtb	r2, r2
+    4924:	b25b      	sxtb	r3, r3
+    4926:	2b00      	cmp	r3, #0
+    4928:	dbfb      	blt.n	4922 <setupBoard+0x36>
 	if (int_flags & ADC_INTFLAG_RESRDY) {
-    4950:	4013      	ands	r3, r2
+    492a:	2401      	movs	r4, #1
 	if (int_flags & ADC_INTFLAG_WINMON) {
-    4952:	0754      	lsls	r4, r2, #29
-    4954:	d501      	bpl.n	495a <setupBoard+0x6e>
+    492c:	2604      	movs	r6, #4
 		status_flags |= ADC_STATUS_WINDOW;
-    4956:	2402      	movs	r4, #2
-    4958:	4323      	orrs	r3, r4
+    492e:	2502      	movs	r5, #2
+    4930:	e001      	b.n	4936 <setupBoard+0x4a>
+	if (!(adc_get_status(module_inst) & ADC_STATUS_RESULT_READY)) {
+    4932:	4214      	tst	r4, r2
+    4934:	d10a      	bne.n	494c <setupBoard+0x60>
+	uint32_t int_flags = adc_module->INTFLAG.reg;
+    4936:	7e0b      	ldrb	r3, [r1, #24]
+    4938:	b2db      	uxtb	r3, r3
+	if (int_flags & ADC_INTFLAG_RESRDY) {
+    493a:	0022      	movs	r2, r4
+    493c:	401a      	ands	r2, r3
+	if (int_flags & ADC_INTFLAG_WINMON) {
+    493e:	421e      	tst	r6, r3
+    4940:	d000      	beq.n	4944 <setupBoard+0x58>
+		status_flags |= ADC_STATUS_WINDOW;
+    4942:	432a      	orrs	r2, r5
 	if (int_flags & ADC_INTFLAG_OVERRUN) {
-    495a:	0792      	lsls	r2, r2, #30
-    495c:	d501      	bpl.n	4962 <setupBoard+0x76>
+    4944:	421d      	tst	r5, r3
+    4946:	d0f4      	beq.n	4932 <setupBoard+0x46>
 		status_flags |= ADC_STATUS_OVERRUN;
-    495e:	2204      	movs	r2, #4
-    4960:	4313      	orrs	r3, r2
-	if (adc_get_status(module_inst) & ADC_STATUS_OVERRUN) {
-    4962:	075b      	lsls	r3, r3, #29
-    4964:	d501      	bpl.n	496a <setupBoard+0x7e>
+    4948:	4332      	orrs	r2, r6
+    494a:	e7f2      	b.n	4932 <setupBoard+0x46>
+    494c:	7e4b      	ldrb	r3, [r1, #25]
+	while (adc_is_syncing(module_inst)) {
+    494e:	b25b      	sxtb	r3, r3
+    4950:	2b00      	cmp	r3, #0
+    4952:	dbfb      	blt.n	494c <setupBoard+0x60>
+	*result = adc_module->RESULT.reg;
+    4954:	8b48      	ldrh	r0, [r1, #26]
+    4956:	b280      	uxth	r0, r0
 	adc_module->INTFLAG.reg = int_flags;
-    4966:	2302      	movs	r3, #2
-    4968:	760b      	strb	r3, [r1, #24]
+    4958:	2301      	movs	r3, #1
+    495a:	760b      	strb	r3, [r1, #24]
+	uint32_t int_flags = adc_module->INTFLAG.reg;
+    495c:	7e0a      	ldrb	r2, [r1, #24]
+    495e:	b2d2      	uxtb	r2, r2
+	if (int_flags & ADC_INTFLAG_RESRDY) {
+    4960:	4013      	ands	r3, r2
+	if (int_flags & ADC_INTFLAG_WINMON) {
+    4962:	0754      	lsls	r4, r2, #29
+    4964:	d501      	bpl.n	496a <setupBoard+0x7e>
+		status_flags |= ADC_STATUS_WINDOW;
+    4966:	2402      	movs	r4, #2
+    4968:	4323      	orrs	r3, r4
+	if (int_flags & ADC_INTFLAG_OVERRUN) {
+    496a:	0792      	lsls	r2, r2, #30
+    496c:	d501      	bpl.n	4972 <setupBoard+0x86>
+		status_flags |= ADC_STATUS_OVERRUN;
+    496e:	2204      	movs	r2, #4
+    4970:	4313      	orrs	r3, r2
+	if (adc_get_status(module_inst) & ADC_STATUS_OVERRUN) {
+    4972:	075b      	lsls	r3, r3, #29
+    4974:	d501      	bpl.n	497a <setupBoard+0x8e>
+	adc_module->INTFLAG.reg = int_flags;
+    4976:	2302      	movs	r3, #2
+    4978:	760b      	strb	r3, [r1, #24]
 	do {
 	/* Wait for conversion to be done and read out result */
 	} while (adc_read(&adc_instance, &adcResult) == STATUS_BUSY);
 	
 	
 	srand((adcResult ^ megaHurtz));
-    496a:	4078      	eors	r0, r7
-    496c:	4b16      	ldr	r3, [pc, #88]	; (49c8 <setupBoard+0xdc>)
-    496e:	4798      	blx	r3
-	
-	delay_init();
-    4970:	4b16      	ldr	r3, [pc, #88]	; (49cc <setupBoard+0xe0>)
-    4972:	4798      	blx	r3
-	
-	conf_systick();
-    4974:	4c16      	ldr	r4, [pc, #88]	; (49d0 <setupBoard+0xe4>)
-    4976:	47a0      	blx	r4
+    497a:	4078      	eors	r0, r7
+    497c:	4b16      	ldr	r3, [pc, #88]	; (49d8 <setupBoard+0xec>)
+    497e:	4798      	blx	r3
 	and PAD1 (PI_RX) on pin 47.
 	
 	Also, this gives us the ability to bridge UARTs. THIS IS COOL
 	
 	*/
 	configure_usart();
-    4978:	4b16      	ldr	r3, [pc, #88]	; (49d4 <setupBoard+0xe8>)
-    497a:	4798      	blx	r3
+    4980:	4b16      	ldr	r3, [pc, #88]	; (49dc <setupBoard+0xf0>)
+    4982:	4798      	blx	r3
 	configure_usart_callbacks();
-    497c:	4b16      	ldr	r3, [pc, #88]	; (49d8 <setupBoard+0xec>)
-    497e:	4798      	blx	r3
+    4984:	4b16      	ldr	r3, [pc, #88]	; (49e0 <setupBoard+0xf4>)
+    4986:	4798      	blx	r3
 	cpu_irq_enable();
-    4980:	2201      	movs	r2, #1
-    4982:	4b16      	ldr	r3, [pc, #88]	; (49dc <setupBoard+0xf0>)
-    4984:	701a      	strb	r2, [r3, #0]
+    4988:	2201      	movs	r2, #1
+    498a:	4b16      	ldr	r3, [pc, #88]	; (49e4 <setupBoard+0xf8>)
+    498c:	701a      	strb	r2, [r3, #0]
   __ASM volatile ("dmb 0xF":::"memory");
-    4986:	f3bf 8f5f 	dmb	sy
+    498e:	f3bf 8f5f 	dmb	sy
   __ASM volatile ("cpsie i" : : : "memory");
-    498a:	b662      	cpsie	i
+    4992:	b662      	cpsie	i
 	system_interrupt_enable_global();
 	
 	//I have no idea why I need to call this; it's in the callback and it
 	//doesn't work without this line here. Remove this at your own peril.
 	usart_read_buffer_job(&usart_instance, (uint8_t*)&rx_buf, 1);
-    498c:	4914      	ldr	r1, [pc, #80]	; (49e0 <setupBoard+0xf4>)
-    498e:	4815      	ldr	r0, [pc, #84]	; (49e4 <setupBoard+0xf8>)
-    4990:	4b15      	ldr	r3, [pc, #84]	; (49e8 <setupBoard+0xfc>)
-    4992:	4798      	blx	r3
+    4994:	4914      	ldr	r1, [pc, #80]	; (49e8 <setupBoard+0xfc>)
+    4996:	4815      	ldr	r0, [pc, #84]	; (49ec <setupBoard+0x100>)
+    4998:	4b15      	ldr	r3, [pc, #84]	; (49f0 <setupBoard+0x104>)
+    499a:	4798      	blx	r3
 	
-
-
 	printf("\n\rSerial OK 9600 8N1\n\r");
-    4994:	4815      	ldr	r0, [pc, #84]	; (49ec <setupBoard+0x100>)
-    4996:	4b16      	ldr	r3, [pc, #88]	; (49f0 <setupBoard+0x104>)
-    4998:	4798      	blx	r3
-
-	
-	InitLCD();
-    499a:	4b16      	ldr	r3, [pc, #88]	; (49f4 <setupBoard+0x108>)
-    499c:	4798      	blx	r3
-	splashScreen();
+    499c:	4815      	ldr	r0, [pc, #84]	; (49f4 <setupBoard+0x108>)
     499e:	4b16      	ldr	r3, [pc, #88]	; (49f8 <setupBoard+0x10c>)
     49a0:	4798      	blx	r3
-			
+	
 	conf_systick();
-    49a2:	47a0      	blx	r4
+    49a2:	4b08      	ldr	r3, [pc, #32]	; (49c4 <setupBoard+0xd8>)
+    49a4:	4798      	blx	r3
 
 	xCharPos=0;
-    49a4:	2300      	movs	r3, #0
-    49a6:	4a15      	ldr	r2, [pc, #84]	; (49fc <setupBoard+0x110>)
-    49a8:	8013      	strh	r3, [r2, #0]
+    49a6:	2300      	movs	r3, #0
+    49a8:	4a14      	ldr	r2, [pc, #80]	; (49fc <setupBoard+0x110>)
+    49aa:	8013      	strh	r3, [r2, #0]
 	yCharPos=0;
-    49aa:	4a15      	ldr	r2, [pc, #84]	; (4a00 <setupBoard+0x114>)
-    49ac:	8013      	strh	r3, [r2, #0]
+    49ac:	4a14      	ldr	r2, [pc, #80]	; (4a00 <setupBoard+0x114>)
+    49ae:	8013      	strh	r3, [r2, #0]
 	drawChar(0xFF);
-    49ae:	20ff      	movs	r0, #255	; 0xff
-    49b0:	4b14      	ldr	r3, [pc, #80]	; (4a04 <setupBoard+0x118>)
-    49b2:	4798      	blx	r3
+    49b0:	20ff      	movs	r0, #255	; 0xff
+    49b2:	4b14      	ldr	r3, [pc, #80]	; (4a04 <setupBoard+0x118>)
+    49b4:	4798      	blx	r3
 }
-    49b4:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
-    49b6:	46c0      	nop			; (mov r8, r8)
+    49b6:	bdf8      	pop	{r3, r4, r5, r6, r7, pc}
     49b8:	0000323d 	.word	0x0000323d
     49bc:	00003481 	.word	0x00003481
-    49c0:	00004879 	.word	0x00004879
-    49c4:	20003100 	.word	0x20003100
-    49c8:	00005061 	.word	0x00005061
-    49cc:	00001c7d 	.word	0x00001c7d
-    49d0:	000046f5 	.word	0x000046f5
-    49d4:	00004749 	.word	0x00004749
-    49d8:	00004851 	.word	0x00004851
-    49dc:	20000020 	.word	0x20000020
-    49e0:	200030fc 	.word	0x200030fc
-    49e4:	200003bc 	.word	0x200003bc
-    49e8:	00002b5d 	.word	0x00002b5d
-    49ec:	00008700 	.word	0x00008700
-    49f0:	00005005 	.word	0x00005005
-    49f4:	00004425 	.word	0x00004425
-    49f8:	000019f5 	.word	0x000019f5
+    49c0:	00001c7d 	.word	0x00001c7d
+    49c4:	000046f5 	.word	0x000046f5
+    49c8:	00004425 	.word	0x00004425
+    49cc:	000019f5 	.word	0x000019f5
+    49d0:	00004879 	.word	0x00004879
+    49d4:	20003100 	.word	0x20003100
+    49d8:	00005061 	.word	0x00005061
+    49dc:	00004749 	.word	0x00004749
+    49e0:	00004851 	.word	0x00004851
+    49e4:	20000020 	.word	0x20000020
+    49e8:	200030fc 	.word	0x200030fc
+    49ec:	200003bc 	.word	0x200003bc
+    49f0:	00002b5d 	.word	0x00002b5d
+    49f4:	00008700 	.word	0x00008700
+    49f8:	00005005 	.word	0x00005005
     49fc:	200002ec 	.word	0x200002ec
     4a00:	200002ee 	.word	0x200002ee
     4a04:	00003665 	.word	0x00003665
