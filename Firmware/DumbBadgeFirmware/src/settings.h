@@ -35,7 +35,8 @@ bool capsLock;
 bool scrollLock;
 bool sPoNgEbObCaSe;
 
-
+typedef enum {ABSOLUTE, DISPLACED} originModeState;
+extern originModeState originMode;
 
 
 

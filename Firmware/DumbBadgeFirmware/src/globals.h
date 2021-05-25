@@ -83,11 +83,13 @@ extern uint16_t textBackground;
 extern uint16_t defaultForegroundColor;
 extern uint16_t defaultBackgroundColor;
 
-
 extern struct Settings settings;
 
 extern uint8_t DECSCX;
 extern uint8_t DECSCY;
+
+extern uint8_t topMargin;
+extern uint8_t bottomMargin;
 
 
 #endif /* GLOBALS_H_ */

@@ -52,6 +52,9 @@ void ECH(void);
 void CBT(void);
 void ICH(void);
 void DSR(void);
+void DECSTBM(void);
+void SM(void);
+void RM(void);
 
 int nextTab(int a);
 

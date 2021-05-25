@@ -34,7 +34,7 @@
 char compileTime[] =  __TIMESTAMP__;
 char versionLabel[] = "Beach Taco Bell";
 
-#define UART_BUFFER_SIZE 10
+#define UART_BUFFER_SIZE 100
 
 uint16_t ul_tickcount=0;
 bool funcLock = false;

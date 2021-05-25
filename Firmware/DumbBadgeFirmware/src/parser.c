@@ -556,6 +556,7 @@ void CSIentryState(uint8_t character)
 	else if(character == 0x68)	//ESC [ h Set Mode
 	{
 		//TO DO HOLY SHIT THIS IS A BIG ONE
+		SM();
 		currentState = stateGround;
 	}
 	else if(character == 0x49)	//ESC [ I	Cursor Horizontal Tab
@@ -578,7 +579,7 @@ void CSIentryState(uint8_t character)
 	}
 	else if(character == 0x6C)	//ESC [ l	Reset mode
 	{
-		///TO DO
+		RM();
 		currentState = stateGround;
 	}
 	else if(character == 0x4D)	//ESC [ M
@@ -613,7 +614,8 @@ void CSIentryState(uint8_t character)
 		/*
 		Set top and bottom margins for scroll region
 		*/
-		currentState = stateGround;
+		DECSTBM();
+
 	}
 	else if(character == 0x73)	//ESC [ s	Save Cursor Position
 	{
@@ -1310,60 +1312,105 @@ void CHA() //Cursor Horizontal Absolute *
 void CUP() //Cursor Position *
 {
 	unsigned char tempCharacter;
-	uint8_t parameter = 0;
 	uint8_t xTemp = 0;
 	uint8_t yTemp = 0;
 	
-	if(isEmptyParam())
-	{
-		parameter = 0;
-	}
-	else
-	{
-		parameter = dequeueParam();
-		
-		if(parameter > 0)
-		{
-			parameter--;  //need to decrement, because display is indexed at 0,0.
-		}
-		
-		if(parameter >= 80)
-		{
-			parameter = 79;
-		}
-	}
+	yTemp = dequeueParam();
+	xTemp = dequeueParam();
 	
-	yTemp = parameter;
-
-	if(isEmptyParam())
-	{
-		parameter = 0;
-	}
-	else
-	{
-		parameter = dequeueParam();
+	//need to decrement, because display is indexed at 0,0.
+	if(yTemp > 0)
+		yTemp = yTemp - 1;
 		
-		if(parameter > 0)
-		{
-			parameter--;  //need to decrement, because display is indexed at 0,0.
-		}
-		
-		if(parameter >= 24)
-		{
-			parameter = 23;
-		}
-	}
-	
-	xTemp = parameter;
+	if(xTemp > 0)
+		xTemp = xTemp - 1;
 	
 	drawChar(consoleDisplay[xCharPos][yCharPos]);
-	xCharPos = xTemp;
-	yCharPos = yTemp;
+	
+	if(originMode == DISPLACED)
+	{
+		//this sets the cursor relative to the origin of the current
+		//scrolling region.
+		if((topMargin + yTemp) <= bottomMargin)
+			yCharPos = topMargin + yTemp;
+		else
+			yCharPos = bottomMargin;
+			
+		xCharPos = xTemp;
+	}
+	else
+	{
+		//This sets the cursor relative to 0,0
+		
+		if(yTemp <= 24)
+			yCharPos = yTemp;
+		else
+			yCharPos = 24;
+			
+		if(xTemp <= 80)
+			xCharPos = xTemp;
+		else
+			xCharPos = 80; 
+	}
+
 	tempCharacter = consoleDisplay[xCharPos][yCharPos];
 	drawChar(tempCharacter);
-	
+
 	blinkCursor();
 	currentState = stateGround;
+
+/*
+if(isEmptyParam())
+{
+	parameter = 0;
+}
+else
+{
+	parameter = dequeueParam();
+	
+	if(parameter > 0)
+	{
+		parameter--;  //need to decrement, because display is indexed at 0,0.
+	}
+	
+	if(parameter >= 80)
+	{
+		parameter = 79;
+	}
+}
+
+yTemp = parameter;
+
+if(isEmptyParam())
+{
+	parameter = 0;
+}
+else
+{
+	parameter = dequeueParam();
+	
+	if(parameter > 0)
+	{
+		parameter--;  //need to decrement, because display is indexed at 0,0.
+	}
+	
+	if(parameter >= 24)
+	{
+		parameter = 23;
+	}
+}
+
+xTemp = parameter;
+
+drawChar(consoleDisplay[xCharPos][yCharPos]);
+xCharPos = xTemp;
+yCharPos = yTemp;
+tempCharacter = consoleDisplay[xCharPos][yCharPos];
+drawChar(tempCharacter);
+
+blinkCursor();
+currentState = stateGround;
+*/	
 }
 
 void CHT() //Cursor Horizontal Tab
@@ -1828,6 +1875,230 @@ void DSR(void)
 	blinkCursor();
 	xCharPos = xTemp;
 	yCharPos = yTemp;
+	currentState = stateGround;
+}
+
+void DECSTBM(void)
+{
+	/*
+	Set top and bottom margins for scroll region.
+	
+	DESSTBM control sets the values of the top and bottom margins of the
+	scrolling region. The first parameter sets the value of the top margin,
+	and the second parameter sets the value of the bottom margin. The default
+	settings if either or both parameters are omitted are the boundaries of
+	the logical display page; one for the top marting and 24 for the bottom.
+	
+	Notes: Execution of this control causes the active portion to be set to
+	the page origin obeying Origin Mode (DECOM): first column of the first line
+	if origin mode is in the reset (absolute) state, top and left margins if
+	the origin mode is in the set (displaced) state.
+	
+	If value specified for the top margin is equal to or greater than the
+	value specified for the bottom margin, this control will be ignored.
+	
+	If the value specified for the bottom margin is greater than the the
+	number of lines in the logical display page, this control will be ignored.
+	*/
+	
+	
+	cursorBlinkState = false;  //need to turn the blinking off; ugly kludge
+	uint8_t topParameter = 0;
+	uint8_t bottomParameter = 0;
+	uint8_t tempCharacter;
+	
+	if(isEmptyParam())
+	{
+		//do nothing, fall through.		
+	}
+	else
+	{
+		while(!isEmptyParam())
+		{
+			topParameter = dequeueParam();
+			bottomParameter = dequeueParam();
+			
+			if(topParameter == 0)
+				topParameter = 1;
+				
+			if(bottomParameter == 0)
+				bottomParameter = 24;
+			
+			if((topParameter < bottomParameter) && (bottomParameter <= 24))
+			{
+				topMargin = topParameter-1;
+				bottomMargin = bottomParameter-1;
+				
+				if(originMode == ABSOLUTE)
+				{
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
+					xCharPos = 0;
+					yCharPos = 0;
+					tempCharacter = consoleDisplay[xCharPos][yCharPos];
+					drawChar(tempCharacter);
+				}
+				else
+				{
+					drawChar(consoleDisplay[xCharPos][yCharPos]);
+					xCharPos = topMargin;
+					yCharPos = 0;
+					tempCharacter = consoleDisplay[xCharPos][yCharPos];
+					drawChar(tempCharacter);					
+				}
+				
+			}
+		}
+	}
+	
+	blinkCursor();
+	currentState = stateGround;
+}
+
+void SM(void)
+{
+	cursorBlinkState = false;
+
+	uint8_t temp;
+	
+	if(isEmptyParam())
+	{
+		//do nothing, fall through.
+	}
+	else
+	{
+		temp = dequeueParam();
+		
+		if((temp == 4) || (temp == 20))  // is ECMA-48 code
+		{
+			if(temp == 4)
+			{
+				//DECIM (default off): Set Insert Mode.
+			}
+			if(temp == 20)
+			{
+				//	LF/NL (default off): Automatically follow echo 
+				//of LF, VT, or FF with CR.
+			}
+			
+		}
+		if(temp == (uint8_t)'?')
+		{
+			temp = dequeueParam();
+			
+			switch(temp)
+			{
+				case 1:
+					//	DECCKM (default off): When set, the cursor keys send an ESC 0 prefix,
+					//rather than ESC [.
+					
+					break;
+					
+				case 5:
+					//DECSCNM (defualt off): Set reverse video mode.
+
+					break;
+				
+				case 6:
+					//DECOM (defualt ABSOLUTE): When set, cursor addressing
+					//is relative to the upper left corner of the scrolling 
+					//region.
+					originMode = DISPLACED;
+					break;
+					
+				case 7:			
+					//DECAWM (default on): Set autowrap on. In this mode, a 
+					//graphic character emitted after column 80 forces a 
+					//wrap to the beginning of the following line.
+					
+					break;
+					
+				case 8:			
+					//DECARM (default on): Set keyboard autorepeat on.
+				
+					break;
+					
+				case 25:		
+					//DECTECM (default on): Make cursor visible
+				
+					break;
+			}
+		}
+	}
+	blinkCursor();
+	currentState = stateGround;
+}
+
+void RM(void)
+{
+	cursorBlinkState = false;
+
+	uint8_t temp;
+	
+	if(isEmptyParam())
+	{
+		//do nothing, fall through.
+	}
+	else
+	{
+		temp = dequeueParam();
+		
+		if((temp == 4) || (temp == 20))  // is ECMA-48 code
+		{
+			if(temp == 4)
+			{
+				//DECIM (default off): Set Insert Mode.
+			}
+			if(temp == 20)
+			{
+				//	LF/NL (default off): Automatically follow echo
+				//of LF, VT, or FF with CR.
+			}
+			
+		}
+		if(temp == (uint8_t)'?')
+		{
+			temp = dequeueParam();
+			
+			switch(temp)
+			{
+				case 1:
+				//	DECCKM (default off): When set, the cursor keys send an ESC 0 prefix,
+				//rather than ESC [.
+				
+				break;
+				
+				case 5:
+				//DECSCNM (defualt off): Set reverse video mode.
+
+				break;
+				
+				case 6:
+				//DECOM (defualt ABSOLUTE): When set, cursor addressing
+				//is relative to the upper left corner of the scrolling
+				//region.
+				originMode = ABSOLUTE;
+				break;
+				
+				case 7:
+				//DECAWM (default on): Set autowrap on. In this mode, a
+				//graphic character emitted after column 80 forces a
+				//wrap to the beginning of the following line.
+				
+				break;
+				
+				case 8:
+				//DECARM (default on): Set keyboard autorepeat on.
+				
+				break;
+				
+				case 25:
+				//DECTECM (default on): Make cursor visible
+				
+				break;
+			}
+		}
+	}
+	blinkCursor();
 	currentState = stateGround;
 }
 

@@ -23,6 +23,11 @@ unsigned char consoleDisplay[80][24];
 uint32_t consoleColors[80][24];
 uint8_t consoleSGR[80][24];
 
+uint8_t topMargin = 1;
+uint8_t bottomMargin = 24;
+
+originModeState originMode = ABSOLUTE;
+
 
 
 void drawChar(uint8_t character)
@@ -180,7 +185,7 @@ void newLine(void)
 	//First, move the characters in consoleDisplay up one line
 	//we do not care about the zeroth line. Do the same with
 	//the consoleGraphics array
-	for(int j = 1 ; j <= 24 ; j++)
+	for(int j = topMargin ; j <= bottomMargin ; j++)
 	{
 		for(int i = 0 ; i < 80 ; i++)
 		{
@@ -199,7 +204,7 @@ void newLine(void)
 	}
 	
 	//Redraw the display
-	for(int j = 0 ; j < 24 ; j++)
+	for(int j = topMargin-1 ; j < bottomMargin ; j++)
 	{
 		for(int i = 0 ; i < 80 ; i++)
 		{
@@ -210,9 +215,13 @@ void newLine(void)
 	}
 		
 	xCharPos = tempCursorx;
-	yCharPos = tempCursory;
-	
-/*The 'soft scroll' function moves all pixels on the display up
+	yCharPos = tempCursory;	
+}
+
+/*
+void depricatedSoftScroll(void)
+{
+	The 'soft scroll' function moves all pixels on the display up
 20 pixels, or the height of one char. Algorithm is as follows:
 	
 1) Set the GRAM window to a row one pixel high (setxy).
@@ -235,8 +244,7 @@ NT35510 datasheet, page 40.
 6) Set PB07 (and the rest of PB00..15) as output, set GRAM
 window and output contents of 1D array. Repeat this
 460 times, for each line in the display.
-*/
-/*
+
 uint8_t rowPixel[800];
 	
 			
@@ -302,9 +310,9 @@ for(uint16_t row = 0 ; row < 460 ; row++)
 //clear the last character line of the display
 //and fix the console text buffer
 fillRectBackColor(0, 460, 799, 480);
-*/
-	
+
 }
+*/
 
 void blinkCursor(void)
 {
