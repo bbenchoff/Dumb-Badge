@@ -10,6 +10,7 @@
 #define CONSOLE_H
 
 void drawChar(uint8_t character);
+void scrollDown(uint8_t topLine, uint8_t count);
 void newLine(void);
 void nullifyConsole(void);
 

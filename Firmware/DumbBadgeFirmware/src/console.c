@@ -152,7 +152,60 @@ void drawChar(uint8_t character)
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
-void newLine(void)
+void scrollDown(uint8_t topLine, uint8_t count)
+{
+	/*
+	scrollDown causes the scroll area between the line designated
+	and the bottom margin (inclusive) on the active page to scroll
+	downward by the number of lines designated in the count. Line
+	and character renditions are scrolled with the data. A new
+	single-width line with all character positions empty is inserted
+	at the top margin. Lines scrolled off the bottom of the scrolling
+	region are lost.		-- EL-00070-05 / Page 5-211
+	*/
+	
+	int tempCursorx = xCharPos;
+	int tempCursory = yCharPos;
+	
+	cursorBlinkState = false;
+	//blinkCursor();
+
+		
+	for(uint8_t y = bottomMargin ; y >= topMargin ; y--)
+	{
+		for(int x = 0 ; x < 80 ; x++)
+		{	//first, move the characters
+			consoleDisplay[x][y] = consoleDisplay[x][y-1];
+			consoleColors[x][y] = consoleColors[x][y-1];
+			consoleSGR[x][y] = consoleSGR[x][y-1];	
+		}
+	}
+	
+	for(int k = 0 ; k < 80 ; k ++)
+	{	//fill in the top margin as blank
+		consoleDisplay[k][topMargin] = 0x20;
+		consoleColors[k][topMargin] = 0x0000;
+		consoleSGR[k][topMargin] = 0x00;
+	}
+	
+	//Redraw the display
+	for(int j = topMargin-1 ; j < bottomMargin ; j++)
+	{
+		for(int i = 0 ; i < 80 ; i++)
+		{
+			xCharPos = i;
+			yCharPos = j;
+			drawChar(consoleDisplay[i][j]);
+		}
+	}
+	
+	xCharPos = tempCursorx;
+	yCharPos = tempCursory;
+
+}
+	
+
+void newLine(void) //think of this as 'scroll up'
 {
 	/*
 	The original intention of this function was to move all the characters

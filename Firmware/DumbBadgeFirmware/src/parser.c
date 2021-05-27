@@ -1008,23 +1008,39 @@ void NEL()
 
 void RI()
 {
-	//Reverse Index
-	//Moves the cursor to the same horizontal position on the preceding line
+	/*
+	The RI control moves the active position upward in the display by one 
+	line. If the active position is already at the top margin, the display 
+	will scroll downward by one line. If the display scrolls, a blank line 
+	with all attributes off will appear at the top margin.
 	
+	If the active position is below the top margin when this control is 
+	executed the active position will not move beyond the top margin. If 
+	the active position is above the top margin (as the result of absolute 
+	cursor positioning) it will still move upward by one line and no 
+	scrolling will occur. in this case the active position will not move 
+	beyond the first line of the display.
+	*/
 	char tempCharacter;
 	
-	if(yCharPos == 0)
+	if(yCharPos == topMargin)
 	{
-		//do nothing, scrolling the screen 'reverse' is not mentioned in
-		//ANSI X3.64-1979
+		//We have to scroll down because ANSI X3.64-1979 is not a VT-100.
+		//so we're writing a scroll down function for console.c
+		
+		scrollDown(topMargin, 1);
+		
 	}
 	else
 	{
-		drawChar(consoleDisplay[xCharPos][yCharPos]);
-		yCharPos--;
-		tempCharacter = consoleDisplay[xCharPos][yCharPos];
-		drawChar(tempCharacter);
-		blinkCursor();
+		if(yCharPos > 0)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos--;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			blinkCursor();
+		}
 	}
 	currentState = stateGround;
 }
