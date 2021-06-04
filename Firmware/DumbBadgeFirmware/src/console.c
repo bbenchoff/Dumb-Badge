@@ -92,7 +92,7 @@ void drawChar(uint8_t character)
 	//process displayFont if it is bold, first bit of consoleSGR
 	if(BitVal(consoleSGR[xCharPos][yCharPos],1) == 1)
 	{
-		for(uint8_t i = 10; i >= 1 ; i--)
+		for(uint8_t i = 9; i >= 1 ; i--)
 		{
 			for(uint8_t j = 0; j <= 19 ; j++)
 			{
@@ -459,7 +459,7 @@ void blinkCursor(void)
 	//process displayFont if it is bold, first bit of consoleSGR
 	if(BitVal(consoleSGR[xCharPos][yCharPos],1) == 1)
 	{
-		for(uint8_t i = 10; i >= 1 ; i--)
+		for(uint8_t i = 9; i >= 1 ; i--)
 		{
 			for(uint8_t j = 0; j <= 19 ; j++)
 			{
