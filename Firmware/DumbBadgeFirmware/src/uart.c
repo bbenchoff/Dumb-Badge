@@ -26,6 +26,8 @@ cbuf_handle_t ouroboros;
 
 void parseRXBuffer(void)
 {
+	
+		
 		while(!ring_empty(ouroboros))
 		{
 			uint8_t characterFromRingBuffer;

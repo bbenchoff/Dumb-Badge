@@ -71,6 +71,7 @@ extern unsigned char scanCodeBuffer[20];
 extern unsigned char keyDownBuffer[20];
 
 extern bool cursorBlinkState;
+extern bool funcLock;
 extern uint8_t cursorBuffer[200];
 
 extern unsigned char consoleDisplay[80][24];
@@ -88,8 +89,8 @@ extern struct Settings settings;
 extern uint8_t DECSCX;
 extern uint8_t DECSCY;
 
-extern uint8_t topMargin;
-extern uint8_t bottomMargin;
+extern volatile uint8_t topMargin;
+extern volatile uint8_t bottomMargin;
 
 
 #endif /* GLOBALS_H_ */

@@ -23,8 +23,8 @@ unsigned char consoleDisplay[80][24];
 uint32_t consoleColors[80][24];
 uint8_t consoleSGR[80][24];
 
-uint8_t topMargin = 1;
-uint8_t bottomMargin = 24;
+volatile uint8_t topMargin = 1;
+volatile uint8_t bottomMargin = 24;
 
 originModeState originMode = ABSOLUTE;
 
@@ -152,7 +152,7 @@ void drawChar(uint8_t character)
 	REG_PORT_OUTSET1 = LCD_CS;
 }
 
-void scrollDown(uint8_t topLine, uint8_t count)
+void scrollDown(uint8_t topLine)
 {
 	/*
 	scrollDown causes the scroll area between the line designated
@@ -163,45 +163,76 @@ void scrollDown(uint8_t topLine, uint8_t count)
 	at the top margin. Lines scrolled off the bottom of the scrolling
 	region are lost.		-- EL-00070-05 / Page 5-211
 	*/
-	
-	int tempCursorx = xCharPos;
-	int tempCursory = yCharPos;
-	
-	cursorBlinkState = false;
-	//blinkCursor();
-
+	char tempCharacter;
 		
-	for(uint8_t y = bottomMargin ; y >= topMargin ; y--)
-	{
-		for(int x = 0 ; x < 80 ; x++)
-		{	//first, move the characters
-			consoleDisplay[x][y] = consoleDisplay[x][y-1];
-			consoleColors[x][y] = consoleColors[x][y-1];
-			consoleSGR[x][y] = consoleSGR[x][y-1];	
-		}
-	}
+	uint8_t tempCursorx;
+	uint8_t tempCursory;
 	
-	for(int k = 0 ; k < 80 ; k ++)
-	{	//fill in the top margin as blank
-		consoleDisplay[k][topMargin] = 0x20;
-		consoleColors[k][topMargin] = 0x0000;
-		consoleSGR[k][topMargin] = 0x00;
-	}
+	tempCursorx = xCharPos;
+	tempCursory = yCharPos;
 	
-	//Redraw the display
-	for(int j = topMargin-1 ; j < bottomMargin ; j++)
+	if(yCharPos == topMargin)
 	{
-		for(int i = 0 ; i < 80 ; i++)
+		for(volatile int y = bottomMargin-1 ; y > topLine+1 ; y--)
 		{
-			xCharPos = i;
-			yCharPos = j;
-			drawChar(consoleDisplay[i][j]);
+			//move the rows down
+			
+			///IT FUCKS UP HERE. It can only iterate through 69 entries, when it should iterate though 80.
+			///WHAT THE FUCK
+			
+			for(volatile int x = 0 ; x < 79 ; x++)
+			{
+				consoleDisplay[x][y] = consoleDisplay[x][y-1];				
+				consoleColors[x][y] = consoleColors[x][y-1];
+				consoleSGR[x][y] = consoleSGR[x][y-1];
+				
+				xCharPos = x;
+				yCharPos = y;
+				
+				drawChar(consoleDisplay[x][y]);	
+			}
+			
+			/*
+			//first, discard the top row.
+			for(volatile int x = 0 ; x < 79 ; x++)
+			{
+			
+				consoleDisplay[x][topLine+1] = consoleDisplay[x][topLine];
+				consoleColors[x][topLine+1] = consoleColors[x][topLine];
+				consoleSGR[x][topLine+1] = consoleSGR[x][topLine];
+			
+				consoleDisplay[x][topLine] = 0x20;
+				consoleColors[x][topLine] = 0x0000;
+				consoleSGR[x][topLine] = 0x00;
+			
+				xCharPos = x;
+				yCharPos = topLine;
+			
+				drawChar(consoleDisplay[x][topLine]);
+			}*/
+		}
+		
+		//now, move topline+2 iterating down to bottomline
+		
+		
+	
+		xCharPos = tempCursorx;
+		yCharPos = tempCursory;
+		
+	}
+	else
+	{
+		if(yCharPos > 0)
+		{
+			drawChar(consoleDisplay[xCharPos][yCharPos]);
+			yCharPos--;
+			tempCharacter = consoleDisplay[xCharPos][yCharPos];
+			drawChar(tempCharacter);
+			
 		}
 	}
-	
-	xCharPos = tempCursorx;
-	yCharPos = tempCursory;
 
+	
 }
 	
 

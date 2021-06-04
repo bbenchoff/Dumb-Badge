@@ -94,7 +94,7 @@ int main (void)
 	{			
 		__WFI();
 		
-		if((ul_tickcount % (UINT16_MAX/4) == 0) && (funcLock == false))
+		if((ul_tickcount % (UINT16_MAX/2) == 0) && (funcLock == false))
 		{
 			funcLock = true;
 
@@ -125,6 +125,9 @@ int main (void)
 void SysTick_Handler(void)
 {
 	ul_tickcount++;
+	
+	if(ul_tickcount == UINT16_MAX-1)
+		ul_tickcount = 0;
 }
 
 void conf_systick(void)
@@ -138,7 +141,7 @@ void conf_systick(void)
 void usart_read_callback(struct usart_module *const usart_module)
 {
 
-	// Read one character from the UART.
+	//Read one character from the UART.
 	//We can only use this function because it's non-blocking
 	//and we can only read one character because reading > 1 means
 	//it doesn't complete until _all_ characters are read.

@@ -1022,14 +1022,14 @@ void RI()
 	beyond the first line of the display.
 	*/
 	char tempCharacter;
-	
+
 	if(yCharPos == topMargin)
 	{
 		//We have to scroll down because ANSI X3.64-1979 is not a VT-100.
 		//so we're writing a scroll down function for console.c
-		
-		scrollDown(topMargin, 1);
-		
+	
+		scrollDown(topMargin);
+	
 	}
 	else
 	{
@@ -1460,6 +1460,8 @@ void ED() //Edit In Display *
 			for(int i = xTemp ;  i <= 78 ;  i++)
 			{
 				xCharPos = i;
+				consoleSGR[xCharPos][yCharPos] = 0x00;
+				consoleColors[xCharPos][yCharPos] = 0xFFFF0000;
 				drawChar(0x00);
 			}
 			//second step, erase the rest of the lines
@@ -1469,6 +1471,8 @@ void ED() //Edit In Display *
 				{
 					xCharPos = i;
 					yCharPos = j;
+					consoleSGR[xCharPos][yCharPos] = 0x00;
+					consoleColors[xCharPos][yCharPos] = 0xFFFF0000;
 					drawChar(0x00);
 				}
 			}
@@ -1479,6 +1483,8 @@ void ED() //Edit In Display *
 			for(int i = 0 ;  i <= xTemp ;  i++)
 			{
 				xCharPos = i;
+				consoleSGR[xCharPos][yCharPos] = 0x00;
+				consoleColors[xCharPos][yCharPos] = 0xFFFF0000;
 				drawChar(0x00);
 			}
 			//second step, erase previous lines
@@ -1488,6 +1494,8 @@ void ED() //Edit In Display *
 				{
 					xCharPos = i;
 					yCharPos = j;
+					consoleSGR[xCharPos][yCharPos] = 0x00;
+					consoleColors[xCharPos][yCharPos] = 0xFFFF0000;
 					drawChar(0x00);
 				}
 			}
@@ -1500,6 +1508,8 @@ void ED() //Edit In Display *
 				{
 					xCharPos = i;
 					yCharPos = j;
+					consoleSGR[xCharPos][yCharPos] = 0x00;
+					consoleColors[xCharPos][yCharPos] = 0xFFFF0000;
 					drawChar(0x00);
 				}
 			}
@@ -1943,7 +1953,7 @@ void DECSTBM(void)
 			if((topParameter < bottomParameter) && (bottomParameter <= 24))
 			{
 				topMargin = topParameter-1;
-				bottomMargin = bottomParameter-1;
+				bottomMargin = bottomParameter;
 				
 				if(originMode == ABSOLUTE)
 				{
