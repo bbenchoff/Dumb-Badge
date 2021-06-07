@@ -173,14 +173,10 @@ void scrollDown(uint8_t topLine)
 	
 	if(yCharPos == topMargin)
 	{
-		for(volatile int y = bottomMargin-1 ; y > topLine+1 ; y--)
+		for(volatile int y = bottomMargin-1 ; y > topLine ; y--)
 		{
 			//move the rows down
-			
-			///IT FUCKS UP HERE. It can only iterate through 69 entries, when it should iterate though 80.
-			///WHAT THE FUCK
-			
-			for(volatile int x = 0 ; x < 79 ; x++)
+			for(volatile int x = 0 ; x <= 79 ; x++)
 			{
 				consoleDisplay[x][y] = consoleDisplay[x][y-1];				
 				consoleColors[x][y] = consoleColors[x][y-1];
@@ -191,31 +187,21 @@ void scrollDown(uint8_t topLine)
 				
 				drawChar(consoleDisplay[x][y]);	
 			}
-			
-			/*
-			//first, discard the top row.
-			for(volatile int x = 0 ; x < 79 ; x++)
-			{
-			
-				consoleDisplay[x][topLine+1] = consoleDisplay[x][topLine];
-				consoleColors[x][topLine+1] = consoleColors[x][topLine];
-				consoleSGR[x][topLine+1] = consoleSGR[x][topLine];
-			
-				consoleDisplay[x][topLine] = 0x20;
-				consoleColors[x][topLine] = 0x0000;
-				consoleSGR[x][topLine] = 0x00;
-			
-				xCharPos = x;
-				yCharPos = topLine;
-			
-				drawChar(consoleDisplay[x][topLine]);
-			}*/
 		}
 		
-		//now, move topline+2 iterating down to bottomline
+		//zero out the top row
+		for(volatile int x = 0 ; x <= 79 ; x++)
+		{						
+			consoleDisplay[x][topLine] = 0x20;
+			consoleColors[x][topLine] = 0x0000;
+			consoleSGR[x][topLine] = 0x00;
+						
+			xCharPos = x;
+			yCharPos = topLine;
+						
+			drawChar(consoleDisplay[x][topLine]);
+		}
 		
-		
-	
 		xCharPos = tempCursorx;
 		yCharPos = tempCursory;
 		
