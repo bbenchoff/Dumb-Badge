@@ -1029,7 +1029,6 @@ void RI()
 		//so we're writing a scroll down function for console.c
 	
 		scrollDown(topMargin);
-	
 	}
 	else
 	{
@@ -1039,9 +1038,10 @@ void RI()
 			yCharPos--;
 			tempCharacter = consoleDisplay[xCharPos][yCharPos];
 			drawChar(tempCharacter);
-			blinkCursor();
 		}
 	}
+	
+	blinkCursor();
 	currentState = stateGround;
 }
 
@@ -1375,58 +1375,6 @@ void CUP() //Cursor Position *
 	blinkCursor();
 	currentState = stateGround;
 
-/*
-if(isEmptyParam())
-{
-	parameter = 0;
-}
-else
-{
-	parameter = dequeueParam();
-	
-	if(parameter > 0)
-	{
-		parameter--;  //need to decrement, because display is indexed at 0,0.
-	}
-	
-	if(parameter >= 80)
-	{
-		parameter = 79;
-	}
-}
-
-yTemp = parameter;
-
-if(isEmptyParam())
-{
-	parameter = 0;
-}
-else
-{
-	parameter = dequeueParam();
-	
-	if(parameter > 0)
-	{
-		parameter--;  //need to decrement, because display is indexed at 0,0.
-	}
-	
-	if(parameter >= 24)
-	{
-		parameter = 23;
-	}
-}
-
-xTemp = parameter;
-
-drawChar(consoleDisplay[xCharPos][yCharPos]);
-xCharPos = xTemp;
-yCharPos = yTemp;
-tempCharacter = consoleDisplay[xCharPos][yCharPos];
-drawChar(tempCharacter);
-
-blinkCursor();
-currentState = stateGround;
-*/	
 }
 
 void CHT() //Cursor Horizontal Tab
@@ -2021,6 +1969,7 @@ void SM(void)
 					
 				case 5:
 					//DECSCNM (defualt off): Set reverse video mode.
+					//unimplemented, because it's not used.
 
 					break;
 				

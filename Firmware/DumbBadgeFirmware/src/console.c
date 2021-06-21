@@ -217,8 +217,6 @@ void scrollDown(uint8_t topLine)
 			
 		}
 	}
-
-	
 }
 	
 

@@ -24,8 +24,8 @@ bool isValidCSIEscapeCode(uint8_t character);
 
 
 ///These are ESC mnemonic functions
-void SC(void);
-void RC(void);
+void SC(void);		//
+void RC(void);		//
 void IND(void);
 void NEL(void);
 void RI(void);

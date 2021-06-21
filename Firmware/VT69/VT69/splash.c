@@ -12,8 +12,8 @@
 #include "globals.h"
 #include "splash.h"
 #include "LCD.h"
-//#include "console.h"
-//#include "settings.h"
+#include "console.h"
+#include "settings.h"
 
 
 /***********drawKare ** It's the boot graphic*************************/
@@ -123,7 +123,7 @@ void splashScreen(void)
 	splashText[31] = "Breadboarding Is Not A Crime";//
 	splashText[32] = "Off by one errors are common";
 	
-	//const char *textPhrase = splashText[(((rand())%32))];
+	const char *textPhrase = splashText[(((rand())%32))];
 	
 	clearScreen();
 	setColorRGB(255,255,255);
@@ -144,13 +144,13 @@ void splashScreen(void)
 	{
 		for(int j = 0 ; j < 24 ; j++)
 		{
-			//consoleColors[i][j] = 0xFFFF0000;
+			consoleColors[i][j] = 0xFFFF0000;
 		}
 	}
 	
-	//setColorHex(defaultForegroundColor);
-	//setBackColorHex(defaultBackgroundColor);
-	/*
+	setColorHex(defaultForegroundColor);
+	setBackColorHex(defaultBackgroundColor);
+	
 	xCharPos = 40 - (strlen(textPhrase)/2);
 	yCharPos = 16;
 	writeString(textPhrase);
@@ -167,9 +167,9 @@ void splashScreen(void)
 	
 	delay_ms(3000);
 		
-	clearScreen();
+	//clearScreen();
 	nullifyConsole();
-	*/
+	
 	clearScreen();
 	
 	//setColorRGB(0,255,0);

@@ -123,9 +123,9 @@ static struct _system_clock_module _system_clock_inst = {
  */
 static inline void _system_dfll_wait_for_sync(void)
 {
-	while (!(SYSCTRL->PCLKSR.reg & SYSCTRL_PCLKSR_DFLLRDY)) {
-		/* Wait for DFLL sync */
-	}
+	//while (!(SYSCTRL->PCLKSR.reg & SYSCTRL_PCLKSR_DFLLRDY)) {
+	//	/* Wait for DFLL sync */
+	//}
 }
 
 /**
@@ -684,7 +684,7 @@ bool system_clock_source_is_ready(
 		return false;
 	}
 
-	return ((SYSCTRL->PCLKSR.reg & mask) == mask);
+	return (true);
 }
 
 /* Include some checks for conf_clocks.h validation */

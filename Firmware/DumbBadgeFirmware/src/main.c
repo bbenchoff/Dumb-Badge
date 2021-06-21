@@ -85,6 +85,7 @@ cbuf_handle_t ouroboros;
 __attribute__((aligned(1024)))
 volatile char __tracebuffer__[1024];
 volatile int __tracebuffersize__ = sizeof(__tracebuffer__);
+
 void InitTraceBuffer()
 {
     int index = 0;

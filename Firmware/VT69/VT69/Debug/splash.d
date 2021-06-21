@@ -144,7 +144,7 @@ splash.d splash.o: .././splash.c \
  ../hri/hri_usb_d51.h ../hri/hri_wdt_d51.h \
  ../hal/utils/include/err_codes.h ../hpl/port/hpl_gpio_base.h \
  ../hal/utils/include/utils_assert.h ../Config/hpl_port_config.h \
- .././splash.h .././LCD.h
+ .././splash.h .././LCD.h .././console.h .././settings.h
 
 c:\program\ files\ (x86)\atmel\studio\7.0\toolchain\arm\arm-gnu-toolchain\arm-none-eabi\include\string.h:
 
@@ -495,3 +495,7 @@ C:\Program\ Files\ (x86)\Atmel\Studio\7.0\Packs\Atmel\SAMD51_DFP\1.2.139\samd51a
 .././splash.h:
 
 .././LCD.h:
+
+.././console.h:
+
+.././settings.h:
